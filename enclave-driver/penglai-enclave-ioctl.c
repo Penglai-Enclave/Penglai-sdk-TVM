@@ -54,7 +54,7 @@ int create_sbi_param(enclave_t* enclave, struct penglai_enclave_sbi_param * encl
   return 0;
 }
 
-int check_eapp_memory_size(long elf_size, long stack_size)
+int check_eapp_memory_size(int elf_size, int stack_size)
 {
   if((elf_size > MAX_ELF_SIZE) || (stack_size > MAX_STACK_SIZE))
     return -1;
@@ -96,23 +96,19 @@ unsigned long get_schrodinger(int id, unsigned long offset, unsigned long size)
 int penglai_enclave_create(struct file *filep, unsigned long args)
 {
   struct penglai_enclave_user_param* enclave_param = (struct penglai_enclave_user_param*)args;
+  struct penglai_enclave_sbi_param enclave_sbi_param;
+  enclave_t* enclave;
   void *elf_ptr = (void*)enclave_param->elf_ptr;
-  long elf_size;
-  //FIXME: remove elf_size in enclave_param
-  long stack_size = enclave_param->stack_size;
+  int ret, total_pages, elf_size = 0, stack_size = enclave_param->stack_size;
+  //FIXME: remove elf_size in enclave_param 
+  penglai_enclave_elfmemsize(elf_ptr,  &elf_size);
+  unsigned long free_mem = 0, elf_entry = 0, shm_vaddr = 0, shm_size = 0, order = 0;
   if(enclave_param->type == SHADOW_ENCLAVE)
     stack_size = 0;
 
-  struct penglai_enclave_sbi_param enclave_sbi_param;
-  enclave_t* enclave;
-  elf_size = 0;
-  penglai_enclave_elfmemsize(elf_ptr,  &elf_size);
-  unsigned int total_pages = total_enclave_page(elf_size, stack_size);
-  unsigned long free_mem, elf_entry;
-  unsigned long order = ilog2(total_pages- 1) + 1;
-  unsigned long shm_vaddr = 0, shm_size = 0;
-  int ret = 0;
+  order = ilog2(total_enclave_page(elf_size, stack_size)- 1) + 1;
   total_pages = 0x1 << order;
+
   if(check_eapp_memory_size(elf_size, stack_size) < 0)
   {
     penglai_eprintf("eapp memory is out of bound \n");
@@ -126,31 +122,36 @@ int penglai_enclave_create(struct file *filep, unsigned long args)
     penglai_eprintf("cannot create enclave\n");
     goto destroy_enclave;
   }
-  elf_entry = 0;
+
   if(penglai_enclave_eapp_prepare(enclave->enclave_mem, elf_ptr, elf_size, 
         &elf_entry, STACK_POINT, stack_size, enclave->type))
   {
     penglai_eprintf("penglai_enclave_eapp_prepare is failed\n");;
     goto destroy_enclave;
   }
+
   if(elf_entry == 0)
   {
     penglai_eprintf("elf_entry reset is failed \n");
     goto destroy_enclave;
   }
+
   free_mem = get_free_mem(&(enclave->enclave_mem->free_mem));
   shm_vaddr = get_shm(enclave_param->shmid, enclave_param->shm_offset, enclave_param->shm_size);
   shm_size = enclave_param->shm_size;
+
   create_sbi_param(enclave, &enclave_sbi_param,
       (unsigned long)(enclave->enclave_mem->paddr),
       enclave->enclave_mem->size, elf_entry, __pa(free_mem),
       shm_vaddr, shm_size);
+
   if(enclave_sbi_param.type == SERVER_ENCLAVE)
     ret = SBI_PENGLAI_1(SBI_SM_CREATE_SERVER_ENCLAVE, __pa(&enclave_sbi_param));
   else if(enclave_sbi_param.type == SHADOW_ENCLAVE)
     ret = SBI_PENGLAI_1(SBI_SM_CREATE_SHADOW_ENCLAVE, __pa(&enclave_sbi_param));
   else
     ret = SBI_PENGLAI_1(SBI_SM_CREATE_ENCLAVE, __pa(&enclave_sbi_param));
+    
   while(ret == ENCLAVE_NO_MEM)
   {
     int ii;

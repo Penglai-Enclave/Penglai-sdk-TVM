@@ -29,10 +29,9 @@ int EAPP_ENTRY main(){
 
   unsigned long arg0 = 0x19960000UL;
   unsigned long size = 4*4096;
-  eapp_print("begin to eapp mmap\n");
+  eapp_print("caller: begin to mmap\n");
   int *nums = eapp_mmap(NULL, size);
   // int *nums = malloc(size);
-  eapp_print("num pte %lx\n", nums);
   for(int i=0; i<size/sizeof(int); ++i)
   {
     nums[i] = 1;

@@ -120,7 +120,7 @@ int penglai_enclave_loadelf(enclave_mem_t*enclave_mem, void* __user elf_ptr, uns
   return 0;
 } 
 
-int penglai_enclave_elfmemsize(void* __user elf_ptr,   long * size)
+int penglai_enclave_elfmemsize(void* __user elf_ptr,   int* size)
 {
   struct  elfhdr elf_hdr;
   struct elf_phdr elf_prog_hdr;
