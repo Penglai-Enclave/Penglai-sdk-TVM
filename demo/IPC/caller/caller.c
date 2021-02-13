@@ -7,18 +7,21 @@ int EAPP_ENTRY main(){
   unsigned long * args;
   EAPP_RESERVE_REG;
 
-  eapp_print("caller begin to run\n");
+  eapp_print("caller begin to run...\n");
 
   int run_server1 = 1;
   char server_name[16];
   strcpy(server_name, "test-server1");
+  eapp_print("begin to acquire the server enclave\n");
   unsigned long server_handle = acquire_enclave(server_name);
+  eapp_print("acquire_enclave1 is successful\n");
   if(server_handle == -1UL)
   {
     strcpy(server_name, "test-server");
     server_handle = acquire_enclave(server_name);
     run_server1 = 0;
   }
+
   if(server_handle == -1UL)
   {
     EAPP_RETURN(-1UL);
@@ -26,8 +29,10 @@ int EAPP_ENTRY main(){
 
   unsigned long arg0 = 0x19960000UL;
   unsigned long size = 4*4096;
+  eapp_print("begin to eapp mmap\n");
   int *nums = eapp_mmap(NULL, size);
   // int *nums = malloc(size);
+  eapp_print("num pte %lx\n", nums);
   for(int i=0; i<size/sizeof(int); ++i)
   {
     nums[i] = 1;
