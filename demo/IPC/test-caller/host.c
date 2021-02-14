@@ -101,7 +101,7 @@ out:
   }
   if(server_enclave)
   {
-    // PLenclave_destroy(server_enclave);
+    PLenclave_destroy(server_enclave);
     free(server_enclave);
   }
   if(server_params)
@@ -115,7 +115,7 @@ out:
   }
   if(server1_enclave)
   {
-    // PLenclave_destroy(server1_enclave);
+    PLenclave_destroy(server1_enclave);
     free(server1_enclave);
   }
   if(server1_params)

@@ -228,7 +228,6 @@ int enclave_mem_destroy(enclave_mem_t * enclave_mem)
         pma = NULL;
 
       //free_pages should be after update pma
-      penglai_printf("vaddr %lx order %lx count %lx\n", order,count);
       free_pages(vaddr, order);
     }
   }
