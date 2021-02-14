@@ -43,11 +43,6 @@ int create_sbi_param(enclave_t* enclave, struct penglai_enclave_sbi_param * encl
     enclave_sbi_param->shm_paddr = __pa(shm_vaddr);
     enclave_sbi_param->shm_size = shm_size;
   }
-  // else
-  // {
-  //   enclave_sbi_param->shm_paddr = 0;
-  //   enclave_sbi_param->shm_size = 0;
-  // }
 
   enclave_sbi_param->type = enclave->type;
   memcpy(enclave_sbi_param->name, enclave->name, NAME_LEN);
@@ -266,22 +261,6 @@ int handle_memory_free(enclave_t* enclave)
   return 0;
 }
 
-int handle_syscall(enclave_t* enclave, unsigned long ocall_syscall_num)
-{
-  int ret =0;
-
-  switch(ocall_syscall_num) 
-  {
-    case SYS_write:
-      {
-        /* FIXME */
-        break;
-      }
-
-  }
-  return ret;
-}
-
 int penglai_enclave_resume_for_rerun(enclave_instance_t *enclave_instance, enclave_t *enclave, int resume_id, int isShadow)
 {
   unsigned int ocall_func_id;
@@ -420,23 +399,6 @@ int penglai_enclave_ocall(enclave_instance_t *enclave_instance, enclave_t *encla
       ret = SBI_PENGLAI_5(SBI_SM_RESUME_ENCLAVE, resume_id, RESUME_FROM_OCALL, OCALL_SBRK, __pa(vaddr), (1<<order)*RISCV_PGSIZE);
       break;
     }
-    // case OCALL_READ_SECT:
-    // {
-    //   int read = penglai_outer_read(enclave->ocall_arg0);
-    //   ret = SBI_PENGLAI_4(SBI_SM_RESUME_ENCLAVE, resume_id,RESUME_FROM_OCALL, OCALL_READ_SECT, read);
-    //   break;
-    // }
-    // case OCALL_WRITE_SECT:
-    // {
-    //   int write = penglai_outer_write(enclave->ocall_arg0);
-    //   ret = SBI_PENGLAI_4(SBI_SM_RESUME_ENCLAVE, resume_id, RESUME_FROM_OCALL, OCALL_WRITE_SECT,write);
-    //   break;
-    // }
-    // case OCALL_RETURN_RELAY_PAGE:
-    // {
-    //   ret = ENCLAVE_RETURN_USER_MODE;
-    //   break;
-    // }
     default:
     {
       if(ocall_func_id == OCALL_READ_SECT)
@@ -532,7 +494,7 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
     if(schrodinger_vaddr && schrodinger_size)
       schrodinger_paddr = __pa(schrodinger_vaddr);
     if(schrodinger_vaddr && !schrodinger_size)
-      schrodinger_paddr = 0xffff; //magic number
+      schrodinger_paddr = DEFAULT_MAGIC_NUMBER; //magic number
     ret = SBI_PENGLAI_4(SBI_SM_RUN_SHADOW_ENCLAVE, enclave->eid,  __pa(&enclave_instance_sbi_param), schrodinger_paddr, schrodinger_size);
     if(ret == ENCLAVE_NO_MEM)
     {
@@ -619,7 +581,7 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   unsigned long schrodinger_vaddr;
   //if schrodinger is not zero but size remains zero, it means relay page is transferred from other enclave
   if((enclave_param->schrodinger_id > 0) && (enclave_param->schrodinger_size == 0))
-    schrodinger_vaddr = 0xffff; //magic number just set address is not zero, so the monitor will know relay page is transferred from other enclave
+    schrodinger_vaddr = DEFAULT_MAGIC_NUMBER; //magic number just set address is not zero, so the monitor will know relay page is transferred from other enclave
   else
     schrodinger_vaddr = get_schrodinger(enclave_param->schrodinger_id, enclave_param->schrodinger_offset, enclave_param->schrodinger_size);
   unsigned long schrodinger_size = enclave_param->schrodinger_size;
@@ -647,7 +609,7 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
     if(schrodinger_vaddr && schrodinger_size)
       schrodinger_paddr = __pa(schrodinger_vaddr);
     if(schrodinger_vaddr && !schrodinger_size)
-      schrodinger_paddr = 0xffff; //magic number
+      schrodinger_paddr = DEFAULT_MAGIC_NUMBER; //magic number
     ret = SBI_PENGLAI_3(SBI_SM_RUN_ENCLAVE, enclave->eid, schrodinger_paddr, schrodinger_size);
     resume_id = enclave->eid;
   }
