@@ -192,9 +192,7 @@ void enclave_mem_int(enclave_mem_t* enclave_mem, vaddr_t vaddr, int size, paddr_
 
 int enclave_mem_destroy(enclave_mem_t * enclave_mem)
 {
-  penglai_printf("here 1.1\n");
   clean_free_mem(&enclave_mem -> free_mem);
-  penglai_printf("here 1.2\n");
   /*
 	FIXME: clear two special pages in enclave(the record for dynamic allocation pages)
   Need to reclaim enclave mem to kernel ?
