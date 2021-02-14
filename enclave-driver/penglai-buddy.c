@@ -8,13 +8,12 @@ struct global_mem global_mem;
 struct buddy_mm_t* penglai_buddy_init(unsigned long vaddr, unsigned long size)
 {
   struct buddy_mm_t* mm = (struct buddy_mm_t*)kmalloc(sizeof(struct buddy_mm_t), GFP_KERNEL);
-  if(!mm)
-    return NULL;
   vaddr_t free_mem_start = 0;
 	vaddr_t free_mem_end = 0;
 	struct relay_page *page_meta_start = NULL;
-	u64 npages = 0;
-	u64 start_vaddr = 0;
+  u64 npages = 0;
+  if(!mm)
+    return NULL;
   mm->vaddr = vaddr;
   mm->size = size;
   mm->available = 1;
@@ -24,7 +23,6 @@ struct buddy_mm_t* penglai_buddy_init(unsigned long vaddr, unsigned long size)
   //start_vaddr is used as relay page
   //the first region is uesd to store the page metadate
   page_meta_start = (struct relay_page *)kmalloc(sizeof(struct relay_page) * npages, GFP_KERNEL);
-  penglai_printf("before init buddy\n");
 	/* buddy alloctor for managing physical memory */
 	init_buddy(&global_mem, page_meta_start, free_mem_start, npages);
   return mm;
@@ -59,10 +57,11 @@ int penglai_buddy_free(struct buddy_mm_t* mm, unsigned long vaddr, unsigned long
 
 int penglai_buddy_destroy(struct buddy_mm_t *mm)
 {
+  unsigned long order;
   if(mm->available)
   {
     mm->available = 0;
-    unsigned long order = ilog2((mm->size >> RISCV_PGSHIFT) - 1) + 1;
+    order = ilog2((mm->size >> RISCV_PGSHIFT) - 1) + 1;
     free_pages(mm->vaddr, order);
     kfree(mm);
     return 0;

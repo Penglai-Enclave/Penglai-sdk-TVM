@@ -51,6 +51,7 @@ int remap_schrodinger_mm_region(unsigned long vaddr, unsigned long size)
 {
   uintptr_t va = vaddr;
   uintptr_t va_end = vaddr + size;
+  int ret;
   for(; va < va_end; va += RISCV_PGSIZE)
   {
     uintptr_t *ptes = (uintptr_t*)__va(csr_read(sptbr) << RISCV_PGSHIFT);
@@ -64,7 +65,7 @@ int remap_schrodinger_mm_region(unsigned long vaddr, unsigned long size)
         uintptr_t pa = __pa(va);
         //FIXME: the page attribution can be configured by user
         pte = ((pa >> RISCV_PGSHIFT) << PTE_PPN_SHIFT) | PTE_V | PTE_R | PTE_W | PTE_X | PTE_A | PTE_D;
-        int ret = SBI_PENGLAI_4(SBI_SM_SET_PTE, SBI_SET_PTE_ONE, __pa(&(ptes[pos])), pte, 0);
+        ret = SBI_PENGLAI_4(SBI_SM_SET_PTE, SBI_SET_PTE_ONE, __pa(&(ptes[pos])), pte, 0);
         if(ret != 0)
         {
           penglai_eprintf("failed to remap 0x%lx\n", va);
@@ -100,7 +101,7 @@ int penglai_schrodinger_alloc(struct penglai_schrodinger* p)
 
   if(ret < MIN_PENGLAI_SCHRODINGER_ID || ret >= MAX_PENGLAI_SCHRODINGER_ID)
   {
-    penglai_eprintf("failed to map schrodinger id %d to ptr 0x%lx\n", p->id, p);
+    penglai_eprintf("failed to map schrodinger id %dx\n", p->id);
     ret = -1;
   }
 
@@ -128,10 +129,11 @@ out:
 int penglai_schrodinger_get(struct file* filep, unsigned long args)
 {
   int ret = 0;
-  spin_lock(&schrodinger_get_lock);
   struct penglai_schrodinger_get_param* param = (struct penglai_schrodinger_get_param*)args;
   unsigned long vaddr = 0;
   struct penglai_schrodinger* p = NULL;
+
+  spin_lock(&schrodinger_get_lock);
 
   if(param->size < RISCV_PGSIZE || param->size & (RISCV_PGSIZE-1))
   {
@@ -173,19 +175,19 @@ int penglai_schrodinger_at(struct file* filep, unsigned long args)
   int ret = 0;
   struct penglai_schrodinger_at_param* param = (struct penglai_schrodinger_at_param*)args;
   struct penglai_schrodinger* p = penglai_schrodinger_find(param->id);
+  struct dev_private_data_t *private_data = filep->private_data;
   if(!p || p->refcount >= 1)
   {
     penglai_eprintf("pengali_schrodinger_at: failed to bind schrodinger%d\n", param->id);
     return -1;
   }
 
-  struct dev_private_data_t *private_data = filep->private_data;
   private_data->mmap_vaddr = p->vaddr;
   private_data->mmap_size = p->size;
   p->refcount += 1;
 
   param->size = p->size;
-  return 0;
+  return ret;
 }
 
 int penglai_schrodinger_dt(struct file* filep, unsigned long args)
@@ -193,20 +195,20 @@ int penglai_schrodinger_dt(struct file* filep, unsigned long args)
   int ret = 0;
   struct penglai_schrodinger_dt_param* param = (struct penglai_schrodinger_dt_param*)args;
   struct penglai_schrodinger* p = penglai_schrodinger_find(param->id);
+  struct dev_private_data_t *private_data = filep->private_data;
   if(!p || p->refcount <= 0)
   {
     penglai_eprintf("penglai_schrodinger_dt: failed to unbind schrodinger%d\n", param->id);
     return -1;
   }
 
-  struct dev_private_data_t *private_data = filep->private_data;
   private_data->mmap_vaddr = 0;
   private_data->mmap_size = 0;
   p->refcount -= 1;
 
   param->size = p->size;
 
-  return 0;
+  return ret;
 }
 
 int penglai_schrodinger_ctl(struct file* filep, unsigned long args)
@@ -214,26 +216,28 @@ int penglai_schrodinger_ctl(struct file* filep, unsigned long args)
   int ret = 0;
   struct penglai_schrodinger_ctl_param* param = (struct penglai_schrodinger_ctl_param*)args;
   struct penglai_schrodinger* p = penglai_schrodinger_free(param->id);
+  unsigned long addr, size;
   if(!p)
   {
     penglai_eprintf("penglai_schrodinger_ctl: failed to delete schrodinger%d\n", param->id);
     return -1;
   }
 
-  unsigned long addr = p->vaddr;
-  unsigned long size = p->size;
+  addr = p->vaddr;
+  size = p->size;
   kfree(p);
   schrodinger_free(addr, size);
 
-  return 0;
+  return ret;
 }
 
 int schrodinger_init(unsigned long vaddr, unsigned long size)
 {
+  int ret;
   if(mm)
     return -1;
   penglai_printf("KERNEL schrodinger_init: init \n");
-  int ret = SBI_PENGLAI_2(SBI_SM_SCHRODINGER_INIT, __pa(vaddr), size);
+  ret = SBI_PENGLAI_2(SBI_SM_SCHRODINGER_INIT, __pa(vaddr), size);
   if(ret != 0)
     return -1;
 
@@ -251,10 +255,11 @@ int schrodinger_init(unsigned long vaddr, unsigned long size)
 
 unsigned long schrodinger_alloc(unsigned long size)
 {
+  unsigned long ret;
   if(!mm)
     return 0;
 
-  unsigned long ret = penglai_buddy_alloc(mm, size);
+  ret = penglai_buddy_alloc(mm, size);
   if(!ret)
     return 0;
 
@@ -263,10 +268,11 @@ unsigned long schrodinger_alloc(unsigned long size)
 
 int schrodinger_free(unsigned long vaddr, unsigned long size)
 {
+  int ret;
   if(!mm)
     return -1;
 
-  int ret = penglai_buddy_free(mm, vaddr, size);
+  ret = penglai_buddy_free(mm, vaddr, size);
   if(ret != 0)
     return -1;
 

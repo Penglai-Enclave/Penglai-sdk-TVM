@@ -152,7 +152,6 @@ int penglai_enclave_elfmemsize(void* __user elf_ptr,   int* size)
     /* Load NOBITS section */
     if (elf_sect_hdr.sh_type == SHT_NOBITS)
     {
-      vaddr_t elf_sect_addr = elf_sect_hdr.sh_addr;
       int elf_sect_size = elf_sect_hdr.sh_size;
       *size = *size + elf_sect_size;
     }

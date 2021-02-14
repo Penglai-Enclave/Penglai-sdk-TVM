@@ -48,8 +48,6 @@
 
 #define MD_SIZE 64
 #define SIGNATURE_SIZE 64
-#define PRIVATE_KEY_SIZE 64
-#define PUBLIC_KEY_SIZE 32
 #define MAX_ELF_SIZE 512*1024*1024
 #define MAX_STACK_SIZE 64*1024*1024
 #define MAX_UNTRUSTED_MEM_SIZE 16*1024*1024
@@ -126,7 +124,9 @@ struct penglai_enclave_instance_sbi_param
   char name[NAME_LEN];
 };
 
+//TODO: 64?
 #define PRIVATE_KEY_SIZE       32
+//TODO: 32?
 #define PUBLIC_KEY_SIZE        64
 #define HASH_SIZE              32
 #define SIGNATURE_SIZE         64
