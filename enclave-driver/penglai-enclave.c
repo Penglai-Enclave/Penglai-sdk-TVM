@@ -142,7 +142,6 @@ enclave_t* create_enclave(int total_pages, char* name, enclave_type_t type)
   enclave->kbuffer_size = ENCLAVE_DEFAULT_KBUFFER_SIZE;
   enclave->type = type;
   memcpy(enclave->name, name, NAME_LEN);
-  //printk("enclave_create: enclave->enclave_mem->vaddr:0x%lx, size:%d, order:%d, count:%d\n", enclave->enclave_mem->vaddr, size, order, count);
   return enclave;
 
 free_enclave:

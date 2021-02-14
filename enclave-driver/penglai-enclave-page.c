@@ -181,6 +181,7 @@ void enclave_mem_int(enclave_mem_t* enclave_mem, vaddr_t vaddr, int size, paddr_
   enclave_mem -> size = size;
   //reserve for monitor vma_struct
   dummy_pte = (pt_entry_t *)get_free_mem(&enclave_mem->free_mem);
+  memset(dummy_pte, 0 , sizeof(pt_entry_t));
   pte = (pt_entry_t *)get_free_mem(&enclave_mem->free_mem);
   enclave_mem -> enclave_root_pt = pte;
   /*
@@ -191,7 +192,9 @@ void enclave_mem_int(enclave_mem_t* enclave_mem, vaddr_t vaddr, int size, paddr_
 
 int enclave_mem_destroy(enclave_mem_t * enclave_mem)
 {
+  penglai_printf("here 1.1\n");
   clean_free_mem(&enclave_mem -> free_mem);
+  penglai_printf("here 1.2\n");
   /*
 	FIXME: clear two special pages in enclave(the record for dynamic allocation pages)
   Need to reclaim enclave mem to kernel ?
@@ -210,7 +213,13 @@ int enclave_mem_destroy(enclave_mem_t * enclave_mem)
   if(enclave_mem->vaddr != 0)
   {
     struct pm_area_struct* pma = (struct pm_area_struct*)(enclave_mem->vaddr);
-    while(pma)
+    if (pma && !(pma->paddr))
+    {
+      unsigned long order = ilog2(enclave_mem->size/RISCV_PGSIZE-1) + 1;
+      free_pages(enclave_mem->vaddr, order);
+      return 0;
+    }
+    while(pma && pma->paddr)
     {
       unsigned long vaddr = (unsigned long)__va(pma->paddr);
       unsigned long count = pma->size / RISCV_PGSIZE;
@@ -221,6 +230,7 @@ int enclave_mem_destroy(enclave_mem_t * enclave_mem)
         pma = NULL;
 
       //free_pages should be after update pma
+      penglai_printf("vaddr %lx order %lx count %lx\n", order,count);
       free_pages(vaddr, order);
     }
   }
