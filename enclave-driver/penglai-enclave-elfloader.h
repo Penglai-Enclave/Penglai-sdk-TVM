@@ -21,5 +21,5 @@ int penglai_enclave_eapp_prepare(
 		vaddr_t stack_ptr, 
 		int stack_size,
         enclave_type_t type);
-int penglai_enclave_elfmemsize(void* __user elf_ptr,   long * size);
+int penglai_enclave_elfmemsize(void* __user elf_ptr,   int* size);
 #endif

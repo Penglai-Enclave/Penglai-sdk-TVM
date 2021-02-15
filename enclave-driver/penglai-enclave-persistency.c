@@ -20,11 +20,11 @@ int penglai_outer_open(const char *path, int flags, int mode){
 
 //FIXME: modify shm structure need to lock or not?
 int penglai_outer_init(unsigned long shm_id_ptr){
-    printk("penglai_outer_init\n");
     loff_t pos = 0;
     char *tmp_buf;
     struct kstat stat;
     size_t write_size;
+    struct penglai_shm * shm;
     fs_shm_id = *((int*)(shm_id_ptr));
     if(penglai_outer_file){ //already inited
         return 0;
@@ -34,7 +34,7 @@ int penglai_outer_init(unsigned long shm_id_ptr){
         fs_shm_id = -1;
         return -1;
     }
-    struct penglai_shm * shm = penglai_shm_find(fs_shm_id);
+    shm = penglai_shm_find(fs_shm_id);
     fs_shm_size = shm->size;
     fs_shm_va = shm->vaddr;
     shm->refcount += 1;
@@ -45,7 +45,7 @@ int penglai_outer_init(unsigned long shm_id_ptr){
 
     vfs_stat(PERSISTENCY_FILE_PATH, &stat);
     if(stat.size == 0){
-        tmp_buf = penglai_get_free_pages(GFP_KERNEL, FS_INIT_SIZE_ORDER);
+        tmp_buf = (char *)penglai_get_free_pages(GFP_KERNEL, FS_INIT_SIZE_ORDER);
         if(!tmp_buf){
             penglai_eprintf("error when penglai_outer_init\n");
             filp_close(penglai_outer_file,NULL);

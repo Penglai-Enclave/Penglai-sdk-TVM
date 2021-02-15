@@ -1,9 +1,15 @@
 #include "ocall.h"
 #include "eapp.h"
+#include "print.h"
 void* eapp_mmap(void* vaddr, unsigned long size)
 {
   void* retval = 0;
   retval = (void*)EAPP_MMAP(OCALL_MMAP, vaddr, size);
+  while (retval == 0)
+  {
+    eapp_print("[WARNING] lib: eapp_mmap is failed\n");
+    retval = (void*)EAPP_MMAP(OCALL_MMAP, vaddr, size);
+  }
   return retval;
 }
 

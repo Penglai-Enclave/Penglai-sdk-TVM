@@ -33,7 +33,7 @@ int penglai_shm_alloc(struct penglai_shm* shm)
 
   if(ret < MIN_PENGLAI_SHMID || ret >= MAX_PENGLAI_SHMID)
   {
-    penglai_eprintf("failed to map shmid %d to ptr 0x%lx\n", shm->shmid, shm);
+    penglai_eprintf("failed to map shmid %d to ptr 0x%lx\n", shm->shmid, (unsigned long)shm);
     ret = -1;
   }
 
@@ -106,19 +106,20 @@ int penglai_shmat(struct file* filep, unsigned long args)
   int ret = 0;
   struct penglai_shmat_param* param = (struct penglai_shmat_param*)args;
   struct penglai_shm* shm = penglai_shm_find(param->shmid);
+  struct dev_private_data_t *private_data;
   if(!shm)
   {
     penglai_eprintf("penglai_shmat:penglai_shmat: failed to bind shm%d\n", param->shmid);
     return -1;
   }
 
-  struct dev_private_data_t *private_data = filep->private_data;
+  private_data = filep->private_data;
   private_data->mmap_vaddr = shm->vaddr;
   private_data->mmap_size = shm->size;
   shm->refcount += 1;
 
   param->size = shm->size;
-  return 0;
+  return ret;
 }
 
 int penglai_shmdt(struct file* filep, unsigned long args)
@@ -126,20 +127,21 @@ int penglai_shmdt(struct file* filep, unsigned long args)
   int ret = 0;
   struct penglai_shmdt_param* param = (struct penglai_shmdt_param*)args;
   struct penglai_shm* shm = penglai_shm_find(param->shmid);
+  struct dev_private_data_t *private_data;
   if(!shm || shm->refcount <= 0)
   {
     penglai_eprintf("penglai_shmdt: failed to unbind shm%d\n", param->shmid);
     return -1;
   }
 
-  struct dev_private_data_t *private_data = filep->private_data;
+  private_data = filep->private_data;
   private_data->mmap_vaddr = 0;
   private_data->mmap_size = 0;
   shm->refcount -= 1;
 
   param->size = shm->size;
 
-  return 0;
+  return ret;
 }
 
 int penglai_shmctl(struct file* filep, unsigned long args)
@@ -147,17 +149,18 @@ int penglai_shmctl(struct file* filep, unsigned long args)
   int ret = 0;
   struct penglai_shmctl_param* param = (struct penglai_shmctl_param*)args;
   struct penglai_shm* shm = penglai_shm_free(param->shmid);
+  unsigned long addr, size, order;
   if(!shm)
   {
     penglai_eprintf("penglai_shmctl: failed to delete shm%d\n", param->shmid);
     return -1;
   }
 
-  unsigned long addr = shm->vaddr;
-  unsigned long size = shm->size;
-  unsigned long order = ilog2((size >> RISCV_PGSHIFT) - 1) + 1;
+  addr = shm->vaddr;
+  size = shm->size;
+  order = ilog2((size >> RISCV_PGSHIFT) - 1) + 1;
   free_pages(addr, order);
   kfree(shm);
 
-  return 0;
+  return ret;
 }

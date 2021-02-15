@@ -3,7 +3,6 @@
 #include "penglai-shm.h"
 #include "penglai-schrodinger.h"
 #include "penglai-enclave-persistency.h"
-#include "syscall.h"
 #include <linux/delay.h>
 
 //TODO: improve concurrency
@@ -43,18 +42,13 @@ int create_sbi_param(enclave_t* enclave, struct penglai_enclave_sbi_param * encl
     enclave_sbi_param->shm_paddr = __pa(shm_vaddr);
     enclave_sbi_param->shm_size = shm_size;
   }
-  // else
-  // {
-  //   enclave_sbi_param->shm_paddr = 0;
-  //   enclave_sbi_param->shm_size = 0;
-  // }
 
   enclave_sbi_param->type = enclave->type;
   memcpy(enclave_sbi_param->name, enclave->name, NAME_LEN);
   return 0;
 }
 
-int check_eapp_memory_size(long elf_size, long stack_size)
+int check_eapp_memory_size(int elf_size, int stack_size)
 {
   if((elf_size > MAX_ELF_SIZE) || (stack_size > MAX_STACK_SIZE))
     return -1;
@@ -64,12 +58,13 @@ int check_eapp_memory_size(long elf_size, long stack_size)
 unsigned long get_shm(int shmid, unsigned long offset, unsigned long size)
 {
   unsigned long shm_vaddr = 0;
+  struct penglai_shm* shm;
 
   if(offset < 0 || offset & (RISCV_PGSIZE-1)
       || size < RISCV_PGSIZE || size & (RISCV_PGSIZE-1))
     return 0;
 
-  struct penglai_shm* shm = penglai_shm_find(shmid);
+  shm = penglai_shm_find(shmid);
   if(!shm || (offset + size) > shm->size)
     return 0;
   shm_vaddr = shm->vaddr + offset;
@@ -80,12 +75,13 @@ unsigned long get_shm(int shmid, unsigned long offset, unsigned long size)
 unsigned long get_schrodinger(int id, unsigned long offset, unsigned long size)
 {
   unsigned long vaddr = 0;
+  struct penglai_schrodinger* p;
 
   if(offset < 0 || offset & (RISCV_PGSIZE-1)
       || size < RISCV_PGSIZE || size & (RISCV_PGSIZE-1))
     return 0;
 
-  struct penglai_schrodinger* p = penglai_schrodinger_find(id);
+  p = penglai_schrodinger_find(id);
   if(!p || (offset + size) > p->size)
     return 0;
   vaddr = p->vaddr + offset;
@@ -96,23 +92,19 @@ unsigned long get_schrodinger(int id, unsigned long offset, unsigned long size)
 int penglai_enclave_create(struct file *filep, unsigned long args)
 {
   struct penglai_enclave_user_param* enclave_param = (struct penglai_enclave_user_param*)args;
+  struct penglai_enclave_sbi_param enclave_sbi_param;
+  enclave_t* enclave;
   void *elf_ptr = (void*)enclave_param->elf_ptr;
-  long elf_size;
-  //FIXME: remove elf_size in enclave_param
-  long stack_size = enclave_param->stack_size;
+  int ret, total_pages, elf_size = 0, stack_size = enclave_param->stack_size;
+  unsigned long free_mem = 0, elf_entry = 0, shm_vaddr = 0, shm_size = 0, order = 0;
+  //FIXME: remove elf_size in enclave_param 
+  penglai_enclave_elfmemsize(elf_ptr,  &elf_size);
   if(enclave_param->type == SHADOW_ENCLAVE)
     stack_size = 0;
 
-  struct penglai_enclave_sbi_param enclave_sbi_param;
-  enclave_t* enclave;
-  elf_size = 0;
-  penglai_enclave_elfmemsize(elf_ptr,  &elf_size);
-  unsigned int total_pages = total_enclave_page(elf_size, stack_size);
-  unsigned long free_mem, elf_entry;
-  unsigned long order = ilog2(total_pages- 1) + 1;
-  unsigned long shm_vaddr = 0, shm_size = 0;
-  int ret = 0;
+  order = ilog2(total_enclave_page(elf_size, stack_size)- 1) + 1;
   total_pages = 0x1 << order;
+
   if(check_eapp_memory_size(elf_size, stack_size) < 0)
   {
     penglai_eprintf("eapp memory is out of bound \n");
@@ -126,34 +118,39 @@ int penglai_enclave_create(struct file *filep, unsigned long args)
     penglai_eprintf("cannot create enclave\n");
     goto destroy_enclave;
   }
-  elf_entry = 0;
+
   if(penglai_enclave_eapp_prepare(enclave->enclave_mem, elf_ptr, elf_size, 
         &elf_entry, STACK_POINT, stack_size, enclave->type))
   {
     penglai_eprintf("penglai_enclave_eapp_prepare is failed\n");;
     goto destroy_enclave;
   }
+
   if(elf_entry == 0)
   {
     penglai_eprintf("elf_entry reset is failed \n");
     goto destroy_enclave;
   }
+
   free_mem = get_free_mem(&(enclave->enclave_mem->free_mem));
   shm_vaddr = get_shm(enclave_param->shmid, enclave_param->shm_offset, enclave_param->shm_size);
   shm_size = enclave_param->shm_size;
+
   create_sbi_param(enclave, &enclave_sbi_param,
       (unsigned long)(enclave->enclave_mem->paddr),
       enclave->enclave_mem->size, elf_entry, __pa(free_mem),
       shm_vaddr, shm_size);
+
   if(enclave_sbi_param.type == SERVER_ENCLAVE)
     ret = SBI_PENGLAI_1(SBI_SM_CREATE_SERVER_ENCLAVE, __pa(&enclave_sbi_param));
   else if(enclave_sbi_param.type == SHADOW_ENCLAVE)
     ret = SBI_PENGLAI_1(SBI_SM_CREATE_SHADOW_ENCLAVE, __pa(&enclave_sbi_param));
   else
     ret = SBI_PENGLAI_1(SBI_SM_CREATE_ENCLAVE, __pa(&enclave_sbi_param));
+    
   while(ret == ENCLAVE_NO_MEM)
   {
-    int ii;
+    int ii, ret_expand_monitor_memory;
     for (ii = 0; ii<DEFAULT_MEMORY_EXTEND_NUM; ii++)
     {
       unsigned long addr = penglai_get_free_pages(GFP_KERNEL, DEFAULT_SECURE_PAGES_ORDER);
@@ -164,7 +161,6 @@ int penglai_enclave_create(struct file *filep, unsigned long args)
         goto destroy_enclave;
       }
     
-      int ret_expand_monitor_memory;
       ret_expand_monitor_memory = SBI_PENGLAI_2(SBI_SM_MEMORY_EXTEND, __pa(addr), 1 << (DEFAULT_SECURE_PAGES_ORDER + RISCV_PGSHIFT));
       if(ret_expand_monitor_memory < 0)
       {
@@ -265,22 +261,6 @@ int handle_memory_free(enclave_t* enclave)
   return 0;
 }
 
-int handle_syscall(enclave_t* enclave, unsigned long ocall_syscall_num)
-{
-  int ret =0;
-
-  switch(ocall_syscall_num) 
-  {
-    case SYS_write:
-      {
-        /* FIXME */
-        break;
-      }
-
-  }
-  return ret;
-}
-
 int penglai_enclave_resume_for_rerun(enclave_instance_t *enclave_instance, enclave_t *enclave, int resume_id, int isShadow)
 {
   unsigned int ocall_func_id;
@@ -326,12 +306,12 @@ int penglai_enclave_ocall(enclave_instance_t *enclave_instance, enclave_t *encla
   {
     case OCALL_MMAP:
     {
-      uintptr_t order;
+      uintptr_t order, vaddr;
       if(isShadow)
         order = ilog2((enclave_instance->ocall_arg1 >> RISCV_PGSHIFT) - 1) + 1;
       else
         order = ilog2((enclave->ocall_arg1 >> RISCV_PGSHIFT) - 1) + 1;
-      uintptr_t vaddr = penglai_get_free_pages(GFP_KERNEL, order);
+      vaddr = penglai_get_free_pages(GFP_KERNEL, order);
       if(!vaddr)
       {
         ret = -1;
@@ -346,12 +326,12 @@ int penglai_enclave_ocall(enclave_instance_t *enclave_instance, enclave_t *encla
       uintptr_t vaddr, order;
       if(isShadow)
       {
-        vaddr = __va(enclave_instance->ocall_arg0);
+        vaddr = (uintptr_t)__va(enclave_instance->ocall_arg0);
         order = ilog2((enclave_instance->ocall_arg1 >> RISCV_PGSHIFT) - 1) + 1;
       }
       else
       {
-        vaddr = __va(enclave->ocall_arg0);
+        vaddr = (uintptr_t)__va(enclave->ocall_arg0);
         order = ilog2((enclave->ocall_arg1 >> RISCV_PGSHIFT) - 1) + 1;
       }
       
@@ -395,9 +375,8 @@ int penglai_enclave_ocall(enclave_instance_t *enclave_instance, enclave_t *encla
       {
         while(pma)
         {
-          void* pma0 = pma;
           pma = (struct pm_area_struct*)__va(pma);
-          vaddr = __va(pma->paddr);
+          vaddr = (uintptr_t)__va(pma->paddr);
 
           order = ilog2((pma->size >> RISCV_PGSHIFT) - 1) + 1;
           pma = pma->pm_next;
@@ -419,23 +398,6 @@ int penglai_enclave_ocall(enclave_instance_t *enclave_instance, enclave_t *encla
       ret = SBI_PENGLAI_5(SBI_SM_RESUME_ENCLAVE, resume_id, RESUME_FROM_OCALL, OCALL_SBRK, __pa(vaddr), (1<<order)*RISCV_PGSIZE);
       break;
     }
-    // case OCALL_READ_SECT:
-    // {
-    //   int read = penglai_outer_read(enclave->ocall_arg0);
-    //   ret = SBI_PENGLAI_4(SBI_SM_RESUME_ENCLAVE, resume_id,RESUME_FROM_OCALL, OCALL_READ_SECT, read);
-    //   break;
-    // }
-    // case OCALL_WRITE_SECT:
-    // {
-    //   int write = penglai_outer_write(enclave->ocall_arg0);
-    //   ret = SBI_PENGLAI_4(SBI_SM_RESUME_ENCLAVE, resume_id, RESUME_FROM_OCALL, OCALL_WRITE_SECT,write);
-    //   break;
-    // }
-    // case OCALL_RETURN_RELAY_PAGE:
-    // {
-    //   ret = ENCLAVE_RETURN_USER_MODE;
-    //   break;
-    // }
     default:
     {
       if(ocall_func_id == OCALL_READ_SECT)
@@ -476,7 +438,7 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
                                         unsigned long schrodinger_size, unsigned long *shadow_eid, int *resume_id)
 {
     unsigned long addr, kbuffer;
-    unsigned long shm_vaddr, shm_size;
+    unsigned long shm_vaddr, shm_size, schrodinger_paddr;
     int ret;
     struct penglai_enclave_instance_sbi_param enclave_instance_sbi_param;
     *enclave_instance = (enclave_instance_t* )kmalloc(sizeof(enclave_instance_t), GFP_KERNEL);
@@ -527,15 +489,15 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
     enclave_instance_sbi_param.ecall_arg2 = (unsigned long* )__pa(&(*enclave_instance)->ocall_arg1);
     enclave_instance_sbi_param.ecall_arg3 = (unsigned long* )__pa(&(*enclave_instance)->ocall_syscall_num);
     memcpy(enclave_instance_sbi_param.name, enclave_param->name, NAME_LEN);
-    uintptr_t schrodinger_paddr = 0;
+    schrodinger_paddr = 0;
     if(schrodinger_vaddr && schrodinger_size)
       schrodinger_paddr = __pa(schrodinger_vaddr);
     if(schrodinger_vaddr && !schrodinger_size)
-      schrodinger_paddr = 0xffff; //magic number
+      schrodinger_paddr = DEFAULT_MAGIC_NUMBER; //magic number
     ret = SBI_PENGLAI_4(SBI_SM_RUN_SHADOW_ENCLAVE, enclave->eid,  __pa(&enclave_instance_sbi_param), schrodinger_paddr, schrodinger_size);
     if(ret == ENCLAVE_NO_MEM)
     {
-      int ii;
+      int ii, ret_expand_monitor_memory;
       for (ii = 0; ii<DEFAULT_MEMORY_EXTEND_NUM; ii++)
       {
         unsigned long addr = penglai_get_free_pages(GFP_KERNEL, DEFAULT_SECURE_PAGES_ORDER);
@@ -545,7 +507,6 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
           return DEFAULT_DESTROY_ENCLAVE;
         }
 
-        int ret_expand_monitor_memory;
         ret_expand_monitor_memory = SBI_PENGLAI_2(SBI_SM_MEMORY_EXTEND, __pa(addr), 1 << (DEFAULT_SECURE_PAGES_ORDER + RISCV_PGSHIFT));
         if(ret_expand_monitor_memory < 0)
         {
@@ -564,12 +525,10 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   struct penglai_enclave_user_param *enclave_param = (struct penglai_enclave_user_param*) args;
   unsigned long eid = enclave_param->eid;
   enclave_t *enclave = NULL;
-  unsigned long satp;
-  int ret =0;
-  enclave_t *tmp_enclave = NULL;
   enclave_instance_t *enclave_instance = NULL;
-  unsigned long shadow_eid = 0;
-  int resume_id = 0;
+  unsigned long satp = 0, shadow_eid = 0, schrodinger_vaddr = 0, schrodinger_size = 0;
+  int ret =0, resume_id = 0;
+
   if(enclave_param->rerun_reason > 0)
   {
     //Re-run enclave
@@ -615,13 +574,12 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
     }
   }
 
-  unsigned long schrodinger_vaddr;
   //if schrodinger is not zero but size remains zero, it means relay page is transferred from other enclave
   if((enclave_param->schrodinger_id > 0) && (enclave_param->schrodinger_size == 0))
-    schrodinger_vaddr = 0xffff; //magic number just set address is not zero, so the monitor will know relay page is transferred from other enclave
+    schrodinger_vaddr = DEFAULT_MAGIC_NUMBER; //magic number just set address is not zero, so the monitor will know relay page is transferred from other enclave
   else
     schrodinger_vaddr = get_schrodinger(enclave_param->schrodinger_id, enclave_param->schrodinger_offset, enclave_param->schrodinger_size);
-  unsigned long schrodinger_size = enclave_param->schrodinger_size;
+  schrodinger_size = enclave_param->schrodinger_size;
   if(enclave->type == SHADOW_ENCLAVE)
   {
     ret = penglai_instantiate_enclave_instance(&enclave_instance, enclave, enclave_param, schrodinger_vaddr,
@@ -641,12 +599,12 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   }
   else
   {
-    satp = enclave->satp;
     uintptr_t schrodinger_paddr = 0;
+    satp = enclave->satp;
     if(schrodinger_vaddr && schrodinger_size)
       schrodinger_paddr = __pa(schrodinger_vaddr);
     if(schrodinger_vaddr && !schrodinger_size)
-      schrodinger_paddr = 0xffff; //magic number
+      schrodinger_paddr = DEFAULT_MAGIC_NUMBER; //magic number
     ret = SBI_PENGLAI_3(SBI_SM_RUN_ENCLAVE, enclave->eid, schrodinger_paddr, schrodinger_size);
     resume_id = enclave->eid;
   }
@@ -759,20 +717,9 @@ long penglai_enclave_stop(struct file* filep, unsigned long args)
   if (ret < 0)
   {
     penglai_eprintf("sbi call stop enclave is failed \n");
-    //goto destroy_enclave;
   }
 
   return ret;
-
-  destroy_enclave:
-    spin_lock(&enclave_create_lock);
-    if(get_enclave_by_id(eid) && get_enclave_by_id(eid)->satp == satp)
-    {
-      destroy_enclave(enclave);
-      enclave_idr_remove(eid);
-    }
-    spin_unlock(&enclave_create_lock);
-    return -EFAULT;
 }
 
 int penglai_enclave_resume(struct file * filep, unsigned long args)

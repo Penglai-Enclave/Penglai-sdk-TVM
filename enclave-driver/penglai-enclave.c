@@ -99,7 +99,7 @@ enclave_t* create_enclave(int total_pages, char* name, enclave_type_t type)
   phys_addr_t device_phys_addr = 0;
 
   //size @ total enclave memory size in byte;
-  int size, ret;
+  int size;
   unsigned long order = ilog2(total_pages-1) + 1;
   unsigned long count = 0x1 << order;
   if(!enclave || !enclave_mem)
@@ -142,7 +142,6 @@ enclave_t* create_enclave(int total_pages, char* name, enclave_type_t type)
   enclave->kbuffer_size = ENCLAVE_DEFAULT_KBUFFER_SIZE;
   enclave->type = type;
   memcpy(enclave->name, name, NAME_LEN);
-  //printk("enclave_create: enclave->enclave_mem->vaddr:0x%lx, size:%d, order:%d, count:%d\n", enclave->enclave_mem->vaddr, size, order, count);
   return enclave;
 
 free_enclave:

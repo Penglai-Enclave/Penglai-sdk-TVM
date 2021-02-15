@@ -1,15 +1,3 @@
-/*
- * Copyright (c) 2020 Institute of Parallel And Distributed Systems (IPADS), Shanghai Jiao Tong University (SJTU)
- * OS-Lab-2020 (i.e., ChCore) is licensed under the Mulan PSL v1.
- * You can use this software according to the terms and conditions of the Mulan PSL v1.
- * You may obtain a copy of Mulan PSL v1 at:
- *   http://license.coscl.org.cn/MulanPSL
- *   THIS SOFTWARE IS PROVIDED ON AN "AS IS" BASIS, WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
- *   IMPLIED, INCLUDING BUT NOT LIMITED TO NON-INFRINGEMENT, MERCHANTABILITY OR FIT FOR A PARTICULAR
- *   PURPOSE.
- *   See the Mulan PSL v1 for more details.
- */
-
 #include <linux/list.h>
 #include "buddy.h"
 
@@ -95,19 +83,9 @@ static void split(struct global_mem *zone, struct relay_page *relay_page,
 		set_page_order_buddy(&relay_page[size], high_order);
 	}
 }
-/*
- * __aloc_page: get free relay_page from buddy system(called by buddy_get_pages)
- * 
- * clear_page_order_buddy(): clear relay_page metadata
- * 
- * Hint: Find the corresonding free_list which can allocate 1<<order
- * continuous pages and don't forget to split the list node after allocation   
- * 
- */
+
 static struct relay_page *__alloc_page(struct global_mem *zone, u64 order)
 {
-  //lab2
-  // <lab2>
 	struct relay_page *relay_page;
 	struct free_list *list;
 	u64 current_order;
@@ -136,7 +114,6 @@ static struct relay_page *__alloc_page(struct global_mem *zone, u64 order)
 
 		return relay_page;
 	}
-  // </lab2>
 	return NULL;
 }
 
@@ -186,20 +163,13 @@ void init_buddy(struct global_mem *zone, struct relay_page *first_page,
 
 	printk("mm: finish initing buddy memory system.\n");
 }
-/*
- * budd_get_pages: get 1<<order continuous pages from buddy system
- * 
- * Hint: invoke __alloc_page to get free relay_page. If order is larger than 
- * BUDDY_MAX_ORDER, return null.
- */
+
 struct relay_page *buddy_get_pages(struct global_mem *zone, u64 order)
 {
-	//lab2
 	struct relay_page *relay_page;
 
-  // <lab2>
 	if (order >= BUDDY_MAX_ORDER) {
-		printk("order: %ld, BUDDY_MAX_ORDER: %ld\n",
+		printk("order: %lld, BUDDY_MAX_ORDER: %ld\n",
 		       order, BUDDY_MAX_ORDER);
 		BUG_ON(1);
 		return NULL;
@@ -207,27 +177,12 @@ struct relay_page *buddy_get_pages(struct global_mem *zone, u64 order)
 
 	/* XXX Perf: maybe a dedicated lock for each list? */
 	relay_page = __alloc_page(zone, order);
-  // </lab2>
 
 	return relay_page;
 }
 
-/*
- * buddy_free_pages: give back the pages to buddy system
- * 
- * clear_page_order_buddy(): clear relay_page metadata
- * set_page_order_buddy(): set relay_page metadata
- * 
- * Hint: you can use the get_page_order() to get corresponding order
- * before give back pages into buddy system, please check whether 
- * given relay_page can be merged with the corresponding buddy relay_page
- * (use get_buddy_page()). If relay_page can be merged, update relay_page after
- * merge using (get_merge_page).
-*/
 void buddy_free_pages(struct global_mem *zone, struct relay_page *relay_page)
 {
-	//lab2
-  // <lab2>
 	u64 order;
 	struct relay_page *buddy;
 
@@ -264,5 +219,4 @@ void buddy_free_pages(struct global_mem *zone, struct relay_page *relay_page)
 	set_page_order_buddy(relay_page, order);
 	list_add(&relay_page->list_node, &zone->free_lists[order].list_head);
 	zone->free_lists[order].nr_free++;
-  // </lab2>
 }

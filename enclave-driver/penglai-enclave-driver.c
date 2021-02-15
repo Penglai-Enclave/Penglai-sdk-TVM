@@ -61,28 +61,20 @@ static int dev_release(struct inode *inodep, struct file *filep)
 static int dev_mmap(struct file* filep, struct vm_area_struct *vma)
 {
   struct dev_private_data_t* dev_data = filep->private_data;
+  unsigned long addr;
   if(!(dev_data->mmap_vaddr) || dev_data->mmap_size < (vma->vm_end - vma->vm_start))
   {
     penglai_eprintf("mmap: no enough data to mmap\n");
     return -1;
   }
 
-  unsigned long addr = dev_data->mmap_vaddr;
-  unsigned long size = vma->vm_end - vma->vm_start;
-  unsigned long size0 = 0;
-  for(size0 = 0; size0 < size; size0 += RISCV_PGSIZE)
-  {
-    struct page* page = virt_to_page(addr + size0);
-    // get_page(page);
-  }
+  addr = dev_data->mmap_vaddr;
+  //TODO: get_page
+
   if(remap_pfn_range(vma, vma->vm_start, virt_to_pfn(addr), vma->vm_end - vma->vm_start, vma->vm_page_prot))
   {
     penglai_eprintf("mmap: failed to mmap\n");
-    for(size0 = 0; size0 < size; size0 += RISCV_PGSIZE)
-    {
-      struct page* page = virt_to_page(addr + size0);
-      // put_page(page);
-    }
+    //TODO: put_page
     return -1;
   }
 
@@ -117,7 +109,9 @@ extern int PMD_PAGE_ORDER;
 static int enclave_ioctl_init(void)
 {
   int ret;
-  unsigned long addr;
+  unsigned long bitmap_bytes, bitmap_pages, order, schrodinger_addr;
+  uintptr_t bitmap;
+  struct sysinfo s_info;
   penglai_printf("enclave_ioctl_init...\n");
 
   //register enclave_dev
@@ -130,14 +124,13 @@ static int enclave_ioctl_init(void)
   }
 
   //allocate bitmap
-  struct sysinfo s_info;
   si_meminfo(&s_info);
-  unsigned long bitmap_bytes = s_info.totalram * sizeof(int);
-  unsigned long bitmap_pages = (bitmap_bytes % PAGE_SIZE) == 0 ? bitmap_bytes >> PAGE_SHIFT : (bitmap_bytes >> PAGE_SHIFT) + 1;
-  unsigned long order = ilog2(bitmap_pages -1) + 1;
+  bitmap_bytes = s_info.totalram * sizeof(int);
+  bitmap_pages = (bitmap_bytes % PAGE_SIZE) == 0 ? bitmap_bytes >> PAGE_SHIFT : (bitmap_bytes >> PAGE_SHIFT) + 1;
+  order = ilog2(bitmap_pages -1) + 1;
   if (order < 9)
     order = 9;
-  uintptr_t bitmap = penglai_get_free_pages(GFP_KERNEL, order);
+  bitmap = penglai_get_free_pages(GFP_KERNEL, order);
   if(!bitmap)
   {
     penglai_eprintf("failed to allocate %lu page(s)\n", ((unsigned long) 0x1)<<order);
@@ -145,7 +138,7 @@ static int enclave_ioctl_init(void)
     goto deregister_device;
   }
   bitmap_pages = 1 << order;
-  memset(bitmap, 0, (bitmap_pages << PAGE_SHIFT));
+  memset((void *)bitmap, 0, (bitmap_pages << PAGE_SHIFT));
   penglai_printf("total %lupages, bitmap_pages need %lu, allocate %lu page(s)\n", s_info.totalram, bitmap_pages, (unsigned long)1<<order);
   //broadcast to other harts
   ret = SBI_PENGLAI_4(SBI_SM_INIT, __pa(pt_area_vaddr), pt_area_pages << PAGE_SHIFT,
@@ -159,7 +152,7 @@ static int enclave_ioctl_init(void)
   }
   ret = SBI_PENGLAI_2(SBI_SM_PT_AREA_SEPARATION, PGD_PAGE_ORDER, PMD_PAGE_ORDER);
 
-  unsigned long schrodinger_addr = penglai_get_free_pages(GFP_KERNEL, DEFAULT_SCHRODINGER_ORDER);
+  schrodinger_addr = penglai_get_free_pages(GFP_KERNEL, DEFAULT_SCHRODINGER_ORDER);
   if(schrodinger_addr)
   {
     ret = schrodinger_init(schrodinger_addr, RISCV_PGSIZE * (1 << DEFAULT_SCHRODINGER_ORDER));
@@ -175,7 +168,6 @@ static int enclave_ioctl_init(void)
     penglai_eprintf("failed to alloc schrodinger mem\n");
     goto free_bitmap;
   }
-  unsigned long sptbr = csr_read(sptbr);
   penglai_printf("register_chrdev succeeded!\n");
   return 0;
   

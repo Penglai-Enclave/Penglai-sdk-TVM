@@ -44,11 +44,10 @@
 #define DEFAULT_CLOCK_DELAY 100000
 #define DEFAULT_UNTRUSTED_PTR   0x0000001000000000
 #define DEFAULT_UNTRUSTED_SIZE  8192 // 8 KB
+#define DEFAULT_MAGIC_NUMBER 0xffff
 
 #define MD_SIZE 64
 #define SIGNATURE_SIZE 64
-#define PRIVATE_KEY_SIZE 64
-#define PUBLIC_KEY_SIZE 32
 #define MAX_ELF_SIZE 512*1024*1024
 #define MAX_STACK_SIZE 64*1024*1024
 #define MAX_UNTRUSTED_MEM_SIZE 16*1024*1024
@@ -125,7 +124,9 @@ struct penglai_enclave_instance_sbi_param
   char name[NAME_LEN];
 };
 
+//TODO: 64?
 #define PRIVATE_KEY_SIZE       32
+//TODO: 32?
 #define PUBLIC_KEY_SIZE        64
 #define HASH_SIZE              32
 #define SIGNATURE_SIZE         64

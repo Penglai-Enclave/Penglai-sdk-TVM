@@ -39,7 +39,7 @@ server:
   if(PLenclave_create(server_enclave, server_enclaveFile, server_params) < 0)
   {
     printf("host:failed to create server_enclave\n");
-    goto out;
+    // goto out;
   }
 
   if(argc == 3)
@@ -66,7 +66,7 @@ server1:
   if(PLenclave_create(server1_enclave, server1_enclaveFile, server1_params) < 0 )
   {
     printf("host:failed to create server1_enclave\n");
-    goto out;
+    // goto out;
   }
 
 
@@ -101,7 +101,7 @@ out:
   }
   if(server_enclave)
   {
-    // PLenclave_destroy(server_enclave);
+    PLenclave_destroy(server_enclave);
     free(server_enclave);
   }
   if(server_params)
@@ -115,7 +115,7 @@ out:
   }
   if(server1_enclave)
   {
-    // PLenclave_destroy(server1_enclave);
+    PLenclave_destroy(server1_enclave);
     free(server1_enclave);
   }
   if(server1_params)
