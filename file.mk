@@ -7,4 +7,9 @@ SDK_FILES = \
 	$(srcdir)/Penglai-sdk-TVM/demo/IPC/caller/caller \
 	$(srcdir)/Penglai-sdk-TVM/demo/IPC/server/server \
 	$(srcdir)/Penglai-sdk-TVM/demo/IPC/server1/server1 \
-	$(srcdir)/Penglai-sdk-TVM/demo/IPC/test-caller/test-caller
+	$(srcdir)/Penglai-sdk-TVM/demo/IPC/test-caller/test-caller \
+	$(srcdir)/Penglai-sdk-TVM/demo/FS/fshost/fshost \
+	$(srcdir)/Penglai-sdk-TVM/demo/FS/testfs/testfs \
+	$(srcdir)/Penglai-sdk-TVM/demo/FS/littlefs/lfs
+
+

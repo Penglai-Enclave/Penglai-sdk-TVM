@@ -4,6 +4,7 @@ all:
 	make -C relay-page
 	make -C mem
 	make -C IPC
+	make -C FS
 
 	#CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  mphost_normal
 
@@ -13,4 +14,5 @@ clean:
 	make -C relay-page clean
 	make -C mem clean
 	make -C IPC clean
+	make -C FS clean
 
