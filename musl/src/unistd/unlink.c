@@ -11,7 +11,7 @@ int unlink(const char *path)
 	struct unlink_arg *unlink_arg = (struct unlink_arg*)buf;
 	strcpy(unlink_arg->path,path);
 	struct call_enclave_arg_t call_arg;
-	call_arg.req_vaddr = buf;
+	call_arg.req_vaddr = (unsigned long)buf;
 	call_arg.req_size = PRE_MAP_SIZE;
 	call_arg.req_arg = UNLINK;
 	int status = call_enclave(get_fs_handle(),&call_arg);

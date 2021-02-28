@@ -17,7 +17,7 @@ psa_status_t psa_callee_stub(psa_call_stub_t* arg_stub, psa_call_arg_t *psa_arg)
     psa_invec *recv_psa_invec;
     psa_callee_outvec *recv_psa_outvec;
     psa_invec_offset *recv_psa_invec_offset = (psa_invec_offset *)(arg_stub->in_vec_offset + (char *)arg_stub);
-    psa_outvec_offset *recv_psa_outvec_offset = (psa_invec_offset *)(arg_stub->out_vec_offset + (char *)arg_stub);
+    psa_outvec_offset *recv_psa_outvec_offset = (psa_outvec_offset *)(arg_stub->out_vec_offset + (char *)arg_stub);
     size_t psa_invec_len = arg_stub->in_len;
     size_t psa_outvec_len = arg_stub->out_len;
     recv_psa_invec = (psa_invec *)malloc(sizeof(psa_invec) * psa_invec_len);

@@ -1,5 +1,6 @@
 #include "eapp.h"
 #include "print.h"
+#include <string.h>
 
 int EAPP_ENTRY main(){
   unsigned long* args;
@@ -34,7 +35,7 @@ int EAPP_ENTRY main(){
   }
 
   call_arg.req_arg = arg0;
-  call_arg.req_vaddr = vaddr;
+  call_arg.req_vaddr = (unsigned long)vaddr;
   call_arg.req_size = size;
   call_enclave(server_handle, &call_arg);
   eapp_print("server1: read req_vaddr:0x%lx\n", sum);

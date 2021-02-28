@@ -39,7 +39,7 @@ int EAPP_ENTRY main(){
 
   struct call_enclave_arg_t call_arg;
   call_arg.req_arg = arg0;
-  call_arg.req_vaddr = nums;
+  call_arg.req_vaddr = (unsigned long)nums;
   call_arg.req_size = size;
   call_enclave(server_handle, &call_arg);
 

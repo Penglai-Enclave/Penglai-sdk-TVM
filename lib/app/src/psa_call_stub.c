@@ -6,14 +6,12 @@
 #include "string.h" 
 #include "print.h"
 
-
 psa_status_t psa_call_stub(int32_t type, const psa_invec *in_vec, size_t in_len, psa_outvec *out_vec, size_t out_len)
 {    
     int ret;
     char server_name[16];
     strcpy(server_name, "psa_server");
     unsigned long server_handle = acquire_enclave(server_name);
-    unsigned long arg0 = 0;
     unsigned long size = 0;
     //Calculate the request page size for psa call stub. 
     size = sizeof(psa_call_stub_t) + in_len * sizeof(psa_invec_offset) + out_len * sizeof(psa_outvec_offset);
@@ -54,19 +52,15 @@ psa_status_t psa_call_stub(int32_t type, const psa_invec *in_vec, size_t in_len,
 
     struct call_enclave_arg_t call_arg;
     call_arg.req_arg = type;
-    call_arg.req_vaddr = arg_stub;
+    call_arg.req_vaddr = (unsigned long)arg_stub;
     call_arg.req_size = size;
     ret = call_enclave(server_handle, &call_arg);
-    arg_stub = call_arg.req_vaddr;
+    arg_stub = (psa_call_stub_t *)call_arg.req_vaddr;
     //copy the responding value into the out vector
     for(int i = 0; i < out_len; i++){
-        // eapp_print("psa_call_stub: out_vec[%d] data[0] %x, len is %d\n", i, 
-        // *(int *)((char *)arg_stub + ((psa_outvec_offset *)((arg_stub->out_vec_offset) + (char *)arg_stub))[i].offset), 
-        // ((psa_outvec_offset *)((arg_stub->out_vec_offset) + (char *)arg_stub))[i].len);
         
         memcpy(out_vec[i].base, (char *)arg_stub + ((psa_outvec_offset *)((arg_stub->out_vec_offset) + (char *)arg_stub))[i].offset, 
         ((psa_outvec_offset *)((arg_stub->out_vec_offset) + (char *)arg_stub))[i].len);
-        // memcpy(out_vec[i].base, "aaa", out_vec[i].len);
         out_vec[i].len = ((psa_outvec_offset *)((arg_stub->out_vec_offset) + (char *)arg_stub))[i].len;
     }
     if (ret <0 )

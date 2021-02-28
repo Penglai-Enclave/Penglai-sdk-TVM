@@ -6,81 +6,6 @@
 #include <stdio.h>
 #include<sys/stat.h>
 #include<unistd.h>
-int test(){
-    // eapp_print("begin test file\n");
-    // char* server_name = "filesystem";
-    // unsigned long server_handle = acquire_enclave(server_name);
-    // if(server_handle == -1UL){
-    //     eapp_print("acquire handle failed\n");
-    //     EAPP_RETURN(-1);
-    // }
-    // eapp_print("acquire handle succeed\n");
-    // unsigned long type = 0;
-    // unsigned long mode = O_CREAT|O_RDONLY;
-    // int fd;
-    // char* path = "/sub/test.txt";
-    // void* buf = eapp_mmap(NULL, 4096);
-    // struct open_arg *open_arg = (struct open_arg*)buf;
-    // strcpy(open_arg->path,path);
-    // open_arg->mode = mode;
-    // eapp_print("begin to call server open\n");
-    // int status = call_enclave(server_handle,FSOPEN,buf,4096,&fd);
-    // if(!status){
-    //     eapp_print("open succeed and fd is %d: \n",fd);
-    //     struct read_arg *read_arg = (struct read_arg*)buf;
-    //     read_arg->fd = fd;
-    //     read_arg->size = 4096;
-    //     int read_size;
-    //     eapp_print("begin to call again\n");
-    //     status = call_enclave(server_handle,FSREAD,buf,4096,&read_size);
-    //     if(!status){
-    //         eapp_print("read content: %s, length: %d\n",(char*)buf,read_size);
-    //     }
-    //     struct close_arg *close_arg = (struct close_arg*)buf;
-    //     close_arg->fd = fd;
-    //     int close_result;
-    //     status = call_enclave(server_handle,FSCLOSE,buf,4096,&close_result);
-    //     if(!status && !close_result){
-    //         eapp_print("close file succeed\n");
-    //     }
-    // }
-    // char* create_path = "/create.txt";
-    // strcpy(open_arg->path,create_path);
-    // open_arg->mode = O_CREAT|O_WRONLY;
-    // int write_fd;
-    // status = call_enclave(server_handle,FSOPEN,buf,4096,&write_fd);
-    // if(!status){
-    //     struct write_arg *write_arg = (struct write_arg*)buf;
-    //     write_arg->fd = write_fd;
-    //     char* write_buf = (char*)buf + sizeof(struct write_arg);
-    //     strcpy(write_buf,"write test content");
-    //     unsigned long write_size;
-    //     write_arg->size = strlen("write test content") + 1;
-    //     status = call_enclave(server_handle,FSWRITE,buf,4096,&write_size);
-    //     eapp_print("client write_size: %d\n",write_size);
-    //     unsigned long read_size;
-    //     if(!status){
-    //         eapp_print("client write size 2: %d\n",write_size);
-    //         open_arg = (struct open_arg*)buf;
-    //         strcpy(open_arg->path,create_path);
-    //         open_arg->mode = O_CREAT|O_RDONLY;
-    //         status = call_enclave(server_handle,FSOPEN,buf,4096,&fd);
-    //         if(!status){
-    //             eapp_print("reopen fs: %d\n",fd);
-    //         }
-    //         eapp_print("client write size 3: %d\n",write_size);
-    //         struct read_arg *read_arg = (struct read_arg*)buf;
-    //         read_arg->fd = fd;
-    //         read_arg->size = 4096;
-    //         eapp_print("client write size 4: %d\n",write_size);
-    //         status = call_enclave(server_handle,FSREAD,buf,4096,&read_size);
-    //         eapp_print("client write size 5: %d\n",write_size);
-    //         eapp_print("read size: %d, write_size: %d\n",read_size,write_size);
-    //         eapp_print("read content: %s\n",(char*)buf);
-    //     }
-    // }
-    return 0;
-}
 
 int EAPP_ENTRY main(){
     unsigned long* args;
@@ -139,6 +64,6 @@ int EAPP_ENTRY main(){
     struct stat stat_buf;
     eapp_print("stat begin\n");
     stat("/sub/empty.txt", &stat_buf);
-    printf("/sub/empty.txt file size = %d/n", stat_buf.st_size);
+    printf("/sub/empty.txt file size = %ld/n", stat_buf.st_size);
     EAPP_RETURN(0);
 }

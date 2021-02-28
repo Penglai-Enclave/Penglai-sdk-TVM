@@ -22,7 +22,7 @@ server:
     server_enclaveFile = malloc(sizeof(struct elf_args));
     char* server_eappfile = argv[2];
     elf_args_init(server_enclaveFile,server_eappfile);
-    if(!elf_valid(server_eappfile)){
+    if(!elf_valid(server_enclaveFile)){
         printf("host: error when initializing server_enclaveFile");
         goto out1;
     }

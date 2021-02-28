@@ -5,9 +5,7 @@
 #include "eapp.h"
 #include "fscallargs.h"
 ssize_t read(int fd, void *buf, size_t count)
-{
-	// return syscall_cp(SYS_read, fd, buf, count);
-	// return sys_read(fd,buf,count);	
+{	
 	void *transfer_buf;
 	int mapped = 0;
 	unsigned long transfer_size;
@@ -25,13 +23,13 @@ ssize_t read(int fd, void *buf, size_t count)
 	read_arg->size = count;
 	struct call_enclave_arg_t call_arg;
 	call_arg.req_arg = FSREAD;
-	call_arg.req_vaddr = read_arg;
+	call_arg.req_vaddr = (unsigned long)read_arg;
 	call_arg.req_size = transfer_size;
 	int status = call_enclave(get_fs_handle(),&call_arg);
 	if(!mapped){
 		set_pre_map_page(call_arg.req_vaddr);
 	}
-	transfer_buf = call_arg.req_vaddr;
+	transfer_buf = (void *)call_arg.req_vaddr;
 	ssize_t ret = (ssize_t)call_arg.resp_val;
 	if(status){
 		ret = -1;
