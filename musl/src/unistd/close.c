@@ -19,7 +19,7 @@ int close(int fd)
 	((struct close_arg*)buf)->fd = fd;
 	struct call_enclave_arg_t call_arg;
 	call_arg.req_arg = FSCLOSE;
-	call_arg.req_vaddr = buf;
+	call_arg.req_vaddr = (unsigned long)buf;
 	call_arg.req_size = PRE_MAP_SIZE;
 	int status = call_enclave(get_fs_handle(),&call_arg);
 	set_pre_map_page(call_arg.req_vaddr);

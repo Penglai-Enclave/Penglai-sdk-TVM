@@ -15,7 +15,7 @@ int ftruncate(int fd, off_t length)
 	truncate_arg->fd = fd;
 	struct call_enclave_arg_t call_arg;
 	call_arg.req_arg = FTRUNCATE;
-	call_arg.req_vaddr = buf;
+	call_arg.req_vaddr = (unsigned long)buf;
 	call_arg.req_size = PRE_MAP_SIZE;
 	int status = call_enclave(get_fs_handle(),&call_arg);
 	set_pre_map_page(call_arg.req_vaddr);

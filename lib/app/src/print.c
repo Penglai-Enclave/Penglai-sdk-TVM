@@ -90,20 +90,11 @@ int vsnprintf(char* out, size_t n, const char* s, va_list vl)
   return pos;
 }
 
-void vprintf(const char*s, va_list vl)
+void vprintf(const char *s, va_list vl)
 {
-  vsnprintf((void*)ENCLAVE_DEFAULT_KBUFFER, 512, s, vl);
+  vsnprintf((void*)ENCLAVE_DEFAULT_KBUFFER, 512, s, (va_list)vl);
   EAPP_OCALL(OCALL_SYS_WRITE);
 }
-
-/*
-int vprintf(const char*s, va_list vl)
-{
-  vsnprintf((void*)ENCLAVE_DEFAULT_KBUFFER, 512, s, vl);
-  unsigned long i = EAPP_OCALL(OCALL_SYS_WRITE);
-  return i;
-}
-*/
 
 void eapp_print(const char*s, ...)
 {

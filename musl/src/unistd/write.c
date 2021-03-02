@@ -27,14 +27,14 @@ ssize_t write(int fd, const void *buf, size_t count)
 	write_arg->size = count;
 	memcpy((char*)transfer_buf + sizeof(struct write_arg),buf,count);
 	struct call_enclave_arg_t call_arg;
-	call_arg.req_vaddr = transfer_buf;
+	call_arg.req_vaddr = (unsigned long)transfer_buf;
 	call_arg.req_size = transfer_size;
 	call_arg.req_arg = FSWRITE;
 	int status = call_enclave(get_fs_handle(),&call_arg);
 	if(!new_map){
 		set_pre_map_page(call_arg.req_vaddr);
 	}	
-	transfer_buf = call_arg.req_vaddr;
+	transfer_buf = (void *)call_arg.req_vaddr;
 	ret = (ssize_t)call_arg.resp_val;
 	if(status){
 		ret = -1;

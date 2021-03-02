@@ -173,7 +173,7 @@ int EAPP_ENTRY main(){
             struct read_arg *arg = (struct read_arg*)args[11];
             int fd = arg->fd;
             int size = arg->size;
-            if(size > args[12] || fd >= MAX_FILES){
+            if(size > (int)args[12] || fd >= MAX_FILES){
                 ret_arg.resp_val = -1;
                 SERVER_RETURN(&ret_arg);
             }

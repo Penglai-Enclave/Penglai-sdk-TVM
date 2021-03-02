@@ -7,7 +7,7 @@ int EAPP_ENTRY main(){
   unsigned long arg0 = args[10];
   void* vaddr = (void*)args[11];
   unsigned long size = args[12];
-  eapp_print("server begin to run\n");
+  eapp_print("server: begin to run\n");
 
   struct call_enclave_arg_t ret_arg;
   unsigned long sum = arg0;
@@ -19,10 +19,9 @@ int EAPP_ENTRY main(){
       sum += nums[i];
     }
   }
-  ret_arg.req_vaddr = vaddr;
-  //ret_arg.req_vaddr = 0;
+  ret_arg.req_vaddr = (unsigned long)vaddr;
   ret_arg.req_size = size;
-  eapp_print("server read req_vaddr:0x%lx\n", sum);
+  eapp_print("server: read req_vaddr:0x%lx\n", sum);
 
   int *nums = eapp_mmap(0, 4*4096);
   size = 4*4096;
@@ -32,12 +31,11 @@ int EAPP_ENTRY main(){
     nums[i] = 2;
     sum += nums[i];
   }
-  ret_arg.resp_vaddr = nums;
-  //ret_arg.resp_vaddr = 0;
+  ret_arg.resp_vaddr = (unsigned long)nums;
   ret_arg.resp_size = size;
-  eapp_print("server read resp_vaddr:0x%lx\n", sum);
+  eapp_print("server: read resp_vaddr:0x%lx\n", sum);
 
   ret_arg.resp_val = 2;
-  eapp_print("server is exiting with ret:0x%lx\n", ret_arg.resp_val);
+  eapp_print("server: exit with ret:0x%lx\n", ret_arg.resp_val);
   SERVER_RETURN(&ret_arg);
 }

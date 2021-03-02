@@ -37,7 +37,7 @@ int cli_sys_open(const char* path,int flags){
 	open_arg->mode = flags;
     struct call_enclave_arg_t call_arg;
     call_arg.req_arg = FSOPEN;
-    call_arg.req_vaddr = buf;
+    call_arg.req_vaddr = (unsigned long)buf;
     call_arg.req_size = PRE_MAP_SIZE;
 	int status = call_enclave(handle,&call_arg);
     set_pre_map_page(call_arg.req_vaddr);
@@ -49,8 +49,8 @@ int cli_sys_open(const char* path,int flags){
     }
 }
 
-void set_pre_map_page(void* vaddr){
-    __page = vaddr;
+void set_pre_map_page(unsigned long vaddr){
+    __page = (void *)vaddr;
 }
 int penglai_fstat(int fd,  char* path, struct stat* st){
     void *buf = get_pre_mapped_page();
@@ -61,7 +61,7 @@ int penglai_fstat(int fd,  char* path, struct stat* st){
       strcpy(stat_arg->path,path);
     struct call_enclave_arg_t call_arg;
     call_arg.req_arg = FSSTAT;
-    call_arg.req_vaddr = buf;
+    call_arg.req_vaddr = (unsigned long)buf;
     call_arg.req_size = PRE_MAP_SIZE;
     int status = call_enclave(handle,&call_arg);
     set_pre_map_page(call_arg.req_vaddr);

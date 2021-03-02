@@ -8,9 +8,7 @@ int mem(unsigned long * args)
   char *ptr, *ptr2;
   int i;
   ptr = (char*)malloc(0x100);
-  eapp_print("ptr1 %lx\n",ptr);
   ptr2 = (char*)calloc(64*64*3*10,sizeof(float));
-  eapp_print("ptr2 %lx\n",ptr2);
   for(i = 0; i < 10; i++)
   {
     ptr[i] = 1;
@@ -61,7 +59,6 @@ int mem(unsigned long * args)
   {
     sum += *num0;
   }
-  eapp_print("sum is 0x%lx\n", sum);
   nums = sbrk(0 - 10*0x1000);
   eapp_print("ret of sbrk(-10*4096):0x%lx\n", nums); 
   eapp_print("end test sbrk\n");

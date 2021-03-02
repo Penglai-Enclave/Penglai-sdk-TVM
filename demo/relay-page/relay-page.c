@@ -5,7 +5,6 @@
 int test_relay_page(unsigned long * args)
 {
   int *relay_page = (int*)args[13];
-  unsigned long relay_page_size = args[14];
   eapp_print("relay_page 1 %x\n", *relay_page);
   eapp_return_relay_page();
   eapp_print("relay_page 2 %x\n", *relay_page);
