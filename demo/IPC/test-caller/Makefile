@@ -1,5 +1,3 @@
-#CC=riscv64-unknown-linux-gnu-gcc
-
 HOST=test-caller
 
 all:
