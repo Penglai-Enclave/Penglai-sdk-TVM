@@ -12,9 +12,7 @@ int EAPP_ENTRY main(){
   int run_server1 = 1;
   char server_name[16];
   strcpy(server_name, "test-server1");
-  eapp_print("begin to acquire the server enclave\n");
   unsigned long server_handle = acquire_enclave(server_name);
-  eapp_print("acquire_enclave1 is successful\n");
   if(server_handle == -1UL)
   {
     strcpy(server_name, "test-server");
@@ -29,7 +27,6 @@ int EAPP_ENTRY main(){
 
   unsigned long arg0 = 0x19960000UL;
   unsigned long size = 4*4096;
-  eapp_print("caller: begin to mmap\n");
   int *nums = eapp_mmap(NULL, size);
   // int *nums = malloc(size);
   for(int i=0; i<size/sizeof(int); ++i)
