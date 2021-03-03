@@ -1,5 +1,6 @@
 all:
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C host
+	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C fork-host
 	make -C hello-world
 	make -C relay-page
 	make -C mem
@@ -10,6 +11,7 @@ all:
 
 clean:
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C host clean
+	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C fork-host clean
 	make -C hello-world clean
 	make -C relay-page clean
 	make -C mem clean
