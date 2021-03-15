@@ -13,7 +13,7 @@ typedef enum
 } enclave_type_t;
 #endif
 
-int penglai_enclave_eapp_prepare(
+int penglai_enclave_eapp_loading(
 		enclave_mem_t* enclave_mem,  
 		void* __user elf_ptr, 
 		unsigned long size, 

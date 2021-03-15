@@ -119,10 +119,10 @@ int penglai_enclave_create(struct file *filep, unsigned long args)
     goto destroy_enclave;
   }
 
-  if(penglai_enclave_eapp_prepare(enclave->enclave_mem, elf_ptr, elf_size, 
+  if(penglai_enclave_eapp_loading(enclave->enclave_mem, elf_ptr, elf_size, 
         &elf_entry, STACK_POINT, stack_size, enclave->type))
   {
-    penglai_eprintf("penglai_enclave_eapp_prepare is failed\n");;
+    penglai_eprintf("penglai_enclave_eapp_loading is failed\n");;
     goto destroy_enclave;
   }
 

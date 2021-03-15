@@ -107,12 +107,7 @@ enclave_t* create_enclave(int total_pages, char* name, enclave_type_t type)
     penglai_eprintf("no enough kernel memory\n");
     goto free_enclave;
   }
-#ifdef CONFIG_CMA
-  addr = dma_alloc_coherent(enclave_dev.this_device, 
-      count << RISCV_PGSHIFT,
-      &device_phys_addr,
-      GFP_KERNEL);
-#endif
+
   if(!addr || !device_phys_addr)
   {
     addr = penglai_get_free_pages(GFP_KERNEL, order);
@@ -146,16 +141,14 @@ enclave_t* create_enclave(int total_pages, char* name, enclave_type_t type)
 
 free_enclave:
 
-  if(enclave) kfree(enclave);
-  if(enclave_mem) kfree(enclave_mem);
+  if(enclave) 
+    kfree(enclave);
+  if(enclave_mem) 
+    kfree(enclave_mem);
   if(kbuffer)
-  {
     free_pages(kbuffer, ENCLAVE_DEFAULT_KBUFFER_ORDER);
-  }
   if(addr)
-  {
     free_pages(addr, order);
-  }
 
   return NULL;
 }
