@@ -3,7 +3,7 @@
 
 vaddr_t get_free_mem(struct list_head* free_mem)
 {
-  struct free_mem_t* page;
+  struct free_mem_t* page_info;
   vaddr_t vaddr;
 
   if(list_empty(free_mem))
@@ -12,32 +12,27 @@ vaddr_t get_free_mem(struct list_head* free_mem)
     return 0;
   }
 
-  page = list_first_entry(free_mem, struct free_mem_t, free_mem_list);
-  vaddr = page->vaddr;
-  list_del(&page->free_mem_list);
-  /* Free the free_mem_t struct */
-  kfree(page);
+  page_info = list_first_entry(free_mem, struct free_mem_t, free_mem_list);
+  vaddr = page_info->vaddr;
+  list_del(&page_info->free_mem_list);
+  
+  // Free the free_mem_t struct
+  kfree(page_info);
 
   return vaddr;
 }
 
-static void put_free_page(struct list_head* free_mem, vaddr_t vaddr)
+void init_free_mem( struct list_head* free_mem, vaddr_t vaddr, unsigned int count)
 {
-  struct free_mem_t* page = kmalloc(sizeof(struct free_mem_t),GFP_KERNEL);
-  page->vaddr = vaddr;
-  list_add_tail(&page->free_mem_list, free_mem);
+  vaddr_t cur = vaddr;
+  int index;
+  struct free_mem_t* page_info = NULL;
 
-  return;
-}
-
-void init_free_mem( struct list_head* free_mem, vaddr_t base, unsigned int count)
-{
-  vaddr_t cur;
-  int i ;
-  cur = base;
-  for(i=0; i<count; i++)
+  for(index=0; index<count; index++)
   {
-    put_free_page(free_mem, cur);
+    page_info = kmalloc(sizeof(struct free_mem_t), GFP_KERNEL);
+    page_info->vaddr = cur;
+    list_add_tail(&page_info->free_mem_list, free_mem);
     cur += RISCV_PGSIZE;
   }
 
@@ -46,13 +41,14 @@ void init_free_mem( struct list_head* free_mem, vaddr_t base, unsigned int count
 
 int clean_free_mem(struct list_head * free_mem)
 {
-  struct free_mem_t* page;
+  struct free_mem_t* page_info;
   while(!list_empty(free_mem))
   {
-    page = list_first_entry(free_mem, struct free_mem_t, free_mem_list);
-    list_del(&page->free_mem_list);
-    /* Free the free_mem_t struct */
-    kfree(page);
+    page_info = list_first_entry(free_mem, struct free_mem_t, free_mem_list);
+    list_del(&page_info->free_mem_list);
+
+    // Free the free_mem_t struct
+    kfree(page_info);
   }
 
   return 0;
@@ -99,26 +95,29 @@ static  inline int create_ptd_page(struct list_head* free_mem,pt_entry_t * pte)
 {
   vaddr_t addr = get_free_mem(free_mem);
   paddr_t addr_ppn;
+
   if(addr == 0)
     return -1;
+
   addr_ppn = va2ppn(addr);
   *pte = ptd_create(addr_ppn);
 
   return 0;
 }
 
-static pt_entry_t * walk_enclave_pt(struct list_head* free_mem, pt_entry_t* enclave_root_pt, vaddr_t vaddr, bool create)
+static pt_entry_t * walk_enclave_pt(struct list_head* free_mem, pt_entry_t* enclave_root_pt, vaddr_t vaddr, bool need_create)
 {
   pt_entry_t* pgdir = enclave_root_pt;
-  int i;
+  int level;
 
-  for(i = 0; i < RISCV_PT_LEVEL-1 ; i++)
+  for(level = 0; level < RISCV_PT_LEVEL-1 ; level++)
   {
-    int pt_index = get_pt_index(vaddr, i);
+    int pt_index = get_pt_index(vaddr, level);
     pt_entry_t pt_entry = pgdir[pt_index];
+
     if(unlikely(!(pt_entry & PTE_V)))
     {
-      if(create)
+      if(need_create)
       {
         if(create_ptd_page(free_mem, &pgdir[pt_index]) < 0)
           return NULL;
@@ -128,6 +127,7 @@ static pt_entry_t * walk_enclave_pt(struct list_head* free_mem, pt_entry_t* encl
       else
         penglai_eprintf("walk_enclave_pt fault\n");                 
     }
+
     pgdir = (pt_entry_t*)pte2va(pt_entry);
   }
 
@@ -137,10 +137,11 @@ static pt_entry_t * walk_enclave_pt(struct list_head* free_mem, pt_entry_t* encl
 static inline pt_entry_t* clear_enclave_pt(pt_entry_t * enclave_root_pt, vaddr_t vaddr)
 {
   pt_entry_t * pgdir = enclave_root_pt;
-  int i;
-  for (i = 0; i < RISCV_PT_LEVEL -1 ; i++)
+  int level;
+
+  for (level = 0; level < RISCV_PT_LEVEL -1 ; level++)
   {
-    int pt_index = get_pt_index(vaddr , i);
+    int pt_index = get_pt_index(vaddr , level);
     pt_entry_t pt_entry = pgdir[pt_index];
     if(unlikely(!(pt_entry & PTE_V)))
     {
@@ -163,27 +164,21 @@ vaddr_t enclave_alloc_page(enclave_mem_t*enclave_mem, vaddr_t vaddr, unsigned lo
   return free_page;
 }
 
-vaddr_t map_va2pa(enclave_mem_t* enclave_mem, vaddr_t vaddr, paddr_t paddr, unsigned long flags)
-{
-    pt_entry_t *pte = walk_enclave_pt(&enclave_mem->free_mem, enclave_mem -> enclave_root_pt, vaddr, true);
-    unsigned long ppn = pa2ppn(paddr);
-    *pte = ptd_create(ppn) | flags | PTE_V;
-    return vaddr; 
-}
-
 void enclave_mem_int(enclave_mem_t* enclave_mem, vaddr_t vaddr, int size, paddr_t paddr)
 {
-  pt_entry_t *pte;
-  pt_entry_t *dummy_pte;
+  pt_entry_t *pte, *dummy_pte;
+
   init_free_mem(&enclave_mem->free_mem, vaddr, size / RISCV_PGSIZE);
   enclave_mem -> vaddr = vaddr;
   enclave_mem -> paddr = paddr;
   enclave_mem -> size = size;
-  //reserve for monitor vma_struct
+
+  // Reserve for monitor vma_struct
   dummy_pte = (pt_entry_t *)get_free_mem(&enclave_mem->free_mem);
   memset(dummy_pte, 0 , sizeof(pt_entry_t));
   pte = (pt_entry_t *)get_free_mem(&enclave_mem->free_mem);
   enclave_mem -> enclave_root_pt = pte;
+
   /*
 	FIXME: create two special pages in enclave(the record for dynamic allocation pages)
    */
@@ -199,15 +194,7 @@ int enclave_mem_destroy(enclave_mem_t * enclave_mem)
     free_pages(enclave->addr, enclave->size)
     free_pages(enclave dynamic alloc pages, size)
   */
-#ifdef CONFIG_CMA
-  if(epm->base != 0)
-  {
-    dma_free_coherent(enclave_dev.this_device, 
-        enclave_mem->size,
-        enclave_mem->vaddr,
-        enclave_mem->paddr);
-  }
-#else
+
   if(enclave_mem->vaddr != 0)
   {
     struct pm_area_struct* pma = (struct pm_area_struct*)(enclave_mem->vaddr);
@@ -217,20 +204,22 @@ int enclave_mem_destroy(enclave_mem_t * enclave_mem)
       free_pages(enclave_mem->vaddr, order);
       return 0;
     }
+
     while(pma && pma->paddr)
     {
       unsigned long vaddr = (unsigned long)__va(pma->paddr);
       unsigned long count = pma->size / RISCV_PGSIZE;
       unsigned long order = ilog2(count);
+
       if(pma->pm_next)
         pma = (struct pm_area_struct*)__va(pma->pm_next);
       else
         pma = NULL;
 
-      //free_pages should be after update pma
+      // free_pages should be after update pma
       free_pages(vaddr, order);
     }
   }
-#endif
+  
   return 0;
 }

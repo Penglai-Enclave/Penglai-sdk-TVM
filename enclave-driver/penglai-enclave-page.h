@@ -63,6 +63,5 @@ vaddr_t enclave_alloc_page(enclave_mem_t* enclave_mem, vaddr_t vaddr, unsigned l
 void enclave_mem_int(enclave_mem_t* enclave_mem, vaddr_t vaddr, int size, paddr_t paddr);
 vaddr_t get_free_mem(struct list_head* free_mem);
 int enclave_mem_destroy(enclave_mem_t * enclave_mem);
-vaddr_t map_va2pa(enclave_mem_t* enclave_mem, vaddr_t vaddr, paddr_t paddr, unsigned long flags);
 
 #endif

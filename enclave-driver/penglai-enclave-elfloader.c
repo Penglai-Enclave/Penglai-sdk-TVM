@@ -3,8 +3,8 @@
 
 int penglai_enclave_load_NOBITS_section(enclave_mem_t* enclave_mem, void * elf_sect_addr, int elf_sect_size)
 {
-  vaddr_t addr;
-  vaddr_t enclave_new_page;
+  vaddr_t addr, enclave_new_page;
+
   int size;
   for(addr = (vaddr_t)elf_sect_addr; addr < (vaddr_t)elf_sect_addr + elf_sect_size; addr += RISCV_PGSIZE)
   {   
@@ -18,22 +18,21 @@ int penglai_enclave_load_NOBITS_section(enclave_mem_t* enclave_mem, void * elf_s
   return 0;
 }
 
-/* elf_prog_infile_addr @ content in elf file
-    elf_prog_addr @ virtual addr for program begin addr
-    elf_prog_size @ size of prog segment
+/**
+ * \param elf_prog_infile_addr The content in elf file.
+ * \param elf_prog_addr The virtual addr for program begin addr.
+ * \param elf_prog_size The size of prog segment.
+ * \param type The enclave type.
+ * \param flags The page flags(attribution).
  */
 int penglai_enclave_load_program(enclave_mem_t* enclave_mem, vaddr_t elf_prog_infile_addr, void * elf_prog_addr, int elf_prog_size, enclave_type_t type, int flags)
 {
-  vaddr_t addr;
-  vaddr_t enclave_new_page;
-  int size;
-  int r;
+  vaddr_t addr, enclave_new_page;
+  int size, r;
   for(addr =  (vaddr_t)elf_prog_addr; addr <  (vaddr_t)elf_prog_addr + elf_prog_size; addr += RISCV_PGSIZE)
   {   
     if((flags & PF_W) == 2)
-    {
       enclave_new_page = enclave_alloc_page(enclave_mem, addr, ENCLAVE_USER_PAGE);
-    }
     else
       enclave_new_page = enclave_alloc_page(enclave_mem, addr, ENCLAVE_USER_ROPAGE);
 
@@ -47,39 +46,39 @@ int penglai_enclave_load_program(enclave_mem_t* enclave_mem, vaddr_t elf_prog_in
   return 0;
 }
 
-/* ptr @ user pointer
-    hdr @ kernel pointer
-*/
 int penglai_enclave_loadelf(enclave_mem_t*enclave_mem, void* __user elf_ptr, unsigned long size, vaddr_t * elf_entry_point, enclave_type_t type)
 {
-  struct  elfhdr elf_hdr;
+  struct elfhdr elf_hdr;
   struct elf_phdr elf_prog_hdr;
   struct elf_shdr elf_sect_hdr;
   int i,  elf_prog_size;
   vaddr_t elf_sect_ptr, elf_prog_ptr, elf_prog_addr, elf_prog_infile_addr, elf_prog_flags;
+
   if(copy_from_user(&elf_hdr, elf_ptr, sizeof(struct elfhdr)) != 0)
   {
     penglai_eprintf("penglai_enclave_loadelf: elf_hdr copy_from_user failed\n");
     return -1;
   }
+
   *elf_entry_point = elf_hdr.e_entry;
   elf_sect_ptr = (vaddr_t) elf_ptr + elf_hdr.e_shoff;
 
-  /* Loader section */
+  /* Load NOBITS section */
   for (i = 0; i < elf_hdr.e_shnum;i++)
   {
     if (copy_from_user(&elf_sect_hdr,(void *)elf_sect_ptr,sizeof(struct elf_shdr)))
     {
       penglai_eprintf("penglai_enclave_loadelf: elf_sect_hdr copy_from_user failed\n");
       elf_sect_ptr += sizeof(struct elf_shdr);
-      continue;
+      return -1;
     }
     if (elf_sect_hdr.sh_addr == 0)
     {
       elf_sect_ptr += sizeof(struct elf_shdr);
       continue;
     }
-    /* Load NOBITS section */
+
+    // Ignore the other sections except the NOBITS
     if (elf_sect_hdr.sh_type == SHT_NOBITS)
     {
       vaddr_t elf_sect_addr = elf_sect_hdr.sh_addr;
@@ -90,10 +89,11 @@ int penglai_enclave_loadelf(enclave_mem_t*enclave_mem, void* __user elf_ptr, uns
         return -1;
       }
     }
+
     elf_sect_ptr += sizeof(struct elf_shdr);
   }
 
-  /* Load program segment */
+  // Load PROGBITS segment
   elf_prog_ptr = (vaddr_t) elf_ptr + elf_hdr.e_phoff;
    
   for(i = 0; i < elf_hdr.e_phnum;i++)
@@ -102,10 +102,9 @@ int penglai_enclave_loadelf(enclave_mem_t*enclave_mem, void* __user elf_ptr, uns
     {
       penglai_eprintf("penglai_enclave_loadelf: elf_prog_hdr copy_from_user failed\n");
       elf_prog_ptr += sizeof(struct elf_phdr);
-      continue;
+      return -1;
     }
 
-    /* Virtual addr for program begin address */
     elf_prog_addr = elf_prog_hdr.p_vaddr;
     elf_prog_size = elf_prog_hdr.p_filesz;
     elf_prog_flags = elf_prog_hdr.p_flags;
@@ -120,13 +119,16 @@ int penglai_enclave_loadelf(enclave_mem_t*enclave_mem, void* __user elf_ptr, uns
   return 0;
 } 
 
+/**
+ * \brief Calculate the total memory size for enclave elf file.
+ */
 int penglai_enclave_elfmemsize(void* __user elf_ptr,   int* size)
 {
-  struct  elfhdr elf_hdr;
+  struct elfhdr elf_hdr;
   struct elf_phdr elf_prog_hdr;
   struct elf_shdr elf_sect_hdr;
   int i,  elf_prog_size;
-  vaddr_t elf_sect_ptr, elf_prog_ptr, elf_prog_addr, elf_prog_infile_addr;
+  vaddr_t elf_sect_ptr, elf_prog_ptr;
   if(copy_from_user(&elf_hdr, elf_ptr, sizeof(struct elfhdr)) != 0)
   {
     penglai_eprintf("penglai_enclave_elfmemsize: elf_hdr copy_from_user failed\n");
@@ -134,14 +136,13 @@ int penglai_enclave_elfmemsize(void* __user elf_ptr,   int* size)
   }
   elf_sect_ptr = (vaddr_t) elf_ptr + elf_hdr.e_shoff;
 
-  /* Loader section */
   for (i = 0; i < elf_hdr.e_shnum;i++)
   {
     if (copy_from_user(&elf_sect_hdr,(void *)elf_sect_ptr,sizeof(struct elf_shdr)))
     {
       penglai_eprintf("penglai_enclave_elfmemsize: elf_sect_hdr copy_from_user failed\n");
       elf_sect_ptr += sizeof(struct elf_shdr);
-      continue;
+      return -1;
     }
     if (elf_sect_hdr.sh_addr == 0)
     {
@@ -149,7 +150,7 @@ int penglai_enclave_elfmemsize(void* __user elf_ptr,   int* size)
       continue;
     }
 
-    /* Load NOBITS section */
+    // Calculate the size of the NOBITS section
     if (elf_sect_hdr.sh_type == SHT_NOBITS)
     {
       int elf_sect_size = elf_sect_hdr.sh_size;
@@ -158,7 +159,7 @@ int penglai_enclave_elfmemsize(void* __user elf_ptr,   int* size)
     elf_sect_ptr += sizeof(struct elf_shdr);
   }
 
-  /* Load program segment */
+  // Calculate the size of the PROGBITS segment
   elf_prog_ptr = (vaddr_t) elf_ptr + elf_hdr.e_phoff;
    
   for(i = 0; i < elf_hdr.e_phnum;i++)
@@ -167,33 +168,31 @@ int penglai_enclave_elfmemsize(void* __user elf_ptr,   int* size)
     {
       penglai_eprintf("penglai_enclave_elfmemsize: elf_prog_hdr copy_from_user failed\n");
       elf_prog_ptr += sizeof(struct elf_phdr);
-      continue;
+      return -1;
     }
 
-    /* Virtual addr for program begin address */
-    elf_prog_addr = elf_prog_hdr.p_vaddr;
+    // Virtual addr for program begin address
     elf_prog_size = elf_prog_hdr.p_filesz;
-    elf_prog_infile_addr = (vaddr_t) elf_ptr + elf_prog_hdr.p_offset;
     *size = *size + elf_prog_size;
     elf_prog_ptr += sizeof(struct elf_phdr);
   }
   return 0;
 } 
 
-int penglai_enclave_eapp_prepare(enclave_mem_t* enclave_mem,  void* __user elf_ptr, unsigned long size, vaddr_t * elf_entry_point, vaddr_t stack_ptr, int stack_size, enclave_type_t type)
+int penglai_enclave_eapp_loading(enclave_mem_t* enclave_mem,  void* __user elf_ptr, unsigned long size, vaddr_t * elf_entry_point, vaddr_t stack_ptr, int stack_size, enclave_type_t type)
 {
   vaddr_t addr;
 
-  /* Init stack */
+  // Initialize the stack
   for(addr = stack_ptr - stack_size; addr < stack_ptr; addr += RISCV_PGSIZE)
   {
     enclave_alloc_page(enclave_mem, addr, ENCLAVE_STACK_PAGE);
   }
 
-  /* Load elf file */
+  // Load the enclave code
   if(penglai_enclave_loadelf(enclave_mem, elf_ptr, size, elf_entry_point, type) < 0)
   {
-    penglai_eprintf("penglai_enclave_eapp_prepare: penglai enclave loadelf failed\n");
+    penglai_eprintf("penglai_enclave_eapp_loading: penglai enclave loadelf failed\n");
     return -1;
   }
 

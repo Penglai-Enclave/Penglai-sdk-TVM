@@ -52,6 +52,7 @@ void* create_enclave(void* args0)
   }
   else
   {
+    PLenclave_attest(enclave, 0);
     if(mm_arg_id > 0 && mm_arg)
       PLenclave_set_mem_arg(enclave, mm_arg_id, 0, mm_arg_size);
     while (run_result = PLenclave_run(enclave))
