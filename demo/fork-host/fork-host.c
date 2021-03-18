@@ -45,6 +45,9 @@ void* create_enclave(void* args0)
   char str_num[15];
   sprintf(str_num, "test-enclave%d", i);
   strcpy(enclave->user_param.name, str_num);
+
+  PLenclave_attest(enclave, 0);
+
   if(mm_arg_id > 0 && mm_arg)
     PLenclave_set_mem_arg(enclave, mm_arg_id, 0, mm_arg_size);
 
