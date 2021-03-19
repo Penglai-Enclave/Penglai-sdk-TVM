@@ -1,6 +1,6 @@
-CC	= $(MULTILIB_TOOLCHAIN)riscv64-unknown-linux-gnu-gcc
-LINK	= $(MULTILIB_TOOLCHAIN)riscv64-unknown-linux-gnu-ld
-AS	= $(MULTILIB_TOOLCHAIN)riscv64-unknown-linux-gnu-as
+CC	= $(MULTILIB_TOOLCHAIN)/riscv64-unknown-linux-gnu-gcc
+LINK	= $(MULTILIB_TOOLCHAIN)/riscv64-unknown-linux-gnu-ld
+AS	= $(MULTILIB_TOOLCHAIN)/riscv64-unknown-linux-gnu-as
 CFLAGS += -Wall -g
 
 SDK_LIB_DIR = $(PENGLAI_SDK)/lib

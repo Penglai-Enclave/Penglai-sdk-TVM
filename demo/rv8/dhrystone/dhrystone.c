@@ -473,8 +473,8 @@ void Proc0()
 	String30        String2Loc;
 
 	register unsigned int	i;
-	struct timeval	starttime;
-	struct timeval	endtime;
+	//struct timeval	starttime;
+	//struct timeval	endtime;
 	long benchtime;
 
 	PtrGlbNext = (RecordPtr) malloc(sizeof(RecordType));
@@ -489,7 +489,7 @@ void Proc0()
 /*****************
 -- Start Timer --
 *****************/
-	gettimeofday(&starttime, NULL);
+	//gettimeofday(&starttime, NULL);
 	for (i = 0; i < LOOPS; ++i)
 	{
 
@@ -521,13 +521,15 @@ void Proc0()
 -- Stop Timer --
 *****************/
 
-	gettimeofday(&endtime, NULL);
-	benchtime = (endtime.tv_sec * 1000000 + endtime.tv_usec) -
-		(starttime.tv_sec * 1000000 + starttime.tv_usec);
-	eapp_print("Dhrystone(%s), %ld passes, %ld microseconds, %ld DMIPS\n",
-		Version, (unsigned long) LOOPS, benchtime,
-		/* overflow free division by VAX DMIPS value (1757) */
-		(LOOPS * 71) / (benchtime >> 3));
+	//gettimeofday(&endtime, NULL);
+	//benchtime = (endtime.tv_sec * 1000000 + endtime.tv_usec) -
+	//	(starttime.tv_sec * 1000000 + starttime.tv_usec);
+	//eapp_print("Dhrystone(%s), %ld passes, %ld microseconds, %ld DMIPS\n",
+	//	Version, (unsigned long) LOOPS, benchtime,
+	//	/* overflow free division by VAX DMIPS value (1757) */
+	//	(LOOPS * 71) / (benchtime >> 3));
+
+    eapp_print("success!\n");
 }
 
 void Proc1(RecordPtr PtrParIn)
