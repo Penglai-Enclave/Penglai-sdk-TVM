@@ -1,0 +1,99 @@
+h44899
+s 00014/00000/00044
+d D 1.2 00/10/16 17:13:46 staelin 3 2
+c - Update man pages to match current status
+cC
+cHhpli8.hpli.hpl.hp.com
+cK10551
+cZ+02:00
+e
+s 00044/00000/00000
+d D 1.1 94/11/18 01:26:35 lm 2 1
+c Initial revision
+cC
+cK58719
+e
+s 00000/00000/00000
+d D 1.0 94/11/18 01:26:34 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK03886
+cPdoc/lat_proc.8
+cRea79d2afffceab
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+lmbench doc checkin
+T
+I 2
+.\" $Id$
+.TH LAT_PROC 8 "$Date$" "(c)1994 Larry McVoy" "LMBENCH"
+.SH NAME
+lat_proc \- process creation tests
+.SH SYNOPSIS
+.B lat_proc
+I 3
+[
+.I "-P <parallelism>"
+]
+[
+.I "-W <warmups>"
+]
+[
+.I "-N <repetitions>"
+]
+.I "procedure|fork|exec|shell"
+E 3
+.SH DESCRIPTION
+.B lat_proc
+creates processes in three different forms, each more expensive than the last.
+The purposes is to measure the time that it takes to create a basic thread
+of control.
+.LP
+The forms are listed and described below:
+.TP 20
+Process fork+exit
+The time it takes to split a process into two (nearly) identical copies
+and have one exit.  This is how new processes are created but is not 
+very useful since both processes are doing the same thing.
+.TP
+Process fork+execve
+The time it takes to create a new process and have that new process run a new
+program.  This is the inner loop of all shells (command interpreters).
+.TP
+Process fork+/bin/sh -c
+The time it takes to create a new process and have that new process run a new
+program by asking the system shell to find that program and run it.  This is
+how the C library interface called \f(CBsystem\fP is implemented.  It is the
+most general and the most expensive.
+.SH OUTPUT
+Output is in microseconds per operation like so:
+.sp
+.ft CB
+.nf
+Process fork+exit: 6054 microseconds
+Process fork+execve: 11212 microseconds
+Process fork+/bin/sh -c: 44346 microseconds
+.br
+.fi
+.ft
+.SH ACKNOWLEDGEMENT
+Funding for the development of
+this tool was provided by Sun Microsystems Computer Corporation.
+.SH "SEE ALSO"
+lmbench(8).
+I 3
+.SH "AUTHOR"
+Carl Staelin and Larry McVoy
+.PP
+Comments, suggestions, and bug reports are always welcome.
+E 3
+E 2
+I 1
+E 1

@@ -1,0 +1,40 @@
+h46619
+s 00010/00000/00000
+d D 1.1 00/07/06 15:18:43 staelin 2 1
+cC
+cF1
+cK16487
+cO-rwxrwxr-x
+e
+s 00000/00000/00000
+d D 1.0 00/07/06 15:18:43 staelin 1 0
+c BitKeeper file /tmp_mnt/usr/WebPaper/users/staelin/src/LMbench/scripts/output
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHhpli8.hpli.hpl.hp.com
+cK27498
+cPscripts/output
+cR3f567c993b805af0
+cV4
+cX0xa1
+cZ+03:00
+e
+u
+U
+f e 0
+f x 0xa1
+t
+T
+I 2
+#!/bin/sh
+trap "echo /dev/null" 20
+OUTPUT=/dev/null; export OUTPUT
+if [ -w /dev/tty ]; then
+        if echo "" > /dev/tty; then
+                OUTPUT=/dev/tty; export OUTPUT
+        fi
+fi 2>/dev/null
+echo "${OUTPUT}"
+exit 0
+E 2
+I 1
+E 1

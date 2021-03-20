@@ -1,0 +1,53 @@
+h64453
+s 00000/00000/00005
+d D 1.3 01/04/09 10:26:53 staelin 4 3
+c 'Auto converge rename'
+cC
+cHhpli12.hpli.hpl.hp.com
+cK16334
+cPBitKeeper/deleted/.del-logging_ok~6f559dc939095f80
+cZ+03:00
+e
+s 00001/00000/00004
+d D 1.2 01/04/02 14:47:28 staelin 3 2
+c Logging to logging@openlogging.org accepted
+cC
+cHhpli69.hpli.hpl.hp.com
+cK08750
+e
+s 00004/00000/00000
+d D 1.1 01/02/07 12:13:13 staelin 2 1
+cC
+cF1
+cK05912
+cO-rw-rw-r--
+e
+s 00000/00000/00000
+d D 1.0 01/02/07 12:13:13 staelin 1 0
+c BitKeeper file /tmp_mnt/usr/WebPaper/users/staelin/src/LMbench3/BitKeeper/etc/logging_ok
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHhpli8.hpli.hpl.hp.com
+cK12953
+cPBitKeeper/etc/logging_ok
+cR6f559dc939095f80
+cV4
+cX0xa1
+cZ+02:00
+e
+u
+U
+f e 0
+f x 0xa1
+t
+T
+I 2
+yes
+brucec@rx7
+staelin@hpli8.hpli.hpl.hp.com
+lm@lm.bitmover.com
+I 3
+staelin@hpli69.hpli.hpl.hp.com
+E 3
+E 2
+I 1
+E 1

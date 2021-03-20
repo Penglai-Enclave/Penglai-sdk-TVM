@@ -1,0 +1,474 @@
+H21278
+s 00002/00002/00154
+d D 1.12 01/06/19 10:29:54 staelin 13 12
+c Change portability system for drand48/rand/random to use bench.h
+c for portability macros and scripts/build to set #define flags for them
+cC
+cK00466
+e
+s 00001/00001/00155
+d D 1.11 01/06/13 11:40:36 staelin 12 11
+c Fix buglet in scripts/build with new random number generator stuff
+cC
+cK09330
+e
+s 00009/00002/00147
+d D 1.10 01/06/13 11:33:48 staelin 11 10
+c Add forgotten updates to scripts/build to fixup CFLAGS for various
+c systems random number generators drand48/rand/random.
+cC
+cK09514
+e
+s 00014/00000/00135
+d D 1.9 01/05/21 10:57:59 staelin 10 9
+c Add tests for existence of srand48() and drand48(), and add replacements
+c based on srand() and rand() if they aren't present.
+cC
+cK46477
+e
+s 00008/00000/00127
+d D 1.8 01/05/14 11:35:14 staelin 9 8
+c Add typedef for int64
+cC
+cK06372
+cZ+03:00
+e
+s 00037/00007/00090
+d D 1.7 01/04/02 14:47:23 staelin 8 7
+c Fix scripts/build so it checks for S_IFFIFO vs. S_IFIFO, and for builtin uint and uint64_t types
+cC
+cHhpli69.hpli.hpl.hp.com
+cK48285
+e
+s 00002/00000/00095
+d D 1.6 01/01/07 14:26:19 staelin 7 6
+c - Add "-lm" to LDFLAGS in scripts/build
+cC
+cK23392
+e
+s 00058/00030/00037
+d D 1.5 00/12/10 18:28:20 staelin 6 5
+c - Update scripts/build to shorten command lines by replacing
+c   filenames with script variables
+c - Update scripts/build to fix test for HP-UX ANSI/C compiler flags
+cC
+cK22607
+cZ+02:00
+e
+s 00006/00001/00061
+d D 1.4 00/07/25 14:45:16 staelin 5 4
+c - Improve test for getrusage so it works properly on freebsd boxes
+cC
+cK59785
+e
+s 00035/00017/00027
+d D 1.3 00/07/25 13:48:32 staelin 4 3
+c - change build to use /tmp/dummy$$ instead of $$ to reduce chance of file collisions 
+c   in clustered environment
+c - add test for RUSAGE
+c - separate tests for -nsl and -socket
+cC
+cK41426
+e
+s 00008/00013/00036
+d D 1.2 00/06/27 17:47:38 staelin 3 2
+c - Make use of new 'scripts/make' script to identify which make to use
+c - Tweak test for '-lnsl -lsocket' LDLIBS flags
+cC
+cK29434
+e
+s 00049/00000/00000
+d D 1.1 00/06/27 15:01:05 staelin 2 1
+cF1
+cK34461
+cO-rwxrwxr-x
+e
+s 00000/00000/00000
+d D 1.0 00/06/27 15:01:05 staelin 1 0
+c BitKeeper file /tmp_mnt/usr/WebPaper/users/staelin/src/LMbench/scripts/build
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHhpli8.hpli.hpl.hp.com
+cK01383
+cPscripts/build
+cR2e42289539a0d0e8
+cV4
+cX0xa1
+cZ+03:00
+e
+u
+U
+f e 0
+f x 0xa1
+t
+T
+I 2
+#!/bin/sh
+
+CC=`../scripts/compiler`
+I 3
+MAKE=`../scripts/make`
+E 3
+OS=`../scripts/os`
+TARGET=`../scripts/target`
+BINDIR="../bin/${OS}"
+CONFIG="../bin/${OS}/`../scripts/config`"
+I 6
+NULL=/dev/null
+BASE=/tmp/dummy
+E 6
+
+I 4
+D 6
+trap 'rm -f /tmp/dummy$$.s /tmp/dummy$$.c /tmp/dummy$$.o /tmp/dummy$$; exit 1' 1 2 15
+E 6
+I 6
+trap 'rm -f ${BASE}$$.s ${BASE}$$.c ${BASE}$$.o ${BASE}$$; exit 1' 1 2 15
+E 6
+
+I 7
+LDLIBS=-lm
+
+E 7
+E 4
+D 3
+# figure out which make to use
+if [ X$MAKE = X ]
+then    MAKE=make
+        for p in `echo $PATH | sed 's/:/ /g'`
+        do      if [ -x $p/gmake ]
+                then    MAKE=gmake
+                fi
+        done
+fi
+
+E 3
+# check for HP-UX's ANSI compiler
+D 6
+if [ X$CC = "Xcc" ]
+E 6
+I 6
+echo "main(int ac, char *av[]) { int i; }" > ${BASE}$$.c
+if ${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL}
+E 6
+then
+D 4
+	echo "main(int ac, char *av[]) { int i; }" > $$.c
+	${CC} -o $$ $$.c 1>/dev/null 2>/dev/null || CFLAGS="${CFLAGS} -Ae"
+	rm -f $$ $$.c
+E 4
+I 4
+D 6
+	echo "main(int ac, char *av[]) { int i; }" > /tmp/dummy$$.c
+	${CC} -o /tmp/dummy$$ /tmp/dummy$$.c 1>/dev/null 2>/dev/null || CFLAGS="${CFLAGS} -Ae"
+	rm -f /tmp/dummy$$ /tmp/dummy$$.c
+E 6
+I 6
+	true;
+else
+	rm -f ${BASE}$$
+	if ${CC} ${CFLAGS} -Ae -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL}
+	then
+		CFLAGS="${CFLAGS} -Ae"
+	fi
+fi
+D 8
+rm -f ${BASE}$$ ${BASE}$$.c
+E 8
+I 8
+rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+E 8
+	
+# check for IA64 HP-UX w/ HP's ANSI compiler; may need pointer swizzling
+arch=`echo $OS | awk -F- '{print $1;}'`
+if [ X$CC = "Xcc" -a X$arch = "Xia64" ]
+then
+	echo "#include <stdlib.h>" > ${BASE}$$.c
+	echo "main(int ac, char *av[])" >> ${BASE}$$.c
+	echo "{ long* p = (long*)malloc(sizeof(long));" >> ${BASE}$$.c
+	echo "*p = 0; exit((int)*p); }" >> ${BASE}$$.c
+	${CC} ${CFLAGS} +DD64 -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
+		&& [ -x ${BASE}$$ ] \
+		&& ${BASE}$$ \
+		&& CFLAGS="${CFLAGS} +DD64"
+D 8
+	rm -f ${BASE}$$ ${BASE}$$.c
+E 8
+I 8
+	rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+E 8
+E 6
+E 4
+fi
+	
+# check for bcopy (optionally set the SYS5 flag)
+D 4
+echo "#include <string.h>" > $$.c
+echo "main() { char buf1[256]; char buf2[256]; bcopy(buf1, buf2, 256); }" >> $$.c
+${CC} -o $$ $$.c 1>/dev/null 2>/dev/null || CFLAGS="${CFLAGS} -DSYS5"
+rm -f $$ $$.c
+E 4
+I 4
+D 6
+echo "#include <string.h>" > /tmp/dummy$$.c
+echo "main() { char buf1[256]; char buf2[256]; bcopy(buf1, buf2, 256); }" >> /tmp/dummy$$.c
+${CC} -o /tmp/dummy$$ /tmp/dummy$$.c 1>/dev/null 2>/dev/null || CFLAGS="${CFLAGS} -DSYS5"
+rm -f /tmp/dummy$$ /tmp/dummy$$.c
+E 6
+I 6
+echo "#include <string.h>" > ${BASE}$$.c
+echo "main() { char a[256], b[256]; bcopy(a, b, 256); }" >> ${BASE}$$.c
+${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
+	|| CFLAGS="${CFLAGS} -DSYS5"
+D 8
+rm -f ${BASE}$$ ${BASE}$$.c
+E 8
+I 8
+rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+E 8
+E 6
+E 4
+
+# check for valloc
+D 4
+echo "#include <stdlib.h>" > $$.c
+echo "main() { char* buf = valloc(123); }" >> $$.c
+${CC} -o $$ $$.c 1>/dev/null 2>/dev/null || CFLAGS="${CFLAGS} -Dvalloc=malloc"
+rm -f $$ $$.c
+
+# check for -lnsl -lsocket
+D 3
+echo "main() { int i; }" >> $$.c
+${CC} -o $$ $$.c -lnsl -lsocket 1>/dev/null 2>/dev/null && LDLIBS="${LDLIBS} -lnsl -lsocket"
+E 3
+I 3
+echo "extern int callrpc(); main() { callrpc(); }" > $$.c
+if ${CC} -o $$ $$.c 1>/dev/null 2>/dev/null; then
+E 4
+I 4
+D 6
+echo "#include <stdlib.h>" > /tmp/dummy$$.c
+echo "main() { char* buf = valloc(123); }" >> /tmp/dummy$$.c
+${CC} -o /tmp/dummy$$ /tmp/dummy$$.c 1>/dev/null 2>/dev/null || CFLAGS="${CFLAGS} -Dvalloc=malloc"
+rm -f /tmp/dummy$$ /tmp/dummy$$.c
+E 6
+I 6
+echo "#include <stdlib.h>" > ${BASE}$$.c
+echo "main() { char* buf = valloc(123); }" >> ${BASE}$$.c
+${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
+	|| CFLAGS="${CFLAGS} -Dvalloc=malloc"
+D 8
+rm -f ${BASE}$$ ${BASE}$$.c
+E 8
+I 8
+rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+E 8
+E 6
+
+# check for getrusage
+D 5
+echo "#include <sys/resource.h>" > /tmp/dummy$$.c
+E 5
+I 5
+D 6
+echo "#include <sys/types.h>" > /tmp/dummy$$.c
+echo "#include <sys/time.h>" >> /tmp/dummy$$.c
+echo "#include <sys/resource.h>" >> /tmp/dummy$$.c
+echo "#ifndef RUSAGE_SELF" >> /tmp/dummy$$.c
+echo "#define RUSAGE_SELF 0" >> /tmp/dummy$$.c
+echo "#endif /* RUSAGE_SELF */" >> /tmp/dummy$$.c
+E 5
+echo "main() { struct rusage ru; getrusage(RUSAGE_SELF, &ru); }" >> /tmp/dummy$$.c
+${CC} -o /tmp/dummy$$ /tmp/dummy$$.c 1>/dev/null 2>/dev/null && CFLAGS="${CFLAGS} -DRUSAGE"
+rm -f /tmp/dummy$$ /tmp/dummy$$.c
+E 6
+I 6
+echo "#include <sys/types.h>" > ${BASE}$$.c
+echo "#include <sys/time.h>" >> ${BASE}$$.c
+echo "#include <sys/resource.h>" >> ${BASE}$$.c
+echo "#ifndef RUSAGE_SELF" >> ${BASE}$$.c
+echo "#define RUSAGE_SELF 0" >> ${BASE}$$.c
+echo "#endif /* RUSAGE_SELF */" >> ${BASE}$$.c
+echo "main() { struct rusage ru; getrusage(RUSAGE_SELF, &ru); }" >> ${BASE}$$.c
+${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
+	&& CFLAGS="${CFLAGS} -DRUSAGE"
+D 8
+rm -f ${BASE}$$ ${BASE}$$.c
+E 8
+I 8
+rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+E 8
+E 6
+
+# check for -lnsl
+D 6
+echo "extern int pmap_getport(); main() { pmap_getport(); }" > /tmp/dummy$$.c
+if ${CC} -o /tmp/dummy$$ /tmp/dummy$$.c 1>/dev/null 2>/dev/null; then
+E 6
+I 6
+echo "extern int pmap_getport(); main() { pmap_getport(); }" > ${BASE}$$.c
+if ${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL}; then
+E 6
+	true;
+else
+D 6
+	${CC} -o /tmp/dummy$$ /tmp/dummy$$.c -lnsl 1>/dev/null 2>/dev/null && LDLIBS="${LDLIBS} -lnsl"
+E 6
+I 6
+	${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c -lnsl 1>${NULL} 2>${NULL} \
+		&& LDLIBS="${LDLIBS} -lnsl"
+E 6
+fi
+D 6
+rm -f /tmp/dummy$$ /tmp/dummy$$.c
+E 6
+I 6
+D 8
+rm -f ${BASE}$$ ${BASE}$$.c
+E 8
+I 8
+rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+E 8
+E 6
+
+
+# check for -lsocket
+D 6
+echo "extern void* getservent(); main() { getservent(); }" > /tmp/dummy$$.c
+if ${CC} -o /tmp/dummy$$ /tmp/dummy$$.c 1>/dev/null 2>/dev/null; then
+E 6
+I 6
+echo "extern void* getservent(); main() { getservent(); }" > ${BASE}$$.c
+if ${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL}; then
+E 6
+E 4
+	true;
+else
+D 4
+	${CC} -o $$ $$.c -lnsl -lsocket 1>/dev/null 2>/dev/null && LDLIBS="${LDLIBS} -lnsl -lsocket"
+E 4
+I 4
+D 6
+	${CC} -o /tmp/dummy$$ /tmp/dummy$$.c -lsocket 1>/dev/null 2>/dev/null && LDLIBS="${LDLIBS} -lsocket"
+E 6
+I 6
+	${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c -lsocket 1>${NULL} 2>${NULL} \
+		&& LDLIBS="${LDLIBS} -lsocket"
+E 6
+E 4
+fi
+E 3
+D 4
+rm -f $$ $$.c
+E 4
+I 4
+D 6
+rm -f /tmp/dummy$$ /tmp/dummy$$.c
+E 6
+I 6
+D 8
+rm -f ${BASE}$$ ${BASE}$$.c
+E 8
+I 8
+rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+
+# check for OSs that have S_IFFIFO instead of S_IFIFO
+echo "#include <sys/stat.h>" > ${BASE}$$.c
+echo "main() { return (S_IFIFO); }" >> ${BASE}$$.c
+if ${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL}; then
+	true;
+else
+	rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+	echo "#include <sys/stat.h>" > ${BASE}$$.c
+	echo "main() { return (S_IFFIFO); }" >> ${BASE}$$.c
+	${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
+		|| CFLAGS="${CFLAGS} -DS_IFIFO=S_IFFIFO"
+fi
+rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+
+# check that we have uint
+echo "#include <stdlib.h>" > ${BASE}$$.c
+echo "#include <sys/types.h>" >> ${BASE}$$.c
+echo "main() { uint i = 0; return (i); }" >> ${BASE}$$.c
+${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
+	&& CFLAGS="${CFLAGS} -DHAVE_uint=1";
+rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+
+# check that we have uint64
+echo "#include <stdlib.h>" > ${BASE}$$.c
+echo "#include <sys/types.h>" >> ${BASE}$$.c
+echo "main() { uint64_t i = 0; return (int)(i); }" >> ${BASE}$$.c
+${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
+	&& CFLAGS="${CFLAGS} -DHAVE_uint64_t=1";
+rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+E 8
+E 6
+E 4
+
+I 9
+# check that we have int64
+echo "#include <stdlib.h>" > ${BASE}$$.c
+echo "#include <sys/types.h>" >> ${BASE}$$.c
+echo "main() { int64_t i = 0; return (int)(i); }" >> ${BASE}$$.c
+${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
+	&& CFLAGS="${CFLAGS} -DHAVE_int64_t=1";
+rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+
+I 10
+# check that we have drand48 and srand48
+echo "#include <stdlib.h>" > ${BASE}$$.c
+echo "main() { srand48(973); return (int)(1.0E9 * drand48()); }" >> ${BASE}$$.c
+if ${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL}; then
+	true;
+else
+	rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+	echo "#include <stdlib.h>" > ${BASE}$$.c
+	echo "main() { srand(973); return (10 * rand()) / RAND_MAX; }" >> ${BASE}$$.c
+D 11
+	${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
+		|| CFLAGS="${CFLAGS} -Dsrand48=srand"
+E 11
+I 11
+	if ${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL}; then
+D 13
+		CFLAGS="${CFLAGS} -Dsrand48=srand '-Ddrand48()=((double)rand()/(double)RAND_MAX)'"
+E 13
+I 13
+		CFLAGS="${CFLAGS} -DUSE_RAND"
+E 13
+        else
+		rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+		echo "#include <stdlib.h>" > ${BASE}$$.c
+		echo "main() { srandom(973); return (10 * random()) / RAND_MAX; }" >> ${BASE}$$.c
+		${CC} ${CFLAGS} -o ${BASE}$$ ${BASE}$$.c 1>${NULL} 2>${NULL} \
+D 12
+			|| CFLAGS="${CFLAGS} -Dsrand48=srandom \'-Ddrand48()=((double)random()/(double)RAND_MAX)\'"
+E 12
+I 12
+D 13
+			|| CFLAGS="${CFLAGS} -Dsrand48=srandom '-Ddrand48()=((double)random()/(double)RAND_MAX)'"
+E 13
+I 13
+			|| CFLAGS="${CFLAGS} -DUSE_RANDOM"
+E 13
+E 12
+	fi
+E 11
+fi
+rm -f ${BASE}$$ ${BASE}$$.o ${BASE}$$.c
+
+E 10
+E 9
+
+# echo Building for $(TARGET)
+if [ ! -d ${BINDIR} ]; then mkdir -p ${BINDIR}; fi
+
+# now go ahead and build everything!
+D 3
+${MAKE} CC="${CC}" CFLAGS="${CFLAGS}" LDLIBS="${LDLIBS}" O="${BINDIR}" all
+E 3
+I 3
+${MAKE} CC="${CC}" CFLAGS="${CFLAGS}" LDLIBS="${LDLIBS}" O="${BINDIR}" $*
+E 3
+E 2
+I 1
+E 1

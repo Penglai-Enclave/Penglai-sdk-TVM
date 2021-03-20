@@ -1,0 +1,117 @@
+h59562
+s 00025/00008/00043
+d D 1.2 94/11/17 16:56:46 lm 3 2
+c cleaning up for release.
+cC
+cK11992
+e
+s 00051/00000/00000
+d D 1.1 94/02/26 05:14:12 lm 2 1
+c date and time created 94/02/26 13:14:12 by lm
+cK52719
+e
+s 00000/00000/00000
+d D 1.0 94/02/26 05:14:11 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK03981
+cPdoc/benchmarks
+cR3fc262271f9a32a3
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+T
+I 3
+Theme
+	Data movement and the cost thereof
+	Latency
+		Time per operation
+		CPU cycles per operation
+	Bandwidth
+		MB / sec
+		CPU cycles / MB
+	Media
+		Memory (load, bcopy)
+		Disk (randoms, sequentials)
+		File system (directory ops, sequential)
+		Network (hot potato, transfer)
+		Pipes (hot potato, transfer)
+		VM system (mmaps/munmaps, bcopy)
+	Systems
+		All Unix systems
+		Windows NT
+		VMS (?)
+		Mainframes (?)
+E 3
+I 2
+Memory
+        Small transfers (randoms)
+                Load latency
+        Large transfers (sequential)
+                Bcopy bandwidth
+D 3
+Processor
+	integer operations (add/mult/divide)
+	floating point operations (add/mult/divide)
+E 3
+I 3
+Processes
+        Null process execution time
+        Context switching
+Misc
+        Null entry into the system
+E 3
+Networking
+        Small transfers (randoms)
+                Transfers per second
+                CPU cycles per transfer
+                socket/bind/close per second
+        Large transfers (sequential)
+                MB per second
+                CPU cycles per MB
+Disks
+        Small transfers (randoms)
+                Transfers per second
+                CPU cycles per transfer
+        Large transfers (sequential)
+                MB per second
+                CPU cycles per MB
+File system
+        Small transfers (randoms)
+                Creates / second
+                Removes / second
+                Random I/O's per second in large file
+                CPU cycles per transfer
+                MB / sec when reading many related small files
+        Large files
+                MB / second read/write
+                CPU cycles per MB
+        Hardness
+                Measure fsck time?
+Virtual memory system
+        Creation
+                mmaps per second
+                munmaps per second
+                Also vary size of mapped region
+        Small transfers (randoms)
+                Random reads per second of large mmaped file
+                CPU cycles per read
+        Large transfers (cached sequential)
+                MB per second read rate
+                CPU cycles per MB
+D 3
+Processes
+        Null process execution time
+        Context switching
+Misc
+        Null entry into the system
+E 3
+E 2
+I 1
+E 1

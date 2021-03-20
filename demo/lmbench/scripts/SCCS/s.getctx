@@ -1,0 +1,196 @@
+h03451
+s 00000/00000/00079
+d D 1.8 00/01/31 15:29:41 lm 9 8
+c Change mode to -rwxrwxr-x
+cC
+cK06396
+cO-rwxrwxr-x
+e
+s 00004/00002/00075
+d D 1.7 97/10/31 18:00:01 lm 8 7
+c New interface with results/Makefile
+cC
+cK49115
+cZ-08:00
+e
+s 00002/00001/00075
+d D 1.6 97/07/12 18:08:35 lm 7 6
+c new naming mecahnism
+cK47151
+e
+s 00007/00002/00069
+d D 1.5 97/06/23 23:29:58 lm 6 5
+c add -title option
+cK43606
+e
+s 00004/00003/00067
+d D 1.4 96/05/21 23:10:44 lm 5 4
+c perl5.
+cK39671
+cZ-07:00
+e
+s 00001/00001/00069
+d D 1.3 94/11/25 17:05:18 lm 4 3
+c id.
+cK38921
+e
+s 00001/00000/00069
+d D 1.2 94/11/25 16:39:33 lm 3 2
+c ignore Id
+cK37909
+e
+s 00069/00000/00000
+d D 1.1 94/11/22 23:16:48 lm 2 1
+c Initial revision
+cK36691
+e
+s 00000/00000/00000
+d D 1.0 94/11/22 23:16:47 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK04055
+cPscripts/getctx
+cR5af976ad278e7418
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+lmbench1.0 release
+T
+I 2
+
+# Extract the context switching information from lmbench result files.
+# Usage: getctx file file....
+#
+# Hacked into existence by Larry McVoy (lm@sun.com now lm@sgi.com).
+# Copyright (c) 1994 Larry McVoy.  GPLed software.
+# $Id$
+D 5
+eval "exec perl -Ss $0 $*"
+E 5
+I 5
+D 8
+eval 'exec perl -Ssw $0 "$@"'
+E 8
+I 8
+eval 'exec perl -Ss $0 "$@"'
+E 8
+E 5
+	if 0;
+
+I 8
+$title = "foo" if 0;
+
+E 8
+foreach $file (@ARGV) {
+D 8
+	warn "$file\n";
+E 8
+	open(FD, $file);
+	while (<FD>) {
+		chop;
+		if (/^\[lmbench/) {
+D 5
+			split;
+E 5
+I 5
+			@_ = split;
+E 5
+			if ($_[3] eq "SunOS") {
+				$_[3] .= "-$_[5]";
+			}
+			$uname = "@_";
+		}
+		if (/Mhz/) {
+			$mhz = $_;
+		}
+		if (/^.size=/) {
+			s/size/Process size/;
+			s/ ovr/\toverhead/;
+			@info = &getinfo($uname, $mhz);
+D 7
+			($f = $file) =~ s|.*/||;
+E 7
+I 7
+			($f = $file) =~ s|/|-|;
+I 8
+			print "tmp/ctx.$f\n";
+E 8
+E 7
+			open(OUT, ">tmp/ctx.$f");
+			print OUT "\"%X Processes \n\"%Y Time in microseconds\n";
+D 6
+			print OUT
+			    "\"%T Context switches for $info[3] $info[$#info]Mhz\n";
+E 6
+I 6
+			if ($title) {
+				print OUT "%T $f\n";
+			} else {
+				print OUT
+				    "\"%T Context switches for " . 
+				    "$info[3] $info[$#info]Mhz\n";
+			}
+E 6
+			print OUT "$_\n";
+			while (<FD>) {
+D 4
+				last if /^Null/ || /^Pipe/;
+E 4
+I 4
+				last if /^Null/ || /^Pipe/ || /^Memor/;
+E 4
+I 3
+				next if /\$Id/;
+I 7
+				next if m|scripts/lmbench: /dev/tty|;
+E 7
+E 3
+				s/ ovr/\toverhead/;
+				s/size/Process size/;
+			    	print OUT;
+			}
+			close(OUT);
+			last;
+		}
+	}
+}
+
+# Try and create sensible names from uname -a output
+sub getinfo
+{
+	local(@info);
+	local($name);
+D 5
+	local($mhz) = sprintf("%.0f", $_[1]);
+E 5
+I 5
+	local($mhz);
+E 5
+
+I 5
+	($mhz = $_[1]) =~ s/[\. ].*//;
+E 5
+	@info = split(/\s+/, $_[0]);
+	$name = pop(@info);
+	chop($name);
+	if ($name eq "mips") {
+		$name = "$info[$#info]@$mhz";
+	} elsif ($_[0] =~ /HP-UX/) {
+		$name = "$info[7]@$mhz";
+	} elsif ($_[0] =~ /SunOS/) {
+		$name = "$info[7]@$mhz";
+	} else {
+		$name .= "@$mhz";
+	}
+	push(@info, $name);
+	@info;
+}
+E 2
+I 1
+E 1

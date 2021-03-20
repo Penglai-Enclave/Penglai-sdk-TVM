@@ -1,0 +1,86 @@
+h33907
+s 00000/00000/00050
+d D 1.2 00/01/31 15:29:43 lm 3 2
+c Change mode to -rwxrwxr-x
+cC
+cK06302
+cO-rwxrwxr-x
+cZ-08:00
+e
+s 00050/00000/00000
+d D 1.1 97/06/14 21:14:02 lm 2 1
+c Initial revision
+cC
+cK05179
+e
+s 00000/00000/00000
+d D 1.0 97/06/14 21:14:01 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK03953
+cPscripts/stats
+cR5dd15d544b61fcd
+cV4
+cX0x23
+cZ-07:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+T
+I 2
+
+# Convert the Y coordinate to an average
+
+eval "exec perl -sS $0 $*"
+	if 0;
+
+@values = ();
+$sum = $n = 0;
+$min = 1.7E+308;
+$max = 2.2E-308;
+while (<>) {
+	next if /^[%#]/;
+	split;
+	if ($_[0] > 1000000) {
+		#warn "$file: ignoring $_";
+		next;
+	}
+	if ($#_ >= 1) {
+		$val = $_[1];
+	} else {
+		$val = $_[0];
+	}
+	push(@values, $val);
+	$sum += $val;
+	$min = $val if $val < $min;
+	$max = $val if $val > $max;
+	$n++;
+}
+# Do some statistics.
+@s = sort(@values);
+if ($n & 1) {	
+	$median = $s[($n + 1)/2];
+} else {
+	$i = $n / 2;
+	$median = ($s[$i] + $s[$i+1]) / 2;
+}
+$avg = $sum/$n;
+$avgdev = $var = 0;
+foreach $_ (@values) {
+	$var += ($_ - $median) ** 2;
+	$tmp = $_ - $median;
+	$avgdev += $tmp > 0 ? $tmp : -$tmp;
+}
+$var /= $n - 1;
+$stddev = sqrt($var);
+$avgdev /= $n;
+#printf("%8s %8s %8s %8s %8s %4s %8s\n", "Min", "Max", "Average", "Median", "Std Dev", "%", "Avg Dev");
+#printf "%8.2f %8.2f %8.2f %8.2f %8.2f %4.1f%% %8.2f\n", $min, $max, $avg, $median, $stddev, $stddev/$median*100, $avgdev;
+printf "%4.1f%%\n", $stddev/$median*100;
+exit 0;
+E 2
+I 1
+E 1

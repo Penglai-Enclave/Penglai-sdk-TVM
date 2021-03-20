@@ -1,0 +1,113 @@
+h13073
+s 00009/00020/00020
+d D 1.3 00/10/16 17:13:52 staelin 4 3
+c - Update man pages to match current status
+cC
+cHhpli8.hpli.hpl.hp.com
+cK00487
+cZ+02:00
+e
+s 00005/00002/00035
+d D 1.2 94/11/25 16:33:12 lm 3 2
+c *** empty log message ***
+cC
+cK03535
+e
+s 00037/00000/00000
+d D 1.1 94/11/18 01:26:35 lm 2 1
+c Initial revision
+cK57365
+e
+s 00000/00000/00000
+d D 1.0 94/11/18 01:26:34 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK03369
+cPdoc/mhz.8
+cR7e573fe1f46fec90
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+lmbench doc checkin
+T
+I 2
+.\" $Id$
+D 4
+.TH MHZ 8 "$Date$" "(c)1994 Larry McVoy" "LMBENCH"
+E 4
+I 4
+.TH MHZ 8 "$Date$" "(c)1994-2000 Carl Staelin and Larry McVoy" "LMBENCH"
+E 4
+.SH NAME
+mhz \- calulate processor clock rate
+.SH SYNOPSIS
+.B mhz
+.I [-c]
+.SH DESCRIPTION
+.B mhz
+calculates the processor clock rate and megahertz.  It uses an
+unrolled, interlocked loop of adds or shifts.  So far, superscalarness
+has been defeated on the tested processors (SuperSPARC, RIOS, Alpha).
+.SH OUTPUT
+Output format is either just the clock rate as a float (-c) or more verbose
+.sp
+.ft CB
+39.80 Mhz, 25 nanosec clock
+.ft
+D 4
+.SH BUGS
+This program is highly compiler sensitive.  GCC seems to almost always do
+the right thing.  The right thing is this: the main loop is a series of
+dependent integer operations, such as \f(CWa++; a++; a++; ...\fP
+The variable is declared as a register integer and it is hoped that the
+compiler, \fBwithout optimization since optimizing would remove the whole
+loop\fP, will turn that directly into one instruction.
+E 4
+.LP
+D 4
+This is not always the case.  If you think that your mhz output is wrong,
+check the compiler output by compiling like so \f(CBcc -S mhz.c\fP and
+then examining mhz.s.  It should have a bunch of identical instructions
+D 3
+at the bottom of the file.  All adds or shifts.  If it is loading,
+E 3
+I 3
+at the bottom of the file.  All of the instructions should be
+adds or shifts of the same registers, over and over.
+If it is loading,
+E 3
+adding, storing, then it failed to put the variable in a register.
+D 3
+Try GCC.
+E 3
+I 3
+It probably put the variable on the stack.
+Try gcc if this happens.
+E 3
+.SH ACKNOWLEDGEMENT
+Funding for the development of
+this tool was provided by Sun Microsystems Computer Corporation.
+E 4
+I 4
+.B mhz
+is described more completely in ``mhz: Anatomy of a microbenchmark''
+in
+.I "Proceedings of 1998 USENIX Annual Technical Conference", June 1998.
+E 4
+.SH "SEE ALSO"
+lmbench(8).
+I 4
+.SH "AUTHOR"
+Carl Staelin and Larry McVoy
+.PP
+Comments, suggestions, and bug reports are always welcome.
+E 4
+E 2
+I 1
+E 1

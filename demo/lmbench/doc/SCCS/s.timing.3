@@ -1,0 +1,299 @@
+h08407
+s 00057/00041/00106
+d D 1.2 00/10/16 17:13:55 staelin 3 2
+c - Update man pages to match current status
+cC
+cHhpli8.hpli.hpl.hp.com
+cK26891
+cZ+02:00
+e
+s 00147/00000/00000
+d D 1.1 98/05/07 16:00:32 staelin 2 1
+c timing.3 created on 98/05/07 16:00:32 by staelin@hpisc8.lempel
+cC
+cK37776
+cPdoc/timing.3
+e
+s 00000/00000/00000
+d D 1.0 98/05/07 09:00:31 staelin 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHhpisc8.lempel
+cK06596
+cP/users/staelin/src/lmbench/doc/timing.3
+cR6f0a881ebd8a9da8
+cV4
+cX0x21
+cZ-07:00
+e
+u
+U
+f e 0
+f x 0x21
+t
+T
+I 2
+.\"
+.\" @(#)timing.man	2.0 98/04/24
+.\"
+.\"   timing - lmbench timing subsystem
+.\"
+.\"   Copyright (C) 1998  Carl Staelin and Larry McVoy
+.\"   E-mail: staelin@hpl.hp.com
+.\"
+.TH "lmbench timing" 3 "$Date:$" "(c)1998 Larry McVoy" "LMBENCH"
+
+.SH "NAME"
+D 3
+BENCH, BENCH_OVERHEAD, BENCH1, start, stop, get_n, set_n, gettime, settime,
+E 3
+I 3
+benchmp, benchmp_getstate, benchmp_interval, 
+	start, stop, get_n, set_n, gettime, settime,
+E 3
+	get_enough, t_overhead, l_overhead \- the lmbench timing subsystem
+D 3
+
+E 3
+.SH "SYNOPSIS"
+.B "#include ``lmbench.h''"
+.LP
+D 3
+.B "BENCH(loop_body, enough)"
+E 3
+I 3
+.B "typedef u_long	iter_t"
+E 3
+.LP
+D 3
+.B "BENCH_OVERHEAD(loop_body, overhead_loop, enough)"
+.lP
+.B "BENCH1(loop_body, enough)"
+E 3
+I 3
+.B "typedef (*bench_f)(iter_t iterations, void* cookie)"
+.LP
+.B "typedef (*support_f)(iter_t iterations, void* cookie)"
+.LP
+.B "void	benchmp(support_f initialize, bench_f benchmark, support_f cleanup, int enough, int parallel, int warmup, int repetitions, void* cookie)"
+.LP
+.B "void* benchmp_getstate()"
+.LP
+.B "iter_t benchmp_interval(void* state)"
+E 3
+.LP
+.B "void	start(struct timeval *begin)"
+.LP
+.B "uint64	stop(struct timeval *begin, struct timeval *end)"
+.LP
+.B "uint64	get_n()"
+.LP
+.B "void	set_n(uint64 n)"
+.LP
+.B "uint64	gettime()"
+.LP
+.B "void	settime(uint64 u)"
+.LP
+.B "uint64	get_enough(uint64 enough)"
+.LP
+.B "uint64	t_overhead()"
+.LP
+.B "double	l_overhead()"
+D 3
+
+E 3
+.SH "DESCRIPTION"
+The single most important element of a good benchmarking system is
+the quality and reliability of its measurement system.  
+.IR lmbench 's
+timing subsystem manages the experimental timing process to produce
+accurate results in the least possible time.  
+.I lmbench 
+includes methods for measuring and eliminating several factors that 
+influence  the accuracy of timing measurements, such as the resolution 
+of the system clock.
+.LP
+.I lmbench 
+gets accurate results by considering clock resolution, 
+auto-sizing the duration of each benchmark, and conducting multiple
+experiments.  
+D 3
+
+.TP
+.B "BENCH(loop_body, enough)"
+measures the performance of 
+.I loop_body
+repeatedly and report the median result.
+
+.TP
+.B "BENCH_OVERHEAD(loop_body, overhead_loop, enough)"
+repeatedly measures the performance of 
+.I loop_body 
+and subtract the time in 
+.I overhead_loop 
+and reports the median result.
+
+E 3
+.TP
+D 3
+.B "BENCH1(loop_body, enough)"
+E 3
+I 3
+.B "void	benchmp(initialize, benchmark, cleanup, enough, parallel, warmup, repetitions, cookie)"
+E 3
+measures the performance of 
+D 3
+.I loop_body
+once.
+
+E 3
+I 3
+.I benchmark
+repeatedly and reports the median result.  
+.I benchmp
+creates
+.I parallel
+sub-processes which run
+.I benchmark
+in parallel.  This allows lmbench to measure the system's ability to
+scale as the number of client processes increases.  Each sub-process
+executes
+.I initialize
+before starting the benchmarking cycle.  It will call
+.I benchmark
+several times in order to collect
+.I repetitions
+results.  After all the benchmark results have been collected, 
+.I cleanup
+is called to cleanup any resources which may have been allocated
+by 
+.I initialize
+or 
+.I benchmark .
+.I cookie 
+is a void pointer to a hunk of memory that can be used to store any
+parameters or state that is needed by the benchmark.
+.TP
+.B "void	benchmp_getstate()"
+returns a void pointer to the lmbench-internal state used during 
+benchmarking.  The state is not to be used or accessed directly
+by clients, but rather would be passed into
+.I benchmp_interval. 
+.TP
+.B "iter_t	benchmp_interval(void* state)"
+returns the number of times the benchmark should execute its
+benchmark loop during this timing interval.  This is used only
+for weird benchmarks which cannot implement the benchmark
+body in a function which can return, such as the page fault
+handler.  Please see 
+.I lat_sig.c 
+for sample usage.
+E 3
+.TP
+.B "void	start(struct timeval *begin)"
+D 3
+start a timing interval.  If
+E 3
+I 3
+starts a timing interval.  If
+E 3
+.I begin 
+is non-null, save the start time in 
+.I begin .
+D 3
+
+E 3
+.TP
+.B "uint64	stop(struct timeval *begin, struct timeval *end)"
+D 3
+stop a timing interval, returning the number of elapsed micro-seconds.
+
+E 3
+I 3
+stops a timing interval, returning the number of elapsed micro-seconds.
+E 3
+.TP
+.B "uint64	get_n()"
+returns the number of times 
+.I loop_body 
+was executed during the timing interval.
+D 3
+
+E 3
+.TP
+.B "void	set_n(uint64 n)"
+sets the number of times 
+.I loop_body 
+was executed during the timing interval.
+D 3
+
+E 3
+.TP
+.B "uint64	gettime()"
+returns the number of micro-seconds in the timing interval.
+D 3
+
+E 3
+.TP
+.B "void	settime(uint64 u)"
+sets the number of micro-seconds in the timing interval.
+D 3
+
+E 3
+.TP
+.B "uint64	get_enough(uint64 enough)"
+D 3
+return the time in micro-seconds needed to accurately measure a timing interval.
+
+E 3
+I 3
+return the time in micro-seconds needed to accurately measure a timing
+interval. 
+E 3
+.TP
+.B "uint64	t_overhead()"
+return the time in micro-seconds needed to measure time.
+D 3
+
+E 3
+.TP
+.B "double	l_overhead()"
+return the time in micro-seconds needed to do a simple loop.
+D 3
+
+E 3
+.SH "VARIABLES"
+There are three environment variables that can be used to modify
+the 
+.I lmbench 
+timing subsystem: ENOUGH, TIMING_O, and LOOP_O.
+The environment variables can be used to directly set the results
+of 
+.B get_enough , 
+.B t_overhead , 
+and 
+.B l_overhead .
+When running a large number of benchmarks, or repeating the same
+benchmark many times, this can save time by eliminating the necessity
+of recalculating these values for each run.
+D 3
+
+E 3
+.SH "FUTURES"
+Development of 
+.I lmbench 
+is continuing.  
+D 3
+
+E 3
+.SH "SEE ALSO"
+lmbench(8), lmbench(3), reporting(3), results(3).
+D 3
+
+E 3
+.SH "AUTHOR"
+Carl Staelin and Larry McVoy
+.PP
+Comments, suggestions, and bug reports are always welcome.
+E 2
+I 1
+E 1

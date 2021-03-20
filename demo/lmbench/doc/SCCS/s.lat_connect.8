@@ -1,0 +1,98 @@
+h09820
+s 00015/00002/00032
+d D 1.2 00/10/16 17:13:41 staelin 3 2
+c - Update man pages to match current status
+cC
+cHhpli8.hpli.hpl.hp.com
+cK34566
+cZ+02:00
+e
+s 00034/00000/00000
+d D 1.1 94/11/18 01:26:35 lm 2 1
+c Initial revision
+cC
+cK19861
+e
+s 00000/00000/00000
+d D 1.0 94/11/18 01:26:34 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK04196
+cPdoc/lat_connect.8
+cR2b29d3e2c9189258
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+lmbench doc checkin
+T
+I 2
+.\" $Id$
+.TH LAT_CONNECT 8 "$Date$" "(c)1994 Larry McVoy" "LMBENCH"
+.SH NAME
+lat_connect \- measure interprocess connection latency via TCP/IP
+.SH SYNOPSIS
+.B lat_connect
+.I -s
+.sp .5
+.B lat_connect
+I 3
+[
+.I "-P <parallelism>"
+]
+[
+.I "-W <warmups>"
+]
+[
+.I "-N <repetitions>"
+]
+E 3
+.I hostname
+.sp .5
+.B lat_connect
+D 3
+.I -hostname
+E 3
+I 3
+.I "-S hostname"
+E 3
+.SH DESCRIPTION
+.B lat_connect
+is a client/server program that measures interprocess
+connection latencies.   The benchmark times the creation and connection of
+an AF_INET (aka TCP/IP) socket to a remote server.  Care is take that the
+connection time does not include any other overhead, such as the
+\fIgethostbyname()\fP or remote port lookups since these add more overhead
+than the connection establishment itself.
+.LP
+.B lat_connect
+has three forms of usage: as a server (-s), as a client (lat_connect localhost),
+D 3
+and as a shutdown (lat_connect -localhost).
+E 3
+I 3
+and as a shutdown (lat_connect -S localhost).
+E 3
+.SH OUTPUT
+The reported time is in microseconds per connection.
+Output format is like so
+.sp
+.ft CB
+TCP/IP connection cost to localhost: 1006 microseconds
+.ft
+.SH "SEE ALSO"
+lmbench(8).
+I 3
+.SH "AUTHOR"
+Carl Staelin and Larry McVoy
+.PP
+Comments, suggestions, and bug reports are always welcome.
+E 3
+E 2
+I 1
+E 1

@@ -1,0 +1,67 @@
+h01932
+s 00000/00000/00031
+d D 1.2 00/01/31 15:29:42 lm 3 2
+c Change mode to -rwxrwxr-x
+cC
+cK06776
+cO-rwxrwxr-x
+cZ-08:00
+e
+s 00031/00000/00000
+d D 1.1 97/06/14 21:14:10 lm 2 1
+c Initial revision
+cC
+cK38076
+e
+s 00000/00000/00000
+d D 1.0 97/06/14 21:14:09 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK04436
+cPscripts/new2oldctx
+cR7ef96e61ec39fdee
+cV4
+cX0x23
+cZ-07:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+T
+I 2
+
+# Convert the new format:
+# Context switch of 8 4k processes: 64.17 (60.02 overhead)
+# to the old format:
+#"size=0 ovr=22
+# 2 8
+# 4 14
+# 8 18
+# 16 21
+# 20 22
+
+eval 'exec perl -Ssw $0 "$@"'
+	if 0;
+
+@lines = grep(/Context switch/, <>);
+foreach $size ("0k", "4k", "16k", "32k", "64k") {
+	@data = grep(/$size/, @lines);
+	@a = @b = @c = ();
+	$i = 0;
+	foreach $n (2, 4, 8, 16, 20) {
+		@tmp = ();
+		foreach $_ (grep(/of $n/, @data)) {
+			@_ = split;
+			push(@tmp, "$_[3] $_[6]\n");
+		}
+		($a[$i],$b[$i],$c[$i]) = @tmp;
+		$i++;
+	}
+	print "\n\"size=$size \n";
+	print @c;
+}
+E 2
+I 1
+E 1

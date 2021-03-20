@@ -1,0 +1,85 @@
+h35999
+s 00055/00000/00000
+d D 1.1 00/10/16 17:06:27 staelin 2 1
+cC
+cF1
+cK07513
+cO-rw-rw-rw-
+e
+s 00000/00000/00000
+d D 1.0 00/10/16 17:06:27 staelin 1 0
+c BitKeeper file /tmp_mnt/usr/WebPaper/users/staelin/src/LMbench/doc/tlb.8
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHhpli8.hpli.hpl.hp.com
+cK25529
+cPdoc/tlb.8
+cR2f04cd89110913ea
+cV4
+cX0xa1
+cZ+02:00
+e
+u
+U
+f e 0
+f x 0xa1
+t
+T
+I 2
+.\" $Id$
+.TH TLB 8 "$Date$" "(c)2000 Carl Staelin and Larry McVoy" "LMBENCH"
+.SH NAME
+tlb \- TLB size and latency benchmark
+.SH SYNOPSIS
+.B tlb
+[
+.I "-L <line size>"
+]
+[
+.I "-M <len>"
+]
+[
+.I "-W <warmups>"
+]
+[
+.I "-N <repetitions>"
+]
+.SH DESCRIPTION
+.B tlb
+tries to determine the size, in pages, of the TLB.  
+The largest amount of memory it will examine is 
+.I len
+bytes.  
+.LP
+.B tlb
+compares the memory latency for two different pointer chains.
+The two chains occupy the same amount of cache space, but they stress
+the memory subsystem differently.  The first chain accesses one word
+per page, while the second chain 
+randomly jumps through all the lines on a page before jumping to the
+next page.  When all of the pointers reside in the cache (which is the
+usual case), and all of the pages for the first chain reside in the
+TLB, then the average memory latencies should be identical.  Assuming
+there is a fixed size TLB, then at some point the number of pages
+accessed by the first page will be larger than the TLB.  At this point
+the average latency for each memory access for the first chain will be
+a cache hit plus some fraction of a TLB miss.  
+.LP
+Once the TLB boundary is located 
+.B tlb
+reports the TLB miss latency as the TLB latency for twice as many
+pages as the TLB can hold.
+.SH BUGS
+.B tlb
+is an experimental benchmark, but it seems to work well on most
+systems.  However, if a processor has a TLB hierarchy
+.B tlb
+only finds the top level TLB.
+.SH "SEE ALSO"
+lmbench(8), line(8), cache(8), par_mem(8).
+.SH "AUTHOR"
+Carl Staelin and Larry McVoy
+.PP
+Comments, suggestions, and bug reports are always welcome.
+E 2
+I 1
+E 1

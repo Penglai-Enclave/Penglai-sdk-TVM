@@ -1,0 +1,518 @@
+h36528
+s 00198/00052/00125
+d D 1.2 00/10/16 17:13:51 staelin 3 2
+c - Update man pages to match current status
+cC
+cHhpli8.hpli.hpl.hp.com
+cK37408
+cZ+02:00
+e
+s 00177/00000/00000
+d D 1.1 98/05/07 16:00:13 staelin 2 1
+c lmbench.3 created on 98/05/07 16:00:13 by staelin@hpisc8.lempel
+cC
+cK41018
+cPdoc/lmbench.3
+e
+s 00000/00000/00000
+d D 1.0 98/05/07 09:00:12 staelin 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHhpisc8.lempel
+cK06676
+cP/users/staelin/src/lmbench/doc/lmbench.3
+cR59c0c51f7abc65bc
+cV4
+cX0x21
+cZ-07:00
+e
+u
+U
+f e 0
+f x 0x21
+t
+T
+I 2
+.\"
+D 3
+.\" @(#)lmbench.man	2.0 98/04/24
+E 3
+I 3
+.\" @(#)lmbench.man	3.0 2000/10/12
+E 3
+.\"
+.\"   lmbench - benchmarking toolbox
+.\"
+D 3
+.\"   Copyright (C) 1998  Carl Staelin and Larry McVoy
+E 3
+I 3
+.\"   Copyright (C) 1998-2000  Carl Staelin and Larry McVoy
+E 3
+.\"   E-mail: staelin@hpl.hp.com
+.\"
+D 3
+.TH "LMBENCH" 3 "$Date:$" "(c)1998 Larry McVoy" "LMBENCH"
+
+E 3
+I 3
+.TH "LMBENCH" 3 "$Date:$" "(c)1998-2000 Larry McVoy and Carl Staelin" "LMBENCH"
+E 3
+.SH "NAME"
+lmbench \- benchmarking toolbox
+D 3
+
+E 3
+.SH "SYNOPSIS"
+.B "#include ``lmbench.h''"
+.LP
+D 3
+.B "BENCH(loop_body, enough)"
+E 3
+I 3
+.B "typedef u_long	iter_t"
+.LP
+.B "typedef (*bench_f)(iter_t iterations, void* cookie)"
+.LP
+.B "typedef (*support_f)(iter_t iterations, void* cookie)"
+E 3
+.LP
+D 3
+.B "BENCH1(loop_body, enough)"
+E 3
+I 3
+.B "void	benchmp(support_f initialize, bench_f benchmark, support_f cleanup, int enough, int parallel, int warmup, int repetitions, void* cookie)"
+E 3
+.LP
+.B "uint64	get_n()"
+.LP
+.B "void	milli(char *s, uint64 n)"
+.LP
+.B "void	micro(char *s, uint64 n)"
+.LP
+.B "void	nano(char *s, uint64 n)"
+.lP
+.B "void	mb(uint64 bytes)"
+.LP
+.B "void	kb(uint64 bytes)"
+D 3
+
+E 3
+.SH "DESCRIPTION"
+Creating benchmarks using the 
+.I lmbench 
+timing harness is easy.
+Since it is so easy to measure performance using 
+.I lmbench , 
+it is possible to quickly answer questions that arise during system
+design, development, or tuning.  For example, image processing 
+.LP
+There are two attributes that are critical for performance, latency 
+and bandwidth, and 
+D 3
+.I lmbench's 
+E 3
+I 3
+.I lmbench\'s 
+E 3
+timing harness makes it easy to measure and report results for both.  
+D 3
+The measurement interface, 
+.B BENCH 
+and 
+.BR BENCH1 , 
+are identical, but the reporting functions are different.
+E 3
+Latency is usually important for frequently executed operations, and
+bandwidth is usually important when moving large chunks of data.
+.LP
+There are a number of factors to consider when building benchmarks.
+.LP
+The timing harness requires that the benchmarked operation
+be idempotent so that it can be repeated indefinitely.
+.LP
+D 3
+The timing subsystem includes two macros, 
+.B BENCH 
+and 
+.BR BENCH1 ,
+which provide a uniform method for conducting experiments.  
+.B BENCH1
+does one experiment and saves the result, while 
+.B BENCH 
+does eleven
+experiments and saves the median result.
+
+E 3
+I 3
+The timing subsystem, 
+.BR benchmp ,
+is passed up to three function pointers.  Some benchmarks may
+need as few as one function pointer (for
+.IR benchmark ).
+E 3
+.TP
+D 3
+.B "BENCH(loop_body, enough)"
+E 3
+I 3
+.B "void	benchmp(initialize, benchmark, cleanup, enough, parallel, warmup, repetitions, cookie)"
+E 3
+measures the performance of 
+D 3
+.I loop_body
+repeatedly and report the median result.
+
+E 3
+I 3
+.I benchmark
+repeatedly and reports the median result.  
+.I benchmp
+creates
+.I parallel
+sub-processes which run
+.I benchmark
+in parallel.  This allows lmbench to measure the system's ability to
+scale as the number of client processes increases.  Each sub-process
+executes
+.I initialize
+before starting the benchmarking cycle.  It will call
+.I benchmark
+several times in order to collect
+.I repetitions
+results.  After all the benchmark results have been collected, 
+.I cleanup
+is called to cleanup any resources which may have been allocated
+by 
+.I initialize
+or 
+.IR benchmark .
+.I cookie 
+is a void pointer to a hunk of memory that can be used to store any
+parameters or state that is needed by the benchmark.
+E 3
+.TP
+D 3
+.B "BENCH1(loop_body, enough)"
+measures the performance of 
+.I loop_body
+once.
+
+E 3
+I 3
+.B "void	benchmp_getstate()"
+returns a void pointer to the lmbench-internal state used during 
+benchmarking.  The state is not to be used or accessed directly
+by clients, but rather would be passed into
+.I benchmp_interval. 
+.TP
+.B "iter_t	benchmp_interval(void* state)"
+returns the number of times the benchmark should execute its
+benchmark loop during this timing interval.  This is used only
+for weird benchmarks which cannot implement the benchmark
+body in a function which can return, such as the page fault
+handler.  Please see 
+.I lat_sig.c 
+for sample usage.
+E 3
+.TP
+.B "uint64	get_n()"
+returns the number of times 
+.I loop_body
+was executed during the timing interval.
+D 3
+
+E 3
+.TP
+.B "void	milli(char *s, uint64 n)"
+print out the time per operation in milli-seconds.  
+.I n 
+is the number of operations during the timing interval, which is passed 
+as a parameter because each
+.I loop_body
+can contain several operations.
+D 3
+
+E 3
+.TP
+.B "void	micro(char *s, uint64 n)"
+print the time per opertaion in micro-seconds.
+D 3
+
+E 3
+.TP
+.B "void	nano(char *s, uint64 n)"
+print the time per operation in nano-seconds.
+D 3
+
+E 3
+.TP
+.B "void	mb(uint64 bytes)"
+print the bandwidth in megabytes per second.
+D 3
+
+E 3
+.TP
+.B "void	kb(uint64 bytes)"
+print the bandwidth in kilobytes per second.
+D 3
+
+E 3
+.SH "USING lmbench"
+D 3
+
+E 3
+Here is an example of a simple benchmark that measures the latency
+of the random number generator 
+.BR lrand48() :
+.IP
+.B "#include ``lmbench.h''"
+.br
+I 3
+
+.br
+.B void
+.br
+.B benchmark_lrand48(iter_t iterations, void* cookie)
+.B {
+.br
+.B "	while(iterations-- > 0)"
+.br
+.B "		lrand48();"
+.br
+.B }
+.br
+
+.br
+E 3
+.B int
+.br
+.B "main(int argc, char *argv[])"
+.br
+.B {
+.br
+D 3
+.B "	BENCH(lrand48(), 0);"
+E 3
+I 3
+.B "	benchmp(NULL, benchmark_lrand48, NULL, 0, 1, 0, TRIES, NULL);"
+E 3
+.br
+.B "	micro("lrand48()", get_n());"
+.br
+.B "	exit(0);"
+.br
+.B }
+I 3
+.br
+E 3
+
+.LP
+Here is a simple benchmark that measures and reports the bandwidth of 
+D 3
+.B copy()
+E 3
+I 3
+.BR bcopy :
+E 3
+.IP
+.B "#include ``lmbench.h''"
+.br
+I 3
+
+.br
+.B "#define MB (1024 * 1024)
+.br
+.B "#define SIZE (8 * MB)"
+.br
+
+.br
+.B "struct _state {"
+.br
+.B "	int size;"
+.br
+.B "	char* a;"
+.br
+.B "	char* b;"
+.br
+.B "};"
+.br
+
+.br
+.B void
+.br
+.B initialize_bcopy(void* cookie)
+.B "{"
+.br
+.B "	struct _state* state = (struct _state*)cookie;"
+.br
+
+.br
+.B "	state->a = malloc(state->size);"
+.br
+.B "	state->b = malloc(state->size);"
+.br
+.B "	if (state->a == NULL || state->b == NULL)"
+.br
+.B "		exit(1);"
+.br
+.B "}"
+.br
+
+.br
+.B void
+.br
+.B benchmark_bcopy(iter_t iterations, void* cookie)
+.B "{"
+.br
+.B "	struct _state* state = (struct _state*)cookie;"
+.br
+
+.br
+.B "	while(iterations-- > 0)"
+.br
+.B "		bcopy(state->a, state->b, state->size);"
+.br
+.B "}"
+.br
+
+.br
+.B void
+.br
+.B cleanup_bcopy(iter_t iterations, void* cookie)
+.B "{"
+.br
+.B "	struct _state* state = (struct _state*)cookie;"
+.br
+
+.br
+.B "	free(state->a);"
+.br
+.B "	free(state->b);"
+.br
+.B "}"
+.br
+
+.br
+E 3
+.B int
+.br
+.B "main(int argc, char *argv[])"
+.br
+D 3
+.B {
+E 3
+I 3
+.B "{"
+.br
+.B "	struct _state state;"
+.br
+
+E 3
+.br
+D 3
+.B "	char	*a = malloc(1024 * 1024);"
+E 3
+I 3
+.B "	state.size = SIZE;"
+E 3
+.br
+D 3
+.B "	char	*b = malloc(1024 * 1024);"
+E 3
+I 3
+.B "	benchmp(initialize_bcopy, benchmark_bcopy, cleanup_bcopy,"
+E 3
+.br
+D 3
+.B "	BENCH(bcopy(a, b, 1024*1024), 0);"
+E 3
+I 3
+.B "		0, 1, 0, TRIES, &state);"
+E 3
+.br
+D 3
+.B "	mb(get_n()*1024*1024);"
+E 3
+I 3
+.B "	mb(get_n() * state.size);"
+E 3
+.br
+.B "	exit(0);"
+.br
+D 3
+.B }
+E 3
+I 3
+.B "}"
+E 3
+.br
+
+I 3
+.LP
+A slightly more complex version of the
+.B bcopy
+benchmark might measure bandwidth as a function of memory size and
+parallelism.  The main procedure in this case might look something
+like this:
+.IP
+.B int
+.br
+.B "main(int argc, char *argv[])"
+.br
+.B "{"
+.br
+.B "	int	size, par;"
+.br
+.B "	struct _state state;"
+.br
+
+.br
+.B "	for (size = 64; size <= SIZE; size <<= 1) {"
+.br
+.B "		for (par = 1; par < 32; par <<= 1) {"
+.br
+.B "			state.size = size;"
+.br
+.B "			benchmp(initialize_bcopy, benchmark_bcopy,"
+.br
+.B "				cleanup_bcopy, 0, par, 0, TRIES, &state);"
+.br
+.B "			fprintf(stderr, \%d\\t%d\\t\", size, par);"
+.br
+.B "			mb(get_n() * state.size);"
+.br
+.B "		}"
+.br
+.B "	}"
+.br
+.B "	exit(0);"
+.br
+.B "}"
+E 3
+
+.SH "VARIABLES"
+There are three environment variables that can be used to modify the 
+.I lmbench
+timing subsystem: ENOUGH, TIMING_O, and LOOP_O.
+D 3
+
+E 3
+.SH "FUTURES"
+Development of 
+.I lmbench 
+is continuing.  
+D 3
+
+E 3
+.SH "SEE ALSO"
+lmbench(8), timing(3), reporting(3), results(3).
+D 3
+
+E 3
+.SH "AUTHOR"
+Carl Staelin and Larry McVoy
+.PP
+Comments, suggestions, and bug reports are always welcome.
+E 2
+I 1
+E 1

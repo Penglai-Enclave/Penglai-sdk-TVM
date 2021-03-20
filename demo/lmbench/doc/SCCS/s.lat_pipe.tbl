@@ -1,0 +1,88 @@
+H20004
+s 00058/00000/00000
+d D 1.1 02/06/30 10:43:16 staelin 2 1
+cC
+cF1
+cK56184
+cO-rw-rw-r--
+e
+s 00000/00000/00000
+d D 1.0 02/06/30 10:43:16 staelin 1 0
+c BitKeeper file /usr/WebPaper/users/staelin/src/LMbench3/doc/lat_pipe.tbl
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHhpli69.hpli.hpl.hp.com
+cK06393
+cPdoc/lat_pipe.tbl
+cRb9c8bd0c1651a387
+cV4
+cX0x821
+cZ+03:00
+e
+u
+U
+f e 0
+f x 0x821
+t
+T
+I 2
+.KS
+.TS
+center expand doublebox;
+l r.
+SunOS-5.4 sun4m	194
+SunOS-5.4 sun4m	150
+DEC Alpha	141
+Linux alpha	34
+Linux i486	56
+Linux i486	56
+Unixware/i686	86
+Linux i586	33
+Sun Ultra1	62
+SunOS-5.4 sun4m	372
+Linux alpha	34
+DEC Alpha	162
+DEC Alpha	191
+Linux i586	42
+DEC Alpha	71
+DEC Alpha	179
+Sun SC1000	278
+IBM PowerPC	65
+dgux mc88110	474
+SunOS-5.4 sun4d	519
+FreeBSD/i586	104
+FreeBSD/i586	111
+FreeBSD/i586	115
+SunOS-5.4 sun4d	671
+Linux i586	84
+Linux i686	31
+Linux i586	43
+Linux i586	43
+Linux i586	140
+DEC Alpha	185
+DEC Alpha	198
+DEC Alpha	278
+HP-UX 9000/755	193
+HP-UX 9000/897	118
+IRIX64 IP19	187
+HP-UX 9000/770	148
+HP-UX 9000/819	113
+HP-UX 9000/735	181
+FreeBSD/i586	115
+IRIX IP22	118
+HP-UX 9000/735	178
+HP-UX 9000/735	169
+HP-UX 9000/735	172
+IRIX64 IP21	264
+IRIX5.3 IP19	366
+IBM Power2	91
+IRIX64 IP25	230
+IRIX64-601 IP26	222
+IRIX64 IP19	251
+IRIX IP19	333
+FreeBSD/i586	127
+IRIX5.3 IP22	131
+.TE
+.KE
+E 2
+I 1
+E 1

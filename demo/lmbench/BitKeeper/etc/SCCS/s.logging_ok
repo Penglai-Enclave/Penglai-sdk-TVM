@@ -1,0 +1,130 @@
+H09713
+s 00001/00000/00009
+d D 1.8 02/10/20 09:23:38 staelin 10 9
+c Logging to logging@openlogging.org accepted
+cC
+cHhpliclu3.hpli.hpl.hp.com
+cK22385
+cZ+02:00
+e
+s 00002/00002/00007
+d D 1.7 02/01/07 01:31:50 staelin 9 7
+i 8
+c auto-union
+cC
+cHdisks.bitmover.com
+cK19283
+cM8
+cZ+00:00
+e
+s 00001/00000/00007
+d D 1.5.1.1 02/01/07 01:31:31 staelin 8 6
+c Logging to logging@openlogging.org accepted
+cC
+cHdisks.bitmover.com
+cK16290
+cZ+00:00
+e
+s 00001/00000/00007
+d D 1.6 02/01/04 13:06:09 staelin 7 6
+c Logging to logging@openlogging.org accepted
+cC
+cHfirewall.staelin.co.il
+cK16632
+cZ+02:00
+e
+s 00001/00001/00006
+d D 1.5 01/04/09 16:59:56 staelin 6 5
+c 'Auto converge'
+cC
+cHhpli69.hpli.hpl.hp.com
+cK13639
+e
+s 00001/00000/00006
+d D 1.4 01/04/09 10:27:01 staelin 5 4
+c Logging to logging@openlogging.org accepted
+cC
+cK13639
+e
+s 00003/00002/00003
+d D 1.3 01/04/09 10:26:53 staelin 4 3
+c 'Auto converge'
+cHhpli12.hpli.hpl.hp.com
+cK10813
+cZ+03:00
+e
+s 00001/00000/00004
+d D 1.2 01/04/09 00:26:18 staelin 3 2
+c Logging to logging@openlogging.org accepted
+cC
+cHbitmover.com
+cK07975
+cZ-07:00
+e
+s 00004/00000/00000
+d D 1.1 01/01/26 22:11:53 lm 2 1
+cF1
+cK05912
+cO-rw-rw-r--
+e
+s 00000/00000/00000
+d D 1.0 01/01/26 22:11:53 lm 1 0
+c BitKeeper file /home/bk/LMbench3/BitKeeper/etc/logging_ok
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHwork.bitmover.com
+cK38536
+cPBitKeeper/etc/logging_ok
+cR108d55ddc6240e3f
+cV4
+cX0xa1
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0xa1
+t
+T
+I 2
+D 4
+yes
+E 4
+brucec@rx7
+D 4
+staelin@hpli8.hpli.hpl.hp.com
+E 4
+lm@lm.bitmover.com
+I 3
+staelin@bitmover.com
+I 9
+staelin@disks.bitmover.com
+staelin@firewall.staelin.co.il
+E 9
+I 6
+staelin@hpli12.hpli.hpl.hp.com
+E 6
+I 4
+staelin@hpli69.hpli.hpl.hp.com
+staelin@hpli8.hpli.hpl.hp.com
+yes
+I 10
+staelin@hpliclu3.hpli.hpl.hp.com
+E 10
+I 8
+D 9
+staelin@disks.bitmover.com
+E 8
+I 7
+staelin@firewall.staelin.co.il
+E 9
+E 7
+I 5
+D 6
+staelin@hpli12.hpli.hpl.hp.com
+E 6
+E 5
+E 4
+E 3
+E 2
+I 1
+E 1

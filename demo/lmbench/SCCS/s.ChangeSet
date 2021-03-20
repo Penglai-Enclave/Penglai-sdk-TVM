@@ -1,0 +1,3109 @@
+H28857
+s 00000/00000/00000
+d R 1.215 02/10/28 14:20:45 staelin 235 234
+cSVersion-3.0-a1
+cS233 l
+e
+s 00001/00000/00001
+d D 1.215 02/10/28 14:19:54 staelin 234 232
+c src/Makefile: fix typo in updated distribution generation target
+cC
+cK19058 
+e
+s 00000/00000/00000
+d R 1.214 02/10/28 14:16:45 staelin 233 232
+cSVersion-3.0-a1
+cS229
+e
+s 00001/00000/00001
+d D 1.214 02/10/28 14:16:33 staelin 232 231
+c src/Makefile: fixup the distribution generation target so it will
+c   create a tarball which more accurately reflects current standards
+c   for software distribution.  E.g., the files are under lmbench-vers
+c   rather than LMbench, and so forth.
+cC
+cK19052
+e
+s 00001/00000/00001
+d D 1.213 02/10/28 14:15:24 staelin 231 230
+c scripts/lmbench: fix buglet in running of lat_fs which could result
+c   in data being collected for the wrong file system.  The parameters
+c   were wrong so the benchmark was being run in the lmbench/bin/XXX
+c   directory instead of the specified temporary directory (usually
+c   /usr/tmp)
+cC
+cK19054
+e
+s 00001/00000/00001
+d D 1.212 02/10/28 14:14:10 staelin 230 228
+c scripts/getsummary: fix buglet in printing lat_pagefault numbers
+c   which resulted in figures 1000x smaller than true.  Oops.
+cC
+cK19040
+e
+s 00000/00000/00000
+d R 1.211 02/10/28 13:37:07 staelin 229 228
+cSVersion-3.0-a1
+cS0
+e
+s 00001/00000/00001
+d D 1.211 02/10/28 09:22:16 staelin 228 227
+c lat_pagefault: 
+c   - rewrite so it destroys and recreates the mmap'ing
+c     each time it loops through all the pages.
+c   - change the page access order so it is randomized
+c   - subtract off the overhead of mmap'ing and munmap'ing
+c     the file
+cC
+cHhpli69.hpli.hpl.hp.com
+cK19029
+cZ+02:00
+e
+s 00001/00000/00001
+d D 1.210 02/10/27 07:12:16 staelin 227 226
+c par_ops.c:
+c   par_ops: fixup initialization of double variables toOM
+c     prevent arithmetic errors
+cC
+cHdisks.bitmover.com
+cK19026
+cZ-08:00
+e
+s 00001/00000/00001
+d D 1.209 02/10/20 11:05:05 staelin 226 225
+c src/Makefile: move optional programs to a separate make target and
+c   don't make benchmark build depend upon them
+cC
+cHhpli69.hpli.hpl.hp.com
+cK19202
+e
+s 00001/00000/00001
+d D 1.208 02/10/20 09:29:19 staelin 225 224
+c src/Makefile: remove references to bw_shm
+cC
+cK19476
+e
+s 00002/00000/00001
+d D 1.207 02/10/20 09:23:38 staelin 224 223
+c src/Makefile: remove references to lat_itimer (which was merged
+c   into lat_usleep)
+cC
+cHhpliclu3.hpli.hpl.hp.com
+cK19454
+e
+s 00001/00000/00001
+d D 1.206 02/10/18 10:59:34 staelin 223 222
+c lat_usleep.c:
+c   - portability fixes, at least for HP-UX
+c   - add visible notification to the output as to whether realtime 
+c     scheduling was used or not
+c   - cleanup output generation code a bit
+cC
+cK18748
+e
+s 00001/00000/00001
+d D 1.205 02/10/18 10:04:52 staelin 222 221
+c lat_usleep.c:
+c   - add support for more sleep interfaces, namely nanosleep, select
+c     and pselect
+c   - also add ability to specify realtime scheduling (if run as root)
+cC
+cK18747
+e
+s 00001/00000/00001
+d D 1.204 02/10/17 15:05:21 staelin 221 220
+c bw_tcp.c: change it so the default warmup is LONGER, but the user
+c   can override is they choose.
+cC
+cK18756
+e
+s 00001/00000/00001
+d D 1.203 02/10/17 14:38:29 staelin 220 219
+c bw_tcp.c: 
+c   - fix some potential 32/64 bit problems
+c   - change default message size back to XFERSIZE
+cC
+cK18783
+e
+s 00001/00000/00001
+d D 1.202 02/10/17 14:36:08 staelin 219 218
+c lat_usleep.c: cleanup the code a bit.
+cC
+cK18775
+e
+s 00001/00000/00001
+d D 1.201 02/10/17 14:17:38 staelin 218 217
+c lat_dram_page.c: Add new benchmark to measure difference between
+c   accessing an open and a closed DRAM page.
+cC
+cK18761
+e
+s 00002/00000/00001
+d D 1.200 02/10/17 14:15:51 staelin 217 216
+c lat_usleep.c: Add new benchmark to measure usleep(3) and setitimer(2)
+c   sleep resolution.
+cC
+cK05457
+e
+s 00001/00000/00001
+d D 1.199 02/10/16 17:05:12 staelin 216 215
+c scripts/config-run: tell user that we are probing memory
+cC
+cK58076
+e
+s 00001/00000/00001
+d D 1.198 02/10/16 17:04:13 staelin 215 214
+c scripts/config-run: check for existence and suitability of temporary
+c    directories before offering them as the default location
+cC
+cK58090
+e
+s 00001/00000/00001
+d D 1.197 02/10/16 16:41:25 staelin 214 213
+c memsize.c: fix buglet in command line parsing
+cC
+cK58090
+e
+s 00001/00000/00001
+d D 1.196 02/10/16 16:41:01 staelin 213 212
+c scripts/config-run: fixup bugs in code which detects memory size
+cC
+cK58264
+cZ+02:00
+e
+s 00001/00000/00001
+d D 1.195 02/10/03 15:47:39 staelin 212 211
+c scripts/getsummary: add new fields for SYNC_MAX and fd select to
+c     the summary output.  Also fixup formatting for very small
+c     numbers.
+cC
+cK58264
+e
+s 00001/00000/00001
+d D 1.194 02/10/03 14:00:03 staelin 211 210
+c scripts/lmbench: fixup typo in test of SYNC_MAX
+cC
+cK58274
+e
+s 00001/00000/00001
+d D 1.193 02/10/03 13:59:36 staelin 210 209
+c scripts/config-run: fixup so memory computation is correct even
+c     when bc is not available.  Aargh.
+cC
+cK58450
+e
+s 00002/00000/00001
+d D 1.192 02/10/01 09:50:43 staelin 209 205
+i 206 207 208
+c Merge bk://lmbench.bkbits.net/LMbench3
+c into hpli69.hpli.hpl.hp.com:/usr/WebPaper/users/staelin/src/LMbench3
+cC
+cHhpli69.hpli.hpl.hp.com
+cK58630
+cM208
+e
+s 00001/00000/00001
+d D 1.190.1.3 02/10/01 09:50:06 staelin 208 207
+c - move print_results to lib_debug
+cC
+cK55487
+e
+s 00001/00000/00001
+d D 1.190.1.2 02/10/01 09:49:45 staelin 207 206
+c - fix latent bug in lat_mem_rd: we were using state->addr instead
+c   of the page-adjusted state->base
+cC
+cK55495
+e
+s 00004/00000/00001
+d D 1.190.1.1 02/10/01 09:48:46 staelin 206 202
+c - Add new lib_debug.[ch] for various debugging routines
+cC
+cK55662
+e
+s 00005/00000/00001
+d D 1.191 02/09/29 22:12:26 staelin 205 202
+i 203 204
+c - Merge changes with 32-bit size changes
+cC
+cHfirewall.staelin.co.il
+cK34031
+cM204
+e
+s 00001/00000/00001
+d D 1.186.1.2 02/09/29 21:54:51 staelin 204 203
+c lat_select.c: avoid creating tempfiles for TCP pathway, and avoid creating
+c 	TCP socket for file pathway
+cC
+cK34039
+e
+s 00014/00000/00001
+d D 1.186.1.1 02/09/29 21:53:52 staelin 203 198
+c - Changes for large memory machines to avoid 32-bit integer overflows
+c   for size variables.
+cC
+cHfirewall.staelin.co.il
+cK33798
+e
+s 00001/00000/00001
+d D 1.190 02/09/20 09:34:58 staelin 202 201
+c bw_pipe: fixup buffer allocation so OS must copy data
+cC
+cK30703
+e
+s 00005/00000/00001
+d D 1.189 02/09/20 09:34:02 staelin 201 200
+c - Add a working bread() function which reads a buffer of data into
+c   the CPU, and convert bw_file_rd, bw_mmap_rd, and lat_ctx to use
+c   the new utility
+cC
+cK30636
+e
+s 00002/00000/00001
+d D 1.188 02/07/15 09:30:15 staelin 200 199
+c Add another routine to the benchmp() interface, which allows
+c the child (worker) process to query the harness to find out
+c its relative ID.  
+cC
+cK30652
+e
+s 00001/00000/00001
+d D 1.187 02/06/30 18:27:36 staelin 199 198
+c In bw_mmap_rd, only check the file size for regular files as the
+c field st_size is possibly invalid otherwise.
+cC
+cK30663
+e
+s 00006/00000/00001
+d D 1.186 02/06/30 17:02:14 staelin 198 197
+c Lots of changes to get the userguide to be generated correctly;
+c also added lots of content to the userguide.
+cC
+cK30666
+e
+s 00001/00000/00001
+d D 1.185 02/06/30 16:42:31 staelin 197 196
+c Switch to minimum time from median time to make results more stable.
+c (We don't want the representative time, we want the fastest possible
+c time, so this should be OK.)
+cC
+cK46304
+e
+s 00001/00000/00001
+d D 1.184 02/06/30 16:39:51 staelin 196 195
+c Fixup a bug in the benchmp() timing harness w/r to select(); we
+c needed to reset the timeout values after each select() call, but
+c we weren't so after the first call (typically) select() would not
+c wait but would return immediately, adding a tremendous burden on
+c the CPU.
+cC
+cK46130
+e
+s 00013/00000/00001
+d D 1.183 02/06/30 16:36:49 staelin 195 194
+c Add new files and tables for the new User Guide
+cC
+cK46113
+e
+s 00001/00000/00001
+d D 1.182 02/06/12 13:17:44 staelin 194 193
+c Fix typo in bench.h BENCH1() macro
+cC
+cK08618
+e
+s 00007/00000/00001
+d D 1.181 02/06/06 09:20:32 staelin 193 192
+c Many updates to the papers describing LMbench3.  Shifted focus
+c of lmbench3.ms to address only the scaling issues, and shifted
+c focus on memhier.ms to address only the new micro-architecture
+c related benchmarks.  Also, added the beginnings of a new paper,
+c userguide.ms, which will be a more complete and detailed technical
+c manual.
+cC
+cHhpli69.hpli.hpl.hp.com
+cK08617
+e
+s 00001/00000/00001
+d D 1.180 02/05/26 21:41:03 staelin 192 191
+c Convert lat_mem_rd to use lib_mem's line_initialize.  This
+c means that the pointer chain will be essentially random, so
+c it is less vulnerable to intelligent prefetching.
+cC
+cHfirewall.staelin.co.il
+cK22611
+cZ+03:00
+e
+s 00001/00000/00001
+d D 1.179 02/03/18 11:54:21 staelin 191 190
+c fix bug in disk.c with large disks; reported by Dean Gaudet
+cC
+cHhpli69.hpli.hpl.hp.com
+cK22372
+e
+s 00001/00000/00725
+d D 1.178 02/02/22 09:25:31 staelin 190 189
+c lmbench:
+c   Modify the benchmark script (scripts/lmbench) so that it doesn't run
+c   certain benchmarks during scaling runs (SYNC_MAX > 1), namely: lat_connect,
+c   tlb, cache, and par_mem.
+cC
+cK22305
+e
+s 00002/00000/00723
+d D 1.177 02/02/22 09:22:49 staelin 189 188
+c Makefile:
+c   Add a new target 'scaling' which is like 'rerun' except 
+c   it asks you what scaling factor you want to use during this
+c   run, leaving the remaining parameters fixed.
+c config-scaling:
+c   new file
+cC
+cK22151
+e
+s 00003/00000/00720
+d D 1.176 02/01/07 23:28:57 staelin 188 187
+c Yet another revision to the lmbench3 paper
+cC
+cHfirewall.staelin.co.il
+cK07755
+e
+s 00002/00000/00718
+d D 1.175 02/01/07 17:14:19 staelin 187 186
+c Another revision of the lmbench3 paper
+cC
+cHhpli69.hpli.hpl.hp.com
+cK07432
+cZ+02:00
+e
+s 00001/00000/00717
+d D 1.174 02/01/07 01:31:50 staelin 186 184
+i 185
+c Merge disks.bitmover.com:/home/bk/LMbench3
+c into disks.bitmover.com:/home/staelin/LMbench3
+cC
+cHdisks.bitmover.com
+cK07710
+cM185
+cZ+00:00
+e
+s 00003/00000/00708
+d D 1.172.1.1 02/01/07 01:31:31 staelin 185 183
+c par_ops.c, lat_ops.c:
+c   fix bug in integer bitwise operation expressions, which
+c   were optimizable by smart compilers.  Oops.
+cC
+cHdisks.bitmover.com
+cK44282
+cZ+00:00
+e
+s 00006/00000/00708
+d D 1.173 02/01/04 13:06:09 staelin 184 183
+c Revised; Added some figures and tables; Added some more information to
+c the architecture primer
+cC
+cHfirewall.staelin.co.il
+cK08449
+e
+s 00000/00000/00001
+d D 1.172 01/12/31 16:52:45 staelin 183 181
+i 182
+c Merge bitmover.com:/home/bk/LMbench3
+c into hpli69.hpli.hpl.hp.com:/usr/WebPaper/users/staelin/src/LMbench3
+cC
+cK44895
+cM182
+e
+s 00007/00000/00001
+d D 1.167.1.1 01/12/31 16:49:50 staelin 182 177
+c Add three new papers to the documentation:
+c - lmbench3.ms: a description of the new features in lmbench3
+c - memhier.ms: a description of the memory analysis algorithms
+c - parallel.ms: a call to arms for programmers to utilize 
+c   instruction-level-parallelism
+cC
+cK44684
+cZ+02:00
+e
+s 00001/00000/00001
+d D 1.171 01/11/15 14:27:01 staelin 181 180
+c Updated par_ops to improve accuracy of results by reducing the
+c number of non-relevant operations inside various operation kernels.
+c For example, integer_div used to use the statement r=(i/r)^r, which
+c had an irrelevant XOR operation.  The new statement only uses DIV
+c statements.  Fixed kernels for integer_bit, integer_mul, integer_div,
+c int64_bit, int64_mul, int64_div.
+cC
+cK30641
+e
+s 00001/00000/00001
+d D 1.170 01/11/15 14:23:00 staelin 180 179
+c Change statements used in various lat_ops operation kernels to
+c remove extraneous operations.  Fixed do_integer_bitwise to remove
+c a shift operation; it now just does XORs.  Changed do_integer_mul
+c so that it only does a bit operation (XOR) every ten multiplications,
+c which should reduce the scope for measurement error.  Fixed 
+c do_integer_div so it only does division operations.  Did similar fixes
+c and changes for int64 operations.
+cC
+cK30645
+e
+s 00004/00000/00001
+d D 1.169 01/11/13 16:36:34 staelin 179 178
+c Add ability for child processes in file-related benchmarks to each
+c have their own file, as it sometimes makes a difference whether you
+c measure N processes beating on a single file or on N independent
+c files.  Affected benchmarks are bw_file_rd, bw_mmap_rd, lat_mmap,
+c and lat_pagefault.
+cC
+cK30636
+e
+s 00003/00000/00001
+d D 1.168 01/11/13 16:34:36 staelin 178 177
+c Add globally visible routine cp(char* src, char* dst, mode_t mode)
+c which copies a file.  Required renaming a cp() routine in bw_mem
+c to avoid name collisions.
+cC
+cK30413
+cZ+02:00
+e
+s 00001/00000/00001
+d D 1.167 01/09/11 09:41:20 staelin 177 176
+c Optionally add more detail to print_results(); i.e. the 
+c iteration count and timing details.
+cC
+cK30430
+e
+s 00001/00000/00001
+d D 1.166 01/09/11 09:36:40 staelin 176 175
+c Fix buglets in bw_tcp to ensure that the server keeps
+c sending data to clients, and that it sends data in the
+c right message sizes.
+cC
+cK30435
+e
+s 00001/00000/00001
+d D 1.165 01/09/11 09:24:43 staelin 175 174
+c Fix lat_connect so that it cannot measure parallelism, since
+c lat_connect has some special issues if the benchmark attempts
+c to create too many TCP connections in too short a period.
+cC
+cK30354
+e
+s 00001/00000/00001
+d D 1.164 01/09/11 09:22:50 staelin 174 173
+c Roll in fixes to BENCH*() macros which prevent bad timing results
+c from being included in the final result list.
+cC
+cK30293
+e
+s 00001/00000/00687
+d D 1.163 01/07/24 11:32:36 staelin 173 172
+c Fix a nasty bug in the summary result report generation where the
+c magnitude character 'K' or 'M' sometimes got left out of a result!
+cC
+cK30303
+e
+s 00002/00000/00685
+d D 1.162 01/06/20 10:21:39 staelin 172 171
+c src/line.c: Fix bug in automatic resizing when you request more memory than is
+c available; matching fixes in lib_mem.c
+cC
+cK30308
+e
+s 00001/00000/00684
+d D 1.161 01/06/20 09:12:23 staelin 171 170
+c In stream, fix a bug in the memory requirement calculations, and 
+c switch from using the median time to the minimum time, which is 
+c more stable.
+cC
+cK30321
+e
+s 00003/00000/00681
+d D 1.160 01/06/19 16:42:06 staelin 170 169
+c Updated the TODO list and added new ACKNOWLEDGEMENTS and CHANGES files
+cC
+cK30332
+e
+s 00002/00000/00679
+d D 1.159 01/06/19 12:09:18 staelin 169 168
+c Add a fix to scripts/make which verifies that gmake actually works
+cC
+cK07636
+e
+s 00001/00000/00678
+d D 1.158 01/06/19 10:34:42 staelin 168 167
+c Remove references to BDS
+cC
+cK07553
+e
+s 00001/00000/00677
+d D 1.157 01/06/19 10:34:09 staelin 167 166
+c Improve cache's design.  Fix some accounting problems in 
+c fixup_chunk with swapped variable, simplify code to use a
+c subroutine to sort pages by latencies.  Fix bug in test_chunk
+c to ensure that we use chunks for even memory hunks smaller
+c than the maximum chunk size (it used to be we only used
+c the chunking method if the amount of memory was larger than
+c the maximum possible chunk size, whereas it should be used
+c always, only with a minimum chunk size of one page.).
+cC
+cK07552
+e
+s 00002/00000/00675
+d D 1.156 01/06/19 10:29:56 staelin 166 165
+c Change portability system for drand48/rand/random to use bench.h
+c for portability macros and scripts/build to set #define flags for them
+cC
+cK07533
+e
+s 00001/00000/00674
+d D 1.155 01/06/19 10:28:07 staelin 165 164
+c Update 'make dist' target so it does the right thing
+cC
+cK07503
+e
+s 00001/00000/00673
+d D 1.154 01/06/13 13:01:10 staelin 164 163
+c Increase search space for "good" pages in cache.  This slows things 
+c down but should get it working again...
+cC
+cK07511
+e
+s 00001/00000/00672
+d D 1.153 01/06/13 12:29:45 staelin 163 162
+c Fixup Makefile so gmake won't complain so much
+cC
+cK07533
+e
+s 00001/00000/00671
+d D 1.152 01/06/13 12:28:46 staelin 162 161
+c Reorder actions in scripts/config-run so we only guess the line
+c size once we know how much memory we have available
+cC
+cK07537
+e
+s 00001/00000/00670
+d D 1.151 01/06/13 11:40:37 staelin 161 160
+c Fix buglet in scripts/build with new random number generator stuff
+cC
+cK07478
+e
+s 00001/00000/00669
+d D 1.150 01/06/13 11:33:49 staelin 160 159
+c Add forgotten updates to scripts/build to fixup CFLAGS for various
+c systems random number generators drand48/rand/random.
+cC
+cK07487
+e
+s 00001/00000/00668
+d D 1.149 01/06/13 11:05:54 staelin 159 158
+c Add STREAM version 2 to default lmbench HARDWARE run.  (STREAM version
+c 1 was already included in HARDWARE configuration.)
+cC
+cK07501
+e
+s 00001/00000/00667
+d D 1.148 01/06/13 11:03:49 staelin 158 157
+c Update stream so that it ensures you have enough memory; shrinks the
+c problem size until it fits in memory.  Also update default problem
+c size to match that of the original STREAM code(s).  Finally, comment
+c out the latency reports since this is really a bandwidth benchmark.
+c (It might make sense later to add in FLOPS reporting)
+cC
+cK07450
+e
+s 00001/00000/00666
+d D 1.147 01/06/13 11:01:20 staelin 157 156
+c Remove or comment out lots of debug statements from cache
+cC
+cK07461
+e
+s 00003/00000/00663
+d D 1.146 01/06/13 11:00:40 staelin 156 155
+c Enhance/update portability system to deal with various flavors of
+c random number generators available in unix: drand48/rand/random.
+cC
+cK07461
+e
+s 00001/00000/00662
+d D 1.145 01/06/13 10:59:28 staelin 155 154
+c Update scripts/gnu-os to include Mac/Darwin system
+cC
+cK07441
+e
+s 00001/00000/00661
+d D 1.144 01/06/12 18:24:50 staelin 154 153
+c Add code to stream to mimic STREAM version 2, and allow stream
+c run with parallelism using benchmp.
+cC
+cK07425
+e
+s 00001/00000/00660
+d D 1.143 01/06/12 17:38:05 staelin 153 152
+c Fix a number of bugs in cache; this is the first working version
+c (except that it includes scads of debug print statements)
+cC
+cK07355
+e
+s 00001/00000/00659
+d D 1.142 01/06/12 17:37:16 staelin 152 151
+c Remove bw_udp from build list; it hasn't been written yet...
+cC
+cK07359
+e
+s 00001/00000/00658
+d D 1.141 01/05/23 12:45:27 staelin 151 150
+c Changed cache's fixup_chunk() to try an reduce the number of experiments
+c it conducts and to try and maximize the benefit from those experiments.
+c Basically, only test at most 2*npages substitutions per chunk, rather than
+c 2*npages per pages.
+cC
+cK07283
+e
+s 00001/00000/00657
+d D 1.140 01/05/22 17:27:16 staelin 150 149
+c Fixup line_find so that it is robust on small memory machines.  Also,
+c fix up par_mem so the minimum parallelism is 1.0.
+cC
+cK07275
+e
+s 00001/00000/00656
+d D 1.139 01/05/22 17:26:15 staelin 149 148
+c Add new algorithm to cache, which tries to rapidly identify chunks
+c of pages that contain collisions, and then find the best replacement
+c for that chunk (building on existing pages as much as possible).
+cC
+cK07277
+e
+s 00001/00000/00655
+d D 1.138 01/05/21 14:52:44 staelin 148 147
+c Restructure of the code:
+c - pull code that tries to fixup a chunk into a separate routine
+c - separate logic that identifies cache boundaries and cache parameters
+c   into a two-pass method
+c - fix a bug with the command-line handling that caused a SEGFAULT
+cC
+cK07280
+e
+s 00003/00000/00652
+d D 1.137 01/05/21 10:58:01 staelin 147 146
+c Add tests for existence of srand48() and drand48(), and add replacements
+c based on srand() and rand() if they aren't present.
+cC
+cK07275
+e
+s 00001/00000/00651
+d D 1.136 01/05/21 10:56:12 staelin 146 145
+c Remove unnecessary #include <malloc.h> which causes problems on some
+c operating systems, and add #undef ALIGN, since Darwin/OSX has its own
+c ALIGN macro
+cC
+cK07284
+e
+s 00005/00000/00646
+d D 1.135 01/05/14 11:35:16 staelin 145 144
+c Add typedef for int64
+c Switch lat_ops and par_mem from using benchmp() to BENCH() for performance reasons
+c Change expression used in lat_ops and par_mem for measuring int and int64 add performance
+c   to one that only uses '+' operations
+cC
+cK07281
+e
+s 00001/00000/00645
+d D 1.134 01/05/10 16:09:53 staelin 144 143
+c Update scripts/gnu-os to latest ftp://ftp.gnu.org/gnu/config/config-guess version 4/20/2001
+cC
+cK07186
+e
+s 00001/00000/00644
+d D 1.133 01/05/02 20:16:20 staelin 143 142
+c - Change initial page order from random to sequential, in case the OS actually did do page coloring to minimize
+c   cache conflicts.  In this way cache only needs to fix things up when the OS goofed and didn't minimize the
+c   cache conflicts.
+cC
+cK07121
+e
+s 00001/00000/00643
+d D 1.132 01/05/02 20:14:33 staelin 142 141
+c - Fix old bug in getsummary with file system latencies; reported by Duc Vianney
+cC
+cK07132
+e
+s 00001/00000/00642
+d D 1.131 01/05/02 20:12:36 staelin 141 140
+c - Nitfix lat_ctx.c; change variable type from int* to pid_t* to match return type of fork()
+cC
+cK07088
+e
+s 00001/00000/00641
+d D 1.130 01/05/02 20:11:25 staelin 140 139
+c - Add missing file webpage-lm.tar
+cC
+cK07043
+e
+s 00001/00000/00640
+d D 1.129 01/05/02 10:29:38 staelin 139 138
+c - fix a bug in the cache latency detection caused by faulty abs()
+c - tweak cache's data collection algorithm so it tries harder to find the best set of pages
+cC
+cK59340
+e
+s 00001/00000/00639
+d D 1.128 01/04/10 10:18:35 staelin 138 137
+c src/cache.c@1.22
+c     Add new heuristics to the new page search so it always retains the
+c     fastest page, and so it keeps looking for faster pages until it finds
+c     one that probably wouldn't have triggered the new-page search in the
+c     first place.
+cC
+cK59335
+e
+s 00001/00000/00638
+d D 1.127 01/04/10 09:52:41 staelin 137 136
+c src/cache.c@1.21
+c     fix bug in cache line results handling (the result was being lost).
+cC
+cK59322
+e
+s 00001/00000/00637
+d D 1.126 01/04/09 16:59:58 staelin 136 129
+i 130 131 132 133 134 135
+c Merge hpli69.hpli.hpl.hp.com:/usr/WebPaper/users/staelin/src/LMbench3
+c into hpli69.hpli.hpl.hp.com:/usr/WebPaper/users/staelin/src/LMbench3.memory
+cC
+cHhpli69.hpli.hpl.hp.com
+cK59335
+cM135
+e
+s 00002/00000/00630
+d D 1.124.1.6 01/04/09 16:59:05 staelin 135 134
+c src/lib_mem.c@1.8
+c     bugfix to par_mem to ensure that we check whether mem_initialize()
+c     was able to actually malloc() the memory!
+c src/par_mem.c@1.13
+c     Increase the maximum memory for par_mem from 32MB to 64MB due to
+c     increasing cache sizes.  We want the maximum size to be several
+c     times larger than the largest cache to minimize cache effects.
+cC
+cK43784
+e
+s 00001/00000/00629
+d D 1.124.1.5 01/04/09 16:55:34 staelin 134 133
+c src/cache.c
+c     Nearly a complete rewrite of cache.c to make it possible to factor
+c     out cache collisions due to direct-mapped or low-associativity caches.
+c     There is a new algorithm which iterates through the pages to try and
+c     identify pages which collide with other pages, and then it tries to
+c     find a replacement page which doesn't collide (as much) with other
+c     pages.  Needless to say, this process can be excruciatingly slow, but
+c     it does seem to work pretty well.
+cC
+cK43742
+e
+s 00001/00000/00628
+d D 1.124.1.4 01/04/09 16:53:25 staelin 133 132
+c src/tlb.c
+c     Modify tlb's algorithm so that it is not dependent on line size
+c     calculations.  We use the new words_initialize() algorithm which 
+c     always jumps as far as possible from previously referenced words
+c     in a cache line.  Also, changed it from using sub-processes to
+c     doing everything in-process using the old BENCH() timing harness.
+cC
+cK43685
+e
+s 00001/00000/00627
+d D 1.124.1.3 01/04/09 16:48:15 staelin 132 131
+c src/line.c
+c     Increase the default memory size from 32MB to 64MB, and add additional
+c     tests so line won't print any output if it can't find a line size.
+cC
+cK43635
+e
+s 00001/00000/00626
+d D 1.124.1.2 01/04/09 16:46:39 staelin 131 130
+c Error checking --- double-check that malloc() doesn't return NULL
+cC
+cK43569
+e
+s 00002/00000/00624
+d D 1.124.1.1 01/04/09 16:45:56 staelin 130 127
+c src/lib_mem.c
+c     Rewrite lib_mem.c to eliminate or reduce a number of problems.
+c     First, reorganize the manner in which mem_initialize() creates
+c     the pointer chain to reduce the dependence on accurate line-size
+c     estimates.  Second, add a number of parameters to mem_state so 
+c     that external routines can easily change the pointer chain, which
+c     is useful for cache.c and others.  Third, modify line_find and
+c     par_mem so that they do their work without forking, which makes
+c     them faster and more efficient.  Fourth, fixup the cleanup routines
+c     so they are more careful and really delete all the utilized space.
+c src/lib_mem.h
+c     Add a number of new fields to mem_state to support some of the new
+c     capabilities added to lib_mem.c
+cC
+cK43506
+cZ+03:00
+e
+s 00003/00000/00626
+d D 1.125 01/04/09 10:27:01 staelin 129 127
+i 128
+c Merge bitmover.com:/home/bk/LMbench3
+c into hpli12.hpli.hpl.hp.com:/usr/WebPaper/users/staelin/src/LMbench3
+cC
+cHhpli12.hpli.hpl.hp.com
+cK58941
+cM128
+cZ+03:00
+e
+s 00002/00000/00610
+d D 1.113.1.1 01/04/09 00:26:19 staelin 128 116
+c config  	Auto convert
+c logging_ok	BitKeeper file /home/bk/LMbench3/BitKeeper/etc/logging_ok
+cC
+cHbitmover.com
+cK40918
+cZ-07:00
+e
+s 00001/00000/00623
+d D 1.124 01/04/02 15:06:29 staelin 127 126
+c Change include "timing.h" to include "bench.h" for new automatic types
+cC
+cK43414
+e
+s 00001/00000/00622
+d D 1.123 01/04/02 14:52:54 staelin 126 125
+c Fix buglets in lat_pipe; unused pipe fids were not closed 
+c properly after fork, so lat_pipe could leave zombie processes.
+cC
+cK43358
+e
+s 00001/00000/00621
+d D 1.122 01/04/02 14:51:24 staelin 125 124
+c Fix buglets in MEM_BENCHMARK_DECL(N) macro and #endif in lib_mem.h
+cC
+cK43329
+e
+s 00001/00000/00620
+d D 1.121 01/04/02 14:50:34 staelin 124 123
+c Add parallelism to lat_ops for three sub-benchmarks: integer bit, bogomflops, and double bogomflops
+cC
+cK43311
+e
+s 00001/00000/00619
+d D 1.120 01/04/02 14:49:24 staelin 123 122
+c Add #ifndef's to ensure timing.h is only included once
+cC
+cK43260
+e
+s 00001/00000/00618
+d D 1.119 01/04/02 14:48:24 staelin 122 121
+c Remove old overhead calculations from bw_mem that aren't required with the new timing harness
+cC
+cK43229
+e
+s 00003/00000/00615
+d D 1.118 01/04/02 14:47:29 staelin 121 120
+c Add tests for builtin uint and uint64_t types, and for S_IFFIFO vs. S_IFIFO
+cC
+cHhpli69.hpli.hpl.hp.com
+cK43183
+e
+s 00001/00000/00614
+d D 1.117 01/02/07 14:02:30 staelin 120 119
+c Don't define FLUSH for Lynx OS in lmdd
+cC
+cK42996
+e
+s 00001/00000/00613
+d D 1.116 01/02/07 12:30:06 staelin 119 118
+c Update to latest config.guess from ftp://ftp.gnu.org/gnu/config
+cC
+cK43000
+e
+s 00001/00000/00612
+d D 1.115 01/02/07 12:29:01 staelin 118 117
+c - Add a description to the BitKeeper config file
+cC
+cK43038
+e
+s 00002/00000/00610
+d D 1.114 01/02/07 12:13:19 staelin 117 116
+c - lmdd fixes for 64-bit HP-UX
+cC
+cK41241
+e
+s 00001/00000/00609
+d D 1.113 01/01/07 15:35:44 staelin 116 115
+c - scripts/getsummary: update 'num' subroutine so it is simply given
+c   the number of available spaces for the data.  It decides how to
+c   format the data given the data's magnitude and available space.
+cC
+cK27134
+e
+s 00001/00000/00608
+d D 1.112 01/01/07 15:34:03 staelin 115 114
+c - lat_fcntl: unlink tmp files as soon as possible so they disappear
+c   even if the program dies or is killed.
+cC
+cK27149
+e
+s 00001/00000/00607
+d D 1.111 01/01/07 15:32:49 staelin 114 113
+c - bw_pipe: kill uneeded pipe file descriptors so child process dies
+c   when parent dies
+cC
+cK27175
+e
+s 00001/00000/00606
+d D 1.110 01/01/07 15:30:07 staelin 113 112
+c - Update Makefile so we can use gmake's parallel build capability
+cC
+cK27176
+e
+s 00001/00000/00605
+d D 1.109 01/01/07 15:29:09 staelin 112 111
+c - Add "-lm" to LDFLAGS in scripts/build
+cC
+cK27190
+e
+s 00001/00000/00604
+d D 1.108 00/12/10 18:28:23 staelin 111 110
+c - Update scripts/build to shorten command lines by replacing
+c   filenames with script variables
+c - Update scripts/build to fix test for HP-UX ANSI/C compiler flags
+cC
+cK27181
+e
+s 00001/00000/00603
+d D 1.107 00/11/15 11:39:40 staelin 110 109
+c - Fix bug in getsummary which could cause it to report incorrect
+c   values for main memory latency.
+cC
+cK27207
+e
+s 00009/00000/00594
+d D 1.106 00/10/31 10:01:00 staelin 109 108
+c - Only print any output if benchmark produces a valid result
+c   (needed for mb() and micromb()-style outputs where prefix is
+c   printed by main() and only the result is printed by the output
+c   routine, and only then if the result is valid)
+c - Add SOCKOPT_REUSE to tcp_server() call
+cC
+cK27193
+e
+s 00002/00000/00592
+d D 1.105 00/10/31 09:53:19 staelin 108 107
+c - Add protocol number for lat_select (TCP_SELECT)
+cC
+cK26310
+e
+s 00001/00000/00591
+d D 1.104 00/10/31 09:52:09 staelin 107 106
+c - Tweaked summary output formatting to increase # of significant digits
+cC
+cK26337
+e
+s 00001/00000/00590
+d D 1.103 00/10/25 12:41:12 staelin 106 105
+c - Bug-fix bw_unix's command line parsing
+cC
+cK26345
+e
+s 00003/00000/00587
+d D 1.102 00/10/25 12:38:39 staelin 105 104
+c - Update lmbench script to collect lat_select results for both
+c   TCP sockets and files
+c - Update getsummary script to report lat_select result for TCP sockets
+c - Bug-fix lat_select so it reports the right number of descriptors
+cC
+cK26351
+e
+s 00001/00000/00586
+d D 1.101 00/10/19 17:06:22 staelin 104 103
+c - bugfix to lat_sig; fixed incorrect parameters to lmbench_usage()
+cC
+cK26365
+e
+s 00001/00000/00585
+d D 1.100 00/10/19 17:05:45 staelin 103 102
+c - Tweak lib_mem's line_test() to reduce the runtime by reducing
+c   the number of experiments that are done.  
+cC
+cK26367
+e
+s 00001/00000/00584
+d D 1.99 00/10/19 17:04:18 staelin 102 101
+c - Fix bug in lat_select that was reported by Lev Iserovich.  Lat_select
+c   does a select() on dup()'ed copies of stdin.  Depending on how you have
+c   logged into your machine, stdin might be a tty or a socket (but never a
+c   file).  I have modified lat_select to take a new argument specifying
+c   whether you want to select on a network TCP socket or a file.
+cC
+cK26364
+e
+s 00001/00000/00583
+d D 1.98 00/10/19 17:00:32 staelin 101 100
+c - Tweak cache boundary detection code
+c - Add new 'signal' to cache boundary detection
+c - Add memory parallelism calculation for main memory too
+c - Fix bug in cache parallelism calculation
+c - Fix bug in cache latency calculation
+cC
+cK26368
+e
+s 00001/00000/00582
+d D 1.97 00/10/18 14:28:47 staelin 100 99
+c - Slight tweak to cache boundary detection code to (hopefully) make
+c   it more robust
+cC
+cK26361
+e
+s 00001/00000/00581
+d D 1.96 00/10/17 16:37:57 staelin 99 98
+c - Automatically compute cache line size for largest cache
+c - Improve heuristics that search for cache boundaries
+cC
+cK26363
+e
+s 00002/00000/00579
+d D 1.95 00/10/16 17:24:54 staelin 98 97
+c - Add lat_sem benchmark to measure semaphore latency
+cC
+cK26367
+e
+s 00002/00000/00577
+d D 1.94 00/10/16 17:22:26 staelin 97 96
+c - Assorted code cleanups
+cC
+cK14517
+e
+s 00005/00000/00572
+d D 1.93 00/10/16 17:21:34 staelin 96 95
+c - Assorted code cleanups
+cC
+cK14547
+e
+s 00001/00000/00571
+d D 1.92 00/10/16 17:20:30 staelin 95 94
+c - Fix result handling in lib_mem's line_test
+cC
+cK14576
+e
+s 00001/00000/00570
+d D 1.91 00/10/16 17:18:14 staelin 94 93
+c - Add "-W" and "-N" flags to lat_udp's getopt call
+cC
+cK14587
+e
+s 00001/00000/00569
+d D 1.90 00/10/16 17:17:02 staelin 93 92
+c - Improve cache's algorithm for identifying cache boundaries
+cC
+cK14599
+e
+s 00001/00000/00568
+d D 1.89 00/10/16 17:15:09 staelin 92 91
+c - Add [-m <message size>] option to bw_pipe
+cC
+cK14617
+e
+s 00039/00000/00529
+d D 1.88 00/10/16 17:14:01 staelin 91 90
+c - Update man pages to match current status
+c - Update 'make install' target to include new man pages
+cC
+cK14630
+cZ+02:00
+e
+s 00001/00000/00528
+d D 1.87 00/09/28 12:44:40 staelin 90 89
+c - Tweak cache.c to print out more data
+cC
+cK22720
+e
+s 00002/00000/00526
+d D 1.86 00/09/28 12:16:58 staelin 89 88
+c - Add error checking to par_mem() so you don't divide by zero
+c - Tweak line_find()'s algorithm for identifying the line size to make it more stable
+cC
+cK22713
+e
+s 00001/00000/00525
+d D 1.85 00/09/28 12:14:53 staelin 88 87
+c - Adjust lat_udp's timeout so you only run Alarm() once per timing interval
+cC
+cK22704
+e
+s 00001/00000/00524
+d D 1.84 00/09/28 12:13:59 staelin 87 86
+c - Changed getsummary so that it will check to see if there is any data to be printed
+c   for each category/hostname so you don't have lots of empty output sections/lines
+cC
+cK22679
+e
+s 00001/00000/00523
+d D 1.83 00/09/26 16:23:37 staelin 86 85
+c - Fix buglet in lat_ops; miscounted number of operations executed for both float and
+c   double bogomips computations
+cC
+cK22672
+e
+s 00001/00000/00522
+d D 1.82 00/09/26 16:22:30 staelin 85 84
+c - Fix summary output for lat_protfault, which is now smaller than a microsecond on
+c   many machines/operating systems
+cC
+cK22666
+e
+s 00001/00000/00521
+d D 1.81 00/09/26 16:04:01 staelin 84 83
+c - Fixed a bug in benchmp_child where it could dereference a NULL function pointer
+c - Added a variety of return-code checking around various malloc() statements in lib_timing
+cC
+cK22658
+e
+s 00002/00000/00519
+d D 1.80 00/09/26 16:02:01 staelin 83 82
+c - Fix bugs in lat_ops and par_ops in float_add, float_mul, double_add, and double_mul
+c   which were causing arithmetic overflows which caused the benchmarks to crash
+cC
+cK22671
+e
+s 00004/00000/00515
+d D 1.79 00/09/26 16:00:27 staelin 82 81
+c - Fix bug in command-line parsing for "-S <serverhost>" option for bw_udp, lat_rpc,
+c   lat_tcp, and lat_udp
+c - Fix bug in lat_rpc TIMEOUT which was too small and was causing lat_rpc to fail
+c   too often
+cC
+cK22671
+e
+s 00008/00000/00507
+d D 1.78 00/09/25 17:28:02 staelin 81 80
+c - Major revision to simplify initialization code in mem_initialize() and line_initialize()
+c - Change state->line for line_initialize(), line_test(), and find_line() to have the
+c   same meaning as it already head elsewhere.  It now represents the number of bytes in
+c   a cache line as opposed to the number of pointers in a cache line.
+c - Add state->maxlen parameter which allows the caller to control the number of pages
+c   allocated by the initialization routines.  The initialization routines will then 
+c   randomly select pages to cover state->len bytes.  This allows the benchmarks to 
+c   experiment with cache-unfriendly allocations.  It might have a beneficial effect on
+c   systems without page coloring (to be determined ;-)
+c - Move par_mem from par_mem.c so it is available to both par_mem.c and cache.c
+cC
+cK22697
+e
+s 00001/00000/00506
+d D 1.77 00/09/25 13:21:55 staelin 80 79
+c - For OpenBSD, add exit(0) to end of lat_select
+cC
+cK22689
+e
+s 00002/00000/00504
+d D 1.76 00/09/25 13:21:11 staelin 79 78
+c - Fix bug in summary processing of missing data
+c - Fix bug in scripts/lmbench which causes local TCP bandwidth results to be overlooked
+c - Cleanup summary result reporting
+cC
+cK22696
+e
+s 00001/00000/00503
+d D 1.75 00/09/24 15:40:11 staelin 78 77
+c - tweaks to scripts/lmbench to ensure that there is at least an "msleep 250" after
+c   each message to OUTPUT.  This will help minimize the effects of echoing to a window
+c   in X
+c - tweaks to ensure there is a blank line before each array output
+cC
+cK22680
+e
+s 00001/00000/00502
+d D 1.74 00/09/24 12:59:04 staelin 77 76
+c - Beginning of a rewrite of cache to measure more aspects of memory hierarchy to
+c   try and determine cache sizes more accurately
+cC
+cK22679
+e
+s 00001/00000/00501
+d D 1.73 00/09/24 12:54:18 staelin 76 75
+c - Remove unnecessary status statement "num bumped"
+cC
+cK22670
+e
+s 00003/00000/00498
+d D 1.72 00/09/24 12:52:54 staelin 75 74
+c - Remove unnecessary function prototypes for pmap_*() functions
+cC
+cK22674
+e
+s 00003/00000/00495
+d D 1.71 00/09/24 12:51:36 staelin 74 73
+c - Bugfixes for sending status output to a file
+cC
+cK20750
+e
+s 00004/00000/00491
+d D 1.70 00/09/19 16:53:00 staelin 73 72
+c - Fix bug in mem_initialize where memory was accessed after it was freed
+c - Add code to mem_initialize which runs through the memory once
+c - Fix bug in line_initialize so you always have at least one page
+c - Add comments before each of the initialize routines
+c - Migrate line_find and line_test from line.c to lib_mem.c
+cC
+cK20752
+e
+s 00001/00000/00490
+d D 1.69 00/09/18 17:49:58 staelin 72 71
+c - Ensure that all result files have a .N extension
+cC
+cK18063
+e
+s 00008/00000/00482
+d D 1.68 00/09/18 16:44:15 staelin 71 70
+c - Create lib_mem.h and lib_mem.c to hold common routines for memory subsystem analysis
+cC
+cK18049
+e
+s 00002/00000/00480
+d D 1.67 00/09/18 16:42:08 staelin 70 69
+c - Bugfixes to scripts/config-run and scripts/lmbench
+cC
+cK59726
+e
+s 00002/00000/00478
+d D 1.66 00/09/18 11:34:21 staelin 69 68
+c - Fix bug in SIGCHLD handling which was causing an infinite loop in lat_proc
+cC
+cK59767
+e
+s 00003/00000/00475
+d D 1.65 00/09/18 11:33:15 staelin 68 67
+c - Add ability for user to select which subset of benchmarks to run, including ability
+c   to select (almost) individual benchmarks
+cC
+cK59737
+e
+s 00001/00000/00474
+d D 1.64 00/09/13 14:45:45 staelin 67 66
+c - Add a timeout in lat_udp since HP-UX seems to drop packets
+cC
+cK59692
+e
+s 00001/00000/00473
+d D 1.63 00/09/13 14:44:50 staelin 66 65
+c - Update NO_PORTMAPPER code
+cC
+cK59696
+e
+s 00002/00000/00471
+d D 1.62 00/09/13 14:44:08 staelin 65 64
+c - Change handling of lmbench scripts status output handling to use user-specified file
+cC
+cK59694
+e
+s 00001/00000/00470
+d D 1.61 00/09/13 12:48:52 staelin 64 63
+c - Add a missing htons() that was causing Intel arch to break.
+cC
+cK59699
+e
+s 00001/00000/00469
+d D 1.60 00/09/13 12:43:36 staelin 63 62
+c - Replace "mhz" custom command-line parsing code with getopt()-based command line parsing
+cC
+cK58714
+e
+s 00006/00000/00463
+d D 1.59 00/09/13 12:41:51 staelin 62 61
+c - Add "int* permutation(int N);" which returns a permutation of N integers
+c - Tweaks to "line" so it is not affected by TLB effects
+c - Rename "loads" to "par_mem"
+c - Bug fixes for "tlb"
+cC
+cK58718
+e
+s 00001/00000/00462
+d D 1.58 00/09/13 12:34:17 staelin 61 60
+c - Remove unnecessary "if (gettime() > 0)" before calls to insertsort()
+cC
+cK57723
+e
+s 00001/00000/00461
+d D 1.57 00/08/16 13:11:48 staelin 60 59
+c - Add command line arguments for warmup and repetitions to lat_ops
+cC
+cK57709
+e
+s 00002/00000/00459
+d D 1.56 00/08/16 13:10:45 staelin 59 58
+c - Add par_ops
+cC
+cK57701
+e
+s 00002/00000/00457
+d D 1.55 00/08/16 09:33:16 staelin 58 57
+c - Rename loads to par_mem
+cC
+cK45719
+e
+s 00001/00000/00456
+d D 1.54 00/08/16 09:31:27 staelin 57 56
+c - Fix loads in setup of pointer chains; ensure that pointers are always equidistant
+c - Fixup macros in loads which build benchmark functions
+cC
+cK45499
+e
+s 00006/00000/00450
+d D 1.53 00/08/16 09:29:23 staelin 56 55
+c - Change/fix SIGTERM handling to make it more robust and generic
+cC
+cK45501
+e
+s 00001/00000/00449
+d D 1.52 00/08/16 09:26:52 staelin 55 54
+c - Add check for IA64 HP-UX to gnu-os
+cC
+cK45435
+e
+s 00003/00000/00446
+d D 1.51 00/08/10 16:14:41 staelin 54 53
+c - Various fixes and tweaks based on snapshot sent to Chris Ruemmler, David Mosberger and others.
+c - Fix gnu-os so it properly identifies HP series 800 servers
+c - Fix flushdisk.c so it no longer includes a kernel header file
+c - Fix lat_ops.c so it correctly identifies "uint64 add" results
+cC
+cK45401
+e
+s 00002/00000/00444
+d D 1.50 00/08/03 19:21:03 staelin 53 52
+c - run all bw_mem stuff for both hardware and os
+c - send results to lmbench3@bitmover.com
+cC
+cK44479
+e
+s 00001/00000/00443
+d D 1.49 00/08/03 18:43:54 staelin 52 51
+c - Change lmbench so bw_mem bcopy, bw_mem bcopy conflict, and bw_mem bzero are in both
+c   the hardware and os subsets
+cC
+cK44489
+e
+s 00002/00000/00441
+d D 1.48 00/08/03 14:26:19 staelin 51 50
+c - Add targets for hardware and os benchmark subsets
+c - Remove hardware and os specifications and questions from config-run and CONFIG.*
+cC
+cK44480
+e
+s 00001/00000/00440
+d D 1.47 00/08/03 13:59:04 staelin 50 49
+c - Moved bw_mem bzero, bw_mem bcopy, and bw_mem bcopy conflict from the hardware subset
+c   to the OS subset
+cC
+cK44479
+e
+s 00014/00000/00426
+d D 1.46 00/08/02 18:05:07 staelin 49 48
+c - Split benchmark into two halves: HARDWARE and OS
+c - Change parallelism mechanism from scripts/synchronize to benchmp() via "-P" flags
+c - Add LMBENCH_VER=bk.ver tag to results
+c - Add bk.ver target to src/Makefile to create the bk version string from ChangeSet
+c - Fix the benchmp timing harness so it is more reliable and is better about cleaning
+c   up child processes after failures
+c - Fix lat_ctx, lat_fcntl, lat_pipe, lat_proc, lat_unix, and lat_fcntl so they are 
+c   better about cleaning up child processes after failures
+c - Rewrite lat_pagefault to use benchmp timing harness
+cC
+cK44482
+e
+s 00002/00000/00424
+d D 1.45 00/08/01 12:14:14 staelin 48 47
+c - Add significant digits to memory latency results in lat_mem_rd
+c - Add section reporting remote networking performance in getsummary
+cC
+cK41556
+e
+s 00007/00000/00417
+d D 1.44 00/08/01 09:21:32 staelin 47 46
+c - Check all of $PATH for remsh, not just /bin, in config-run
+c - Add check that time > 0 in insertsort(), and remove duplicate checks before all calls
+c   to insertsort()
+c - Replace custom code to parse xxxK and xxxM on command line with calls to bytes(optarg)
+cC
+cK41588
+e
+s 00006/00000/00411
+d D 1.43 00/07/31 11:31:16 staelin 46 45
+c - Tweaks to cache to hopefully make it work better on systems without page coloring
+c - Add in Robert G. Brown's hack to query for rsh/rcp programs in config-run
+c - Add a stream.c which is meant to clone John McCalpin's STREAM benchmark
+cC
+cK41586
+e
+s 00003/00000/00408
+d D 1.42 00/07/30 15:34:09 staelin 45 44
+c - Rework the cache size calculation logic in cache
+c - Add more GCC workarounds to lat_ops.c
+c - Add cache to lmbench script
+cC
+cK29925
+e
+s 00002/00000/00406
+d D 1.41 00/07/30 14:40:03 staelin 44 43
+c - Some tweaks to getsummary output to improve formatting
+c - Change loads so that it tests all load widths and reports the fastest result
+cC
+cK29973
+e
+s 00030/00000/00376
+d D 1.40 00/07/30 11:46:22 staelin 43 42
+c - Change type of "iterations" from uint64 to iter_t, which is a u_long
+cC
+cK29991
+e
+s 00001/00000/00375
+d D 1.39 00/07/30 10:47:39 staelin 42 41
+c - Change handshaking between parent and child processes.  All signals are now a single
+c   character, which is guaranteed to be atomic in all pipes.  In addition, the parent
+c   allows a single child to reports its results at a time, so there is no danger of
+c   results vectors getting intermingled.
+c - Added additional test in benchmp_interval to ensure that our times aren't negative;
+c   and it we have done over a million iterations and the time is still negative, then
+c   we give up.  (Time can become negative once you subtract off the expected overhead)
+cC
+cK30000
+e
+s 00002/00000/00373
+d D 1.38 00/07/27 17:21:03 staelin 41 40
+c - Fix bw_mem bug by fixing bug in BENCH_INNER in bench.h
+c - Some tweaks to benchmp_interval to ensure things happen in the right order
+c - Small tweak to l_overhead and two_ops to cleanup unnecessary complexity in the code
+cC
+cK29993
+e
+s 00001/00000/00372
+d D 1.37 00/07/27 16:09:30 staelin 40 39
+c - Tweaking getsummary's data format and layout to improve readability
+cC
+cK29999
+e
+s 00009/00000/00363
+d D 1.36 00/07/27 14:42:05 staelin 39 38
+c - Begin adding Robert G. Brown's rsh/remsh/ssh and rcp/scp selection code to config-run
+c   and CONFIG.* files instead of having it computed dynamically in lmbench
+c - Lots of small tweaks to improve getsummary's formatting and result reporting accuracy
+c - Decrease bw_tcp warmup time from 7.5 seconds to 1.0 seconds since this should be enough
+c   time for the tcp windows/handshaking to settle after connection initialization
+c - Small tweaks to various benchmark inner-loop expressions in lat_ops to try and improve
+c   its portability and accuracy
+c - Fix a bug in lmhttp that was preventing it from working in the remote case
+c - Change return type of main() in lat_rpc to int from void
+c - Fixup type cast chains in lmdd so they work on Robert's machine
+c - Change message size selection in lmbench so one size is ethernet's MTU (1437 bytes
+c   payload + 63 bytes header == 1500 bytes), so we measure 1437 instead of 1500 bytes
+cC
+cK29997
+e
+s 00008/00000/00355
+d D 1.35 00/07/26 18:10:01 staelin 38 37
+c - Dramatically simplified benchmp system by removing lots of redundant code
+c - Fixed bug in benchmp system by removing longjmp() from a signal handler.  Replaced
+c   it with a scheme that polls a status value which is set by the signal handler.
+c - Cleaned up bw_tcp and improved its experimental structure to dramatically shorten the
+c   time required to measure TCP bandwidth.
+c - Added loop in scripts/lmbench to measure TCP bandwidth for several message sizes
+c - Updated getsummary to "getbiggest" TCP bandwidth value
+c - Added workaround for GCC infinite loop bug to lat_ops
+cC
+cK29007
+e
+s 00002/00000/00353
+d D 1.34 00/07/25 14:45:21 staelin 37 36
+c - Fix some RUSAGE tests and defines
+cC
+cK13469
+e
+s 00012/00000/00341
+d D 1.33 00/07/25 13:53:00 staelin 36 35
+c - update gnu-os to latest version of config.guess from autoconf-2.13
+c - begin update of getsummary to report more significant digits as appropriate and
+c   start reporting summary results from new benchmarks
+c - add new lat_ops benchmark which reports the latencies for a variety of basic
+c   arithmetic operators for int, uint64, float, and double data types
+c - expand width of 'loads' search to 16 from 8.  Should be 32, but this requires some
+c   additional search logic
+c - switch tlb from a sequential search to a binary search for the TLB size
+c - add test for getrusage (-DRUSAGE) to build script
+c - fix bug in lat_rps which prevented server name from being reported properly
+c - update config-run so that it runs 'line' and reports LINE_SIZE
+cC
+cK12729
+e
+s 00001/00000/00340
+d D 1.32 00/07/06 15:56:00 staelin 35 34
+c - Add draft bw_udp; this is currently known to be broken and incomplete...
+cC
+cK64171
+e
+s 00006/00000/00334
+d D 1.31 00/07/06 15:51:22 staelin 34 33
+c - Modify lmbench script so it does not rely on validity of /dev/tty (if /dev/tty
+c   is not valid then the terminal output goes to /dev/null)
+c - slight bugfix to lat_syscall with missing newline at end of output line
+c - updates to TODO list
+c - slight simplification of lat_udp.c
+cC
+cK52410
+e
+s 00004/00000/00330
+d D 1.30 00/07/05 17:14:41 staelin 33 32
+c - Add a second level of statistical median filtering on the results; since each
+c   benchmark's memory access patterns are random, we need a second level of filtering
+c   to determine the "representative" value.
+cC
+cK39868
+e
+s 00007/00000/00323
+d D 1.29 00/07/05 14:38:36 staelin 32 31
+c - Add new benchmark "loads" which attempts to deduce the number of outstanding
+c   loads that can happen in parallel on a system
+c - Add section to COPYING-2 describing the rationale for the restrictions on publication
+c   of lmbench numbers
+cC
+cK39871
+e
+s 00002/00000/00321
+d D 1.28 00/07/05 12:02:16 staelin 31 30
+c - Send output to stdout rather than stderr
+cC
+cK27309
+e
+s 00002/00000/00319
+d D 1.27 00/07/05 11:28:11 staelin 30 29
+c - Change memory access patterns to make better use of known cache line sizes
+c - Change default behavior of 'line' so it just prints the size; like 'enough' just
+c   prints the timing interval
+cC
+cK27344
+e
+s 00002/00000/00317
+d D 1.26 00/07/05 10:26:04 staelin 29 28
+c - Fix a nasty memory bug in lat_unix and a memory leak in bw_tcp
+cC
+cK27311
+e
+s 00001/00000/00316
+d D 1.25 00/07/04 16:37:31 staelin 28 27
+c - Fix nasty bugs in bw_mem which were causing cp and fcp to fail horribly
+cC
+cK27312
+e
+s 00029/00000/00287
+d D 1.24 00/07/04 14:56:08 staelin 27 26
+c - Change the result handling system to use a global pointer to a result_t structure
+c   rather than a static global result_t structure.  This makes it easier for us to
+c   have variable sized global results, which are needed to support the "repetitions"
+c   argument of benchmp
+c - Add new repetitions argument to benchmp which specifies the number of times the
+c   experiment will be run.  The default is TRIES (11).
+c - Add new warmup argument to benchmp which specifies the number of microseconds that
+c   the parent sleeps after receiving all "ready" signals from children.  The default
+c   is 0.
+c - Add new "-W <warmup>" and "-N <repetitions>" command line arguments to nearly all
+c   benchmarks.
+cC
+cK27318
+e
+s 00002/00000/00285
+d D 1.23 00/07/03 15:44:13 staelin 26 25
+c - Some tweaks to cache so it is likely to use all (or almost all) of a cache even
+c   when the user doesn't pass in a cache line estimate
+c - Various buglets in cache and tlb
+cC
+cK16066
+e
+s 00005/00000/00280
+d D 1.22 00/07/02 18:35:45 staelin 25 24
+c - Add three new benchmarks which measure cache line size, TLB size, and cache size.
+c - Fix a problem with scripts/gnu-os which caused lmbench to occassionally fail when
+c   it is used in a clustered environment with a shared file system
+cC
+cK16062
+e
+s 00002/00000/00278
+d D 1.21 00/06/27 17:47:43 staelin 24 22
+c - Switch to using a build script to automagically identify compile flags
+cC
+cK46578
+e
+s 00000/00000/00000
+d R 1.20 00/06/27 13:24:04 staelin 23 22
+cSv3alpha1
+e
+s 00001/00000/00277
+d D 1.20 00/06/26 08:51:25 staelin 22 21
+c - fix bug in bw_mem which sometimes caused infinite loops
+cC
+cK34454
+e
+s 00001/00000/00276
+d D 1.19 00/06/25 13:33:28 staelin 21 20
+c - fix bug in mhz's compute_mhz so we don't check subsets with too few data points
+cC
+cK34477
+e
+s 00002/00000/00274
+d D 1.18 00/06/25 13:20:22 staelin 20 19
+c - fix buglet in median computations
+cC
+cK34480
+e
+s 00010/00000/00264
+d D 1.17 00/06/21 19:28:50 staelin 19 18
+c - in scrips/lmbench fixed test of HP-UX remsh vs. rsh
+c - updated bw_tcp, lat_connect, lat_http, lat_rpc, lat_tcp, lat_udp to add '-m <message size>'
+c   and clean up parameter parsing.  Was not able to add '-m' to lat_rpc, lat_udp, and lat_http.
+c - added skew and kurtosis calculations to lib_timing.c
+c - added a '-d' flag to mhz to print debugging information
+cC
+cK34499
+e
+s 00006/00000/00258
+d D 1.16 00/05/31 16:16:21 staelin 18 16
+c A number of small bugfixes so the result parsing scripts can actually parse the output
+c and generate data graphs and tables.
+cC
+cK30503
+cZ+03:00
+e
+s 00015/00000/00243
+d D 1.15 00/04/17 13:06:07 staelin 16 15
+c This changeset contains a lot of changes:
+c - the timing harness has been updated to make the timing interval calculations
+c   more stable:
+c 	- use the minimum time during timing resolution calculations in time_N
+c 	- fixed a bug in test_time which incorrectly calculated the absolute
+c 	  value of the difference of two unsigned integers
+c - the addition of a whole new interface to the benchmp timing harness for use
+c   by benchmarks which cannot return in the normal fashion, such as the page fault
+c   handler that infinite loops.  See benchmp_getstate() and benchmp_interval()
+c   in lib_timing.c for the implementation and lat_sig.c for an example of their use.
+c - updated and debugged lat_fcntl so it can be included in the available benchmarks
+c - converted 'char c' to 'int c' for getopt() in many of the programs
+c - added calls to ../scripts/make in Makefile to figure out which make program to use
+cC
+cHhpli8.hpli.hpl.hp.com
+cK27685
+cZ+02:00
+e
+s 00004/00000/00239
+d D 1.14 00/03/16 18:07:49 brucec 15 14
+c Make changes to lat_mmap, lat_tcp, lat_connect, and lat_udp
+c so they can run scalability tests ("-P <parallelism>").  The
+c latter two currently use only a single server process which will
+c prevent proper scaling, so more work is needed on them. 
+cC
+cK64512
+e
+s 00005/00000/00234
+d D 1.13 00/03/14 18:03:56 brucec 14 13
+c Make lat_fifo, lat_pipe, and lat_tcp MP-ready "-P <parallelism>"
+c Remove debug code from lat_ctx.
+c First pass at making lat_select MP-ready (not working yet).
+cC
+cK01443
+e
+s 00004/00000/00230
+d D 1.12 00/03/10 18:02:25 brucec 13 12
+c Make changes so tests bw_mem, bw_mmap_rd, and bw_tcp can be run i
+c parallel "-P <parallelism>"
+c First part of changes to lat_unix_connect (more needed).
+cC
+cK04822
+e
+s 00003/00000/00227
+d D 1.11 00/03/09 18:24:54 brucec 12 11
+c Make changes so tests can be run with different parallelism levels.
+cC
+cK08282
+e
+s 00003/00000/00224
+d D 1.10 00/03/06 18:14:31 brucec 11 10
+c Make tests parallelizeable ("-P <parallelism>").
+cC
+cHrx7
+cK09920
+cZ-05:00
+e
+s 00005/00000/00219
+d D 1.9 00/03/01 17:23:41 staelin 10 9
+c - Convert lat_sig to new benchmp timing harness, with getopt parameter parsing
+c - Convert lat_mem_rd and lat_syscall to new getopt parameter parsing.  (Were already
+c   converted to new benchmp timing harness)
+cC
+cK14586
+e
+s 00003/00000/00216
+d D 1.8 00/03/01 14:34:26 staelin 9 8
+c - Tweak getopt harness in bw_pipe and bw_unix
+c - Add alarm()-based harness to kill errant child processes so parent doesn't
+c   wait() forever on children that refuse to exit
+cC
+cHhpli8.hpli.hpl.hp.com
+cK13621
+cZ+02:00
+e
+s 00004/00000/00212
+d D 1.7 00/02/28 17:01:56 brucec 8 7
+c Change bw_pipe.c and bw_unix.c to work with optional parallelism
+c arguments.
+c Make char *id a static pointer in getopt.c so it can link with
+c stdlib.so on platforms where that shared object includes getopt().
+cC
+cHrx7
+cK10045
+cZ-05:00
+e
+s 00001/00000/00211
+d D 1.6 00/02/27 09:28:12 staelin 7 6
+c Patch getopt.c so it compiles in lmbench
+cC
+cK16290
+e
+s 00011/00000/00200
+d D 1.5 00/02/23 11:15:45 staelin 6 5
+c Draft implementation of new benchmp() timing harness
+c 
+c Revision of result_t structure
+cC
+cK16281
+e
+s 00005/00000/00195
+d D 1.4 00/02/02 09:58:11 staelin 5 4
+c lmbench version 2 alpha 12
+c 
+c This ChangeSet incorporates all the bugfixes made to
+c lmbench since version 2 alpha 11.  The primary changes
+c are tweaks to the timing harness so bad measurements
+c are ignored and a simple bugfix to lat_rpc.  Some of
+c the changes done to start the Windows port were also
+c integrated.
+cC
+cHhpli8.hpli.hpl.hp.com
+cK63218
+cZ+02:00
+e
+s 00044/00000/00151
+d D 1.3 00/01/31 16:29:31 lm 4 3
+c Updates for BitKeeper.
+cC
+cK58368
+e
+s 00150/00000/00001
+d D 1.2 00/01/31 15:05:45 lm 3 2
+c Import changeset
+cC
+cK58225
+e
+s 00001/00000/00000
+d D 1.1 00/01/31 14:55:54 lm 2 1
+c Initial repository create
+cC
+cK11166
+e
+s 00000/00000/00000
+d D 1.0 00/01/31 14:53:35 lm 1 0
+c BitKeeper file /home/lm/lmbench.BK/ChangeSet
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cC
+cHlm.bitmover.com
+cK47351
+cPChangeSet
+cR--LMBENCH--
+cV4
+cX0x61
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x61
+t
+The lmbench benchmarking system
+T
+I 234
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli69.hpli.hpl.hp.com|src/Makefile|20021028121954|16912
+E 234
+I 232
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli69.hpli.hpl.hp.com|src/Makefile|20021028121632|16634
+E 232
+I 231
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli69.hpli.hpl.hp.com|scripts/lmbench|20021028121524|10814
+E 231
+I 230
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli69.hpli.hpl.hp.com|scripts/getsummary|20021028121409|32873
+E 230
+I 228
+lm@lm.bitmover.com|src/lat_pagefault.c|19941118084947|33722|21040cf28d60fb56 staelin@hpli69.hpli.hpl.hp.com|src/lat_pagefault.c|20021028072215|17319
+E 228
+I 227
+staelin@hpli8.hpli.hpl.hp.com|src/par_ops.c|20000816101018|16292|3e0268b53182d2da staelin@disks.bitmover.com|src/par_ops.c|20021027151023|50692
+E 227
+I 226
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli69.hpli.hpl.hp.com|src/Makefile|20021020090454|07376
+E 226
+I 225
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpliclu3.hpli.hpl.hp.com|src/Makefile|20021020072918|65287
+E 225
+I 224
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpliclu3.hpli.hpl.hp.com|src/Makefile|20021020072335|10606
+lm@work.bitmover.com|BitKeeper/etc/logging_ok|20010127061153|38536|108d55ddc6240e3f staelin@hpliclu3.hpli.hpl.hp.com|BitKeeper/etc/logging_ok|20021020072338|22385
+E 224
+I 223
+staelin@hpli69.hpli.hpl.hp.com|src/lat_usleep.c|20021017121533|15344|9253b2da8ef3ceda staelin@hpli69.hpli.hpl.hp.com|src/lat_usleep.c|20021018085934|10126
+E 223
+I 222
+staelin@hpli69.hpli.hpl.hp.com|src/lat_usleep.c|20021017121533|15344|9253b2da8ef3ceda staelin@hpli69.hpli.hpl.hp.com|src/lat_usleep.c|20021018080452|62713
+E 222
+I 221
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli69.hpli.hpl.hp.com|src/bw_tcp.c|20021017130520|07272
+E 221
+I 220
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli69.hpli.hpl.hp.com|src/bw_tcp.c|20021017123829|07969
+E 220
+I 219
+staelin@hpli69.hpli.hpl.hp.com|src/lat_usleep.c|20021017121533|15344|9253b2da8ef3ceda staelin@hpli69.hpli.hpl.hp.com|src/lat_usleep.c|20021017123608|26884
+E 219
+I 218
+staelin@hpli69.hpli.hpl.hp.com|src/lat_dram_page.c|20021017121629|14695|346a3f39cff24f5 staelin@hpli69.hpli.hpl.hp.com|src/lat_dram_page.c|20021017121630|39608
+E 218
+I 217
+staelin@hpli69.hpli.hpl.hp.com|src/lat_usleep.c|20021017121533|15344|9253b2da8ef3ceda staelin@hpli69.hpli.hpl.hp.com|src/lat_usleep.c|20021017121534|12852
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli69.hpli.hpl.hp.com|src/Makefile|20021017121532|12897
+E 217
+I 216
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli69.hpli.hpl.hp.com|scripts/config-run|20021016150511|51121
+E 216
+I 215
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli69.hpli.hpl.hp.com|scripts/config-run|20021016150400|46674
+E 215
+I 214
+lm@lm.bitmover.com|src/memsize.c|19950214190337|11395|37f652d1bab57b36 staelin@hpli69.hpli.hpl.hp.com|src/memsize.c|20021016144124|33236
+E 214
+I 213
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli69.hpli.hpl.hp.com|scripts/config-run|20021016144101|37358
+E 213
+I 212
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli69.hpli.hpl.hp.com|scripts/getsummary|20021003124739|33031
+E 212
+I 211
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli69.hpli.hpl.hp.com|scripts/lmbench|20021003110003|11681
+E 211
+I 210
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli69.hpli.hpl.hp.com|scripts/config-run|20021003105935|33354
+E 210
+I 209
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 staelin@hpli69.hpli.hpl.hp.com|src/lat_mem_rd.c|20021001065042|08958
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli69.hpli.hpl.hp.com|src/lib_timing.c|20021001065042|12420
+E 209
+I 208
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli69.hpli.hpl.hp.com|src/lib_timing.c|20021001065006|09710
+E 208
+I 207
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 staelin@hpli69.hpli.hpl.hp.com|src/lat_mem_rd.c|20021001064944|08507
+E 207
+I 206
+staelin@hpli69.hpli.hpl.hp.com|src/lib_debug.h|20021001064825|33616|cc6fc1f0c7338ad8 staelin@hpli69.hpli.hpl.hp.com|src/lib_debug.h|20021001064826|22250
+staelin@hpli69.hpli.hpl.hp.com|src/lib_debug.c|20021001064825|16912|e609863b14b0b8ac staelin@hpli69.hpli.hpl.hp.com|src/lib_debug.c|20021001064826|57517
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli69.hpli.hpl.hp.com|src/bench.h|20021001064846|32170
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli69.hpli.hpl.hp.com|src/Makefile|20021001064846|62389
+E 206
+I 205
+lm@lm.bitmover.com|src/timing.h|19961114001459|21532|b03b538da693ddd3 staelin@firewall.staelin.co.il|src/timing.h|20020929185505|47689
+lm@lm.bitmover.com|src/bw_mmap_rd.c|19941118084947|04186|418ae16dc12971 staelin@firewall.staelin.co.il|src/bw_mmap_rd.c|20020929185504|11795
+lm@lm.bitmover.com|src/bw_file_rd.c|19941118084947|42959|7d6e949af5846971 staelin@firewall.staelin.co.il|src/bw_file_rd.c|20020929191226|47259
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c staelin@firewall.staelin.co.il|src/bw_pipe.c|20020929191226|03070
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@firewall.staelin.co.il|src/lib_timing.c|20020929185504|52310
+E 205
+I 204
+lm@lm.bitmover.com|src/lat_select.c|19961114001606|65044|97c296f6daba401d staelin@firewall.staelin.co.il|src/lat_select.c|20020929185450|18357
+E 204
+I 203
+lm@lm.bitmover.com|src/lat_mmap.c|19941118084947|19537|e3044628e9a37e7 staelin@firewall.staelin.co.il|src/lat_mmap.c|20020929185351|18321
+lm@lm.bitmover.com|src/memsize.c|19950214190337|11395|37f652d1bab57b36 staelin@firewall.staelin.co.il|src/memsize.c|20020929185351|33344
+lm@lm.bitmover.com|src/bw_file_rd.c|19941118084947|42959|7d6e949af5846971 staelin@firewall.staelin.co.il|src/bw_file_rd.c|20020929185351|51672
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 staelin@firewall.staelin.co.il|src/lat_mem_rd.c|20020929185351|08958
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134255|11663|6f15ac35118b1b38 staelin@firewall.staelin.co.il|src/lib_mem.c|20020929185351|03941
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c staelin@firewall.staelin.co.il|src/bw_pipe.c|20020929185351|42070
+lm@lm.bitmover.com|src/bw_mmap_rd.c|19941118084947|04186|418ae16dc12971 staelin@firewall.staelin.co.il|src/bw_mmap_rd.c|20020929185351|42293
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.h|20000918134254|08772|6f167d6111805b18 staelin@firewall.staelin.co.il|src/lib_mem.h|20020929185351|61676
+lm@lm.bitmover.com|src/bw_unix.c|19960522073302|32506|3ecbff5984316fe staelin@firewall.staelin.co.il|src/bw_unix.c|20020929185351|57014
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@firewall.staelin.co.il|src/par_mem.c|20020929185351|13737
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@firewall.staelin.co.il|src/lib_timing.c|20020929185351|00632
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 staelin@firewall.staelin.co.il|src/bw_mem.c|20020929185351|39656
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@firewall.staelin.co.il|scripts/config-run|20020929185351|22896
+lm@lm.bitmover.com|src/timing.h|19961114001459|21532|b03b538da693ddd3 staelin@firewall.staelin.co.il|src/timing.h|20020929185351|44659
+E 203
+I 202
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c staelin@hpli69.hpli.hpl.hp.com|src/bw_pipe.c|20020920063458|62300
+E 202
+I 201
+lm@lm.bitmover.com|src/bw_file_rd.c|19941118084947|42959|7d6e949af5846971 staelin@hpli69.hpli.hpl.hp.com|src/bw_file_rd.c|20020920063401|41273
+lm@lm.bitmover.com|src/bw_mmap_rd.c|19941118084947|04186|418ae16dc12971 staelin@hpli69.hpli.hpl.hp.com|src/bw_mmap_rd.c|20020920063401|10484
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli69.hpli.hpl.hp.com|src/lib_timing.c|20020920063401|49600
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 staelin@hpli69.hpli.hpl.hp.com|src/lat_ctx.c|20020920063401|08066
+lm@lm.bitmover.com|src/timing.h|19961114001459|21532|b03b538da693ddd3 staelin@hpli69.hpli.hpl.hp.com|src/timing.h|20020920063402|47466
+E 201
+I 200
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli69.hpli.hpl.hp.com|src/lib_timing.c|20020715063014|27487
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli69.hpli.hpl.hp.com|src/bench.h|20020715063014|32264
+E 200
+I 199
+lm@lm.bitmover.com|src/bw_mmap_rd.c|19941118084947|04186|418ae16dc12971 staelin@hpli69.hpli.hpl.hp.com|src/bw_mmap_rd.c|20020630152736|43131
+E 199
+I 198
+staelin@hpli69.hpli.hpl.hp.com|doc/lat_ipc.tbl|20020630135114|10433|c63ba3b127f2b476 staelin@hpli69.hpli.hpl.hp.com|doc/lat_ipc.tbl|20020630135115|21470
+staelin@hpli69.hpli.hpl.hp.com|doc/bw_tcp.tbl|20020630134639|22879|478342afe4d294b6 staelin@hpli69.hpli.hpl.hp.com|doc/bw_tcp.tbl|20020630134640|56666
+lm@lm.bitmover.com|doc/Makefile|19941124014539|03739|9262ecd1cb60d077 staelin@hpli69.hpli.hpl.hp.com|doc/Makefile|20020630140213|43568
+staelin@hpli69.hpli.hpl.hp.com|doc/lat_fs.tbl|20020630135158|25480|9328650310d55c88 staelin@hpli69.hpli.hpl.hp.com|doc/lat_fs.tbl|20020630135159|62047
+staelin@hpli69.hpli.hpl.hp.com|doc/lat_allmem.tbl|20020630134943|50201|48599d7cf25c5413 staelin@hpli69.hpli.hpl.hp.com|doc/lat_allmem.tbl|20020630134944|13434
+staelin@hpli69.hpli.hpl.hp.com|doc/userguide.ms|20020606062032|51457|7a60e176d360ab27 staelin@hpli69.hpli.hpl.hp.com|doc/userguide.ms|20020630140213|36935
+E 198
+I 197
+staelin@hpli8.hpli.hpl.hp.com|src/par_ops.c|20000816101018|16292|3e0268b53182d2da staelin@hpli69.hpli.hpl.hp.com|src/par_ops.c|20020630134231|51301
+E 197
+I 196
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli69.hpli.hpl.hp.com|src/lib_timing.c|20020630133950|63458
+E 196
+I 195
+staelin@hpli69.hpli.hpl.hp.com|doc/bw_reread2.tbl|20020630074315|26217|eb0479ae15d4497d staelin@hpli69.hpli.hpl.hp.com|doc/bw_reread2.tbl|20020630074316|17522
+staelin@hpli69.hpli.hpl.hp.com|doc/ctx.tbl|20020630074316|04447|2879ace336d2f79b staelin@hpli69.hpli.hpl.hp.com|doc/ctx.tbl|20020630074317|21677
+staelin@hpli69.hpli.hpl.hp.com|doc/lat_disk.tbl|20020630074316|17244|98ae16a2f244f7a0 staelin@hpli69.hpli.hpl.hp.com|doc/lat_disk.tbl|20020630074317|20843
+staelin@hpli69.hpli.hpl.hp.com|doc/lat_signal.tbl|20020630074315|32711|717d296c93dad8d7 staelin@hpli69.hpli.hpl.hp.com|doc/lat_signal.tbl|20020630074316|46713
+staelin@hpli69.hpli.hpl.hp.com|doc/lat_tcp.tbl|20020630074316|09996|6c090275a4b9ca7d staelin@hpli69.hpli.hpl.hp.com|doc/lat_tcp.tbl|20020630074317|00502
+staelin@hpli69.hpli.hpl.hp.com|doc/references-userguide|20020630133543|11396|694c529f88e1ee7f staelin@hpli69.hpli.hpl.hp.com|doc/references-userguide|20020630133544|09041
+staelin@hpli69.hpli.hpl.hp.com|doc/lat_pipe.tbl|20020630074316|06393|b9c8bd0c1651a387 staelin@hpli69.hpli.hpl.hp.com|doc/lat_pipe.tbl|20020630074317|56184
+staelin@hpli69.hpli.hpl.hp.com|doc/bw_allmem.tbl|20020630074315|13461|235392d2a9f63c77 staelin@hpli69.hpli.hpl.hp.com|doc/bw_allmem.tbl|20020630074316|16979
+staelin@hpli69.hpli.hpl.hp.com|doc/lat_connect.tbl|20020630074316|15347|ebea334737fba7bc staelin@hpli69.hpli.hpl.hp.com|doc/lat_connect.tbl|20020630074317|41879
+staelin@hpli69.hpli.hpl.hp.com|doc/lat_allproc.tbl|20020630074316|00731|4cf03363c0b27b10 staelin@hpli69.hpli.hpl.hp.com|doc/lat_allproc.tbl|20020630074317|19156
+staelin@hpli69.hpli.hpl.hp.com|doc/lat_udp.tbl|20020630074316|12124|6b06986ae34c150 staelin@hpli69.hpli.hpl.hp.com|doc/lat_udp.tbl|20020630074317|61930
+staelin@hpli69.hpli.hpl.hp.com|doc/lat_nullsys.tbl|20020630074315|28274|ba6751897e0ddb88 staelin@hpli69.hpli.hpl.hp.com|doc/lat_nullsys.tbl|20020630074316|53101
+staelin@hpli69.hpli.hpl.hp.com|doc/bw_ipc.tbl|20020630074315|24222|85ad3a8f1d88f72f staelin@hpli69.hpli.hpl.hp.com|doc/bw_ipc.tbl|20020630074316|62815
+E 195
+I 194
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli69.hpli.hpl.hp.com|src/bench.h|20020612101744|17875
+E 194
+I 193
+staelin@hpli69.hpli.hpl.hp.com|doc/references-memhier|20011231144804|17513|f606e2d8fb2d7850 staelin@hpli69.hpli.hpl.hp.com|doc/references-memhier|20020606061728|27207
+staelin@hpli69.hpli.hpl.hp.com|doc/memhier-tlb.d|20020606062032|41494|1d4540b222772310 staelin@hpli69.hpli.hpl.hp.com|doc/memhier-tlb.d|20020606062033|33428
+staelin@hpli69.hpli.hpl.hp.com|doc/memhier-line.d|20020606062032|37484|91ee4217b70901d7 staelin@hpli69.hpli.hpl.hp.com|doc/memhier-line.d|20020606062033|40686
+staelin@hpli69.hpli.hpl.hp.com|doc/memhier.ms|20011231144803|26618|dddf99bb161eff9 staelin@hpli69.hpli.hpl.hp.com|doc/memhier.ms|20020606061702|10896
+staelin@hpli69.hpli.hpl.hp.com|doc/memhier-color.d|20020606062032|27415|ed9f0404fdf43f0c staelin@hpli69.hpli.hpl.hp.com|doc/memhier-color.d|20020606062033|35892
+staelin@hpli69.hpli.hpl.hp.com|doc/userguide.ms|20020606062032|51457|7a60e176d360ab27 staelin@hpli69.hpli.hpl.hp.com|doc/userguide.ms|20020606062033|62634
+staelin@hpli69.hpli.hpl.hp.com|doc/lmbench3.ms|20011231144802|63657|f24c2467a20d143 staelin@hpli69.hpli.hpl.hp.com|doc/lmbench3.ms|20020606061539|28006
+E 193
+I 192
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 staelin@firewall.staelin.co.il|src/lat_mem_rd.c|20020526183925|08507
+E 192
+I 191
+lm@lm.bitmover.com|src/disk.c|19971020064832|09828|4136b37fbde5c85d staelin@hpli69.hpli.hpl.hp.com|src/disk.c|20020318094104|24538
+E 191
+I 190
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@firewall.staelin.co.il|scripts/lmbench|20020222072524|11649
+E 190
+I 189
+staelin@firewall.staelin.co.il|scripts/config-scaling|20020222071924|18280|709a66ae73403851 staelin@firewall.staelin.co.il|scripts/config-scaling|20020222071925|57447
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@firewall.staelin.co.il|src/Makefile|20020222072041|28196
+E 189
+I 188
+staelin@hpli69.hpli.hpl.hp.com|doc/lmbench3.ms|20011231144802|63657|f24c2467a20d143 staelin@firewall.staelin.co.il|doc/lmbench3.ms|20020107212857|49929
+staelin@firewall.staelin.co.il|doc/lmbench3_arch.fig|20020104110348|36452|a7ead34866f9f6a0 staelin@firewall.staelin.co.il|doc/lmbench3_arch.fig|20020107212857|59207
+staelin@hpli69.hpli.hpl.hp.com|doc/references-lmbench3|20011231144804|44683|26af8d85f39ddd2d staelin@firewall.staelin.co.il|doc/references-lmbench3|20020107212857|09132
+E 188
+I 187
+staelin@hpli69.hpli.hpl.hp.com|doc/lmbench3.ms|20011231144802|63657|f24c2467a20d143 staelin@hpli69.hpli.hpl.hp.com|doc/lmbench3.ms|20020107151417|33981
+staelin@hpli69.hpli.hpl.hp.com|doc/references-lmbench3|20011231144804|44683|26af8d85f39ddd2d staelin@hpli69.hpli.hpl.hp.com|doc/references-lmbench3|20020107151418|16089
+E 187
+I 186
+lm@work.bitmover.com|BitKeeper/etc/logging_ok|20010127061153|38536|108d55ddc6240e3f staelin@disks.bitmover.com|BitKeeper/etc/logging_ok|20020107013150|19283
+E 186
+I 185
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@disks.bitmover.com|src/lat_ops.c|20020107013001|42428
+staelin@hpli8.hpli.hpl.hp.com|src/par_ops.c|20000816101018|16292|3e0268b53182d2da staelin@disks.bitmover.com|src/par_ops.c|20020107013042|49843
+lm@work.bitmover.com|BitKeeper/etc/logging_ok|20010127061153|38536|108d55ddc6240e3f staelin@disks.bitmover.com|BitKeeper/etc/logging_ok|20020107013131|16290
+E 185
+I 184
+staelin@hpli69.hpli.hpl.hp.com|doc/lmbench3.ms|20011231144802|63657|f24c2467a20d143 staelin@firewall.staelin.co.il|doc/lmbench3.ms|20020104110602|08235
+lm@lm.bitmover.com|doc/Makefile|19941124014539|03739|9262ecd1cb60d077 staelin@firewall.staelin.co.il|doc/Makefile|20020104110602|05684
+staelin@hpli69.hpli.hpl.hp.com|doc/references-lmbench3|20011231144804|44683|26af8d85f39ddd2d staelin@firewall.staelin.co.il|doc/references-lmbench3|20020104110603|14089
+staelin@firewall.staelin.co.il|doc/lmbench3_arch.fig|20020104110348|36452|a7ead34866f9f6a0 staelin@firewall.staelin.co.il|doc/lmbench3_arch.fig|20020104110349|56866
+staelin@firewall.staelin.co.il|doc/lmbench3_signals.fig|20020104110348|41066|7f24de2e606333a6 staelin@firewall.staelin.co.il|doc/lmbench3_signals.fig|20020104110349|13524
+lm@work.bitmover.com|BitKeeper/etc/logging_ok|20010127061153|38536|108d55ddc6240e3f staelin@firewall.staelin.co.il|BitKeeper/etc/logging_ok|20020104110609|16632
+E 184
+I 182
+lm@lm.bitmover.com|doc/Makefile|19941124014539|03739|9262ecd1cb60d077 staelin@hpli69.hpli.hpl.hp.com|doc/Makefile|20011231144802|63273
+staelin@hpli69.hpli.hpl.hp.com|doc/parallel.ms|20011231144803|24111|31bba5d8d041afa5 staelin@hpli69.hpli.hpl.hp.com|doc/parallel.ms|20011231144804|19188
+staelin@hpli69.hpli.hpl.hp.com|doc/memhier.ms|20011231144803|26618|dddf99bb161eff9 staelin@hpli69.hpli.hpl.hp.com|doc/memhier.ms|20011231144804|17763
+staelin@hpli69.hpli.hpl.hp.com|doc/references-memhier|20011231144804|17513|f606e2d8fb2d7850 staelin@hpli69.hpli.hpl.hp.com|doc/references-memhier|20011231144805|07989
+staelin@hpli69.hpli.hpl.hp.com|doc/references-parallel|20011231144805|18088|8823c03e380c851a staelin@hpli69.hpli.hpl.hp.com|doc/references-parallel|20011231144806|34573
+staelin@hpli69.hpli.hpl.hp.com|doc/references-lmbench3|20011231144804|44683|26af8d85f39ddd2d staelin@hpli69.hpli.hpl.hp.com|doc/references-lmbench3|20011231144805|15669
+staelin@hpli69.hpli.hpl.hp.com|doc/lmbench3.ms|20011231144802|63657|f24c2467a20d143 staelin@hpli69.hpli.hpl.hp.com|doc/lmbench3.ms|20011231144803|02631
+E 182
+I 181
+staelin@hpli8.hpli.hpl.hp.com|src/par_ops.c|20000816101018|16292|3e0268b53182d2da staelin@hpli69.hpli.hpl.hp.com|src/par_ops.c|20011115122700|47783
+E 181
+I 180
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli69.hpli.hpl.hp.com|src/lat_ops.c|20011115122259|36945
+E 180
+I 179
+lm@lm.bitmover.com|src/lat_mmap.c|19941118084947|19537|e3044628e9a37e7 staelin@hpli69.hpli.hpl.hp.com|src/lat_mmap.c|20011113143633|17675
+lm@lm.bitmover.com|src/bw_file_rd.c|19941118084947|42959|7d6e949af5846971 staelin@hpli69.hpli.hpl.hp.com|src/bw_file_rd.c|20011113143632|46551
+lm@lm.bitmover.com|src/lat_pagefault.c|19941118084947|33722|21040cf28d60fb56 staelin@hpli69.hpli.hpl.hp.com|src/lat_pagefault.c|20011113143634|38162
+lm@lm.bitmover.com|src/bw_mmap_rd.c|19941118084947|04186|418ae16dc12971 staelin@hpli69.hpli.hpl.hp.com|src/bw_mmap_rd.c|20011113143633|40982
+E 179
+I 178
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli69.hpli.hpl.hp.com|src/lib_timing.c|20011113143433|50740
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 staelin@hpli69.hpli.hpl.hp.com|src/bw_mem.c|20011113143433|38041
+lm@lm.bitmover.com|src/timing.h|19961114001459|21532|b03b538da693ddd3 staelin@hpli69.hpli.hpl.hp.com|src/timing.h|20011113143434|44436
+E 178
+I 177
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli69.hpli.hpl.hp.com|src/lib_timing.c|20010911064119|24036
+E 177
+I 176
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli69.hpli.hpl.hp.com|src/bw_tcp.c|20010911063639|02684
+E 176
+I 175
+lm@lm.bitmover.com|src/lat_connect.c|19941118084947|14665|86372c4fec5b6e34 staelin@hpli69.hpli.hpl.hp.com|src/lat_connect.c|20010911062442|14455
+E 175
+I 174
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli69.hpli.hpl.hp.com|src/bench.h|20010911062249|17921
+E 174
+I 173
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli69.hpli.hpl.hp.com|scripts/getsummary|20010724083235|54602
+E 173
+I 172
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli69.hpli.hpl.hp.com|src/line.c|20010620072139|47343
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134255|11663|6f15ac35118b1b38 staelin@hpli69.hpli.hpl.hp.com|src/lib_mem.c|20010620072139|61725
+E 172
+I 171
+staelin@hpli8.hpli.hpl.hp.com|src/stream.c|20000731063407|55030|3e0679a43128f870 staelin@hpli69.hpli.hpl.hp.com|src/stream.c|20010620061223|13163
+E 171
+I 170
+staelin@hpli69.hpli.hpl.hp.com|CHANGES|20010619134048|01572|3459d2894e96c7c4 staelin@hpli69.hpli.hpl.hp.com|CHANGES|20010619134049|62662
+staelin@hpli69.hpli.hpl.hp.com|ACKNOWLEDGEMENTS|20010619134047|20383|a39f2fd799c2f0e4 staelin@hpli69.hpli.hpl.hp.com|ACKNOWLEDGEMENTS|20010619134048|24967
+lm@lm.bitmover.com|src/TODO|19941118084947|33874|757cb19dbe6b995 staelin@hpli69.hpli.hpl.hp.com|src/TODO|20010619134206|05463
+E 170
+I 169
+staelin@hpli8.hpli.hpl.hp.com|scripts/make|20000416124444|39334|2e15ddc531019840 staelin@hpli69.hpli.hpl.hp.com|scripts/make|20010619090916|14870
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli69.hpli.hpl.hp.com|src/Makefile|20010619090917|06892
+E 169
+I 168
+lm@lm.bitmover.com|src/lmdd.c|19900601103208|08405|49191613a2a80e staelin@hpli69.hpli.hpl.hp.com|src/lmdd.c|20010619073441|35376
+E 168
+I 167
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010619073408|30504
+E 167
+I 166
+staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627120105|01383|2e42289539a0d0e8 staelin@hpli69.hpli.hpl.hp.com|scripts/build|20010619072954|00466
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli69.hpli.hpl.hp.com|src/bench.h|20010619072955|13448
+E 166
+I 165
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli69.hpli.hpl.hp.com|src/Makefile|20010619072805|10180
+E 165
+I 164
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010613100110|64512
+E 164
+I 163
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli69.hpli.hpl.hp.com|src/Makefile|20010613092944|61272
+E 163
+I 162
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli69.hpli.hpl.hp.com|scripts/config-run|20010613092845|24500
+E 162
+I 161
+staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627120105|01383|2e42289539a0d0e8 staelin@hpli69.hpli.hpl.hp.com|scripts/build|20010613084036|09330
+E 161
+I 160
+staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627120105|01383|2e42289539a0d0e8 staelin@hpli69.hpli.hpl.hp.com|scripts/build|20010613083348|09514
+E 160
+I 159
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli69.hpli.hpl.hp.com|scripts/lmbench|20010613080553|01458
+E 159
+I 158
+staelin@hpli8.hpli.hpl.hp.com|src/stream.c|20000731063407|55030|3e0679a43128f870 staelin@hpli69.hpli.hpl.hp.com|src/stream.c|20010613080348|01463
+E 158
+I 157
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010613080119|64356
+E 157
+I 156
+lm@lm.bitmover.com|src/lmdd.c|19900601103208|08405|49191613a2a80e staelin@hpli69.hpli.hpl.hp.com|src/lmdd.c|20010613080039|38377
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli69.hpli.hpl.hp.com|src/lib_timing.c|20010613080039|04729
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli69.hpli.hpl.hp.com|src/bench.h|20010613080038|63162
+E 156
+I 155
+lm@lm.bitmover.com|scripts/gnu-os|19970616034135|04002|f13ac0c986e51a1 staelin@hpli69.hpli.hpl.hp.com|scripts/gnu-os|20010613075927|59410
+E 155
+I 154
+staelin@hpli8.hpli.hpl.hp.com|src/stream.c|20000731063407|55030|3e0679a43128f870 staelin@hpli69.hpli.hpl.hp.com|src/stream.c|20010612152449|54294
+E 154
+I 153
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010612143804|16980
+E 153
+I 152
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli69.hpli.hpl.hp.com|src/Makefile|20010612143715|47496
+E 152
+I 151
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010523094526|21846
+E 151
+I 150
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134255|11663|6f15ac35118b1b38 staelin@hpli69.hpli.hpl.hp.com|src/lib_mem.c|20010522142715|54617
+E 150
+I 149
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010522142614|08518
+E 149
+I 148
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010521115243|28918
+E 148
+I 147
+staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627120105|01383|2e42289539a0d0e8 staelin@hpli69.hpli.hpl.hp.com|scripts/build|20010521075759|46477
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli69.hpli.hpl.hp.com|src/lib_timing.c|20010521075800|13332
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli69.hpli.hpl.hp.com|src/bench.h|20010521075800|03993
+E 147
+I 146
+lm@lm.bitmover.com|src/lmdd.c|19900601103208|08405|49191613a2a80e staelin@hpli69.hpli.hpl.hp.com|src/lmdd.c|20010521075611|40481
+E 146
+I 145
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli69.hpli.hpl.hp.com|src/lat_ops.c|20010514083515|13407
+staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627120105|01383|2e42289539a0d0e8 staelin@hpli69.hpli.hpl.hp.com|scripts/build|20010514083514|06372
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli69.hpli.hpl.hp.com|scripts/getsummary|20010514083514|62584
+staelin@hpli8.hpli.hpl.hp.com|src/par_ops.c|20000816101018|16292|3e0268b53182d2da staelin@hpli69.hpli.hpl.hp.com|src/par_ops.c|20010514083516|09209
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli69.hpli.hpl.hp.com|src/bench.h|20010514083515|57647
+E 145
+I 144
+lm@lm.bitmover.com|scripts/gnu-os|19970616034135|04002|f13ac0c986e51a1 staelin@hpli69.hpli.hpl.hp.com|scripts/gnu-os|20010510130952|53333
+E 144
+I 143
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010502171620|16682
+E 143
+I 142
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli69.hpli.hpl.hp.com|scripts/getsummary|20010502171432|00430
+E 142
+I 141
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 staelin@hpli69.hpli.hpl.hp.com|src/lat_ctx.c|20010502171235|55566
+E 141
+I 140
+staelin@hpli69.hpli.hpl.hp.com|src/webpage-lm.tar|20010502081936|65260|bf20cbcb7f26b06c staelin@hpli69.hpli.hpl.hp.com|src/webpage-lm.tar|20010502081937|15069
+E 140
+I 139
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010502072938|04882
+E 139
+I 138
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010410071808|49272
+E 138
+I 137
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010410065151|32264
+E 137
+I 136
+lm@work.bitmover.com|BitKeeper/etc/logging_ok|20010127061153|38536|108d55ddc6240e3f staelin@hpli69.hpli.hpl.hp.com|BitKeeper/etc/logging_ok|20010409135956|13639
+E 136
+I 135
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134255|11663|6f15ac35118b1b38 staelin@hpli69.hpli.hpl.hp.com|src/lib_mem.c|20010409135746|20733
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli69.hpli.hpl.hp.com|src/par_mem.c|20010409135840|13298
+E 135
+I 134
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli69.hpli.hpl.hp.com|src/cache.c|20010409135534|32077
+E 134
+I 133
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli69.hpli.hpl.hp.com|src/tlb.c|20010409135325|25781
+E 133
+I 132
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli69.hpli.hpl.hp.com|src/line.c|20010409134814|51887
+E 132
+I 131
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli69.hpli.hpl.hp.com|src/lib_timing.c|20010409134638|04729
+E 131
+I 130
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.h|20000918134254|08772|6f167d6111805b18 staelin@hpli69.hpli.hpl.hp.com|src/lib_mem.h|20010409134550|57154
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134255|11663|6f15ac35118b1b38 staelin@hpli69.hpli.hpl.hp.com|src/lib_mem.c|20010409134549|17885
+E 130
+I 129
+lm@lm.bitmover.com|BitKeeper/etc/config|20000131225554|14900|b315f4732d73103 staelin@hpli12.hpli.hpl.hp.com|BitKeeper/etc/config|20010409072654|42912
+staelin@hpli8.hpli.hpl.hp.com|BitKeeper/etc/logging_ok|20010207101313|12953|6f559dc939095f80 staelin@hpli12.hpli.hpl.hp.com|BitKeeper/deleted/.del-logging_ok~6f559dc939095f80|20010409072653|16334
+lm@work.bitmover.com|BitKeeper/etc/logging_ok|20010127061153|38536|108d55ddc6240e3f staelin@hpli12.hpli.hpl.hp.com|BitKeeper/etc/logging_ok|20010409072701|13639
+E 129
+I 128
+lm@lm.bitmover.com|BitKeeper/etc/config|20000131225554|14900|b315f4732d73103 lm@work.bitmover.com|BitKeeper/etc/config|20010127061153|35250
+lm@work.bitmover.com|BitKeeper/etc/logging_ok|20010127061153|38536|108d55ddc6240e3f staelin@bitmover.com|BitKeeper/etc/logging_ok|20010409072618|07975
+E 128
+I 127
+lm@lm.bitmover.com|src/lmdd.c|19900601103208|08405|49191613a2a80e staelin@hpli69.hpli.hpl.hp.com|src/lmdd.c|20010402130628|41209
+E 127
+I 126
+lm@lm.bitmover.com|src/lat_pipe.c|19941118084947|42508|b08317879cd9d375 staelin@hpli69.hpli.hpl.hp.com|src/lat_pipe.c|20010402125253|20120
+E 126
+I 125
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.h|20000918134254|08772|6f167d6111805b18 staelin@hpli69.hpli.hpl.hp.com|src/lib_mem.h|20010402125123|40037
+E 125
+I 124
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli69.hpli.hpl.hp.com|src/lat_ops.c|20010402125033|14962
+E 124
+I 123
+lm@lm.bitmover.com|src/timing.h|19961114001459|21532|b03b538da693ddd3 staelin@hpli69.hpli.hpl.hp.com|src/timing.h|20010402124923|40863
+E 123
+I 122
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 staelin@hpli69.hpli.hpl.hp.com|src/bw_mem.c|20010402124823|37714
+E 122
+I 121
+staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627120105|01383|2e42289539a0d0e8 staelin@hpli69.hpli.hpl.hp.com|scripts/build|20010402124723|48285
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli69.hpli.hpl.hp.com|src/bench.h|20010402124724|50792
+staelin@hpli8.hpli.hpl.hp.com|BitKeeper/etc/logging_ok|20010207101313|12953|6f559dc939095f80 staelin@hpli69.hpli.hpl.hp.com|BitKeeper/etc/logging_ok|20010402124728|08750
+E 121
+I 120
+lm@lm.bitmover.com|src/lmdd.c|19900601103208|08405|49191613a2a80e staelin@hpli8.hpli.hpl.hp.com|src/lmdd.c|20010207120228|41345
+E 120
+I 119
+lm@lm.bitmover.com|scripts/gnu-os|19970616034135|04002|f13ac0c986e51a1 staelin@hpli8.hpli.hpl.hp.com|scripts/gnu-os|20010207103003|28106
+E 119
+I 118
+lm@lm.bitmover.com|BitKeeper/etc/config|20000131225554|14900|b315f4732d73103 staelin@hpli8.hpli.hpl.hp.com|BitKeeper/etc/config|20010207102857|42912
+E 118
+I 117
+lm@lm.bitmover.com|src/lmdd.c|19900601103208|08405|49191613a2a80e staelin@hpli8.hpli.hpl.hp.com|src/lmdd.c|20010207101311|39278
+staelin@hpli8.hpli.hpl.hp.com|BitKeeper/etc/logging_ok|20010207101313|12953|6f559dc939095f80 staelin@hpli8.hpli.hpl.hp.com|BitKeeper/etc/logging_ok|20010207101314|05912
+E 117
+I 116
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20010107133541|61380
+E 116
+I 115
+lm@work.bitmover.com|src/lat_fcntl.c|19991208171819|08698|13b82230576b9707 staelin@hpli8.hpli.hpl.hp.com|src/lat_fcntl.c|20010107133400|52452
+E 115
+I 114
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c staelin@hpli8.hpli.hpl.hp.com|src/bw_pipe.c|20010107133247|35100
+E 114
+I 113
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20010107133005|48331
+E 113
+I 112
+staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627120105|01383|2e42289539a0d0e8 staelin@hpli8.hpli.hpl.hp.com|scripts/build|20010107122619|23392
+E 112
+I 111
+staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627120105|01383|2e42289539a0d0e8 staelin@hpli8.hpli.hpl.hp.com|scripts/build|20001210162820|22607
+E 111
+I 110
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20001115093938|41239
+E 110
+I 109
+lm@lm.bitmover.com|src/lat_mmap.c|19941118084947|19537|e3044628e9a37e7 staelin@hpli8.hpli.hpl.hp.com|src/lat_mmap.c|20001031080042|49705
+staelin@hpli8.hpli.hpl.hp.com|src/stream.c|20000731063407|55030|3e0679a43128f870 staelin@hpli8.hpli.hpl.hp.com|src/stream.c|20001031080057|12772
+lm@lm.bitmover.com|src/lib_tcp.c|19941118084947|22782|70231aa7476519f5 staelin@hpli8.hpli.hpl.hp.com|src/lib_tcp.c|20001031080055|03317
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli8.hpli.hpl.hp.com|src/bw_tcp.c|20001031080030|51740
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c staelin@hpli8.hpli.hpl.hp.com|src/bw_pipe.c|20001031080027|26126
+lm@lm.bitmover.com|src/bw_unix.c|19960522073302|32506|3ecbff5984316fe staelin@hpli8.hpli.hpl.hp.com|src/bw_unix.c|20001031080031|64130
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce staelin@hpli8.hpli.hpl.hp.com|src/lat_udp.c|20001031080049|60003
+lm@lm.bitmover.com|src/lat_connect.c|19941118084947|14665|86372c4fec5b6e34 staelin@hpli8.hpli.hpl.hp.com|src/lat_connect.c|20001031080037|54812
+lm@lm.bitmover.com|src/lat_tcp.c|19941118084947|17274|403c1dd2be70f174 staelin@hpli8.hpli.hpl.hp.com|src/lat_tcp.c|20001031080048|04619
+E 109
+I 108
+lm@lm.bitmover.com|src/lat_select.c|19961114001606|65044|97c296f6daba401d staelin@hpli8.hpli.hpl.hp.com|src/lat_select.c|20001031075316|14114
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20001031075315|36650
+E 108
+I 107
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20001031075206|46163
+E 107
+I 106
+lm@lm.bitmover.com|src/bw_unix.c|19960522073302|32506|3ecbff5984316fe staelin@hpli8.hpli.hpl.hp.com|src/bw_unix.c|20001025104110|62468
+E 106
+I 105
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20001025103836|65356
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20001025103835|44917
+lm@lm.bitmover.com|src/lat_select.c|19961114001606|65044|97c296f6daba401d staelin@hpli8.hpli.hpl.hp.com|src/lat_select.c|20001025103837|14178
+E 105
+I 104
+lm@lm.bitmover.com|src/lat_sig.c|19941130001638|06404|b8488b438b6e1c23 staelin@hpli8.hpli.hpl.hp.com|src/lat_sig.c|20001019150619|33840
+E 104
+I 103
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134255|11663|6f15ac35118b1b38 staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20001019150542|13649
+E 103
+I 102
+lm@lm.bitmover.com|src/lat_select.c|19961114001606|65044|97c296f6daba401d staelin@hpli8.hpli.hpl.hp.com|src/lat_select.c|20001019150411|11878
+E 102
+I 101
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20001019150029|06396
+E 101
+I 100
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20001018122844|21551
+E 100
+I 99
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20001017143754|26312
+E 99
+I 98
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20001016152449|28056
+staelin@hpli8.hpli.hpl.hp.com|src/lat_sem.c|20001016152303|11351|2a13388119005bf8 staelin@hpli8.hpli.hpl.hp.com|src/lat_sem.c|20001016152304|28712
+E 98
+I 97
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli8.hpli.hpl.hp.com|src/bw_tcp.c|20001016152220|55301
+lm@lm.bitmover.com|src/bw_unix.c|19960522073302|32506|3ecbff5984316fe staelin@hpli8.hpli.hpl.hp.com|src/bw_unix.c|20001016152221|60767
+E 97
+I 96
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 staelin@hpli8.hpli.hpl.hp.com|src/lat_mem_rd.c|20001016152124|10550
+lm@lm.bitmover.com|src/lat_syscall.c|19941118084947|13682|92127cb9fcc9c374 staelin@hpli8.hpli.hpl.hp.com|src/lat_syscall.c|20001016152125|32278
+lm@lm.bitmover.com|src/lat_unix_connect.c|19971020065015|47898|993911110514ea9 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix_connect.c|20001016152128|34241
+lm@lm.bitmover.com|src/lat_unix.c|19960522073302|07499|60b40b303e5dd5e0 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix.c|20001016152127|14728
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20001016152129|48490
+E 96
+I 95
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134255|11663|6f15ac35118b1b38 staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20001016152024|13985
+E 95
+I 94
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce staelin@hpli8.hpli.hpl.hp.com|src/lat_udp.c|20001016151809|59919
+E 94
+I 93
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20001016151657|03078
+E 93
+I 92
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c staelin@hpli8.hpli.hpl.hp.com|src/bw_pipe.c|20001016151504|24464
+E 92
+I 91
+staelin@hpisc8.lempel|/users/staelin/src/lmbench/doc/lmbench.3|19980507160012|06676|59c0c51f7abc65bc staelin@hpli8.hpli.hpl.hp.com|doc/lmbench.3|20001016151351|37408
+lm@lm.bitmover.com|doc/Makefile|19941124014539|03739|9262ecd1cb60d077 staelin@hpli8.hpli.hpl.hp.com|doc/Makefile|20001016151334|62848
+lm@lm.bitmover.com|doc/bw_pipe.8|19941118092634|03776|9adf2f02618b4e50 staelin@hpli8.hpli.hpl.hp.com|doc/bw_pipe.8|20001016151338|05172
+lm@lm.bitmover.com|doc/bw_file_rd.8|19941118092634|04071|25620ef556775f09 staelin@hpli8.hpli.hpl.hp.com|doc/bw_file_rd.8|20001016151335|31424
+lm@lm.bitmover.com|doc/bw_mem_wr.8|19941118092634|03993|99ed12a73b549c3 staelin@hpli8.hpli.hpl.hp.com|doc/bw_unix.8|20001016151340|28071
+lm@lm.bitmover.com|doc/bw_mmap_rd.8|19941118092634|04082|762e7e2793b39f89 staelin@hpli8.hpli.hpl.hp.com|doc/bw_mmap_rd.8|20001016151337|28092
+lm@lm.bitmover.com|doc/bw_tcp.8|19941118092634|03673|7dc15eaaec14a49e staelin@hpli8.hpli.hpl.hp.com|doc/bw_tcp.8|20001016151339|32499
+lm@lm.bitmover.com|doc/lat_ctx.8|19941118092634|03785|d9efbba7b0374c36 staelin@hpli8.hpli.hpl.hp.com|doc/lat_ctx.8|20001016151342|39790
+lm@lm.bitmover.com|doc/lat_connect.8|19941118092634|04196|2b29d3e2c9189258 staelin@hpli8.hpli.hpl.hp.com|doc/lat_connect.8|20001016151341|34566
+lm@lm.bitmover.com|doc/lat_mmap.8|19941118092634|03877|84a64349f0123bfd staelin@hpli8.hpli.hpl.hp.com|doc/lat_mmap.8|20001016151344|27758
+lm@lm.bitmover.com|doc/lat_mem_rd.8|19941118092634|04078|fb0f80dcbbf45ddf staelin@hpli8.hpli.hpl.hp.com|doc/lat_mem_rd.8|20001016151343|44964
+lm@lm.bitmover.com|doc/lat_pipe.8|19941118092634|03880|37e8ddab859a93ee staelin@hpli8.hpli.hpl.hp.com|doc/lat_pipe.8|20001016151345|23365
+lm@lm.bitmover.com|doc/lat_pagefault.8|19941124020532|04402|7d20eeb85f9f1645 staelin@hpli8.hpli.hpl.hp.com|doc/lat_pagefault.8|20001016151345|34848
+lm@lm.bitmover.com|doc/lat_proc.8|19941118092634|03886|ea79d2afffceab staelin@hpli8.hpli.hpl.hp.com|doc/lat_proc.8|20001016151346|10551
+lm@lm.bitmover.com|doc/lat_rpc.8|19941118092634|03775|6edcc5c54c822c39 staelin@hpli8.hpli.hpl.hp.com|doc/lat_rpc.8|20001016151347|19736
+lm@lm.bitmover.com|doc/lat_tcp.8|19941118092634|03777|5609f9268d2e1165 staelin@hpli8.hpli.hpl.hp.com|doc/lat_tcp.8|20001016151349|45608
+lm@lm.bitmover.com|doc/lat_syscall.8|19941118092634|04213|b18bb8295c98aaf1 staelin@hpli8.hpli.hpl.hp.com|doc/lat_syscall.8|20001016151348|58276
+lm@lm.bitmover.com|doc/lat_udp.8|19941118092634|03779|44c63df220a6d3a2 staelin@hpli8.hpli.hpl.hp.com|doc/lat_udp.8|20001016151350|44475
+lm@lm.bitmover.com|doc/lmbench.8|19941118092634|03763|d3dc7cbc3d593fd1 staelin@hpli8.hpli.hpl.hp.com|doc/lmbench.8|20001016151352|48936
+lm@lm.bitmover.com|doc/mhz.8|19941118092634|03369|7e573fe1f46fec90 staelin@hpli8.hpli.hpl.hp.com|doc/mhz.8|20001016151352|00487
+staelin@hpisc8.lempel|/users/staelin/src/lmbench/doc/reporting.3|19980507160021|06933|bf8cc461e69735b1 staelin@hpli8.hpli.hpl.hp.com|doc/reporting.3|20001016151353|41155
+staelin@hpisc8.lempel|/users/staelin/src/lmbench/doc/results.3|19980507160025|06737|95a37785bda67a80 staelin@hpli8.hpli.hpl.hp.com|doc/results.3|20001016151354|48435
+staelin@hpisc8.lempel|/users/staelin/src/lmbench/doc/timing.3|19980507160031|06596|6f0a881ebd8a9da8 staelin@hpli8.hpli.hpl.hp.com|doc/timing.3|20001016151355|26891
+lm@lm.bitmover.com|doc/bw_mem_cp.8|19941118092634|03971|f97504d24c730298 staelin@hpli8.hpli.hpl.hp.com|doc/bw_mem.8|20001016151336|37197
+staelin@hpli8.hpli.hpl.hp.com|doc/cache.8|20001016150622|45950|2f037c9c11005b6a staelin@hpli8.hpli.hpl.hp.com|doc/cache.8|20001016150623|55372
+staelin@hpli8.hpli.hpl.hp.com|doc/lat_fcntl.8|20001016150622|32016|2f01988c1109b160 staelin@hpli8.hpli.hpl.hp.com|doc/lat_fcntl.8|20001016150623|04947
+staelin@hpli8.hpli.hpl.hp.com|doc/lat_fifo.8|20001016150623|31609|2f048ddd11099348 staelin@hpli8.hpli.hpl.hp.com|doc/lat_fifo.8|20001016150624|07961
+staelin@hpli8.hpli.hpl.hp.com|doc/lat_http.8|20001016150623|64842|2f059c98110393c8 staelin@hpli8.hpli.hpl.hp.com|doc/lat_http.8|20001016150624|22449
+staelin@hpli8.hpli.hpl.hp.com|doc/lat_ops.8|20001016150623|32938|2f01889d1109b140 staelin@hpli8.hpli.hpl.hp.com|doc/lat_ops.8|20001016150624|14180
+staelin@hpli8.hpli.hpl.hp.com|doc/lat_select.8|20001016150624|31165|2f04dc8d1109b3ea staelin@hpli8.hpli.hpl.hp.com|doc/lat_select.8|20001016150625|46065
+staelin@hpli8.hpli.hpl.hp.com|doc/lat_sig.8|20001016150624|00533|2f05cdcd110391e2 staelin@hpli8.hpli.hpl.hp.com|doc/lat_sig.8|20001016150625|52236
+staelin@hpli8.hpli.hpl.hp.com|doc/lat_unix.8|20001016150624|33696|2f009d89110911c8 staelin@hpli8.hpli.hpl.hp.com|doc/lat_unix.8|20001016150625|30640
+staelin@hpli8.hpli.hpl.hp.com|doc/lat_unix_connect.8|20001016150625|36535|2f01cc8d110311e8 staelin@hpli8.hpli.hpl.hp.com|doc/lat_unix_connect.8|20001016150626|13040
+staelin@hpli8.hpli.hpl.hp.com|doc/line.8|20001016150625|05221|2f04d89911039b4a staelin@hpli8.hpli.hpl.hp.com|doc/line.8|20001016150626|58436
+staelin@hpli8.hpli.hpl.hp.com|doc/stream.8|20001016150626|20443|2f00d99d110b33c2 staelin@hpli8.hpli.hpl.hp.com|doc/stream.8|20001016150627|47124
+staelin@hpli8.hpli.hpl.hp.com|doc/par_mem.8|20001016150626|11838|2f048dc8110b3b40 staelin@hpli8.hpli.hpl.hp.com|doc/par_mem.8|20001016150627|58305
+staelin@hpli8.hpli.hpl.hp.com|doc/par_ops.8|20001016150626|48903|2f019c9d110199c2 staelin@hpli8.hpli.hpl.hp.com|doc/par_ops.8|20001016150627|29698
+staelin@hpli8.hpli.hpl.hp.com|doc/tlb.8|20001016150627|25529|2f04cd89110913ea staelin@hpli8.hpli.hpl.hp.com|doc/tlb.8|20001016150628|07513
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20001016151356|29826
+E 91
+I 90
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000928094428|44519
+E 90
+I 89
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/par_mem.c|20000928091651|13246
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134255|11663|6f15ac35118b1b38 staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000928091650|06922
+E 89
+I 88
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce staelin@hpli8.hpli.hpl.hp.com|src/lat_udp.c|20000928091449|59638
+E 88
+I 87
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20000928091351|35811
+E 87
+I 86
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000926132332|03409
+E 86
+I 85
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20000926132226|34531
+E 85
+I 84
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000926130355|02098
+E 84
+I 83
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000926130155|03411
+staelin@hpli8.hpli.hpl.hp.com|src/par_ops.c|20000816101018|16292|3e0268b53182d2da staelin@hpli8.hpli.hpl.hp.com|src/par_ops.c|20000926130156|25435
+E 83
+I 82
+lm@lm.bitmover.com|src/lat_tcp.c|19941118084947|17274|403c1dd2be70f174 staelin@hpli8.hpli.hpl.hp.com|src/lat_tcp.c|20000926130021|04535
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce staelin@hpli8.hpli.hpl.hp.com|src/lat_udp.c|20000926130022|61569
+lm@lm.bitmover.com|src/lat_rpc.c|19941118084947|10025|8144ca9d37f3411e staelin@hpli8.hpli.hpl.hp.com|src/lat_rpc.c|20000926130020|24181
+staelin@hpli8.hpli.hpl.hp.com|src/bw_udp.c|20000706125521|29470|6a1328dc1b227a50 staelin@hpli8.hpli.hpl.hp.com|src/bw_udp.c|20000926130018|16678
+E 82
+I 81
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000925142748|56607
+lm@lm.bitmover.com|src/timing.h|19961114001459|21532|b03b538da693ddd3 staelin@hpli8.hpli.hpl.hp.com|src/timing.h|20000925142754|39958
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000925142752|18121
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000925142755|22098
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000925142745|40577
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/par_mem.c|20000925142753|13468
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.h|20000918134254|08772|6f167d6111805b18 staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.h|20000925142747|39865
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134255|11663|6f15ac35118b1b38 staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000925142746|02500
+E 81
+I 80
+lm@lm.bitmover.com|src/lat_select.c|19961114001606|65044|97c296f6daba401d staelin@hpli8.hpli.hpl.hp.com|src/lat_select.c|20000925102151|47663
+E 80
+I 79
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20000925102103|34290
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000925102107|59999
+E 79
+I 78
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000924124006|59171
+E 78
+I 77
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000924095851|24574
+E 77
+I 76
+lm@lm.bitmover.com|src/lat_select.c|19961114001606|65044|97c296f6daba401d staelin@hpli8.hpli.hpl.hp.com|src/lat_select.c|20000924095407|47080
+E 76
+I 75
+lm@lm.bitmover.com|src/lib_tcp.h|19961114001459|32750|fae00e4b816a260 staelin@hpli8.hpli.hpl.hp.com|src/lib_tcp.h|20000924095243|28305
+lm@lm.bitmover.com|src/lib_udp.h|19961114001459|51303|54591f07d0325bfe staelin@hpli8.hpli.hpl.hp.com|src/lib_udp.h|20000924095245|25686
+lm@lm.bitmover.com|src/lat_rpc.c|19941118084947|10025|8144ca9d37f3411e staelin@hpli8.hpli.hpl.hp.com|src/lat_rpc.c|20000924095241|20829
+E 75
+I 74
+lm@lm.bitmover.com|scripts/results|19941126004058|04190|4fe7cbc4774e86d3 staelin@hpli8.hpli.hpl.hp.com|scripts/results|20000924095125|44471
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli8.hpli.hpl.hp.com|scripts/config-run|20000924095120|23810
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000924095123|51171
+E 74
+I 73
+lm@lm.bitmover.com|src/mhz.irix|19941130214038|00301|845ba9c3182ca3bb staelin@hpli8.hpli.hpl.hp.com|BitKeeper/deleted/.del-mhz.irix|20000919102022|12720
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000919135254|16978
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.h|20000918134254|08772|6f167d6111805b18 staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.h|20000919135253|31685
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134255|11663|6f15ac35118b1b38 staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000919135252|18010
+E 73
+I 72
+lm@lm.bitmover.com|scripts/results|19941126004058|04190|4fe7cbc4774e86d3 staelin@hpli8.hpli.hpl.hp.com|scripts/results|20000918143352|43258
+E 72
+I 71
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000918134406|48943
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20000918134407|30488
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000918134409|43972
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000918134411|15880
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000918134408|48231
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/par_mem.c|20000918134410|28100
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.h|20000918134254|08772|6f167d6111805b18 staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.h|20000918134255|17326
+staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134255|11663|6f15ac35118b1b38 staelin@hpli8.hpli.hpl.hp.com|src/lib_mem.c|20000918134256|23083
+E 71
+I 70
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli8.hpli.hpl.hp.com|scripts/config-run|20000918134203|24062
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000918134204|47621
+E 70
+I 69
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000918083416|26787
+lm@lm.bitmover.com|src/lat_proc.c|19941118084947|49449|67978a001d538da6 staelin@hpli8.hpli.hpl.hp.com|src/lat_proc.c|20000918083415|15061
+E 69
+I 68
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000918083310|41121
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli8.hpli.hpl.hp.com|scripts/config-run|20000918083308|17884
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000918083309|46856
+E 68
+I 67
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce staelin@hpli8.hpli.hpl.hp.com|src/lat_udp.c|20000913114540|59194
+E 67
+I 66
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20000913114445|28751
+E 66
+I 65
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli8.hpli.hpl.hp.com|scripts/config-run|20000913114401|38545
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000913114402|47057
+E 65
+I 64
+lm@lm.bitmover.com|src/lib_udp.c|19941118084947|37686|742df623760bb62f staelin@hpli8.hpli.hpl.hp.com|src/lib_udp.c|20000913094847|22286
+E 64
+I 63
+lm@lm.bitmover.com|src/mhz.c|19941118085154|23994|a8a6d33bb26f366 staelin@hpli8.hpli.hpl.hp.com|src/mhz.c|20000913094331|61554
+E 63
+I 62
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000913094142|17145
+lm@lm.bitmover.com|src/timing.h|19961114001459|21532|b03b538da693ddd3 staelin@hpli8.hpli.hpl.hp.com|src/timing.h|20000913094145|38999
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000913094143|02215
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000913094146|26846
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000913094140|16750
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/par_mem.c|20000913094144|50426
+E 62
+I 61
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20000913093110|25775
+E 61
+I 60
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000816101145|22069
+E 60
+I 59
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000816101007|44033
+staelin@hpli8.hpli.hpl.hp.com|src/par_ops.c|20000816101018|16292|3e0268b53182d2da staelin@hpli8.hpli.hpl.hp.com|src/par_ops.c|20000816101019|38540
+E 59
+I 58
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000816063312|32473
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/par_mem.c|20000816063218|61414
+E 58
+I 57
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000816063123|06322
+E 57
+I 56
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000816062919|34460
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 staelin@hpli8.hpli.hpl.hp.com|src/lat_ctx.c|20000816062916|55456
+lm@lm.bitmover.com|src/lat_fifo.c|19971020064843|03898|e79b9fced992184a staelin@hpli8.hpli.hpl.hp.com|src/lat_fifo.c|20000816062917|51584
+lm@lm.bitmover.com|src/lat_pipe.c|19941118084947|42508|b08317879cd9d375 staelin@hpli8.hpli.hpl.hp.com|src/lat_pipe.c|20000816062918|13128
+lm@work.bitmover.com|src/lat_fcntl.c|19991208171819|08698|13b82230576b9707 staelin@hpli8.hpli.hpl.hp.com|src/lat_fcntl.c|20000816062917|51657
+lm@lm.bitmover.com|src/lat_unix.c|19960522073302|07499|60b40b303e5dd5e0 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix.c|20000816062918|21832
+E 56
+I 55
+lm@lm.bitmover.com|scripts/gnu-os|19970616034135|04002|f13ac0c986e51a1 staelin@hpli8.hpli.hpl.hp.com|scripts/gnu-os|20000816062649|59574
+E 55
+I 54
+lm@lm.bitmover.com|src/flushdisk.c|19971024204947|14057|816a5afb22774a0 staelin@hpli8.hpli.hpl.hp.com|src/flushdisk.c|20000810131304|39845
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000810131304|36044
+lm@lm.bitmover.com|scripts/gnu-os|19970616034135|04002|f13ac0c986e51a1 staelin@hpli8.hpli.hpl.hp.com|scripts/gnu-os|20000810131303|50175
+E 54
+I 53
+lm@lm.bitmover.com|scripts/results|19941126004058|04190|4fe7cbc4774e86d3 staelin@hpli8.hpli.hpl.hp.com|scripts/results|20000803162100|42935
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000803162059|48516
+E 53
+I 52
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000803154351|51666
+E 52
+I 51
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000803112615|31237
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli8.hpli.hpl.hp.com|scripts/config-run|20000803112615|02249
+E 51
+I 50
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000803105900|46810
+E 50
+I 49
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000802150455|17300
+lm@lm.bitmover.com|src/disk.c|19971020064832|09828|4136b37fbde5c85d staelin@hpli8.hpli.hpl.hp.com|src/disk.c|20000802150457|23302
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000802150502|03223
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 staelin@hpli8.hpli.hpl.hp.com|src/lat_ctx.c|20000802150457|20547
+lm@lm.bitmover.com|src/lat_pagefault.c|19941118084947|33722|21040cf28d60fb56 staelin@hpli8.hpli.hpl.hp.com|src/lat_pagefault.c|20000802150459|10120
+lm@lm.bitmover.com|src/lat_fifo.c|19971020064843|03898|e79b9fced992184a staelin@hpli8.hpli.hpl.hp.com|src/lat_fifo.c|20000802150459|61919
+lm@lm.bitmover.com|src/lat_pipe.c|19941118084947|42508|b08317879cd9d375 staelin@hpli8.hpli.hpl.hp.com|src/lat_pipe.c|20000802150500|25753
+lm@work.bitmover.com|src/lat_fcntl.c|19991208171819|08698|13b82230576b9707 staelin@hpli8.hpli.hpl.hp.com|src/lat_fcntl.c|20000802150458|04669
+lm@lm.bitmover.com|src/bw_unix.c|19960522073302|32506|3ecbff5984316fe staelin@hpli8.hpli.hpl.hp.com|src/bw_unix.c|20000802150456|55876
+lm@lm.bitmover.com|src/lat_proc.c|19941118084947|49449|67978a001d538da6 staelin@hpli8.hpli.hpl.hp.com|src/lat_proc.c|20000802150500|08930
+lm@lm.bitmover.com|src/lat_unix.c|19960522073302|07499|60b40b303e5dd5e0 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix.c|20000802150501|36895
+lm@lm.bitmover.com|scripts/results|19941126004058|04190|4fe7cbc4774e86d3 staelin@hpli8.hpli.hpl.hp.com|scripts/results|20000802150455|54676
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli8.hpli.hpl.hp.com|scripts/config-run|20000802150453|50345
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000802150454|46810
+E 49
+I 48
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 staelin@hpli8.hpli.hpl.hp.com|src/lat_mem_rd.c|20000801091411|10616
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20000801091410|18243
+E 48
+I 47
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000801062125|34948
+lm@lm.bitmover.com|src/mhz.c|19941118085154|23994|a8a6d33bb26f366 staelin@hpli8.hpli.hpl.hp.com|src/mhz.c|20000801062127|55858
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000801062126|30385
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000801062126|15166
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000731115021|21717
+staelin@hpli8.hpli.hpl.hp.com|src/stream.c|20000731063407|55030|3e0679a43128f870 staelin@hpli8.hpli.hpl.hp.com|src/stream.c|20000801062128|06088
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli8.hpli.hpl.hp.com|scripts/config-run|20000801062124|00811
+E 47
+I 46
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000731070715|52474
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20000731083111|30344
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000731083112|37497
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000731083112|55872
+staelin@hpli8.hpli.hpl.hp.com|src/stream.c|20000731063407|55030|3e0679a43128f870 staelin@hpli8.hpli.hpl.hp.com|src/stream.c|20000731070607|15042
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli8.hpli.hpl.hp.com|scripts/config-run|20000731083110|63542
+E 46
+I 45
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000730123405|21592
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000730123405|36240
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000730123404|43261
+E 45
+I 44
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000730114000|45123
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20000730113959|39572
+E 44
+I 43
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20000730084601|28313
+lm@lm.bitmover.com|src/bw_file_rd.c|19941118084947|42959|7d6e949af5846971 staelin@hpli8.hpli.hpl.hp.com|src/bw_file_rd.c|20000730084601|59390
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 staelin@hpli8.hpli.hpl.hp.com|src/lat_mem_rd.c|20000730084609|10452
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000730084617|28499
+lm@lm.bitmover.com|src/lat_sig.c|19941130001638|06404|b8488b438b6e1c23 staelin@hpli8.hpli.hpl.hp.com|src/lat_sig.c|20000730084613|34770
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 staelin@hpli8.hpli.hpl.hp.com|src/lat_ctx.c|20000730084607|13594
+lm@lm.bitmover.com|src/lat_mmap.c|19941118084947|19537|e3044628e9a37e7 staelin@hpli8.hpli.hpl.hp.com|src/lat_mmap.c|20000730084609|48042
+lm@lm.bitmover.com|src/lat_syscall.c|19941118084947|13682|92127cb9fcc9c374 staelin@hpli8.hpli.hpl.hp.com|src/lat_syscall.c|20000730084614|31608
+lm@lm.bitmover.com|src/lat_fifo.c|19971020064843|03898|e79b9fced992184a staelin@hpli8.hpli.hpl.hp.com|src/lat_fifo.c|20000730084608|44917
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 staelin@hpli8.hpli.hpl.hp.com|src/bw_mem.c|20000730084602|27676
+lm@lm.bitmover.com|src/lat_pipe.c|19941118084947|42508|b08317879cd9d375 staelin@hpli8.hpli.hpl.hp.com|src/lat_pipe.c|20000730084610|08751
+lm@lm.bitmover.com|src/lat_select.c|19961114001606|65044|97c296f6daba401d staelin@hpli8.hpli.hpl.hp.com|src/lat_select.c|20000730084612|48659
+lm@lm.bitmover.com|src/lat_connect.c|19941118084947|14665|86372c4fec5b6e34 staelin@hpli8.hpli.hpl.hp.com|src/lat_connect.c|20000730084606|54728
+lm@lm.bitmover.com|src/lat_tcp.c|19941118084947|17274|403c1dd2be70f174 staelin@hpli8.hpli.hpl.hp.com|src/lat_tcp.c|20000730084614|04462
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce staelin@hpli8.hpli.hpl.hp.com|src/lat_udp.c|20000730084615|49409
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli8.hpli.hpl.hp.com|src/bw_tcp.c|20000730084604|54413
+lm@work.bitmover.com|src/lat_fcntl.c|19991208171819|08698|13b82230576b9707 staelin@hpli8.hpli.hpl.hp.com|src/lat_fcntl.c|20000730084608|51326
+lm@lm.bitmover.com|src/lat_unix_connect.c|19971020065015|47898|993911110514ea9 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix_connect.c|20000730084616|34363
+lm@lm.bitmover.com|src/bw_mmap_rd.c|19941118084947|04186|418ae16dc12971 staelin@hpli8.hpli.hpl.hp.com|src/bw_mmap_rd.c|20000730084603|47862
+lm@lm.bitmover.com|src/lat_rpc.c|19941118084947|10025|8144ca9d37f3411e staelin@hpli8.hpli.hpl.hp.com|src/lat_rpc.c|20000730084612|33309
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c staelin@hpli8.hpli.hpl.hp.com|src/bw_pipe.c|20000730084603|29645
+lm@lm.bitmover.com|src/bw_unix.c|19960522073302|32506|3ecbff5984316fe staelin@hpli8.hpli.hpl.hp.com|src/bw_unix.c|20000730084605|36601
+lm@lm.bitmover.com|src/lat_proc.c|19941118084947|49449|67978a001d538da6 staelin@hpli8.hpli.hpl.hp.com|src/lat_proc.c|20000730084611|61616
+lm@lm.bitmover.com|src/lat_unix.c|19960522073302|07499|60b40b303e5dd5e0 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix.c|20000730084615|19340
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000730084618|07224
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000730084617|30434
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000730084619|28149
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000730084606|64373
+staelin@hpli8.hpli.hpl.hp.com|src/bw_udp.c|20000706125521|29470|6a1328dc1b227a50 staelin@hpli8.hpli.hpl.hp.com|src/bw_udp.c|20000730084605|16905
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000730084610|36918
+E 43
+I 42
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000730074652|28342
+E 42
+I 41
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20000727142059|24595
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000727142100|27463
+E 41
+I 40
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20000727130926|39741
+E 40
+I 39
+lm@lm.bitmover.com|src/lmdd.c|19900601103208|08405|49191613a2a80e staelin@hpli8.hpli.hpl.hp.com|src/lmdd.c|20000727113700|39488
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 staelin@hpli8.hpli.hpl.hp.com|src/bw_mem.c|20000727113657|26002
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli8.hpli.hpl.hp.com|src/bw_tcp.c|20000727113658|53573
+lm@lm.bitmover.com|src/lat_rpc.c|19941118084947|10025|8144ca9d37f3411e staelin@hpli8.hpli.hpl.hp.com|src/lat_rpc.c|20000727113659|33123
+lm@lm.bitmover.com|src/lmhttp.c|19970613043401|03634|44f0727f23143b90 staelin@hpli8.hpli.hpl.hp.com|src/lmhttp.c|20000727113701|28496
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000727113659|54762
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli8.hpli.hpl.hp.com|scripts/config-run|20000727113656|18833
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20000727113656|40737
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000727113657|34067
+E 39
+I 38
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000726150956|26460
+lm@lap|src/version.h|19980617000207|02698|ea66bbcacf225bf6 staelin@hpli8.hpli.hpl.hp.com|src/version.h|20000726150956|05533
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli8.hpli.hpl.hp.com|src/bw_tcp.c|20000726150954|53628
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000726150955|57579
+lm@lm.bitmover.com|scripts/getlist|19941123071647|00421|646c9152fb842aab staelin@hpli8.hpli.hpl.hp.com|scripts/getlist|20000726150952|46993
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20000726150953|19304
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000726150954|38336
+staelin@hpli8.hpli.hpl.hp.com|scripts/statsummary|20000726080755|40040|6f136dbd33007258 staelin@hpli8.hpli.hpl.hp.com|scripts/statsummary|20000726080756|14318
+E 38
+I 37
+lm@lm.bitmover.com|src/lmdd.c|19900601103208|08405|49191613a2a80e staelin@hpli8.hpli.hpl.hp.com|src/lmdd.c|20000725114517|38641
+staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627120105|01383|2e42289539a0d0e8 staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000725114516|59785
+E 37
+I 36
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000725104836|41579
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000725104838|18281
+lm@lm.bitmover.com|src/lat_syscall.c|19941118084947|13682|92127cb9fcc9c374 staelin@hpli8.hpli.hpl.hp.com|src/lat_syscall.c|20000725104838|32112
+lm@lm.bitmover.com|src/lat_rpc.c|19941118084947|10025|8144ca9d37f3411e staelin@hpli8.hpli.hpl.hp.com|src/lat_rpc.c|20000725104837|33226
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000725104839|07038
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000725104840|27963
+staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000724065459|53784|3e526da011aa72da staelin@hpli8.hpli.hpl.hp.com|src/lat_ops.c|20000725104836|07223
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 staelin@hpli8.hpli.hpl.hp.com|scripts/config-run|20000725104833|15504
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 staelin@hpli8.hpli.hpl.hp.com|scripts/getsummary|20000725104834|14382
+lm@lm.bitmover.com|scripts/gnu-os|19970616034135|04002|f13ac0c986e51a1 staelin@hpli8.hpli.hpl.hp.com|scripts/gnu-os|20000725104834|51987
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000725104835|23270
+staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627120105|01383|2e42289539a0d0e8 staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000725104832|41426
+E 36
+I 35
+staelin@hpli8.hpli.hpl.hp.com|src/bw_udp.c|20000706125521|29470|6a1328dc1b227a50 staelin@hpli8.hpli.hpl.hp.com|src/bw_udp.c|20000706125522|16065
+E 35
+I 34
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000706124910|29777
+lm@lm.bitmover.com|src/TODO|19941118084947|33874|757cb19dbe6b995 staelin@hpli8.hpli.hpl.hp.com|src/TODO|20000706124910|32467
+lm@lm.bitmover.com|src/lat_syscall.c|19941118084947|13682|92127cb9fcc9c374 staelin@hpli8.hpli.hpl.hp.com|src/lat_syscall.c|20000706124911|32791
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce staelin@hpli8.hpli.hpl.hp.com|src/lat_udp.c|20000706125119|48569
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000706124909|49743
+staelin@hpli8.hpli.hpl.hp.com|scripts/output|20000706121843|27498|3f567c993b805af0 staelin@hpli8.hpli.hpl.hp.com|scripts/output|20000706121844|16487
+E 34
+I 33
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705141437|23792
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000705141437|30248
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000705141438|23439
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000705141436|64187
+E 33
+I 32
+lm@lm.bitmover.com|COPYING-2|19941126011939|12849|b10a375651a436ed staelin@hpli8.hpli.hpl.hp.com|COPYING-2|20000705113715|60486
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000705113716|17990
+lm@lm.bitmover.com|src/TODO|19941118084947|33874|757cb19dbe6b995 staelin@hpli8.hpli.hpl.hp.com|src/TODO|20000705113716|40444
+staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113728|29808|3a067dd8318af052 staelin@hpli8.hpli.hpl.hp.com|src/loads.c|20000705113729|60006
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000705113718|23534
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000705113718|58844
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000705113717|44892
+E 32
+I 31
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000705090212|17160
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000705090213|42443
+E 31
+I 30
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000705082807|18836
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000705082808|44119
+E 30
+I 29
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli8.hpli.hpl.hp.com|src/bw_tcp.c|20000705072601|50923
+lm@lm.bitmover.com|src/lat_unix.c|19960522073302|07499|60b40b303e5dd5e0 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix.c|20000705072601|19154
+E 29
+I 28
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 staelin@hpli8.hpli.hpl.hp.com|src/bw_mem.c|20000704133728|21443
+E 28
+I 27
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000704115545|06036
+lm@lm.bitmover.com|src/TODO|19941118084947|33874|757cb19dbe6b995 staelin@hpli8.hpli.hpl.hp.com|src/TODO|20000704115545|56071
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20000704115546|25573
+lm@lm.bitmover.com|src/bw_file_rd.c|19941118084947|42959|7d6e949af5846971 staelin@hpli8.hpli.hpl.hp.com|src/bw_file_rd.c|20000704115547|59204
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 staelin@hpli8.hpli.hpl.hp.com|src/lat_mem_rd.c|20000704115554|10359
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000704115602|24410
+lm@lm.bitmover.com|src/lat_sig.c|19941130001638|06404|b8488b438b6e1c23 staelin@hpli8.hpli.hpl.hp.com|src/lat_sig.c|20000704115558|34398
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 staelin@hpli8.hpli.hpl.hp.com|src/lat_ctx.c|20000704115552|15536
+lm@lm.bitmover.com|src/lat_mmap.c|19941118084947|19537|e3044628e9a37e7 staelin@hpli8.hpli.hpl.hp.com|src/lat_mmap.c|20000704115554|47856
+lm@lm.bitmover.com|src/lat_syscall.c|19941118084947|13682|92127cb9fcc9c374 staelin@hpli8.hpli.hpl.hp.com|src/lat_syscall.c|20000704115558|32589
+lm@lm.bitmover.com|src/lat_fifo.c|19971020064843|03898|e79b9fced992184a staelin@hpli8.hpli.hpl.hp.com|src/lat_fifo.c|20000704115553|44699
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 staelin@hpli8.hpli.hpl.hp.com|src/bw_mem.c|20000704115547|55236
+lm@lm.bitmover.com|src/lat_pipe.c|19941118084947|42508|b08317879cd9d375 staelin@hpli8.hpli.hpl.hp.com|src/lat_pipe.c|20000704115555|08533
+lm@lm.bitmover.com|src/lat_select.c|19961114001606|65044|97c296f6daba401d staelin@hpli8.hpli.hpl.hp.com|src/lat_select.c|20000704115557|48441
+lm@lm.bitmover.com|src/lat_connect.c|19941118084947|14665|86372c4fec5b6e34 staelin@hpli8.hpli.hpl.hp.com|src/lat_connect.c|20000704115551|54542
+lm@lm.bitmover.com|src/lat_tcp.c|19941118084947|17274|403c1dd2be70f174 staelin@hpli8.hpli.hpl.hp.com|src/lat_tcp.c|20000704115559|04276
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce staelin@hpli8.hpli.hpl.hp.com|src/lat_udp.c|20000704115600|51390
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli8.hpli.hpl.hp.com|src/bw_tcp.c|20000704115549|50029
+lm@work.bitmover.com|src/lat_fcntl.c|19991208171819|08698|13b82230576b9707 staelin@hpli8.hpli.hpl.hp.com|src/lat_fcntl.c|20000704115553|52292
+lm@lm.bitmover.com|src/lat_unix_connect.c|19971020065015|47898|993911110514ea9 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix_connect.c|20000704115601|34270
+lm@lm.bitmover.com|src/bw_mmap_rd.c|19941118084947|04186|418ae16dc12971 staelin@hpli8.hpli.hpl.hp.com|src/bw_mmap_rd.c|20000704115548|46182
+lm@lm.bitmover.com|src/lat_rpc.c|19941118084947|10025|8144ca9d37f3411e staelin@hpli8.hpli.hpl.hp.com|src/lat_rpc.c|20000704115556|31066
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c staelin@hpli8.hpli.hpl.hp.com|src/bw_pipe.c|20000704115549|29459
+lm@lm.bitmover.com|src/bw_unix.c|19960522073302|32506|3ecbff5984316fe staelin@hpli8.hpli.hpl.hp.com|src/bw_unix.c|20000704115550|36415
+lm@lm.bitmover.com|src/lat_proc.c|19941118084947|49449|67978a001d538da6 staelin@hpli8.hpli.hpl.hp.com|src/lat_proc.c|20000704115556|60872
+lm@lm.bitmover.com|src/lat_unix.c|19960522073302|07499|60b40b303e5dd5e0 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix.c|20000704115600|17462
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000704115602|17554
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000704115603|23511
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000704115551|32572
+E 27
+I 26
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000703124409|23513
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000703124408|15475
+E 26
+I 25
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000702153421|02934
+staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142800|39686|3b0368f91b02d0e2 staelin@hpli8.hpli.hpl.hp.com|src/line.c|20000702142801|01434
+staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702142801|00373|3b067cbc1b0a6aca staelin@hpli8.hpli.hpl.hp.com|src/tlb.c|20000702153422|18220
+staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702142802|28857|3b0629ed1b004240 staelin@hpli8.hpli.hpl.hp.com|src/cache.c|20000702153422|35297
+lm@lm.bitmover.com|scripts/gnu-os|19970616034135|04002|f13ac0c986e51a1 staelin@hpli8.hpli.hpl.hp.com|scripts/gnu-os|20000702153420|04736
+E 25
+I 24
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000627144739|42816
+staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627120105|01383|2e42289539a0d0e8 staelin@hpli8.hpli.hpl.hp.com|scripts/build|20000627144738|29434
+E 24
+I 22
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 staelin@hpli8.hpli.hpl.hp.com|src/bw_mem.c|20000625123343|01307
+E 22
+I 21
+lm@lm.bitmover.com|src/mhz.c|19941118085154|23994|a8a6d33bb26f366 staelin@hpli8.hpli.hpl.hp.com|src/mhz.c|20000625103326|57221
+E 21
+I 20
+lm@lm.bitmover.com|src/mhz.c|19941118085154|23994|a8a6d33bb26f366 staelin@hpli8.hpli.hpl.hp.com|src/mhz.c|20000625102019|56470
+lm@lm.bitmover.com|src/lib_stats.c|19970613043347|45129|6b0974d3d98b42e9 staelin@hpli8.hpli.hpl.hp.com|src/lib_stats.c|20000625102018|17429
+E 20
+I 19
+lm@lm.bitmover.com|src/mhz.c|19941118085154|23994|a8a6d33bb26f366 staelin@hpli8.hpli.hpl.hp.com|src/mhz.c|20000621162844|55476
+lm@lm.bitmover.com|src/lat_http.c|19971020064852|58926|bb3831f9effa4c1c staelin@hpli8.hpli.hpl.hp.com|src/lat_http.c|20000621162841|46081
+lm@lm.bitmover.com|src/lib_stats.c|19970613043347|45129|6b0974d3d98b42e9 staelin@hpli8.hpli.hpl.hp.com|src/lib_stats.c|20000621162844|11684
+lm@lm.bitmover.com|src/lat_connect.c|19941118084947|14665|86372c4fec5b6e34 staelin@hpli8.hpli.hpl.hp.com|src/lat_connect.c|20000621162840|35728
+lm@lm.bitmover.com|src/lat_tcp.c|19941118084947|17274|403c1dd2be70f174 staelin@hpli8.hpli.hpl.hp.com|src/lat_tcp.c|20000621162843|49351
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce staelin@hpli8.hpli.hpl.hp.com|src/lat_udp.c|20000621162843|21274
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli8.hpli.hpl.hp.com|src/bw_tcp.c|20000621162840|29619
+lm@lm.bitmover.com|src/lat_rpc.c|19941118084947|10025|8144ca9d37f3411e staelin@hpli8.hpli.hpl.hp.com|src/lat_rpc.c|20000621162842|37310
+lm@lm.bitmover.com|src/stats.h|19970613043352|32183|7340c05fd9766fd9 staelin@hpli8.hpli.hpl.hp.com|src/stats.h|20000621162845|48418
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c staelin@hpli8.hpli.hpl.hp.com|scripts/lmbench|20000621162839|48014
+E 19
+I 18
+lm@lm.bitmover.com|Makefile|19941126011957|03385|b47aad8cf4afe990 staelin@hpli8.hpli.hpl.hp.com|Makefile|20000531131615|54384
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 staelin@hpli8.hpli.hpl.hp.com|src/lat_mem_rd.c|20000531131617|45271
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000531131618|63338
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 staelin@hpli8.hpli.hpl.hp.com|src/lat_ctx.c|20000531131616|01236
+lm@lm.bitmover.com|src/lat_mmap.c|19941118084947|19537|e3044628e9a37e7 staelin@hpli8.hpli.hpl.hp.com|src/lat_mmap.c|20000531131617|27462
+lm@lm.bitmover.com|src/lat_select.c|19961114001606|65044|97c296f6daba401d staelin@hpli8.hpli.hpl.hp.com|src/lat_select.c|20000531131618|29348
+E 18
+I 16
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000417110558|31956
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20000417110558|13800
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000417110604|54010
+lm@lm.bitmover.com|src/lat_sig.c|19941130001638|06404|b8488b438b6e1c23 staelin@hpli8.hpli.hpl.hp.com|src/lat_sig.c|20000417110602|00475
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 staelin@hpli8.hpli.hpl.hp.com|src/lat_ctx.c|20000417110601|10124
+lm@lm.bitmover.com|src/lat_mmap.c|19941118084947|19537|e3044628e9a37e7 staelin@hpli8.hpli.hpl.hp.com|src/lat_mmap.c|20000417110602|27961
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 staelin@hpli8.hpli.hpl.hp.com|src/bw_mem.c|20000417110559|62859
+lm@lm.bitmover.com|src/lat_connect.c|19941118084947|14665|86372c4fec5b6e34 staelin@hpli8.hpli.hpl.hp.com|src/lat_connect.c|20000417110600|45089
+lm@lm.bitmover.com|src/lat_tcp.c|19941118084947|17274|403c1dd2be70f174 staelin@hpli8.hpli.hpl.hp.com|src/lat_tcp.c|20000417110603|28488
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce staelin@hpli8.hpli.hpl.hp.com|src/lat_udp.c|20000417110603|02104
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 staelin@hpli8.hpli.hpl.hp.com|src/bw_tcp.c|20000417110600|19566
+lm@lm.bitmover.com|src/lat_unix_connect.c|19971020065015|47898|993911110514ea9 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix_connect.c|20000417110603|15531
+lm@work.bitmover.com|src/lat_fcntl.c|19991208171819|08698|13b82230576b9707 staelin@hpli8.hpli.hpl.hp.com|src/lat_fcntl.c|20000417110601|36440
+lm@lm.bitmover.com|src/bw_mmap_rd.c|19941118084947|04186|418ae16dc12971 staelin@hpli8.hpli.hpl.hp.com|src/bw_mmap_rd.c|20000417110559|25463
+staelin@hpli8.hpli.hpl.hp.com|scripts/make|20000416124444|39334|2e15ddc531019840 staelin@hpli8.hpli.hpl.hp.com|scripts/make|20000416124559|10474
+E 16
+I 15
+lm@lm.bitmover.com|src/lat_tcp.c|19941118084947|17274|403c1dd2be70f174 brucec@rx7|src/lat_tcp.c|20000316230748|28571
+lm@lm.bitmover.com|src/lat_connect.c|19941118084947|14665|86372c4fec5b6e34 brucec@rx7|src/lat_connect.c|20000316230747|45172
+lm@lm.bitmover.com|src/lat_mmap.c|19941118084947|19537|e3044628e9a37e7 brucec@rx7|src/lat_mmap.c|20000316230748|28044
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce brucec@rx7|src/lat_udp.c|20000316230749|02187
+E 15
+I 14
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 brucec@rx7|src/lat_ctx.c|20000314230353|10326
+lm@lm.bitmover.com|src/lat_tcp.c|19941118084947|17274|403c1dd2be70f174 brucec@rx7|src/lat_tcp.c|20000314230355|32707
+lm@lm.bitmover.com|src/lat_fifo.c|19971020064843|03898|e79b9fced992184a brucec@rx7|src/lat_fifo.c|20000314230354|25932
+lm@lm.bitmover.com|src/lat_pipe.c|19941118084947|42508|b08317879cd9d375 brucec@rx7|src/lat_pipe.c|20000314230354|55302
+lm@lm.bitmover.com|src/lat_select.c|19961114001606|65044|97c296f6daba401d brucec@rx7|src/lat_select.c|20000314230354|24644
+E 14
+I 13
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 brucec@rx7|src/bw_mem.c|20000310230223|62942
+lm@lm.bitmover.com|src/bw_mmap_rd.c|19941118084947|04186|418ae16dc12971 brucec@rx7|src/bw_mmap_rd.c|20000310230224|25546
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 brucec@rx7|src/bw_tcp.c|20000310230224|19649
+lm@lm.bitmover.com|src/lat_unix_connect.c|19971020065015|47898|993911110514ea9 brucec@rx7|src/lat_unix_connect.c|20000310230225|15614
+E 13
+I 12
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 brucec@rx7|src/bw_mem.c|20000309232453|02781
+lm@lm.bitmover.com|src/bw_file_rd.c|19941118084947|42959|7d6e949af5846971 brucec@rx7|src/bw_file_rd.c|20000309232453|38845
+lm@lm.bitmover.com|src/lat_proc.c|19941118084947|49449|67978a001d538da6 brucec@rx7|src/lat_proc.c|20000309232453|40809
+E 12
+I 11
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 brucec@rx7|src/lat_ctx.c|20000306231429|39485
+lm@lm.bitmover.com|src/lat_proc.c|19941118084947|49449|67978a001d538da6 brucec@rx7|src/lat_proc.c|20000306231430|38389
+lm@lm.bitmover.com|src/lat_unix.c|19960522073302|07499|60b40b303e5dd5e0 brucec@rx7|src/lat_unix.c|20000306231430|34282
+E 11
+I 10
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20000301152337|58160
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 staelin@hpli8.hpli.hpl.hp.com|src/lat_mem_rd.c|20000301152337|48887
+lm@lm.bitmover.com|src/lat_sig.c|19941130001638|06404|b8488b438b6e1c23 staelin@hpli8.hpli.hpl.hp.com|src/lat_sig.c|20000301152338|62978
+lm@lm.bitmover.com|src/lat_syscall.c|19941118084947|13682|92127cb9fcc9c374 staelin@hpli8.hpli.hpl.hp.com|src/lat_syscall.c|20000301152338|06367
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c staelin@hpli8.hpli.hpl.hp.com|src/bw_pipe.c|20000301152337|10692
+E 10
+I 9
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000301123424|41066
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c staelin@hpli8.hpli.hpl.hp.com|src/bw_pipe.c|20000301123423|15057
+lm@lm.bitmover.com|src/bw_unix.c|19960522073302|32506|3ecbff5984316fe staelin@hpli8.hpli.hpl.hp.com|src/bw_unix.c|20000301123423|17648
+E 9
+I 8
+lm@lm.bitmover.com|BitKeeper/etc/config|20000131225554|14900|b315f4732d73103 brucec@rx7|BitKeeper/etc/config|20000228220150|45654
+staelin@hpli8.hpli.hpl.hp.com|src/getopt.c|20000202120930|24836|7b02d3d0190880ea brucec@rx7|src/getopt.c|20000228220113|47204
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c brucec@rx7|src/bw_pipe.c|20000228220112|03446
+lm@lm.bitmover.com|src/bw_unix.c|19960522073302|32506|3ecbff5984316fe brucec@rx7|src/bw_unix.c|20000228220112|09297
+E 8
+I 7
+staelin@hpli8.hpli.hpl.hp.com|src/getopt.c|20000202120930|24836|7b02d3d0190880ea staelin@hpli8.hpli.hpl.hp.com|src/getopt.c|20000227072712|46524
+E 7
+I 6
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 staelin@hpli8.hpli.hpl.hp.com|src/Makefile|20000223091535|12500
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20000223091536|60739
+lm@lm.bitmover.com|src/bw_unix.c|19960522073302|32506|3ecbff5984316fe staelin@hpli8.hpli.hpl.hp.com|src/bw_unix.c|20000223091538|63927
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 staelin@hpli8.hpli.hpl.hp.com|src/lat_ctx.c|20000223091538|60853
+lm@lm.bitmover.com|src/lat_unix_connect.c|19971020065015|47898|993911110514ea9 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix_connect.c|20000223091540|58689
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 staelin@hpli8.hpli.hpl.hp.com|src/lat_mem_rd.c|20000223091539|39543
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000223091540|20492
+lm@lm.bitmover.com|src/mhz.c|19941118085154|23994|a8a6d33bb26f366 staelin@hpli8.hpli.hpl.hp.com|src/mhz.c|20000223091541|21646
+lm@lm.bitmover.com|src/lat_unix.c|19960522073302|07499|60b40b303e5dd5e0 staelin@hpli8.hpli.hpl.hp.com|src/lat_unix.c|20000223091539|08088
+lm@lm.bitmover.com|src/lat_syscall.c|19941118084947|13682|92127cb9fcc9c374 staelin@hpli8.hpli.hpl.hp.com|src/lat_syscall.c|20000223091539|40529
+staelin@hpli8.hpli.hpl.hp.com|src/getopt.c|20000202120930|24836|7b02d3d0190880ea staelin@hpli8.hpli.hpl.hp.com|src/getopt.c|20000202120931|47290
+E 6
+I 5
+lm@lm.bitmover.com|BitKeeper/etc/config|20000131225554|14900|b315f4732d73103 staelin@hpli8.hpli.hpl.hp.com|BitKeeper/etc/config|20000202075807|43540
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c staelin@hpli8.hpli.hpl.hp.com|src/bench.h|20000202075741|10193
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 staelin@hpli8.hpli.hpl.hp.com|src/lib_timing.c|20000202075742|16347
+lm@lm.bitmover.com|src/mhz.c|19941118085154|23994|a8a6d33bb26f366 staelin@hpli8.hpli.hpl.hp.com|src/mhz.c|20000202075743|21318
+lm@lm.bitmover.com|src/lat_rpc.c|19941118084947|10025|8144ca9d37f3411e staelin@hpli8.hpli.hpl.hp.com|src/lat_rpc.c|20000202075742|44033
+E 5
+I 4
+lm@lm.bitmover.com|BitKeeper/etc/config|20000131225554|14900|b315f4732d73103 lm@lm.bitmover.com|BitKeeper/etc/config|20000201002931|39634
+lm@lm.bitmover.com|Makefile|19941126011957|03385|b47aad8cf4afe990 lm@lm.bitmover.com|Makefile|20000201002928|54037
+lm@lm.bitmover.com|doc/Makefile|19941124014539|03739|9262ecd1cb60d077 lm@lm.bitmover.com|doc/Makefile|20000201002928|27316
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 lm@lm.bitmover.com|src/Makefile|20000201002928|07677
+lm@lm.bitmover.com|scripts/Makefile|19941124014401|04193|5e85834849ee718e lm@lm.bitmover.com|scripts/Makefile|20000201002928|06190
+lm@lm.bitmover.com|scripts/allctx|19951025165200|04044|cc93e1fcf21cfdd5 lm@lm.bitmover.com|scripts/allctx|20000131232941|06389
+lm@lm.bitmover.com|scripts/getlist|19941123071647|00421|646c9152fb842aab lm@lm.bitmover.com|scripts/getlist|20000131232941|17366
+lm@lm.bitmover.com|scripts/allmem|19951025165200|04028|300808bde8ca0dcf lm@lm.bitmover.com|scripts/allmem|20000131232941|06373
+lm@lm.bitmover.com|scripts/bghtml|19970615041409|04040|3aa371e545f99eea lm@lm.bitmover.com|scripts/bghtml|20000131232941|06379
+lm@lm.bitmover.com|scripts/bargraph|19941123071647|04239|ca073339c08ad586 lm@lm.bitmover.com|scripts/bargraph|20000131232941|06580
+lm@lm.bitmover.com|scripts/results|19941126004058|04190|4fe7cbc4774e86d3 lm@lm.bitmover.com|scripts/results|20000131232942|06528
+lm@lm.bitmover.com|scripts/config|19970615041303|04025|c7aeb615f51dd402 lm@lm.bitmover.com|scripts/config|20000131232941|06371
+lm@lm.bitmover.com|scripts/compiler|19970616061229|04264|c0a3d7f6c0556250 lm@lm.bitmover.com|scripts/compiler|20000131232941|06600
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 lm@lm.bitmover.com|scripts/config-run|20000131232941|44946
+lm@lm.bitmover.com|scripts/depend|19941123071647|04024|5223a6a8e4dfff54 lm@lm.bitmover.com|scripts/depend|20000131232941|06365
+lm@lm.bitmover.com|scripts/getbg|19941123071647|03921|e5fe9ba5830ee435 lm@lm.bitmover.com|scripts/getbg|20000131232941|06262
+lm@lm.bitmover.com|scripts/getbw|19970615041409|03939|9d79bf4769c384ce lm@lm.bitmover.com|scripts/getbw|20000131232941|06278
+lm@lm.bitmover.com|scripts/getctx|19941123071647|04055|5af976ad278e7418 lm@lm.bitmover.com|scripts/getctx|20000131232941|06396
+lm@lm.bitmover.com|scripts/getmax|19941123071647|04046|b3fb9fe573436abf lm@lm.bitmover.com|scripts/getmax|20000131232941|06387
+lm@lm.bitmover.com|scripts/getdisk|19971101020000|04135|3b2ec488bd048f37 lm@lm.bitmover.com|scripts/getdisk|20000131232941|06488
+lm@lm.bitmover.com|scripts/getmem|19941123071647|04039|ef6b575d2ae3b853 lm@lm.bitmover.com|scripts/getmem|20000131232941|06380
+lm@lm.bitmover.com|scripts/gifs|19970615041331|03821|64a9206ca9d2af8a lm@lm.bitmover.com|scripts/gifs|20000131232942|06167
+lm@lm.bitmover.com|scripts/getpercent|19941123071647|04473|6f25a175673b6b6a lm@lm.bitmover.com|scripts/getpercent|20000131232941|06814
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 lm@lm.bitmover.com|scripts/getsummary|20000131232942|06844
+lm@lm.bitmover.com|scripts/gnu-os|19970616034135|04002|f13ac0c986e51a1 lm@lm.bitmover.com|scripts/gnu-os|20000131232942|06343
+lm@lm.bitmover.com|scripts/graph|19941123071647|03930|e02d7d6eb8b1fa01 lm@lm.bitmover.com|scripts/graph|20000131232942|06272
+lm@lm.bitmover.com|scripts/info|19970616025553|03842|983152f24ab0d3f9 lm@lm.bitmover.com|scripts/info|20000131232942|06170
+lm@lm.bitmover.com|scripts/html-list|19970615041409|04328|bc4b0e696fe0b7ab lm@lm.bitmover.com|scripts/html-list|20000131232942|06668
+lm@lm.bitmover.com|scripts/html-man|19970615041409|04200|fb5cdd3e80d2e120 lm@lm.bitmover.com|scripts/html-man|20000131232942|06540
+lm@lm.bitmover.com|scripts/os|19941123071647|03626|1b9fa2853f304463 lm@lm.bitmover.com|scripts/os|20000131232942|05968
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c lm@lm.bitmover.com|scripts/lmbench|20000201002928|44088
+lm@lm.bitmover.com|scripts/info-template|19970616025601|01278|772aa74ddb9a5907 lm@lm.bitmover.com|scripts/info-template|20000131232942|45194
+lm@lm.bitmover.com|scripts/man2html|19970615041409|04205|14724f5cb00b57d7 lm@lm.bitmover.com|scripts/man2html|20000131232942|06545
+lm@lm.bitmover.com|scripts/new2oldctx|19970615041409|04436|7ef96e61ec39fdee lm@lm.bitmover.com|scripts/new2oldctx|20000131232942|06776
+lm@lm.bitmover.com|scripts/opercent|19970615041409|04266|da232ce92ab7eca2 lm@lm.bitmover.com|scripts/opercent|20000131232942|06606
+lm@lm.bitmover.com|scripts/percent|19970615041409|04155|da9ac6bee3eca1b8 lm@lm.bitmover.com|scripts/percent|20000131232942|06495
+lm@lm.bitmover.com|scripts/rccs|19941124001810|03822|42f2c092869bbff5 lm@lm.bitmover.com|scripts/rccs|20000131232942|06169
+lm@lm.bitmover.com|scripts/save|19941123071647|03831|f1160696e1a1d471 lm@lm.bitmover.com|scripts/save|20000131232942|06173
+lm@lm.bitmover.com|scripts/stats|19970615041401|03953|5dd15d544b61fcd lm@lm.bitmover.com|scripts/stats|20000131232943|06302
+lm@lm.bitmover.com|scripts/target|19970616025557|04065|cb9ca50866020da8 lm@lm.bitmover.com|scripts/target|20000131232943|06390
+lm@lm.bitmover.com|scripts/xroff|19941123071647|03949|72252dff1a8e9b55 lm@lm.bitmover.com|scripts/xroff|20000131232943|06292
+lm@bitmover|scripts/mkrelease|19980609055826|03739|8ca5c15a85807840 lm@lm.bitmover.com|scripts/mkrelease|20000131232942|06695
+lm@lm.bitmover.com|scripts/version|19980701070310|04161|86f4c240e0ad9f12 lm@lm.bitmover.com|scripts/version|20000131232943|06517
+lm@lm.bitmover.com|results/Makefile|19941124014656|04215|b60f2a10c224046e lm@lm.bitmover.com|results/Makefile|20000201002928|02127
+E 4
+I 3
+lm@lm.bitmover.com|COPYING|19941126011939|03124|726656805de0b341 lm@lm.bitmover.com|COPYING|19941126011940|28409
+lm@lm.bitmover.com|COPYING-2|19941126011939|12849|b10a375651a436ed lm@lm.bitmover.com|COPYING-2|19980630180905|59783
+lm@lm.bitmover.com|Makefile|19941126011957|03385|b47aad8cf4afe990 lm@work.home|Makefile|19980330090054|52478
+lm@lm.bitmover.com|README|19941126012116|28559|1836b00241ca7bea lm@lm.bitmover.com|README|19980701081956|49150
+lm@lm.bitmover.com|hbench-REBUTTAL|19980630181154|03846|f06092ce32cca902 lm@lm.bitmover.com|hbench-REBUTTAL|19980630181451|22146
+staelin@hpisc8.lempel|/users/staelin/src/lmbench/doc/lmbench.3|19980507160012|06676|59c0c51f7abc65bc staelin@hpisc8.lempel|doc/lmbench.3|19980507230013|41018
+lm@lm.bitmover.com|doc/Makefile|19941124014539|03739|9262ecd1cb60d077 lm@work.home|doc/Makefile|19980330090405|27034
+lm@lm.bitmover.com|doc/bargraph.1|19941123070408|03862|26353988fef89910 lm@lm.bitmover.com|doc/bargraph.1|19941123070409|32265
+lm@lm.bitmover.com|doc/benchmarks|19940226131411|03981|3fc262271f9a32a3 lm@lm.bitmover.com|doc/benchmarks|19941118005646|11992
+lm@lm.bitmover.com|doc/bw_pipe.8|19941118092634|03776|9adf2f02618b4e50 lm@lm.bitmover.com|doc/bw_pipe.8|19941118092635|43749
+lm@lm.bitmover.com|doc/bw_file_rd.8|19941118092634|04071|25620ef556775f09 lm@lm.bitmover.com|doc/bw_file_rd.8|19941118092635|17017
+lm@lm.bitmover.com|doc/bw_mem_cp.8|19941118092634|03971|f97504d24c730298 lm@lm.bitmover.com|doc/bw_mem_cp.8|19941118092635|31225
+lm@lm.bitmover.com|doc/bw_mem_rd.8|19941118092634|03974|a4464de6fbe63828 lm@lm.bitmover.com|doc/bw_mem_rd.8|19941118092635|04836
+lm@lm.bitmover.com|doc/bw_mem_wr.8|19941118092634|03993|99ed12a73b549c3 lm@lm.bitmover.com|doc/bw_mem_wr.8|19941118092635|14666
+lm@lm.bitmover.com|doc/bw_mmap_rd.8|19941118092634|04082|762e7e2793b39f89 lm@lm.bitmover.com|doc/bw_mmap_rd.8|19941118092635|13685
+lm@lm.bitmover.com|doc/bw_tcp.8|19941118092634|03673|7dc15eaaec14a49e lm@lm.bitmover.com|doc/bw_tcp.8|19971201234932|13029
+lm@lm.bitmover.com|doc/ctx.pic|19941118092708|03631|2e58e73e6a4a0f41 lm@lm.bitmover.com|doc/ctx.pic|19951112003630|12872
+lm@lm.bitmover.com|doc/graph.1|19941123070408|03553|1eaaf1edeacf94f9 lm@lm.bitmover.com|doc/graph.1|19941228015018|57675
+lm@lm.bitmover.com|doc/description.ms|19941118093530|04386|48e3ea434fb9b923 lm@lm.bitmover.com|doc/description.ms|19941124020212|14252
+lm@lm.bitmover.com|doc/lat_ctx.8|19941118092634|03785|d9efbba7b0374c36 lm@lm.bitmover.com|doc/lat_ctx.8|19941118092635|23018
+lm@lm.bitmover.com|doc/lat_connect.8|19941118092634|04196|2b29d3e2c9189258 lm@lm.bitmover.com|doc/lat_connect.8|19941118092635|19861
+lm@lm.bitmover.com|doc/lat_fs.8|19941118092634|03667|63d927a6ff8bcf3e lm@lm.bitmover.com|doc/lat_fs.8|19941126003319|11170
+lm@lm.bitmover.com|doc/lat_mmap.8|19941118092634|03877|84a64349f0123bfd lm@lm.bitmover.com|doc/lat_mmap.8|19941118092635|13351
+lm@lm.bitmover.com|doc/lat_mem_rd.8|19941118092634|04078|fb0f80dcbbf45ddf lm@lm.bitmover.com|doc/lat_mem_rd.8|19941126003500|57562
+lm@lm.bitmover.com|doc/lat_pipe.8|19941118092634|03880|37e8ddab859a93ee lm@lm.bitmover.com|doc/lat_pipe.8|19941118092635|08958
+lm@lm.bitmover.com|doc/lat_pagefault.8|19941124020532|04402|7d20eeb85f9f1645 lm@lm.bitmover.com|doc/lat_pagefault.8|19941124020533|20441
+lm@lm.bitmover.com|doc/lat_proc.8|19941118092634|03886|ea79d2afffceab lm@lm.bitmover.com|doc/lat_proc.8|19941118092635|58719
+lm@lm.bitmover.com|doc/lat_rpc.8|19941118092634|03775|6edcc5c54c822c39 lm@lm.bitmover.com|doc/lat_rpc.8|19941118092635|65071
+lm@lm.bitmover.com|doc/lat_tcp.8|19941118092634|03777|5609f9268d2e1165 lm@lm.bitmover.com|doc/lat_tcp.8|19941118092635|23542
+lm@lm.bitmover.com|doc/lat_syscall.8|19941118092634|04213|b18bb8295c98aaf1 lm@lm.bitmover.com|doc/lat_syscall.8|19941118092635|48253
+lm@lm.bitmover.com|doc/lat_udp.8|19941118092634|03779|44c63df220a6d3a2 lm@lm.bitmover.com|doc/lat_udp.8|19941118092635|23367
+lm@lm.bitmover.com|doc/lmbench.8|19941118092634|03763|d3dc7cbc3d593fd1 lm@lm.bitmover.com|doc/lmbench.8|19941124020110|04232
+lm@lm.bitmover.com|doc/lmdd.8|19941118092634|03451|45b46ec0e9b4426c lm@lm.bitmover.com|doc/lmdd.8|19941118092635|31550
+lm@lm.bitmover.com|doc/mhz.8|19941118092634|03369|7e573fe1f46fec90 lm@lm.bitmover.com|doc/mhz.8|19941126003312|03535
+lm@lm.bitmover.com|doc/mem.pic|19941118092708|03615|7173161645f32a65 lm@lm.bitmover.com|doc/mem.pic|19951109043746|20399
+lm@lm.bitmover.com|doc/rccs.1|19951129205203|03454|fceccc93a50b940b lm@lm.bitmover.com|doc/rccs.1|19951129205204|05446
+lm@lm.bitmover.com|doc/pgraph.1|19941123070408|03665|c655ab1e2ccea001 lm@lm.bitmover.com|doc/pgraph.1|19951129195439|47823
+staelin@lm.bitmover.com|doc/references|19950928013925|04545|ea42015f423ee575 staelin@lm.bitmover.com|doc/references|19951114022213|47406
+staelin@lm.bitmover.com|doc/refdbms.keys|19950928013944|04717|ba53e1afe6a03bc7 staelin@lm.bitmover.com|doc/refdbms.keys|19950928013945|14764
+lm@lm.bitmover.com|doc/usenix.ol|19950918203756|03882|1d8cf597e1e6e672 lm@lm.bitmover.com|doc/usenix.ol|19950927171508|28636
+staelin@lm.bitmover.com|doc/references-|19950928013925|04590|71f8341b137326cb staelin@lm.bitmover.com|doc/references-|19951111023801|30895
+lm@lm.bitmover.com|doc/tmac.usenix|19951025164747|04080|32814bd0494a91e7 lm@lm.bitmover.com|doc/tmac.usenix|19951025164748|17102
+staelin@lm.bitmover.com|doc/references.private|19950928014040|05343|8f6093c1d1b10b5e staelin@lm.bitmover.com|doc/references.private|19950928014041|18470
+staelin@hpisc8.lempel|/users/staelin/src/lmbench/doc/reporting.3|19980507160021|06933|bf8cc461e69735b1 staelin@hpisc8.lempel|doc/reporting.3|19980507230022|39578
+lm@lm.bitmover.com|doc/usenix96.ms|19950918203756|03998|941e479c9cec20f0 lm@lm.bitmover.com|doc/usenix96.ms|19971201235006|43025
+staelin@hpisc8.lempel|/users/staelin/src/lmbench/doc/results.3|19980507160025|06737|95a37785bda67a80 staelin@hpisc8.lempel|doc/results.3|19980507230026|32486
+staelin@hpisc8.lempel|/users/staelin/src/lmbench/doc/timing.3|19980507160031|06596|6f0a881ebd8a9da8 staelin@hpisc8.lempel|doc/timing.3|19980507230032|37776
+lm@lm.bitmover.com|src/Makefile|19941118085513|37692|bce1823a10fe7d49 lm@work.bitmover.com|src/Makefile|19990902173842|47824
+lm@lm.bitmover.com|src/lmdd.c|19900601103208|08405|49191613a2a80e lm@work.bitmover.com|src/lmdd.c|19990903054738|43495
+lm@lm.bitmover.com|src/TODO|19941118084947|33874|757cb19dbe6b995 lm@lap|src/TODO|19980630071408|64828
+lm@lm.bitmover.com|src/disk.c|19971020064832|09828|4136b37fbde5c85d lm@lm.bitmover.com|src/disk.c|19980703003254|24803
+lm@lm.bitmover.com|src/bw_mem.c|19970708061759|19200|6b79a80385eb9ec7 lm@lm.bitmover.com|src/bw_mem.c|19980630053723|13554
+lm@lm.bitmover.com|src/bench.h|19941118084947|26325|ad8c6e375dc87a5c lm@lm.bitmover.com|src/bench.h|19980630064944|03233
+lm@lm.bitmover.com|src/bw_file_rd.c|19941118084947|42959|7d6e949af5846971 lm@lm.bitmover.com|src/bw_file_rd.c|19980630053725|12743
+lm@lm.bitmover.com|src/bw_pipe.c|19941118084947|54645|fa12331757b8149c lm@lm.bitmover.com|src/bw_pipe.c|19970625172501|55727
+lm@lm.bitmover.com|src/enough.c|19970613043340|63250|9a0843e42c129a15 lm@lm.bitmover.com|src/enough.c|19980630064951|13806
+lm@lm.bitmover.com|src/bw_mmap_rd.c|19941118084947|04186|418ae16dc12971 lm@lm.bitmover.com|src/bw_mmap_rd.c|19980630053727|21305
+lm@lm.bitmover.com|src/flushdisk.c|19971024204947|14057|816a5afb22774a0 lm@lm.bitmover.com|src/flushdisk.c|19980630064957|39708
+lm@lm.bitmover.com|src/bw_tcp.c|19941118084947|19070|7051c2802eae1cf3 lm@lm.bitmover.com|src/bw_tcp.c|19971020064011|01142
+lm@lm.bitmover.com|src/bw_unix.c|19960522073302|32506|3ecbff5984316fe lm@lm.bitmover.com|src/bw_unix.c|19970625172501|60058
+lm@lm.bitmover.com|src/lat_ctx.c|19941118084947|05650|8c9456d3fe23f5b3 lm@lm.bitmover.com|src/lat_ctx.c|19980701065820|07445
+lm@lm.bitmover.com|src/clock.c|19970611034617|27314|c65f836be45c53d8 lm@lm.bitmover.com|src/clock.c|19970613043006|47171
+lm@lm.bitmover.com|src/lmdd.1|19920227103516|33921|df9fa92cb54a1f00 lm@lm.bitmover.com|src/lmdd.1|19930516214537|06578
+lm@lm.bitmover.com|src/seek.c|19960905055704|42171|5efb8d827f2f602 lm@lm.bitmover.com|src/seek.c|19970613043006|23812
+lm@lm.bitmover.com|src/lat_unix_connect.c|19971020065015|47898|993911110514ea9 lm@lm.bitmover.com|src/lat_unix_connect.c|19980630065059|53896
+lm@lm.bitmover.com|src/hello.c|19941118084947|57098|f8859fefaf295a3c lm@lm.bitmover.com|src/hello.c|19970613043006|05957
+lm@lm.bitmover.com|src/lat_mem_rd.c|19941118084947|64604|c02704ba4b897de0 lm@lm.bitmover.com|src/lat_mem_rd.c|19980630231349|14350
+lm@lm.bitmover.com|src/lib_timing.c|19920624210914|13663|4ef3c93154a38206 lm@lm.bitmover.com|src/lib_timing.c|19990321073834|57041
+lm@lap|src/version.h|19980617000207|02698|ea66bbcacf225bf6 lm@lm.bitmover.com|src/version.h|19980731195454|03883
+lm@lm.bitmover.com|src/lat_connect.c|19941118084947|14665|86372c4fec5b6e34 lm@lm.bitmover.com|src/lat_connect.c|19980731050411|28543
+lm@lm.bitmover.com|src/mhz.c|19941118085154|23994|a8a6d33bb26f366 lm@lm.bitmover.com|src/mhz.c|19980630054136|16240
+lm@lm.bitmover.com|src/lat_fifo.c|19971020064843|03898|e79b9fced992184a lm@lm.bitmover.com|src/lat_fifo.c|19971020064844|28664
+lm@lm.bitmover.com|src/lat_fs.c|19941118084947|08513|e78dec908fe62e64 lm@lm.bitmover.com|src/lat_fs.c|19970616053858|60593
+lm@lm.bitmover.com|src/lat_mmap.c|19941118084947|19537|e3044628e9a37e7 lm@lm.bitmover.com|src/lat_mmap.c|19970616053858|10049
+lm@lm.bitmover.com|src/lat_pipe.c|19941118084947|42508|b08317879cd9d375 lm@lm.bitmover.com|src/lat_pipe.c|19970616053858|21742
+lm@lm.bitmover.com|src/lat_proc.c|19941118084947|49449|67978a001d538da6 lm@work.bitmover.com|src/lat_proc.c|19990903054747|26654
+lm@lm.bitmover.com|src/lat_http.c|19971020064852|58926|bb3831f9effa4c1c lm@lm.bitmover.com|src/lat_http.c|19980630053732|34536
+lm@lm.bitmover.com|src/lat_select.c|19961114001606|65044|97c296f6daba401d lm@lm.bitmover.com|src/lat_select.c|19980731194756|01851
+lm@lm.bitmover.com|src/lat_sig.c|19941130001638|06404|b8488b438b6e1c23 lm@lm.bitmover.com|src/lat_sig.c|19970616053858|20341
+lm@lm.bitmover.com|src/lat_tcp.c|19941118084947|17274|403c1dd2be70f174 lm@lm.bitmover.com|src/lat_tcp.c|19970616053858|42655
+lm@lm.bitmover.com|src/lat_udp.c|19941118084947|24062|7459a472444854ce lm@lm.bitmover.com|src/lat_udp.c|19970616053858|65433
+lm@lm.bitmover.com|src/lat_pagefault.c|19941118084947|33722|21040cf28d60fb56 lm@lm.bitmover.com|src/lat_pagefault.c|19971101020623|61244
+lm@lm.bitmover.com|src/lat_unix.c|19960522073302|07499|60b40b303e5dd5e0 lm@lm.bitmover.com|src/lat_unix.c|19970616053858|23557
+lm@lm.bitmover.com|src/lat_syscall.c|19941118084947|13682|92127cb9fcc9c374 lm@lm.bitmover.com|src/lat_syscall.c|19970616053858|11950
+lm@lm.bitmover.com|src/lib_tcp.c|19941118084947|22782|70231aa7476519f5 lm@lm.bitmover.com|src/lib_tcp.c|19970617020550|01568
+lm@lm.bitmover.com|src/lib_tcp.h|19961114001459|32750|fae00e4b816a260 lm@lm.bitmover.com|src/lib_tcp.h|19970616053858|49958
+lm@lm.bitmover.com|src/lib_udp.c|19941118084947|37686|742df623760bb62f lm@lm.bitmover.com|src/lib_udp.c|19970617020550|21649
+lm@lm.bitmover.com|src/lib_stats.c|19970613043347|45129|6b0974d3d98b42e9 lm@lm.bitmover.com|src/lib_stats.c|19971101020701|08249
+lm@lm.bitmover.com|src/lib_udp.h|19961114001459|51303|54591f07d0325bfe lm@lm.bitmover.com|src/lib_udp.h|19970616053858|38166
+lm@lm.bitmover.com|src/lib_unix.c|19971020064904|55858|98550639d79890cd lm@lm.bitmover.com|src/lib_unix.c|19971020064905|00059
+lm@lm.bitmover.com|src/loop_o.c|19970615042705|61253|6ebf90f45ce175dc lm@lm.bitmover.com|src/loop_o.c|19970616053858|06124
+lm@lm.bitmover.com|src/mhz.irix|19941130214038|00301|845ba9c3182ca3bb lm@lm.bitmover.com|src/mhz.irix|19941209195029|20487
+lm@lm.bitmover.com|src/msleep.c|19970615042710|05121|d239bb576a096245 lm@lm.bitmover.com|src/msleep.c|19970615213644|24725
+lm@lm.bitmover.com|src/lat_rpc.c|19941118084947|10025|8144ca9d37f3411e lm@lm.bitmover.com|src/lat_rpc.c|19980630053737|44357
+lm@lm.bitmover.com|src/names.h|19961114001459|20509|438cda61ceaadaee lm@lm.bitmover.com|src/names.h|19961114001500|37888
+lm@lm.bitmover.com|src/rhttp.c|19970613043406|25541|5dc7507474b0219e lm@lm.bitmover.com|src/rhttp.c|19971024204903|07830
+lm@lm.bitmover.com|src/stats.h|19970613043352|32183|7340c05fd9766fd9 lm@lm.bitmover.com|src/stats.h|19971031023302|59940
+lm@lm.bitmover.com|src/lmhttp.c|19970613043401|03634|44f0727f23143b90 lm@lm.bitmover.com|src/lmhttp.c|19980630053743|30057
+lm@lm.bitmover.com|src/memsize.c|19950214190337|11395|37f652d1bab57b36 lm@work.bitmover.com|src/memsize.c|19990903054755|28066
+lm@lm.bitmover.com|src/timing.h|19961114001459|21532|b03b538da693ddd3 lm@lm.bitmover.com|src/timing.h|19980630053750|36570
+lm@lm.bitmover.com|src/timing_o.c|19970613043340|28440|ed38e6e135adb2ce staelin@bitmover|src/timing_o.c|19980627003521|10787
+lm@work.bitmover.com|src/lib_unix.h|19991208171717|08519|a4141822484ace9 lm@work.bitmover.com|src/lib_unix.h|19991208171718|16259
+lm@work.bitmover.com|src/busy.c|19991208171828|07698|66f642dc353072aa lm@work.bitmover.com|src/busy.c|19991208171829|06061
+lm@work.bitmover.com|src/lat_fcntl.c|19991208171819|08698|13b82230576b9707 lm@work.bitmover.com|src/lat_fcntl.c|19991208171820|45595
+lm@lm.bitmover.com|scripts/Makefile|19941124014401|04193|5e85834849ee718e lm@work.home|scripts/Makefile|19980330090255|05908
+lm@lm.bitmover.com|scripts/README|19941123071926|03830|db3322f87176643c lm@lm.bitmover.com|scripts/README|19970615041042|32083
+lm@lm.bitmover.com|scripts/SHIT|19951129203848|03723|d2921abdc0373c7 lm@lm.bitmover.com|scripts/SHIT|19951129203938|11064
+lm@lm.bitmover.com|scripts/allctx|19951025165200|04044|cc93e1fcf21cfdd5 lm@lm.bitmover.com|scripts/allctx|19960522060908|34192
+lm@lm.bitmover.com|scripts/getlist|19941123071647|00421|646c9152fb842aab lm@work.bitmover.com|scripts/getlist|19990902170947|46991
+lm@lm.bitmover.com|scripts/allmem|19951025165200|04028|300808bde8ca0dcf lm@lm.bitmover.com|scripts/allmem|19960522060908|27555
+lm@lm.bitmover.com|scripts/bghtml|19970615041409|04040|3aa371e545f99eea lm@lm.bitmover.com|scripts/bghtml|19970615041410|22140
+lm@lm.bitmover.com|scripts/bargraph|19941123071647|04239|ca073339c08ad586 lm@lm.bitmover.com|scripts/bargraph|19960522060940|56583
+lm@lm.bitmover.com|scripts/results|19941126004058|04190|4fe7cbc4774e86d3 lm@work.bitmover.com|scripts/results|19990903054926|18295
+lm@lm.bitmover.com|scripts/config|19970615041303|04025|c7aeb615f51dd402 lm@lm.bitmover.com|scripts/config|19970615041304|07617
+lm@lm.bitmover.com|scripts/compiler|19970616061229|04264|c0a3d7f6c0556250 lm@lm.bitmover.com|scripts/compiler|19970624063719|09218
+lm@lm.bitmover.com|scripts/config-run|19941126004058|04811|7bdb249a4ff37f0 lm@work.bitmover.com|scripts/config-run|19990902192444|62970
+lm@lm.bitmover.com|scripts/depend|19941123071647|04024|5223a6a8e4dfff54 lm@lm.bitmover.com|scripts/depend|19970213021505|50445
+lm@lm.bitmover.com|scripts/getbg|19941123071647|03921|e5fe9ba5830ee435 lm@lm.bitmover.com|scripts/getbg|19970713010835|36816
+lm@lm.bitmover.com|scripts/getbw|19970615041409|03939|9d79bf4769c384ce lm@lm.bitmover.com|scripts/getbw|19971101020001|38526
+lm@lm.bitmover.com|scripts/getctx|19941123071647|04055|5af976ad278e7418 lm@lm.bitmover.com|scripts/getctx|19971101020001|49115
+lm@lm.bitmover.com|scripts/getmax|19941123071647|04046|b3fb9fe573436abf lm@lm.bitmover.com|scripts/getmax|19971101020001|48238
+lm@lm.bitmover.com|scripts/getdisk|19971101020000|04135|3b2ec488bd048f37 lm@lm.bitmover.com|scripts/getdisk|19971101020001|40271
+lm@lm.bitmover.com|scripts/getmem|19941123071647|04039|ef6b575d2ae3b853 lm@lm.bitmover.com|scripts/getmem|19971101020001|33755
+lm@lm.bitmover.com|scripts/gifs|19970615041331|03821|64a9206ca9d2af8a lm@lm.bitmover.com|scripts/gifs|19970713011012|01949
+lm@lm.bitmover.com|scripts/getpercent|19941123071647|04473|6f25a175673b6b6a lm@lm.bitmover.com|scripts/getpercent|19970713010803|14492
+lm@lm.bitmover.com|scripts/getsummary|19941123071647|04502|3ff841867aca8d12 lm@lm.bitmover.com|scripts/getsummary|19970713011048|08017
+lm@lm.bitmover.com|scripts/gnu-os|19970616034135|04002|f13ac0c986e51a1 lm@lm.bitmover.com|scripts/gnu-os|19970616034136|53039
+lm@lm.bitmover.com|scripts/graph|19941123071647|03930|e02d7d6eb8b1fa01 lm@lm.bitmover.com|scripts/graph|19980329223926|15081
+lm@lm.bitmover.com|scripts/info|19970616025553|03842|983152f24ab0d3f9 lm@lm.bitmover.com|scripts/info|19970616025554|07341
+lm@lm.bitmover.com|scripts/html-list|19970615041409|04328|bc4b0e696fe0b7ab lm@lm.bitmover.com|scripts/html-list|19970713011026|49732
+lm@lm.bitmover.com|scripts/html-man|19970615041409|04200|fb5cdd3e80d2e120 lm@lm.bitmover.com|scripts/html-man|19970615041410|44088
+lm@lm.bitmover.com|scripts/os|19941123071647|03626|1b9fa2853f304463 lm@lm.bitmover.com|scripts/os|19970624063719|15691
+lm@lm.bitmover.com|scripts/lmbench|19941123071647|45281|acff2ef2b9c4b39c lm@work.bitmover.com|scripts/lmbench|19990902192444|42600
+lm@lm.bitmover.com|scripts/info-template|19970616025601|01278|772aa74ddb9a5907 lm@lm.bitmover.com|scripts/info-template|19980701005906|29862
+lm@lm.bitmover.com|scripts/man2html|19970615041409|04205|14724f5cb00b57d7 lm@lm.bitmover.com|scripts/man2html|19970615041410|38472
+lm@lm.bitmover.com|scripts/new2oldctx|19970615041409|04436|7ef96e61ec39fdee lm@lm.bitmover.com|scripts/new2oldctx|19970615041410|38076
+lm@lm.bitmover.com|scripts/opercent|19970615041409|04266|da232ce92ab7eca2 lm@lm.bitmover.com|scripts/opercent|19970615041410|09313
+lm@lm.bitmover.com|scripts/percent|19970615041409|04155|da9ac6bee3eca1b8 lm@lm.bitmover.com|scripts/percent|19970615041410|14849
+lm@lm.bitmover.com|scripts/rccs|19941124001810|03822|42f2c092869bbff5 lm@lm.bitmover.com|scripts/rccs|19980329204952|27502
+lm@lm.bitmover.com|scripts/save|19941123071647|03831|f1160696e1a1d471 lm@lm.bitmover.com|scripts/save|19960522061335|48955
+lm@lm.bitmover.com|scripts/stats|19970615041401|03953|5dd15d544b61fcd lm@lm.bitmover.com|scripts/stats|19970615041402|05179
+lm@lm.bitmover.com|scripts/target|19970616025557|04065|cb9ca50866020da8 lm@lm.bitmover.com|scripts/target|19970624063719|41134
+lm@lm.bitmover.com|scripts/xroff|19941123071647|03949|72252dff1a8e9b55 lm@lm.bitmover.com|scripts/xroff|19960522061403|09054
+lm@bitmover|scripts/mkrelease|19980609055826|03739|8ca5c15a85807840 lm@bitmover|scripts/mkrelease|19980609055827|38152
+lm@lm.bitmover.com|scripts/version|19980701070310|04161|86f4c240e0ad9f12 lm@lm.bitmover.com|scripts/version|19980701070311|33818
+lm@lm.bitmover.com|scripts/TODO|20000131165340|07756|c9f4b1757aa28114 lm@lm.bitmover.com|scripts/TODO|20000131165341|07460
+lm@lm.bitmover.com|scripts/do_ctx|20000131165340|08418|4a75155e5b41d44d lm@lm.bitmover.com|scripts/do_ctx|20000131165341|42048
+lm@lm.bitmover.com|scripts/getresults|20000131165340|09348|c13088252c1c59b7 lm@lm.bitmover.com|scripts/getresults|20000131165341|11578
+lm@lm.bitmover.com|scripts/synchronize|20000131165340|09560|e1d90534a63b6efe lm@lm.bitmover.com|scripts/synchronize|20000131165341|11230
+lm@lm.bitmover.com|results/Makefile|19941124014656|04215|b60f2a10c224046e lm@lm.bitmover.com|results/Makefile|19971101020434|25654
+E 3
+I 2
+lm@lm.bitmover.com|BitKeeper/etc/config|20000131225554|14900|b315f4732d73103 lm@lm.bitmover.com|BitKeeper/etc/config|20000131225555|36720
+E 2
+I 1
+E 1

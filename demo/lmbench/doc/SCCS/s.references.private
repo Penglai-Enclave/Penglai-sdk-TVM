@@ -1,0 +1,35 @@
+h41526
+s 00007/00000/00000
+d D 1.1 95/09/27 18:40:41 staelin 2 1
+c Initial revision
+cC
+cK18470
+e
+s 00000/00000/00000
+d D 1.0 95/09/27 18:40:40 staelin 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK05343
+cPdoc/references.private
+cR8f6093c1d1b10b5e
+cV4
+cX0x23
+cZ-07:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+T
+I 2
+%z Article
+%K McCalpin95
+%A John D. McCalpin
+%T Memory bandwidth and machine balance in current high performance computers
+%J IEEE Technical Committee on Computer Architecture newsletter
+%V to appear 
+%D Dec. 1995
+E 2
+I 1
+E 1

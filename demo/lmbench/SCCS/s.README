@@ -1,0 +1,177 @@
+h17933
+s 00006/00020/00017
+d D 1.7 98/07/01 01:19:56 lm 8 7
+cC
+cK49150
+e
+s 00001/00001/00036
+d D 1.6 95/10/25 22:12:42 lm 7 6
+c *** empty log message ***
+cK23583
+e
+s 00006/00006/00031
+d D 1.5 95/10/25 22:09:47 lm 6 5
+c *** empty log message ***
+cK23231
+e
+s 00007/00005/00030
+d D 1.4 95/10/25 21:35:35 lm 5 4
+c *** empty log message ***
+cK31201
+cZ-07:00
+e
+s 00012/00010/00023
+d D 1.3 94/11/25 17:33:50 lm 4 3
+c *** empty log message ***
+cK35573
+e
+s 00002/00002/00031
+d D 1.2 94/11/25 17:23:13 lm 3 2
+c *** empty log message ***
+cK26907
+e
+s 00033/00000/00000
+d D 1.1 94/11/25 17:21:17 lm 2 1
+c Initial revision
+cK26763
+e
+s 00000/00000/00000
+d D 1.0 94/11/25 17:21:16 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK28559
+cPREADME
+cR1836b00241ca7bea
+cV4
+cX0x21
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x21
+t
+T
+I 2
+D 5
+README for lmbench 1.0 net release.
+E 5
+I 5
+D 8
+README for lmbench 1.1 net release.
+E 5
+D 4
+$Id$
+E 4
+
+D 4
+In general, you can look at makefiles to get more information.  There is
+E 4
+I 4
+In general, you can look at Makefiles to get more information.  There is
+E 4
+D 3
+Postscript documentation in doc/*.PS as well as the source from which 
+thos files are derived.
+E 3
+I 3
+Postscript documentation in PS as well as the source from which 
+thos files are derived in doc.
+E 8
+I 8
+README for lmbench 2alpha8 net release.
+E 8
+E 3
+
+To run the benchmark, you should be able to say:
+
+D 7
+	make results
+E 7
+I 7
+D 8
+	make get results
+E 8
+I 8
+	cd src
+	make results
+E 8
+E 7
+
+If you want to see how you did compared to the other system results
+included here, say
+
+	make see
+
+D 4
+Please send your results back to me, lm@sgi.com, after you believe you
+have obtained, good, stable numbers.  Be warned that many of these
+benchmarks are sensitive to other things being run on the system,
+mainly from CPU cache and CPU cycle effects.  So make sure your screen
+saver is not running, etc.
+E 4
+I 4
+D 6
+If you have a system that is not represented here, or you got better
+numbers than I did, please send me the results.  Please send your
+results lm@sgi.com after you believe you have obtained, good, stable
+numbers.  Be warned that many of these benchmarks are sensitive to
+E 6
+I 6
+D 8
+Some of the targets in the makefiles use scripts/rccs.  Put lmbench/scripts
+in your path or copy rccs to your bin directory.
+
+Be warned that many of these benchmarks are sensitive to
+E 6
+other things being run on the system, mainly from CPU cache and CPU
+cycle effects.  So make sure your screen saver is not running, etc.
+E 8
+I 8
+Be warned that many of these benchmarks are sensitive to other things
+being run on the system, mainly from CPU cache and CPU cycle effects.
+So make sure your screen saver is not running, etc.
+E 8
+E 4
+
+It's a good idea to do several runs and compare the output like so
+
+	make results
+	make rerun
+	make rerun
+	make rerun
+	cd Results && make LIST=<your OS>/*
+D 8
+
+D 4
+This software is distributed under the GPL with the following extra
+condition: you may NOT distribute results of any benchmark that has 
+been modified and has not been redistributed by me (Larry McVoy).  
+E 4
+I 4
+D 5
+Please do not send me or post multi processor results.  This is a
+uniprocessor benchmark suite.  The only MP results that are acceptable
+are results from an MP with only one processor enabled.
+
+E 5
+D 6
+$Id$
+I 5
+
+E 6
+Changes since release 1.0:
+	- many portability changes
+	- some new benchmarks
+	- a usenix paper (draft in doc/usenix.ps)
+	- a start at a html page (not done)
+I 6
+
+$Id$
+E 8
+E 6
+E 5
+E 4
+E 2
+I 1
+E 1

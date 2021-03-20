@@ -1,0 +1,10 @@
+#!/bin/sh
+
+OS=bloat-os
+if [ -f ../scripts/gnu-os ]
+then	OS=`../scripts/gnu-os | sed s/unknown-//`
+fi
+if [ -f ../../scripts/gnu-os ]
+then	OS=`../../scripts/gnu-os | sed s/unknown-//`
+fi
+echo $OS

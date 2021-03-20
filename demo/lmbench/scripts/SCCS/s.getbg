@@ -1,0 +1,2074 @@
+h34154
+s 00000/00000/00806
+d D 1.18 00/01/31 15:29:41 lm 19 18
+c Change mode to -rwxrwxr-x
+cC
+cK06262
+cO-rwxrwxr-x
+cZ-08:00
+e
+s 00002/00001/00804
+d D 1.17 97/07/12 18:08:35 lm 18 17
+c new naming mecahnism
+cC
+cK36816
+e
+s 00097/00075/00708
+d D 1.16 96/05/21 23:10:20 lm 17 16
+c perl5; better names.
+cK33289
+cZ-07:00
+e
+s 00018/00015/00765
+d D 1.15 95/11/14 11:12:08 lm 16 15
+c stuff.
+cK61662
+e
+s 00042/00008/00738
+d D 1.14 95/11/10 20:15:18 lm 15 14
+c better names.
+cK56875
+e
+s 00050/00000/00696
+d D 1.13 95/11/08 20:37:15 lm 14 13
+c mem latency
+cK03418
+e
+s 00020/00023/00676
+d D 1.12 95/11/03 21:20:18 lm 13 12
+c tbls.
+cK49774
+e
+s 00013/00009/00686
+d D 1.11 95/11/03 13:34:48 lm 12 11
+c sort fields.
+cK59207
+e
+s 00108/00075/00587
+d D 1.10 95/11/02 14:38:53 lm 11 10
+c paper stuff.
+cK50083
+cZ-08:00
+e
+s 00054/00128/00608
+d D 1.9 95/10/25 14:56:09 lm 10 9
+c catching bad data formats
+cK40664
+e
+s 00113/00007/00623
+d D 1.8 95/10/25 09:45:56 lm 9 8
+c paper tables.
+cK51825
+e
+s 00111/00023/00519
+d D 1.7 95/10/08 15:21:35 lm 8 7
+c denser tables.
+cK52361
+e
+s 00064/00015/00478
+d D 1.6 95/10/05 13:16:54 lm 7 6
+c paper support for tables.
+cK47496
+e
+s 00178/00030/00315
+d D 1.5 95/09/28 11:12:58 lm 6 5
+c Tbl output.
+cK43996
+e
+s 00006/00001/00339
+d D 1.4 95/08/31 18:23:35 lm 5 4
+c perl5
+cK55345
+e
+s 00045/00017/00295
+d D 1.3 95/08/22 15:25:02 lm 4 3
+c different fill levels for different OS'\''s.
+c More consistent naming of graphs.
+cK47210
+cZ-07:00
+e
+s 00044/00000/00268
+d D 1.2 95/02/15 13:28:58 lm 3 2
+c Make all 8MB stuff optional; use the biggest you can find.
+cK58243
+e
+s 00268/00000/00000
+d D 1.1 94/11/22 23:16:48 lm 2 1
+c Initial revision
+cK59979
+e
+s 00000/00000/00000
+d D 1.0 94/11/22 23:16:47 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK03921
+cPscripts/getbg
+cRe5fe9ba5830ee435
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+lmbench1.0 release
+T
+I 2
+
+# Extract bargraph data from lmbench results.
+# Usage: getbg file file file....
+#
+# Hacked into existence by Larry McVoy (lm@sun.com now lm@sgi.com).
+# Copyright (c) 1994 Larry McVoy.  GPLed software.
+# $Id$
+D 6
+eval "exec perl -Ss $0 $*"
+E 6
+I 6
+D 17
+eval "exec perl -Sws $0 $*"
+E 17
+I 17
+eval 'exec perl -Sws $0 "$@"'
+E 17
+E 6
+	if 0;
+
+I 10
+D 17
+@bw_file = @files = @lat_ctx32_8 = @lat_ctx32 = @lat_ctx8 = @lat_ctx =
+E 17
+I 17
+@bw_file = @file = @lat_ctx32_8 = @lat_ctx32 = @lat_ctx8 = @lat_ctx =
+E 17
+@lat_shproc = @lat_simpleproc = @lat_nullproc =
+@lat_rpc_tcp_local = @lat_rpc_udp_local = @lat_tcp_local = @lat_udp_local =
+D 11
+@lat_pipe = @mhz = ();
+$v = $paper = $slide = 0 if 0;
+
+E 11
+I 11
+@lat_pipe = @lat_disk = @mhz = @lat_fs_delete = @lat_fs_create = 
+@lat_mappings = @lat_pagefault = @lat_connect = @lat_signal = @lat_sigaction =
+@lat_nullsys = @lat_mem = @lat_l2 = @lat_l1 = ();
+$nosort = $v = $paper = $slide = 0 if 0;
+$sortN = 0;
+$n = 0;
+E 11
+E 10
+foreach $file (@ARGV) {
+D 17
+	push(@files, $file);
+	open(FD, $file) || die "$0: can't open $file";
+E 17
+D 10
+	warn "$0: doing $file\n";
+E 10
+I 10
+	warn "$0: doing $file\n" if $v;
+I 17
+	open(FD, $file) || die "$0: can't open $file";
+D 18
+	$file =~ s|.*/||;
+E 18
+I 18
+	$file =~ s|/|-|;
+E 18
+	$file =~ s/\.\d+//;
+	push(@file, $file);
+E 17
+E 10
+	while (<FD>) {
+		chop;
+I 18
+		next if m|scripts/lmbench: /dev/tty|;
+E 18
+		if (/^\[lmbench/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			if ($_[3] eq "SunOS") {
+				$_[3] .= "-$_[5]";
+			}
+			push(@uname, "@_");
+		}
+		if (/Mhz/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@misc_mhz, $_[0]);
+		}
+		if (/^Null syscall:/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_nullsys, $_[2]);
+		}
+I 6
+		if (/^Signal handler installation:/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_sigaction, $_[3]);
+		}
+		if (/^Signal handler overhead:/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_signal, $_[3]);
+		}
+E 6
+		if (/^Pipe latency:/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_pipe, $_[2]);
+		}
+		if (/UDP latency using localhost:/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_udp_local, $_[4]);
+		}
+		if (/TCP latency using localhost/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_tcp_local, $_[4]);
+		}
+		if (/RPC.udp latency using localhost/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_rpc_udp_local, $_[4]);
+		}
+		if (/RPC.tcp latency using localhost/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_rpc_tcp_local, $_[4]);
+		}
+I 6
+		if (/TCP\/IP connection cost to localhost/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_connect, $_[5]);
+I 16
+D 17
+			warn "$file: connect: $_[5]\n";
+E 17
+E 16
+		}
+E 6
+		if (/^Process fork.exit/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_nullproc, $_[2]);
+		}
+D 6
+		if (/^Process fork.execve/) {
+E 6
+I 6
+		if (/^Process fork.execve:/) {
+E 6
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_simpleproc, $_[2]);
+		}
+I 6
+D 10
+		if (/^Process fork.execve static:/) {
+			split;
+			push(@lat_staticproc, $_[2]);
+		}
+E 10
+E 6
+		if (/^Process fork..bin.sh/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_shproc, $_[3]);
+		}
+I 6
+		if (/^Pagefaults on/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_pagefault, $_[3]);
+		}
+E 6
+		if (/size=0 ovr=/) {
+			while (<FD>) {
+I 11
+				# Make sure we break out if no data here.
+				if (!/^[1-9]+\s/) {
+					warn "$file: No ctx found\n";
+					push(@lat_ctx, -1);
+				}
+E 11
+				next unless /^2/;
+D 17
+				split;
+E 17
+I 17
+				@_ = split;
+E 17
+				push(@lat_ctx, $_[1]);
+			    	last;
+			}
+			while (<FD>) {
+I 11
+				# Make sure we break out if no data here.
+				if (!/^[1-9]+\s/) {
+					warn "$file: No ctx found\n";
+					push(@lat_ctx, -1);
+				}
+E 11
+				next unless /^8/;
+D 17
+				split;
+E 17
+I 17
+				@_ = split;
+E 17
+				push(@lat_ctx8, $_[1]);
+			    	last;
+			}
+		}
+I 8
+		if (/size=32 ovr=/) {
+			while (<FD>) {
+I 11
+				# Make sure we break out if no data here.
+				if (!/^[1-9]+\s/) {
+					warn "$file: No ctx found\n";
+					push(@lat_ctx32, -1);
+				}
+E 11
+				next unless /^2/;
+D 17
+				split;
+E 17
+I 17
+				@_ = split;
+E 17
+				push(@lat_ctx32, $_[1]);
+			    	last;
+			}
+			while (<FD>) {
+I 11
+				# Make sure we break out if no data here.
+				if (!/^[1-9]+\s/) {
+					warn "$file: No ctx found\n";
+					push(@lat_ctx32_8, -1);
+				}
+E 11
+				next unless /^8/;
+D 17
+				split;
+E 17
+I 17
+				@_ = split;
+E 17
+				push(@lat_ctx32_8, $_[1]);
+			    	last;
+			}
+		}
+E 8
+		if (/^Pipe bandwidth/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@bw_pipe, $_[2]);
+		}
+		if (/^Socket bandwidth using localhost/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@bw_tcp_local, $_[4]);
+		}
+I 11
+		if (/^Disk .* latency:/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			push(@lat_disk, $_[3]);
+		}
+E 11
+		if (/^File .* write bandwidth/) {
+D 17
+			split;
+E 17
+I 17
+			@_ = split;
+E 17
+			$bw = sprintf("%.2f", $_[4] / 1024.);
+			push(@bw_file, $bw);
+		}
+		if (/^"mappings/) {
+D 10
+			$done = 0;
+			while (<FD>) {
+				last if /^\s*$/;
+				$save = $_ if /^\d\./;
+				next unless /^8.00/;
+				split;
+				push(@lat_mappings, $_[1]);
+				$done++;
+			    	last;
+			}
+			unless ($done) {
+				$_ = $save;
+				split;
+				push(@lat_mappings, $_[1]);
+				warn "$file: No 8MB found for " .
+				    "memory mapping timing, using $_[0]\n";
+			}
+E 10
+I 10
+			$value = &getbiggest("memory mapping timing");
+			push(@lat_mappings, $value);
+E 10
+		}
+		if (/^"read bandwidth/) {
+D 10
+			$done = 0;
+			while (<FD>) {
+				last if /^\s*$/;
+				$save = $_ if /^\d\./;
+				next unless /^8.00/;
+				split;
+				push(@bw_reread, $_[1]);
+				$done++;
+			    	last;
+			}
+			unless ($done) {
+				$_ = $save;
+				split;
+				push(@bw_reread, $_[1]);
+				warn "$file: No 8MB found for " .
+				    "reread timing, using $_[0]\n";
+			}
+E 10
+I 10
+			$value = &getbiggest("reread timing");
+			push(@bw_reread, $value);
+E 10
+		}
+		if (/^"Mmap read bandwidth/) {
+D 10
+			$done = 0;
+			while (<FD>) {
+				last if /^\s*$/;
+				$save = $_ if /^\d\./;
+				next unless /^8.00/;
+				split;
+				push(@bw_mmap, $_[1]);
+				$done++;
+			    	last;
+			}
+			unless ($done) {
+				$_ = $save;
+				split;
+				push(@bw_mmap, $_[1]);
+				warn "$file: No 8MB found for " .
+				    "mmap reread timing, using $_[0]\n";
+			}
+E 10
+I 10
+			$value = &getbiggest("mmap reread timing");
+			push(@bw_mmap, $value);
+E 10
+		}
+		if (/^"libc bcopy unaligned/) {
+I 3
+D 10
+			$done = 0;
+E 3
+			while (<FD>) {
+I 3
+				last if /^\s*$/;
+				$save = $_ if /^\d\./;
+E 3
+				next unless /^8.00/;
+				split;
+				push(@bw_bcopy_libc, $_[1]);
+I 3
+				$done++;
+E 3
+			    	last;
+			}
+I 3
+			unless ($done) {
+				$_ = $save;
+				split;
+				push(@bw_bcopy_libc, $_[1]);
+				warn "$file: No 8MB found for " .
+				    "libc bcopy timing, using $_[0]\n";
+			}
+E 10
+I 10
+			$value = &getbiggest("libc bcopy timing");
+			push(@bw_bcopy_libc, $value);
+E 10
+E 3
+		}
+		if (/^"unrolled bcopy unaligned/) {
+I 3
+D 10
+			$done = 0;
+E 3
+			while (<FD>) {
+I 3
+				last if /^\s*$/;
+				$save = $_ if /^\d\./;
+E 3
+				next unless /^8.00/;
+				split;
+				push(@bw_bcopy_unrolled, $_[1]);
+I 3
+				$done++;
+E 3
+			    	last;
+			}
+I 3
+			unless ($done) {
+				$_ = $save;
+				split;
+				push(@bw_bcopy_unrolled, $_[1]);
+				warn "$file: No 8MB found for " .
+				    "unrolled bcopy timing, using $_[0]\n";
+			}
+E 10
+I 10
+			$value = &getbiggest("unrolled bcopy timing");
+			push(@bw_bcopy_unrolled, $value);
+E 10
+E 3
+		}
+		if (/^Memory read/) {
+I 3
+D 10
+			$done = 0;
+E 3
+			while (<FD>) {
+I 3
+				last if /^\s*$/;
+				$save = $_ if /^\d\./;
+E 3
+				next unless /^8.00/;
+				split;
+				push(@bw_mem_rdsum, $_[1]);
+I 3
+				$done++;
+E 3
+			    	last;
+			}
+I 3
+			unless ($done) {
+				$_ = $save;
+				split;
+				push(@bw_mem_rdsum, $_[1]);
+				warn "$file: No 8MB found for " .
+				    "memory read & sum timing, using $_[0]\n";
+			}
+E 10
+I 10
+			$value = &getbiggest("memory read & sum timing");
+			push(@bw_mem_rdsum, $value);
+E 10
+E 3
+		}
+		if (/^Memory write/) {
+I 3
+D 10
+			$done = 0;
+E 3
+			while (<FD>) {
+I 3
+				last if /^\s*$/;
+				$save = $_ if /^\d\./;
+E 3
+				next unless /^8.00/;
+				split;
+				push(@bw_mem_wr, $_[1]);
+I 3
+				$done++;
+E 3
+			    	last;
+			}
+I 3
+			unless ($done) {
+				$_ = $save;
+				split;
+				push(@bw_mem_wr, $_[1]);
+				warn "$file: No 8MB found for " .
+				    "memory write timing, using $_[0]\n";
+			}
+E 10
+I 10
+			$value = &getbiggest("memory write timing");
+			push(@bw_mem_wr, $value);
+E 10
+E 3
+		}
+I 6
+		if (/^0k\s/) {
+D 17
+			split; 
+E 17
+I 17
+			@_ = split; 
+E 17
+			push(@lat_fs_create, int(1000000/$_[2]));
+			push(@lat_fs_delete, int(1000000/$_[3]));
+		}
+I 11
+		if (/^"stride=128/) {
+			$save = -1;
+			while (<FD>) {
+				if (/^0.00098\s/) {
+D 17
+					split;
+E 17
+I 17
+					@_ = split;
+E 17
+					push(@lat_l1, $_[1]);
+				} elsif (/^0.12500\s/) {
+D 17
+					split;
+E 17
+I 17
+					@_ = split;
+E 17
+					push(@lat_l2, $_[1]);
+				} elsif (/^[45678].00000\s/) {
+D 17
+					split;
+E 17
+I 17
+					@_ = split;
+E 17
+					$size = $_[0];
+					$save = $_[1];
+					last if /^8.00000\s/;
+				} elsif (/^\s*$/) {
+					last;
+				}
+			}
+			if (!/^8/) {
+				warn "$file: No 8MB memory latency, using $size\n";
+			}
+			push(@lat_mem, $save);
+		}
+E 11
+E 6
+	}
+I 6
+D 11
+	# Signals happened later.  See if we got one.
+	# Connections came later, check for them.
+	# Pagefaults...
+	# fs latency...
+	@notfound = ();
+	if ($#lat_sigaction < $#lat_nullsys) {
+		push(@notfound, "signal installation");
+		push(@lat_sigaction, -1);
+E 11
+I 11
+	foreach $array (
+		'misc_mhz', 'lat_nullsys', 'lat_pipe', 'lat_udp_local',
+D 16
+		'lat_tcp_local', 'lat_rpc_udp_local',
+E 16
+I 16
+		'lat_tcp_local', 'lat_rpc_udp_local', 'lat_connect',
+E 16
+		'lat_rpc_tcp_local', 'lat_nullproc', 'lat_simpleproc',
+		'lat_ctx', 'lat_ctx8', 'bw_pipe', 'bw_tcp_local',
+		'bw_file', 'lat_mappings', 'bw_reread', 'bw_mmap',
+		'bw_bcopy_libc', 'bw_bcopy_unrolled', 'bw_mem_rdsum',
+		'bw_mem_wr', 'lat_l1', 'lat_l2', 'lat_mem', 'lat_disk',
+	) {
+		$last = eval '$#' . $array;
+		if ($last != $n) {
+			warn "No data for $array in $file\n";
+			eval 'push(@' . $array . ', -1);';
+		}
+E 11
+	}
+D 11
+	if ($#lat_signal < $#lat_nullsys) {
+		push(@notfound, "signal handler");
+		push(@lat_signal, -1);
+	}
+	if ($#lat_connect < $#lat_nullsys) {
+		push(@notfound, "connection latency");
+		push(@lat_connect, -1);
+	}
+	if ($#lat_pagefault < $#lat_nullsys) {
+		push(@notfound, "page fault latency");
+		push(@lat_pagefault, -1);
+	}
+	if ($#lat_fs_create < $#lat_nullsys) {
+		push(@notfound, "file system latency");
+		push(@lat_fs_create, -1);
+		push(@lat_fs_delete, -1);
+	}
+	if ($#notfound > -1) {
+D 10
+		warn "The following were not found in $file: @notfound\n";
+E 10
+I 10
+		warn "$file: not found: @notfound\n";
+E 10
+	}
+E 11
+I 11
+	$n++;
+E 11
+E 6
+}
+
+I 10
+D 17
+# Input looks like
+# "benchmark name
+# size value
+# ....
+# <blank line>
+#
+# Return the biggest vvalue before the blank line.
+sub getbiggest
+{
+	local($msg) = @_;
+
+	undef $save;
+	$value = 0;
+	while (<FD>) {
+		last if /^\s*$/;
+		$save = $_ if /^\d\./;
+	}
+	if (defined $save) {
+		$_ = $save;
+		@d = split;
+		$value = $d[1];
+D 11
+		if (int($d[0]) < 8) {
+			warn "$file: using $d[0] size for $msg\n";
+		}
+E 11
+	} else {
+		warn "$file: no data for $msg\n";
+	}
+	$value;
+}
+
+E 17
+E 10
+D 4
+&bg("lat_nullsys", "usecs", "Null system calls per second");
+&bg("lat_nullproc", "usecs", "Process forks/exits per second");
+&bg("lat_simpleproc", "usecs", "Simple process creates (/bin/echo foo) per second");
+&bg("lat_shproc", "usecs", "Simple process creates via /bin/sh per second");
+&bg("lat_ctx", "usecs", "Context switches per second, 2 small processes");
+&bg("lat_ctx8", "usecs", "Context switches per second, 8 small processes");
+E 4
+I 4
+D 6
+&bg("lat_nullsys", "usecs", "Number of null system calls per second");
+&bg("lat_nullproc", "usecs", "Number of process forks/exits per second");
+&bg("lat_simpleproc", "usecs", "Number of simple process creates (/bin/echo foo) per second");
+&bg("lat_shproc", "usecs", "Number of simple process creates via /bin/sh per second");
+&bg("lat_ctx", "usecs", "Number of context switches per second, 2 small processes");
+&bg("lat_ctx8", "usecs", "Number of context switches per second, 8 small processes");
+E 6
+I 6
+if ($paper) {
+D 16
+	&tbl("lat_nullsys", "usecs", "Null system call time in \\(*mseconds");
+E 16
+I 16
+	&tbl("lat_nullsys", "usecs", "system call");
+E 16
+D 9
+	&tbl("lat_signal", "usecs", "Signal handler time in \\(*mseconds");
+E 9
+I 9
+	&tbl2("lat_signal", "lat_sigaction", "lat_signal", "usecs",
+	    "signal", "sigaction", "sig handler");
+E 9
+D 16
+	&tbl("lat_nullproc", "msecs", "Process fork/exit time in milliseconds");
+	&tbl("lat_simpleproc", "msecs", "Simple process create time in milliseconds");
+D 10
+	&tbl("lat_staticproc", "msecs", "Static process creates time in milliseconds");
+E 10
+	&tbl("lat_shproc", "msecs", "Process creates via /bin/sh time in milliseconds");
+D 8
+	&tbl2("lat_ctx", "lat_ctx", "lat_ctx8", "usecs",
+	    "Context switch time in \\(*mseconds", 
+	    "2 procs", "8 procs");
+E 6
+E 4
+
+E 8
+I 8
+	&tbl2("lat_proc", "lat_simpleproc", "lat_shproc", "usecs",
+	    "Process create time in milliseconds", "exec(2)", "/bin/sh -c");
+E 16
+I 16
+	#&tbl("lat_nullproc", "msecs", "Process fork/exit time in milliseconds");
+	#&tbl("lat_simpleproc", "msecs", "Simple process create time in milliseconds");
+	#&tbl("lat_shproc", "msecs", "Process creates via /bin/sh time in milliseconds");
+	#&tbl2("lat_proc", "lat_simpleproc", "lat_shproc", "usecs",
+	#    "Process create time in milliseconds", "exec(2)", "/bin/sh -c");
+E 16
+	&procs("lat_allproc", "lat_nullproc", "lat_simpleproc", "lat_shproc",
+	    "msecs");
+	&ctx;
+E 8
+D 4
+&bg("lat_pipe", "usecs", "Pipe transactions per second");
+&bg("lat_tcp_local", "usecs", "Local TCP socket transactions per second");
+&bg("lat_udp_local", "usecs", "Local UDP socket transactions per second");
+E 4
+I 4
+D 6
+&bg("lat_pipe", "usecs", "Number of pipe transactions per second");
+&bg("lat_tcp_local", "usecs", "Number of local TCP socket transactions per second");
+&bg("lat_udp_local", "usecs", "Number of local UDP socket transactions per second");
+E 4
+&bg("lat_rpc_udp_local", "usecs", 
+D 4
+    "Local RPC/UDP socket transactions per second");
+E 4
+I 4
+    "Number of local RPC/UDP socket transactions per second");
+E 4
+&bg("lat_rpc_tcp_local", "usecs", 
+D 4
+    "Local RPC/TCP socket transactions per second");
+&bg("lat_mappings", "usecs", "Memory mappings per second");
+E 4
+I 4
+    "Number of local RPC/TCP socket transactions per second");
+&bg("lat_mappings", "usecs", "Number of memory mappings per second");
+E 6
+I 6
+D 16
+	&tbl("lat_pipe", "usecs", "Pipe latency in \\(*mseconds");
+	&tbl("lat_connect", "usecs", "TCP connection latency in \\(*mseconds");
+E 16
+I 16
+	&tbl("lat_pipe", "usecs", "Pipe latency");
+	&tbl("lat_connect", "usecs", "TCP connection");
+E 16
+	&tbl2("lat_udp", "lat_udp_local", "lat_rpc_udp_local", "usecs",
+D 7
+	    "UDP latency in \\(*mseconds", "UDP", "RPC/TCP");
+E 7
+I 7
+	    "UDP latency in \\(*mseconds", "UDP", "RPC/UDP");
+E 7
+	&tbl2("lat_tcp", "lat_tcp_local", "lat_rpc_tcp_local", "usecs",
+	    "TCP latency in \\(*mseconds", "TCP", "RPC/TCP");
+	&tbl("lat_mappings", "usecs", "Memory mapping latency in \\(*mseconds");
+	&tbl("lat_pagefault", "usecs", "Pagefault latency in \\(*mseconds");
+D 16
+	&tbl2("lat_fs", "lat_fs_create", "lat_fs_delete", "msecs",
+E 16
+I 16
+	&tbl2("lat_fs", "lat_fs_create", "lat_fs_delete", "usecs",
+E 16
+	    "File latency in milliseconds", "Create", "Delete");
+I 11
+D 16
+	&tbl("lat_disk", "usecs", "Disk latency in \\(*mseconds");
+E 16
+I 16
+	&tbl("lat_disk", "usecs", "Disk latency");
+E 16
+E 11
+E 6
+E 4
+
+D 6
+&bg("misc_mhz", "mhz", "Processor clock rate");
+&bg("bw_pipe", "MB", "Pipe bandwidth in MB / second");
+&bg("bw_tcp_local", "MB", "Local TCP socket bandwidth in MB / second");
+&bg("bw_file", "MB", "File write bandwidth in MB / second");
+&bg("bw_reread", "MB", "(Re)Read in MB / second");
+&bg("bw_mmap", "MB", "(Re)Read via mmap bandwidth in MB / second");
+&bg("bw_bcopy_libc", "MB", "Libc bcopy bandwidth in MB / second");
+&bg("bw_bcopy_unrolled", "MB", "Unrolled bcopy bandwidth in MB / second");
+&bg("bw_mem_rdsum", "MB", "Memory read & sum bandwidth in MB / second");
+&bg("bw_mem_wr", "MB", "Memory write bandwidth in MB / second");
+E 6
+I 6
+	&tbl("misc_mhz", "mhz", "Processor clock rate");
+	&tbl("bw_pipe", "MB", "Pipe bandwidth in MB / second");
+	&tbl("bw_tcp_local", "MB", "Local TCP socket bandwidth in MB / second");
+I 8
+D 9
+	&tbl2("bw_pipe_tcp", "bw_pipe", "bw_tcp_local", "MB",
+	    "Pipe & TCP bandwidth in MB/sec", "Pipe", "TCP");
+E 9
+I 9
+	&ipc;
+E 9
+E 8
+	&tbl("bw_file", "MB", "File write bandwidth in MB / second");
+	&tbl("bw_reread", "MB", "(Re)Read in MB / second");
+	&tbl("bw_mmap", "MB", "(Re)Read via mmap bandwidth in MB / second");
+I 8
+D 9
+	&tbl2("bw_reread2", "bw_reread", "bw_mmap", "MB",
+	"Reread bandwidth in MB / second", "read()", "mmap()");
+E 9
+I 9
+	&read;
+E 9
+E 8
+D 7
+	&tbl2("bw_bcopy", "bw_bcopy_libc", "bw_bcopy_unrolled", "MB",
+	"Bcopy bandwidth in MB / second", "Libc", "Unrolled");
+E 7
+I 7
+	&tbl2("bw_bcopy", "bw_bcopy_unrolled", "bw_bcopy_libc", "MB",
+	"Bcopy bandwidth in MB / second", "Unrolled", "Libc");
+E 7
+	&tbl("bw_mem_rdsum", "MB", "Memory read & sum bandwidth in MB / second");
+	&tbl("bw_mem_wr", "MB", "Memory write bandwidth in MB / second");
+I 8
+D 9
+	&tbl2("bw_mem", "bw_mem_rdsum", "bw_mem_wr", "MB",
+	"Memory bandwidth in MB / second", "Read", "Write");
+E 9
+I 9
+	&mem;
+E 9
+E 8
+E 6
+
+I 5
+D 6
+warn "Hi there mom\n";
+E 6
+I 6
+} else {
+	&bg("lat_nullsys", "usecs", "Number of null system calls per second");
+	&bg("lat_signal", "usecs", "Number of signal handlers per second");
+	&bg("lat_nullproc", "usecs", "Number of process forks/exits per second");
+	&bg("lat_simpleproc", "usecs", "Number of simple process creates per second");
+D 10
+	&bg("lat_staticproc", "usecs", "Number of simple static process creates per second");
+E 10
+	&bg("lat_shproc", "usecs", "Number of simple process creates via /bin/sh per second");
+	&bg("lat_ctx", "usecs", "Number of context switches per second, 2 small processes");
+	&bg("lat_ctx8", "usecs", "Number of context switches per second, 8 small processes");
+
+	&bg("lat_pipe", "usecs", "Number of pipe transactions per second");
+	&bg("lat_connect", "usecs", "Number of local TCP socket connections per second");
+	&bg("lat_tcp_local", "usecs", "Number of local TCP socket transactions per second");
+	&bg("lat_udp_local", "usecs", "Number of local UDP socket transactions per second");
+	&bg("lat_rpc_udp_local", "usecs", 
+	    "Number of local RPC/UDP socket transactions per second");
+	&bg("lat_rpc_tcp_local", "usecs", 
+	    "Number of local RPC/TCP socket transactions per second");
+	&bg("lat_mappings", "usecs", "Number of memory mappings per second");
+	&bg("lat_pagefault", "usecs", "Number of pagefaults per second");
+	&bg("lat_fs_create", "usecs", "Number of file creates per second");
+
+	&bg("misc_mhz", "mhz", "Processor clock rate");
+	&bg("bw_pipe", "MB", "Pipe bandwidth in MB / second");
+	&bg("bw_tcp_local", "MB", "Local TCP socket bandwidth in MB / second");
+	&bg("bw_file", "MB", "File write bandwidth in MB / second");
+	&bg("bw_reread", "MB", "(Re)Read in MB / second");
+	&bg("bw_mmap", "MB", "(Re)Read via mmap bandwidth in MB / second");
+	&bg("bw_bcopy_libc", "MB", "Libc bcopy bandwidth in MB / second");
+	&bg("bw_bcopy_unrolled", "MB", "Unrolled bcopy bandwidth in MB / second");
+	&bg("bw_mem_rdsum", "MB", "Memory read & sum bandwidth in MB / second");
+	&bg("bw_mem_wr", "MB", "Memory write bandwidth in MB / second");
+}
+
+E 6
+E 5
+exit 0;
+
+I 17
+# Input looks like
+# "benchmark name
+# size value
+# ....
+# <blank line>
+#
+# Return the biggest vvalue before the blank line.
+sub getbiggest
+{
+	local($msg) = @_;
+E 17
+
+I 17
+	undef $save;
+	$value = 0;
+	while (<FD>) {
+		last if /^\s*$/;
+		$save = $_ if /^\d\./;
+	}
+	if (defined $save) {
+		$_ = $save;
+		@d = split;
+		$value = $d[1];
+	} else {
+		warn "$file: no data for $msg\n";
+	}
+	$value;
+}
+
+
+E 17
+I 7
+sub bigger
+{
+	local($v1, $v2) = ($a, $b);
+
+D 11
+	$v1 =~ s/.*\t//;
+	chop($v1);
+	$v2 =~ s/.*\t//;
+	chop($v2);
+E 11
+I 11
+	if ($sortN > 0) {
+		$v1 = (split(/\t/, $v1))[$sortN];
+		$v2 = (split(/\t/, $v2))[$sortN];
+	} else {
+		$v1 =~ s/.*\t//;
+		chop($v1);
+		$v2 =~ s/.*\t//;
+		chop($v2);
+	}
+E 11
+	return ($v1 < $v2);
+}
+
+sub smaller
+{
+	local($v1, $v2) = ($a, $b);
+
+D 11
+	$v1 =~ s/.*\t//;
+	chop($v1);
+	$v2 =~ s/.*\t//;
+	chop($v2);
+E 11
+I 11
+	if ($sortN > 0) {
+		$v1 = (split(/\t/, $v1))[$sortN];
+		$v2 = (split(/\t/, $v2))[$sortN];
+	} else {
+		$v1 =~ s/.*\t//;
+		chop($v1);
+		$v2 =~ s/.*\t//;
+		chop($v2);
+	}
+I 17
+	$v1 =~ s/[^0-9]+//;
+	$v2 =~ s/[^0-9]+//;
+E 17
+E 11
+	return ($v1 > $v2);
+}
+
+E 7
+I 6
+sub tbl
+{
+	local($graph, $units, $title) = @_;
+	local(@values, @tmp,  $persec, $value);
+
+I 8
+D 11
+	warn "tmp/$graph.tbl\n";
+E 11
+I 11
+	warn "tmp/$graph.tbl\n" if $v;
+E 11
+E 8
+	open(FD, ">tmp/$graph.tbl");
+D 7
+	print FD ".KS\n.TS\ncenter expand doublebox;\nc s\nl r.\n";
+	print FD "$title\n=\n";
+E 7
+I 7
+D 11
+	#old#print FD ".KS\n.TS\ncenter expand doublebox;\nc s\nl r.\n";
+E 11
+I 11
+D 13
+	#old#print FD ".KS\n.TS\ncenter expand doublebox;\nc|s\nl|r.\n";
+E 13
+E 11
+D 8
+	#old#print FD "$title\n=\n";
+E 8
+D 16
+	print FD ".KS\n.TS\ncenter expand doublebox;\nl r.\n";
+E 16
+I 16
+	print FD ".KS\n.TS\ncenter expand doublebox;\nl r.\nSystem\t$title\n=\n";
+E 16
+D 13
+	#old#print FD "$title\n=\n";
+E 13
+E 7
+	for ($i = 0; $i <= $#uname; $i++) {
+		@info = &getinfo($uname[$i], $misc_mhz[$i]);
+		$XXX = '$value = $'.$graph.'[$i];';
+		eval '$value = $'.$graph.'[$i];';
+D 8
+		if ($units eq "msecs") {
+			$value = sprintf("%.2f", $value / 1000);
+		}
+D 7
+		if ($value <= 0) {
+			$value = "NA";
+E 7
+I 7
+		if ($value > 0) {
+			push(@values, "$info[3] $info[$#info]\t$value\n");
+E 7
+		}
+E 8
+I 8
+		$value = sprintf("%.1f", $value / 1000) if ($units eq "msecs");
+		$value = sprintf("%.1f", $value) if ($units eq "MB");
+D 11
+		next if ($value <= 0);
+E 11
+I 11
+		next if (!defined $value || $value <= 0);
+E 11
+D 15
+		push(@values, "$info[3] $info[$#info]\t$value\n");
+E 15
+I 15
+		$_ = "$info[3] $info[$#info]";
+		&papernames;
+		push(@values, "$_\t$value\n");
+E 15
+E 8
+D 7
+		print FD "$info[3] $info[$#info]\t$value\n";
+E 7
+	}
+I 7
+D 11
+	unless ($nosort || $units eq "mhz") {
+		if ($units eq "MB") {
+			@values = sort bigger @values;
+		} else {
+			@values = sort smaller @values;
+		}
+	}
+E 11
+I 11
+	@values = sort smaller @values unless ($nosort);
+E 11
+	# Somewhere an extra space is getting added.
+	foreach $_ (@values) {
+		s/^\s*//;
+		print FD;
+	}
+E 7
+	print FD ".TE\n.KE\n";
+	close(FD);
+}
+
+sub tbl2
+{
+	local($graph, $a, $b, $units, $title, $atitle, $btitle) = @_;
+D 7
+	local(@values, @tmp,  $persec, $value);
+E 7
+I 7
+	local(@values, @tmp,  $line, $persec, $value);
+E 7
+
+I 8
+D 11
+	warn "tmp/$graph.tbl\n";
+E 11
+I 11
+	warn "tmp/$graph.tbl\n" if $v;
+E 11
+E 8
+	open(FD, ">tmp/$graph.tbl");
+D 7
+	print FD ".KS\n.TS\ncenter expand doublebox;\nc s s\nc c c\nl r r.\n";
+	print FD "$title\n";
+E 7
+I 7
+D 13
+	#old#print FD ".KS\n.TS\ncenter expand doublebox;\nc s s\nc c c\nl r r.\n";
+	print FD ".KS\n.TS\nexpand doublebox;\nc c c\nl r r.\n";
+D 8
+	#old#print FD "$title\n";
+E 8
+E 7
+D 12
+	print FD "\t$atitle\t$btitle\n=\n";
+E 12
+I 12
+	print FD "\t$atitle\t\\fB$btitle\\fP\n=\n";
+E 13
+I 13
+	print FD ".KS\n.TS\nexpand doublebox;\nl c c\nl r r.\n";
+	print FD "System\t$atitle\t\\fB$btitle\\fP\n=\n";
+E 13
+E 12
+	for ($i = 0; $i <= $#uname; $i++) {
+		@info = &getinfo($uname[$i], $misc_mhz[$i]);
+		eval '$value = $'.$a.'[$i];';
+I 11
+		next if (!defined $value || $value <= 0);
+E 11
+D 8
+		if ($units eq "msecs") {
+			$value = sprintf("%.2f", $value / 1000);
+		}
+		if ($value <= 0) {
+D 7
+			$value = "NA";
+E 7
+I 7
+			next;
+E 7
+		}
+E 8
+I 8
+		$value = sprintf("%.1f", $value / 1000) if ($units eq "msecs");
+		$value = sprintf("%.1f", $value) if ($units eq "MB");
+D 11
+		next if ($value <= 0);
+E 11
+E 8
+D 7
+		print FD "$info[3] $info[$#info]\t$value\t";
+E 7
+I 7
+D 15
+		$line = "$info[3] $info[$#info]\t$value\t";
+E 15
+I 15
+		$_ = "$info[3] $info[$#info]";
+		&papernames;
+		$line = "$_\t$value\t";
+E 15
+E 7
+		eval '$value = $'.$b.'[$i];';
+D 8
+		if ($units eq "msecs") {
+			$value = sprintf("%.2f", $value / 1000);
+E 8
+I 8
+		$value = sprintf("%.1f", $value / 1000) if ($units eq "msecs");
+		$value = sprintf("%.1f", $value) if ($units eq "MB");
+D 11
+		next if ($value <= 0);
+E 11
+I 11
+		next if (!defined $value || $value <= 0);
+E 11
+		$line .= "$value\n";
+		push(@values, $line);
+	}
+	unless ($nosort || $units eq "mhz") {
+		if ($units eq "MB") {
+			@values = sort bigger @values;
+		} else {
+			@values = sort smaller @values;
+E 8
+		}
+D 8
+		if ($value <= 0) {
+D 7
+			$value = "NA";
+E 7
+I 7
+			next;
+E 7
+		}
+E 8
+I 8
+	}
+	# Somewhere an extra space is getting added.
+	foreach $_ (@values) {
+		s/^\s*//;
+		print FD;
+	}
+	print FD ".TE\n.KE\n";
+	close(FD);
+}
+
+I 9
+sub ipc
+{
+	local(@values, @tmp,  $line, $persec, $value);
+
+	open(FD, ">tmp/bw_ipc.tbl");
+D 13
+	print FD ".KS\n.TS\nexpand doublebox;\nc c c c\nl r r r.\n";
+D 12
+	print FD "\tbcopy\tpipe\tTCP\n=\n";
+E 12
+I 12
+	print FD "\tbcopy\t\\fBpipe\\fP\tTCP\n=\n";
+E 13
+I 13
+	print FD ".KS\n.TS\nexpand doublebox;\nl c c c\nl r r r.\n";
+D 16
+	print FD "System\tbcopy\t\\fBpipe\\fP\tTCP\n=\n";
+E 16
+I 16
+	print FD "System\tLibc bcopy\t\\fBpipe\\fP\tTCP\n=\n";
+E 16
+E 13
+E 12
+	for ($i = 0; $i <= $#uname; $i++) {
+		@info = &getinfo($uname[$i], $misc_mhz[$i]);
+		$value = $bw_bcopy_libc[$i];
+		$value = sprintf("%.0f", $value);
+		next if ($value <= 0);
+D 15
+		$line = "$info[3] $info[$#info]\t$value\t";
+E 15
+I 15
+		$_ = "$info[3] $info[$#info]";
+		&papernames;
+		$line = "$_\t$value\t";
+E 15
+		$value = $bw_pipe[$i];
+		$value = sprintf("%.0f", $value);
+		next if ($value <= 0);
+		$line .= "$value\t";
+		$value = $bw_tcp_local[$i];
+		$value = sprintf("%.0f", $value);
+D 16
+		next if ($value <= 0);
+E 16
+I 16
+		# next if ($value <= 0);
+E 16
+D 13
+		$line .= "$value\n";
+E 13
+I 13
+		$line .= "$value\\ \n";
+E 13
+		push(@values, $line);
+	}
+I 11
+	$sortN = 2;
+E 11
+	@values = sort bigger @values unless ($nosort);
+I 11
+	$sortN = 0;
+E 11
+	# Somewhere an extra space is getting added.
+	foreach $_ (@values) {
+		s/^\s*//;
+		print FD;
+	}
+	print FD ".TE\n.KE\n";
+	close(FD);
+}
+	    
+sub read
+{
+	local(@values, @tmp,  $line, $persec, $value);
+
+	open(FD, ">tmp/bw_reread2.tbl");
+D 11
+	print FD ".KS\n.TS\nexpand doublebox;\nc c c c c\nl r r r r.\n";
+	print FD "\tbcopy\tread\tmemrd\tmmap\n=\n";
+E 11
+I 11
+D 13
+	print FD ".KS\n.TS\nexpand doublebox;\nc|c c|c c\nc|c c|c c\nl|r r|r r.\n";
+D 12
+	print FD "\tLibc\tFile\tMemory\tFile\n\tbcopy\tread\tread\tmmap\n=\n";
+E 12
+I 12
+	print FD "\tLibc\t\\fBFile\\fP\tMemory\tFile\n\tbcopy\t\\fBread\\fP\tread\tmmap\n=\n";
+E 13
+I 13
+	print FD ".KS\n.TS\nexpand doublebox;\nc|c c|c c\nl|c c|c c\nl|r r|r r.\n";
+	print FD "\tLibc\t\\fBFile\\fP\tMemory\tFile\nSystem\tbcopy\t\\fBread\\fP\tread\tmmap\n=\n";
+E 13
+E 12
+E 11
+	for ($i = 0; $i <= $#uname; $i++) {
+		@info = &getinfo($uname[$i], $misc_mhz[$i]);
+		$value = $bw_bcopy_libc[$i];
+		$value = sprintf("%.0f", $value);
+		next if ($value <= 0);
+D 15
+		$line = "$info[3] $info[$#info]\t$value\t";
+E 15
+I 15
+		$_ = "$info[3] $info[$#info]";
+		&papernames;
+		$line = "$_\t$value\t";
+E 15
+		$value = $bw_reread[$i];
+		$value = sprintf("%.0f", $value);
+		next if ($value <= 0);
+		$line .= "$value\t";
+		$value = $bw_mem_rdsum[$i];
+		$value = sprintf("%.0f", $value);
+		next if ($value <= 0);
+		$line .= "$value\t";
+		$value = $bw_mmap[$i];
+		$value = sprintf("%.0f", $value);
+		next if ($value <= 0);
+D 13
+		$line .= "$value\n";
+E 13
+I 13
+		$line .= "$value\\ \n";
+E 13
+		push(@values, $line);
+	}
+I 12
+	$sortN = 2;
+E 12
+	@values = sort bigger @values unless ($nosort);
+I 12
+	$sortN = 0;
+E 12
+	# Somewhere an extra space is getting added.
+	foreach $_ (@values) {
+		s/^\s*//;
+		print FD;
+	}
+	print FD ".TE\n.KE\n";
+	close(FD);
+}
+
+sub mem
+{
+	local(@values, @tmp,  $line, $persec, $value);
+
+	open(FD, ">tmp/bw_allmem.tbl");
+D 11
+	print FD ".KS\n.TS\nexpand doublebox;\nc c s c s\nc c c c c\nl r r r r.\n";
+E 11
+I 11
+D 13
+	print FD ".KS\n.TS\nexpand doublebox;\nc|c s|c s\nc|c c|c c\nl|r r|r r.\n";
+E 11
+D 12
+	print FD "\tBcopy\tMemory\n\tunrolled\tlibc\tread\twrite\n=\n";
+E 12
+I 12
+	print FD "\tBcopy\tMemory\n\tu\\fBnrolled\\fP\tlibc\tread\twrite\n=\n";
+E 13
+I 13
+	print FD ".KS\n.TS\nexpand doublebox;\nc|c s|c s\nl|c c|c c\nl|r r|r r.\n";
+	print FD "\tBcopy\tMemory\nSystem\t\\fBunrolled\\fP\tlibc\tread\twrite\n=\n";
+E 13
+E 12
+	for ($i = 0; $i <= $#uname; $i++) {
+		@info = &getinfo($uname[$i], $misc_mhz[$i]);
+		$value = $bw_bcopy_unrolled[$i];
+		$value = sprintf("%.0f", $value);
+		next if ($value <= 0);
+D 15
+		$line = "$info[3] $info[$#info]\t$value\t";
+E 15
+I 15
+		$_ = "$info[3] $info[$#info]";
+		&papernames;
+		$line = "$_\t$value\t";
+E 15
+		$value = $bw_bcopy_libc[$i];
+		$value = sprintf("%.0f", $value);
+		next if ($value <= 0);
+		$line .= "$value\t";
+		$value = $bw_mem_rdsum[$i];
+		$value = sprintf("%.0f", $value);
+		next if ($value <= 0);
+		$line .= "$value\t";
+		
+		$value = $bw_mem_wr[$i];
+		$value = sprintf("%.0f", $value);
+		next if ($value <= 0);
+D 13
+		$line .= "$value\n";
+E 13
+I 13
+		$line .= "$value\\ \n";
+E 13
+		push(@values, $line);
+	}
+I 12
+	$sortN = 1;
+E 12
+	@values = sort bigger @values unless ($nosort);
+I 12
+	$sortN = 0;
+E 12
+	# Somewhere an extra space is getting added.
+	foreach $_ (@values) {
+		s/^\s*//;
+		print FD;
+	}
+	print FD ".TE\n.KE\n";
+	close(FD);
+I 14
+
+	@values = ();
+	open(FD, ">tmp/lat_allmem.tbl");
+	print FD ".KS\n.TS\nexpand doublebox;\nl c c c\nl c c c\nl r r r.\n";
+	print FD "\tLevel 1\tLevel 2\tMain\n";
+	print FD "System\tcache\tcache\tmemory\n=\n";
+	for ($i = 0; $i <= $#uname; $i++) {
+		@info = &getinfo($uname[$i], $misc_mhz[$i]);
+		$value = $lat_l1[$i];
+		next if ($value <= 0);
+		if (&same($lat_l1[$i], $lat_l2[$i])) {
+			$value = "--";
+		} 
+D 15
+		$line = "$info[3] $info[$#info]\t$value\t";
+E 15
+I 15
+		$_ = "$info[3] $info[$#info]";
+		&papernames;
+		$line = "$_\t$value\t";
+E 15
+		$value = $lat_l2[$i];
+		next if ($value <= 0);
+		if (!&same($lat_l1[$i], $lat_l2[$i]) &&
+		    &same($lat_l2[$i], $lat_mem[$i])) {
+			$value = "--";
+		}
+		$line .= "$value\t";
+		$value = $lat_mem[$i];
+		next if ($value <= 0);
+		$line .= "$value\\ \n";
+		push(@values, $line);
+	}
+
+	$sortN = 3;
+	@values = sort smaller @values unless ($nosort);
+	$sortN = 0;
+	# Somewhere an extra space is getting added.
+	foreach $_ (@values) {
+		s/^\s*//;
+		print FD;
+	}
+	print FD ".TE\n.KE\n";
+	close(FD);
+E 14
+}
+
+E 9
+sub procs
+{
+	local($graph, $a, $b, $c, $units) = @_;
+	local(@values, @tmp,  $line, $persec, $value);
+
+D 11
+	warn "tmp/$graph.tbl\n";
+E 11
+I 11
+	warn "tmp/$graph.tbl\n" if $v;
+E 11
+	open(FD, ">tmp/$graph.tbl");
+D 11
+	print FD ".KS\n.TS\nexpand doublebox;\nc c c c\nl r r r.\n";
+E 11
+I 11
+D 13
+	print FD ".KS\n.TS\nexpand doublebox;\nc|c|c|c\nl|r|r|r.\n";
+E 13
+I 13
+	print FD ".KS\n.TS\nexpand doublebox;\nl|c|c|c\nl|r|r|r.\n";
+E 13
+E 11
+D 12
+	print FD "\tfork\tfork, exec\tfork, exec\n";
+	print FD "\t& exit\t& exit\tsh -c & exit\n=\n";
+E 12
+I 12
+	print FD "\tfork\t\\fBfork, exec\\fP\tfork, exec\n";
+D 13
+	print FD "\t& exit\t\\fB& exit\\fP\tsh -c & exit\n=\n";
+E 13
+I 13
+	print FD "System\t& exit\t\\fB& exit\\fP\tsh -c & exit\n=\n";
+E 13
+E 12
+	for ($i = 0; $i <= $#uname; $i++) {
+		@info = &getinfo($uname[$i], $misc_mhz[$i]);
+		eval '$value = $'.$a.'[$i];';
+		$value = sprintf("%.1f", $value / 1000);
+		next if ($value <= 0);
+D 15
+		$line = "$info[3] $info[$#info]\t$value\t";
+E 15
+I 15
+		$_ = "$info[3] $info[$#info]";
+		&papernames;
+		$line = "$_\t$value\t";
+E 15
+		eval '$value = $'.$b.'[$i];';
+D 13
+		$value = sprintf("%.1f", $value / 1000);
+E 13
+I 13
+		$value = sprintf("%.0f", $value / 1000);
+E 13
+		next if ($value <= 0);
+D 13
+		$line .= "$value\t";
+E 13
+I 13
+		$line .= "$value\\ \t";
+E 13
+		eval '$value = $'.$c.'[$i];';
+D 13
+		$value = sprintf("%.1f", $value / 1000);
+E 13
+I 13
+		$value = sprintf("%.0f", $value / 1000);
+E 13
+		next if ($value <= 0);
+E 8
+D 7
+		print FD "$value\n";
+E 7
+I 7
+D 13
+		$line .= "$value\n";
+E 13
+I 13
+		$line .= "$value\\ \n";
+E 13
+		push(@values, $line);
+E 7
+	}
+I 7
+D 11
+	unless ($nosort || $units eq "mhz") {
+		if ($units eq "MB") {
+			@values = sort bigger @values;
+		} else {
+			@values = sort smaller @values;
+		}
+	}
+E 11
+I 11
+D 12
+	$sortN = 1;
+E 12
+I 12
+	$sortN = 2;
+E 12
+	@values = sort smaller @values unless ($nosort);
+	$sortN = 0;
+E 11
+	# Somewhere an extra space is getting added.
+	foreach $_ (@values) {
+		s/^\s*//;
+		print FD;
+	}
+E 7
+	print FD ".TE\n.KE\n";
+	close(FD);
+}
+
+I 8
+sub ctx
+{
+	local(@values, @tmp,  $line, $persec, $value);
+
+	open(FD, ">tmp/ctx.tbl");
+D 11
+	print FD ".KS\n.TS\nexpand doublebox;\nc c s c s\nc c c c c\nl r r r r.\n";
+E 11
+I 11
+D 12
+	print FD ".KS\n.TS\nexpand doublebox;\nc c s|c s\nc|c c|c c\nl|r r|r r.\n";
+E 11
+	print FD "\t2 processes\t8 processes\n\t0KB\t32KB\t0KB\t32KB\n=\n";
+E 12
+I 12
+D 13
+	print FD ".KS\n.TS\nexpand doublebox;\nc|c s|c s\nc|c c|c c\nl|r r|r r.\n";
+	print FD "\t2 processes\t8 processes\n\t\\fB0KB\\fP\t32KB\t0KB\t32KB\n=\n";
+E 13
+I 13
+	print FD ".KS\n.TS\nexpand doublebox;\nc|c s|c s\nl|c c|c c\nl|r r|r r.\n";
+	print FD "\t2 processes\t8 processes\nSystem\t\\fB0KB\\fP\t32KB\t0KB\t32KB\n=\n";
+E 13
+E 12
+	for ($i = 0; $i <= $#uname; $i++) {
+		@info = &getinfo($uname[$i], $misc_mhz[$i]);
+D 15
+		$line = "$info[3] $info[$#info]\t";
+E 15
+I 15
+		$_ = "$info[3] $info[$#info]";
+		&papernames;
+		$line = "$_\t";
+E 15
+		foreach $a ('lat_ctx', 'lat_ctx32', 'lat_ctx8', 'lat_ctx32_8') {
+			eval '$value = $'.$a.'[$i];';
+			$line .= "$value\t";
+		}
+		chop($line);
+D 13
+		push(@values, "$line\n");
+E 13
+I 13
+		push(@values, "$line\\ \n");
+E 13
+	}
+D 11
+	unless ($nosort || $units eq "mhz") {
+		if ($units eq "MB") {
+			@values = sort bigger @values;
+		} else {
+			@values = sort smaller @values;
+		}
+	}
+E 11
+I 11
+	$sortN = 1;
+	@values = sort smaller @values unless ($nosort);
+	$sortN = 0;
+E 11
+	# Somewhere an extra space is getting added.
+	foreach $_ (@values) {
+		s/^\s*//;
+		print FD;
+	}
+	print FD ".TE\n.KE\n";
+	close(FD);
+}
+
+I 15
+sub papernames
+{
+D 17
+	$_ = "IBM PowerPC" if /AIX powerpc@134/;
+	$_ = "IBM Power2" if /AIX rs6000-990@71/;
+D 16
+	$_ = "FreeBSD/i586" if /FreeBSD i586@133/;
+E 16
+I 16
+	$_ = "FreeBSD/i586" if /FreeBSD i586@13[01234]/;
+E 16
+	$_ = "HP 9000/819" if /HP-UX 9000.819@/;
+I 16
+	$_ = "HP K210" if /HP-UX 9000.859@/;
+E 16
+	$_ = "SGI Challenge" if /IRIX.* IP19@/;
+	$_ = "SGI Indigo2" if /IRIX.* IP22@/;
+	$_ = "Linux/Alpha" if /Linux alpha@/;
+	$_ = "Linux/i686" if /Linux i686@/;
+	$_ = "Linux/i586" if /Linux i586@/;
+	$_ = "DEC Alpha@150" if /OSF1 alpha@147/;
+	$_ = "DEC Alpha@300" if /OSF1 alpha@303/;
+	$_ = "Sun SC1000" if /SunOS-5.5 sun4d@5/;
+E 17
+I 17
+	$_ = "IBM PowerPC" if /AIX powerpc\@134/;
+	$_ = "IBM Power2" if /AIX rs6000-990\@71/;
+	$_ = "FreeBSD/i586" if /FreeBSD i586\@13[01234]/;
+	$_ = "HP 9000/819" if /HP-UX 9000.819\@/;
+	$_ = "HP K210" if /HP-UX 9000.859\@/;
+	$_ = "SGI Challenge/R10K" if /IRIX.* IP25\@/;
+	$_ = "SGI Challenge/R4K" if /IRIX.* IP19\@/;
+	$_ = "SGI Indigo2" if /IRIX.* IP22\@/;
+	$_ = "Linux/Alpha" if /Linux alpha\@/;
+	$_ = "Linux/i686" if /Linux i686\@/;
+	$_ = "Linux/i586" if /Linux i586\@/;
+	$_ = "DEC Alpha\@150" if /OSF1 alpha\@147/;
+	$_ = "DEC Alpha\@300" if /OSF1 alpha\@303/;
+	$_ = "Sun SC1000" if /SunOS-5.5 sun4d\@5/;
+E 17
+	$_ = "Sun Ultra1" if /SunOS-5.5 sun4u/;
+I 16
+D 17
+	$_ = "Solaris/i686" if /SunOS-5.5.1 i86pc@13/;
+E 17
+I 17
+	$_ = "Solaris/i686" if /SunOS-5.5.1 i86pc\@13/;
+E 17
+E 16
+	$_ = "Unixware/i686" if /UNIX_SV x86at/;
+}
+
+E 15
+E 8
+E 6
+sub bg
+{
+	local($graph, $units, $title) = @_;
+	local($persec, $value);
+
+D 4
+	open(FD, "|sort -nr > tmp/$graph.bg");
+E 4
+I 4
+	if ($nosort) {
+		open(FD, ">tmp/$graph.bg");
+	} else {
+		open(FD, "|sort -nr > tmp/$graph.bg");
+	}
+E 4
+	for ($i = 0; $i <= $#uname; $i++) {
+		@info = &getinfo($uname[$i], $misc_mhz[$i]);
+D 5
+		eval "\$value = \$$graph[$i];";
+E 5
+I 5
+#		eval "\$value = \$$graph[$i];";
+
+		$XXX = '$value = $'.$graph.'[$i];';
+D 6
+		print "$XXX\n";
+E 6
+		eval '$value = $'.$graph.'[$i];';
+E 5
+I 4
+		if ($uname[$i] =~ /IRIX/) {
+			$fill = " %%fill0";
+		} elsif ($uname[$i] =~ /HP/) {
+			$fill = " %%fill.3";
+		} elsif ($uname[$i] =~ /AIX/) {
+			$fill = " %%fill.1";
+		} elsif ($uname[$i] =~ /OSF/) {
+			$fill = " %%fill.5";
+		} elsif ($uname[$i] =~ /Linux/) {
+			$fill = " %%fill.7";
+		} elsif ($uname[$i] =~ /Sun/) {
+			$fill = " %%fill1";
+		} else {
+			$fill = "";
+		}
+E 4
+		if ($units eq "usecs") {
+D 6
+			if ($value == 0) {
+E 6
+I 6
+D 10
+			if ($value <= 0) {
+E 10
+I 10
+			if (!defined $value || $value <= 0) {
+E 10
+E 6
+				warn
+				"$ARGV[$i] $graph $info[$#info]: value is 0\n";
+				$persec = 0;
+I 10
+				$value = 0;
+E 10
+			} else {
+				$persec = 1000000 / $value;
+			}
+I 17
+			if (0) {
+E 17
+			printf FD
+D 4
+			    "%.0f\t$info[3] $info[$#info] $value\\ $units\n",
+E 4
+I 4
+			    "%.0f\t$info[3] $info[$#info] $value\\ $units$fill\n",
+E 4
+			    $persec;
+I 17
+			} else {
+			printf FD
+			    "%.0f\t%s %s $value\\ $units$fill\n",
+			    $persec, $file[$i], &getos($uname[$i]);
+			}
+E 17
+		} elsif ($units eq "MB") {
+D 4
+			printf FD "$value\t$info[3] $info[$#info]\n";
+E 4
+I 4
+			printf FD "$value\t$info[3] $info[$#info]$fill\n";
+E 4
+		} elsif ($units eq "mhz") {
+D 4
+			printf FD "$value\t$info[3] $info[$#info]\n";
+E 4
+I 4
+			printf FD "$value\t$info[3] $info[$#info]$fill\n";
+E 4
+		} else {
+			die "Unknown units: $units";
+		}
+	}
+D 4
+	print FD "%Title n $title\n";
+E 4
+I 4
+	if ($slide) {
+		print FD "%Title n $title\n";
+		print FD "%ps 12\n";
+		print FD "%ft HB\n";
+	} else {
+		print FD "%Title n $title\n";
+D 17
+		print FD "%Title s lmbench v1.0\n";
+E 17
+I 17
+		print FD "%Title s lmbench v1.1\n";
+E 17
+		print FD "%ps 16\n";
+		print FD "%ft R\n";
+	}
+E 4
+	close(FD);
+}
+
+# Try and create sensible names from uname -a output
+sub getinfo
+{
+	local(@info);
+	local($name);
+D 17
+	local($mhz) = sprintf("%.0f", $_[1]);
+E 17
+I 17
+	local($mhz) = $_[1];
+E 17
+
+I 17
+	$mhz =~ s/[\. ].*//;
+E 17
+	@info = split(/\s+/, $_[0]);
+	$name = pop(@info);
+	chop($name);
+	if ($name eq "mips") {
+		$name = "$info[$#info]@$mhz";
+	} elsif ($_[0] =~ /HP-UX/) {
+		$name = "$info[7]@$mhz";
+	} elsif ($_[0] =~ /SunOS/) {
+		$name = "$info[7]@$mhz";
+	} elsif ($_[0] =~ /AIX/) {
+D 6
+		$name = "?@$mhz";
+E 6
+I 6
+		$name = "$name@$mhz";
+E 6
+	} else {
+		$name .= "@$mhz";
+	}
+	push(@info, $name);
+	@info;
+}
+I 14
+
+# Return true if the values differe by less than 10%
+sub same
+{
+	local($a, $b) = @_;
+
+	if ($a > $b) {
+		$percent = (($a - $b) / $a) * 100;
+	} else {
+		$percent = (($b - $a) / $b) * 100;
+	}
+	return ($percent <= 20);
+}
+I 17
+
+# Try and create sensible names from uname -a output
+sub getos
+{
+        local(@info);
+
+        @info = split(/\s+/, $_[0]);
+	$info[5] =~ s/-.*//;
+        "$info[3] $info[5]";
+}
+
+E 17
+E 14
+E 2
+I 1
+E 1

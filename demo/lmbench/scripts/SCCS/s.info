@@ -1,0 +1,43 @@
+h35933
+s 00000/00000/00007
+d D 1.2 00/01/31 15:29:42 lm 3 2
+c Change mode to -rwxrwxr-x
+cC
+cK06170
+cO-rwxrwxr-x
+cZ-08:00
+e
+s 00007/00000/00000
+d D 1.1 97/06/15 19:55:54 lm 2 1
+c Initial revision
+cC
+cK07341
+e
+s 00000/00000/00000
+d D 1.0 97/06/15 19:55:53 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK03842
+cPscripts/info
+cR983152f24ab0d3f9
+cV4
+cX0x23
+cZ-07:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+T
+I 2
+#!/bin/sh
+
+UNAME=`uname -n 2>/dev/null`
+if [ X$UNAME = X ]
+then	echo INFO
+else	echo INFO.$UNAME
+fi
+E 2
+I 1
+E 1

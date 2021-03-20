@@ -1,0 +1,171 @@
+h41285
+s 00001/00001/00030
+d D 1.10 00/07/26 18:09:52 staelin 11 10
+c - Fix test to look for lmbench version 3 result files
+cC
+cHhpli8.hpli.hpl.hp.com
+cK46993
+cZ+03:00
+e
+s 00000/00000/00031
+d D 1.9 00/01/31 15:29:41 lm 10 9
+c Change mode to -rwxrwxr-x
+cC
+cHlm.bitmover.com
+cK17366
+cO-rwxrwxr-x
+cZ-08:00
+e
+s 00003/00002/00028
+d D 1.8 99/09/02 10:09:47 lm 9 8
+c half assed MP idea
+cC
+cHwork.bitmover.com
+cK46991
+cPscripts/getlist
+e
+s 00001/00001/00029
+d D 1.7 98/07/01 01:19:00 lm 8 7
+c error handling.
+cK46930
+cP/home/lm/lmbench/scripts/getlist
+e
+s 00001/00001/00029
+d D 1.6 97/06/14 21:12:35 lm 7 6
+c *** empty log message ***
+cK44953
+e
+s 00003/00003/00027
+d D 1.5 96/05/21 23:10:54 lm 6 5
+c perl5
+c ls
+cK44921
+cZ-07:00
+e
+s 00005/00002/00025
+d D 1.4 95/11/01 22:26:37 lm 5 4
+c *** empty log message ***
+cK44348
+cZ-08:00
+e
+s 00001/00001/00026
+d D 1.3 95/10/25 09:54:41 lm 4 3
+c *** empty log message ***
+cK37684
+e
+s 00011/00001/00016
+d D 1.2 95/10/08 15:21:27 lm 3 2
+c use LIST if it is there.
+cK37451
+cZ-07:00
+e
+s 00017/00000/00000
+d D 1.1 94/11/22 23:16:48 lm 2 1
+c Initial revision
+cK29604
+e
+s 00000/00000/00000
+d D 1.0 94/11/22 23:16:47 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK00421
+cPscripts/getlist
+cR646c9152fb842aab
+cV4
+cX0x21
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x21
+t
+lmbench1.0 release
+T
+I 2
+
+D 7
+# Find everything in my Results directory that looks like lmbench output.
+E 7
+I 7
+# Find everything in my results directory that looks like lmbench output.
+E 7
+#
+D 9
+# Hacked into existence by Larry McVoy (lm@sun.com now lm@sgi.com).
+# Copyright (c) 1994 Larry McVoy.  GPLed software.
+E 9
+I 9
+# Hacked into existence by Larry McVoy (lm@bitmover.com)
+# Copyright (c) 1994-1998 Larry McVoy.  
+E 9
+# $Id$
+D 6
+eval "exec perl -Ss $0 $*"
+E 6
+I 6
+eval 'exec perl -Ssw $0 "$@"'
+E 6
+	if 0;
+
+D 3
+foreach $file (<*/*>) {
+E 3
+I 3
+D 5
+if (-e "LIST") {
+	open(L, "LIST");
+E 5
+I 5
+$LIST = "no such file";
+$LIST = "LIST" if (-f "LIST");
+$LIST = $ARGV[0] if (($#ARGV == 0) && (-f $ARGV[0]));
+if (-f $LIST) {
+	open(L, $LIST);
+E 5
+	$_ = <L>;
+	chop;
+D 6
+	split;
+	@files = @_;
+E 6
+I 6
+	@files = split;
+E 6
+	close(L);
+} else {
+	@files = <*/*>;
+}
+foreach $file (@files) {
+I 9
+	next if $file =~ /\.INFO$/;
+E 9
+E 3
+	open(FD, $file) || next;
+D 8
+	$_ = <FD>;
+E 8
+I 8
+	next unless defined($_ = <FD>);
+E 8
+	close(FD);
+D 4
+	next unless /^\[lmbench1.0/;
+E 4
+I 4
+D 11
+	next unless /^\[lmbench1.[01]/;
+E 11
+I 11
+	next unless /^\[lmbench3.[01]/;
+E 11
+E 4
+	print "$file ";
+}
+print "\n";
+I 6
+exit 0;
+E 6
+E 2
+I 1
+E 1

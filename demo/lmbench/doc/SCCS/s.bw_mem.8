@@ -1,0 +1,222 @@
+h49975
+s 00009/00017/00086
+d D 1.4 00/10/16 17:13:36 staelin 5 4
+c - Update man pages to match current status
+cC
+cK37197
+e
+s 00000/00000/00103
+d D 1.3 00/10/12 17:03:57 staelin 4 3
+c Rename: doc/bw_mem_cp.8 -> doc/bw_mem.8
+cK07991
+cPdoc/bw_mem.8
+e
+s 00074/00005/00029
+d D 1.2 00/10/12 17:03:31 staelin 3 2
+c Update the description from the old bw_mem_cp to
+c the new bw_mem
+cHhpli8.hpli.hpl.hp.com
+cK37162
+cZ+02:00
+e
+s 00034/00000/00000
+d D 1.1 94/11/18 01:26:35 lm 2 1
+c Initial revision
+cC
+cK31225
+e
+s 00000/00000/00000
+d D 1.0 94/11/18 01:26:34 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK03971
+cPdoc/bw_mem_cp.8
+cRf97504d24c730298
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+lmbench doc checkin
+T
+I 2
+.\" $Id$
+D 3
+.TH BW_MEM_CP 8 "$Date$" "(c)1994 Larry McVoy" "LMBENCH"
+E 3
+I 3
+.TH BW_MEM 8 "$Date$" "(c)1994-2000 Larry McVoy and Carl Staelin" "LMBENCH"
+E 3
+.SH NAME
+D 3
+bw_mem_cp \- time memory copy speeds
+E 3
+I 3
+bw_mem \- time memory bandwidth
+E 3
+.SH SYNOPSIS
+.B bw_mem_cp
+I 3
+D 5
+.I "[-P <parallelism>]"
+.I "[-W <warmup>]"
+.I "[-N <repetitions>]"
+E 5
+I 5
+[
+.I "-P <parallelism>"
+]
+[
+.I "-W <warmups>"
+]
+[
+.I "-N <repetitions>"
+]
+E 5
+E 3
+.I size
+D 3
+.I libc|unrolled
+.I aligned|unaligned
+E 3
+I 3
+.I rd|wr|rdwr|cp|fwr|frd|bzero|bcopy
+.I [align]
+D 5
+
+E 5
+E 3
+.SH DESCRIPTION
+D 3
+.B bw_mem_cp
+E 3
+I 3
+.B bw_mem
+E 3
+allocates twice the specified amount of memory, zeros it, and then times
+the copying of the first half to the second half.  Results are reported
+in megabytes moved per second.
+.LP
+The size
+specification may end with ``k'' or ``m'' to mean
+kilobytes (* 1024) or megabytes (* 1024 * 1024).
+.SH OUTPUT
+Output format is \f(CB"%0.2f %.2f\\n", megabytes, megabytes_per_second\fP, i.e.,
+.sp
+.ft CB
+8.00 25.33
+.ft
+I 3
+D 5
+
+E 5
+.LP
+There are nine different memory benchmarks in
+.BR bw_mem .
+They each measure slightly different methods for reading, writing or
+copying data.
+D 5
+
+E 5
+.TP
+.B "rd"
+measures the time to read data into the processor.  It computes the
+sum of an array of integer values.  It accesses every fourth word.
+D 5
+
+E 5
+.TP
+.B "wr"
+measures the time to write data to memory.  It assigns a constant
+value to each memory of an array of integer values.
+It accesses every fourth word.
+D 5
+
+E 5
+.TP
+.B "rdwr"
+measures the time to read data into memory and then write data to
+the same memory location.  For each element in an array it adds
+the current value to a running sum before assigning a new (constant)
+value to the element.
+It accesses every fourth word.
+D 5
+
+E 5
+.TP
+.B "cp"
+measures the time to copy data from one location to another.  It
+does an array copy: dest[i] = source[i].
+It accesses every fourth word.
+D 5
+
+E 5
+.TP
+.B "frd"
+measures the time to read data into the processor.  It computes the
+sum of an array of integer values.
+D 5
+
+E 5
+.TP
+.B "fwr"
+measures the time to write data to memory.  It assigns a constant
+value to each memory of an array of integer values.
+D 5
+
+E 5
+.TP
+.B "fcp"
+measures the time to copy data from one location to another.  It
+does an array copy: dest[i] = source[i].
+D 5
+
+E 5
+.TP
+.B "bzero"
+measures how fast the system can
+.I bzero
+memory.
+D 5
+
+E 5
+.TP
+.B "bcopy"
+measures how fast the system can
+.I bcopy
+data.
+D 5
+
+E 5
+E 3
+.SH MEMORY UTILIZATION
+This benchmark can move up to three times the requested memory.  
+Bcopy will use 2-3 times as much memory bandwidth:
+there is one read from the source and a write to the destionation.  The
+write usually results in a cache line read and then a write back of
+the cache line at some later point.  Memory utilization might be reduced
+by 1/3 if the processor architecture implemented ``load cache line''
+and ``store cache line'' instructions (as well as ``getcachelinesize'').
+I 3
+D 5
+
+E 5
+E 3
+.SH "SEE ALSO"
+lmbench(8).
+I 3
+D 5
+
+E 5
+.SH "AUTHOR"
+Carl Staelin and Larry McVoy
+.PP
+Comments, suggestions, and bug reports are always welcome.
+E 3
+E 2
+I 1
+E 1

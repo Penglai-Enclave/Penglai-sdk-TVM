@@ -1,0 +1,53 @@
+H50175
+s 00023/00000/00000
+d D 1.1 02/06/30 10:43:16 staelin 2 1
+cC
+cF1
+cK20843
+cO-rw-rw-r--
+e
+s 00000/00000/00000
+d D 1.0 02/06/30 10:43:16 staelin 1 0
+c BitKeeper file /usr/WebPaper/users/staelin/src/LMbench3/doc/lat_disk.tbl
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHhpli69.hpli.hpl.hp.com
+cK17244
+cPdoc/lat_disk.tbl
+cR98ae16a2f244f7a0
+cV4
+cX0x821
+cZ+03:00
+e
+u
+U
+f e 0
+f x 0x821
+t
+T
+I 2
+.KS
+.TS
+center expand doublebox;
+l r.
+SunOS-5.4 sun4m	2876
+Sun SC1000	1466
+DEC Alpha	1436
+DEC Alpha	1995
+IRIX IP22	984
+Sun Ultra1	2242
+HP-UX 9000/770	732
+IRIX IP19	920
+IRIX5.3 IP22	1265
+IRIX5.3 IP19	991
+DEC Alpha	2057
+DEC Alpha	3729
+FreeBSD/i586	297
+FreeBSD/i586	306
+FreeBSD/i586	2314
+FreeBSD/i586	2284
+FreeBSD/i586	310
+.TE
+.KE
+E 2
+I 1
+E 1

@@ -1,0 +1,133 @@
+h00875
+s 00010/00000/00027
+d D 1.4 94/11/25 16:33:19 lm 5 4
+c dir.
+cC
+cK11170
+e
+s 00001/00001/00026
+d D 1.3 94/11/23 18:03:41 lm 4 3
+c upating to include pagefault.
+cK61072
+e
+s 00016/00023/00011
+d D 1.2 94/11/23 17:33:24 lm 3 2
+c initial rev.
+cK61441
+e
+s 00034/00000/00000
+d D 1.1 94/11/18 01:26:35 lm 2 1
+c Initial revision
+cK19861
+e
+s 00000/00000/00000
+d D 1.0 94/11/18 01:26:34 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK03667
+cPdoc/lat_fs.8
+cR63d927a6ff8bcf3e
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+lmbench doc checkin
+T
+I 2
+.\" $Id$
+D 4
+.TH LAT_CONNECT 8 "$Date$" "(c)1994 Larry McVoy" "LMBENCH"
+E 4
+I 4
+.TH LAT_FS 8 "$Date$" "(c)1994 Larry McVoy" "LMBENCH"
+E 4
+.SH NAME
+D 3
+lat_connect \- measure interprocess connection latency via TCP/IP
+E 3
+I 3
+lat_fs \- measure file system create/delete performance
+E 3
+.SH SYNOPSIS
+D 3
+.B lat_connect
+.I -s
+.sp .5
+.B lat_connect
+.I hostname
+.sp .5
+.B lat_connect
+.I -hostname
+E 3
+I 3
+.B lat_fs
+I 5
+[
+.I dir
+]
+E 5
+E 3
+.SH DESCRIPTION
+D 3
+.B lat_connect
+is a client/server program that measures interprocess
+connection latencies.   The benchmark times the creation and connection of
+an AF_INET (aka TCP/IP) socket to a remote server.  Care is take that the
+connection time does not include any other overhead, such as the
+\fIgethostbyname()\fP or remote port lookups since these add more overhead
+than the connection establishment itself.
+.LP
+.B lat_connect
+has three forms of usage: as a server (-s), as a client (lat_connect localhost),
+and as a shutdown (lat_connect -localhost).
+E 3
+I 3
+.B lat_fs
+is a program that creates a number of small files in the current working
+directory and then removes the files.  Both the creation and removal of 
+the files is timed.
+I 5
+.SH OPTIONS
+If
+.I dir
+is specified,
+.B lat_fs
+will change to that directory first and do the creates and deletes there.
+Otherwise the creates and deletes are done in $PWD.
+E 5
+E 3
+.SH OUTPUT
+D 3
+The reported time is in microseconds per connection.
+Output format is like so
+E 3
+I 3
+The results are in terms of creates per second and deletes per second
+as a function of file size.  The output is in 4 column form and is the
+size of the file, the number created, the creations per second, and the
+removals per second.  Output format looks like:
+E 3
+.sp
+.ft CB
+D 3
+TCP/IP connection cost to localhost: 1006 microseconds
+E 3
+I 3
+.nf
+0k      500     1304    2740
+1k      500     904     1663
+4k      500     861     1647
+10k     500     674     1516
+.fi
+E 3
+.ft
+.SH "SEE ALSO"
+lmbench(8).
+E 2
+I 1
+E 1

@@ -1,0 +1,286 @@
+h34559
+s 00001/00000/00037
+d D 1.14 00/09/24 12:51:25 staelin 15 14
+c - Bugfixes for sending status output to a file
+cC
+cK44471
+e
+s 00001/00001/00036
+d D 1.13 00/09/18 17:33:52 staelin 14 13
+c - Ensure that all result files have a .N extension
+cC
+cK43258
+e
+s 00004/00010/00033
+d D 1.12 00/08/03 19:21:00 staelin 13 12
+c - send results to lmbench3@bitmover.com
+cC
+cK42935
+e
+s 00002/00014/00041
+d D 1.11 00/08/02 18:04:55 staelin 12 11
+c - Remove SYNC_PID and all scripts/synchronize stuff
+cC
+cHhpli8.hpli.hpl.hp.com
+cK54676
+cZ+03:00
+e
+s 00000/00000/00055
+d D 1.10 00/01/31 15:29:42 lm 11 10
+c Change mode to -rwxrwxr-x
+cC
+cHlm.bitmover.com
+cK06528
+cO-rwxrwxr-x
+cZ-08:00
+e
+s 00004/00004/00051
+d D 1.9 99/09/02 22:49:26 lm 10 9
+c MP stuff.
+cC
+cHwork.bitmover.com
+cK18295
+cPscripts/results
+e
+s 00026/00005/00029
+d D 1.8 98/07/31 12:51:47 lm 9 8
+c First pass at MP version.
+cK18872
+e
+s 00001/00001/00033
+d D 1.7 98/07/01 01:19:11 lm 8 7
+c bug in previous reorg.
+cK43761
+e
+s 00014/00006/00020
+d D 1.6 98/06/30 17:59:10 lm 7 6
+c Handle mailing back the results and the form.
+cHlm.bitmover.com
+cK43761
+e
+s 00001/00001/00025
+d D 1.5 98/06/08 22:57:58 lm 6 5
+c Whoops, make it go to the lmbench2 results file.
+cF364
+cHbitmover
+cK31057
+e
+s 00001/00001/00025
+d D 1.4 98/06/08 23:04:01 lm 5 4
+c Change results address to bitmover.
+cHwork
+cK31007
+cP/home/lm/lmbench/scripts/results
+e
+s 00002/00004/00024
+d D 1.3 97/06/14 21:12:16 lm 4 3
+c *** empty log message ***
+cK31647
+e
+s 00009/00000/00019
+d D 1.2 95/10/25 21:05:37 lm 3 2
+c mail.
+cK30940
+cZ-07:00
+e
+s 00019/00000/00000
+d D 1.1 94/11/25 16:40:59 lm 2 1
+c Initial revision
+cK21322
+e
+s 00000/00000/00000
+d D 1.0 94/11/25 16:40:58 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK04190
+cPscripts/results
+cR4fe7cbc4774e86d3
+cV4
+cX0x21
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x21
+t
+T
+I 2
+#!/bin/sh
+
+# $Id$
+
+OS=`../scripts/os`
+I 7
+CONFIG=`../scripts/config`
+E 7
+D 4
+RESULTS=Results/$OS
+E 4
+I 4
+RESULTS=results/$OS
+E 4
+BASE=../$RESULTS/`uname -n`
+D 7
+OUT=$BASE
+E 7
+I 7
+D 8
+RESULTS=$BASE
+E 8
+E 7
+EXT=0
+
+I 7
+if [ ! -f "../bin/$OS/$CONFIG" ]
+then	echo "No config file?"
+	exit 1
+fi
+I 9
+. ../bin/$OS/$CONFIG
+E 9
+
+E 7
+if [ ! -d ../$RESULTS ]
+then	mkdir -p ../$RESULTS
+fi
+I 8
+D 14
+RESULTS=$BASE
+E 14
+I 14
+RESULTS=$BASE.$EXT
+E 14
+E 8
+D 7
+while [ -f $OUT ]
+E 7
+I 7
+while [ -f $RESULTS ]
+E 7
+do      EXT=`expr $EXT + 1`
+D 7
+	OUT=$BASE.$EXT
+E 7
+I 7
+	RESULTS=$BASE.$EXT
+E 7
+done
+I 3
+
+D 4
+. ../bin/$OS/CONFIG
+
+E 4
+E 3
+D 7
+echo Results going to $OUT
+D 4
+cd ../bin/$OS && ../../scripts/lmbench 2>../$OUT
+E 4
+I 4
+cd ../bin/$OS && ../../scripts/lmbench `../../scripts/config` 2>../$OUT
+E 7
+I 7
+D 9
+echo Results going to $RESULTS
+cd ../bin/$OS && ../../scripts/lmbench $CONFIG 2>../$RESULTS
+E 9
+I 9
+cd ../bin/$OS 
+D 12
+if [ "X$SYNC_MAX" = X ]; then echo "No SYNC_MAX variable."; exit 1; fi
+if [ $SYNC_MAX -gt 1 ]
+D 10
+then	SYNC_PID=1; export SYNC_PID
+E 10
+I 10
+then	export SYNC_PID=1
+E 10
+	while [ $SYNC_PID -le $SYNC_MAX ]
+D 10
+	do	echo Results $SYNC_PID going to ${RESULTS}.$SYNC_PID
+		../../scripts/lmbench $CONFIG 2>../${RESULTS}.$SYNC_PID &
+E 10
+I 10
+	do	echo Results $SYNC_PID going to ${RESULTS}_$SYNC_PID
+		../../scripts/lmbench $CONFIG 2>../${RESULTS}_$SYNC_PID &
+E 10
+		SYNC_PID=`expr $SYNC_PID + 1`
+	done; wait
+else	echo Results going to ${RESULTS}
+	SYNC_PID=1
+	SYNC_MAX=1
+	export SYNC_PID SYNC_MAX
+	../../scripts/lmbench $CONFIG 2>../${RESULTS}
+fi
+E 12
+I 12
+export SYNC_MAX
+I 15
+export OUTPUT
+E 15
+../../scripts/lmbench $CONFIG 2>../${RESULTS}
+E 12
+E 9
+E 7
+E 4
+I 3
+
+I 7
+D 9
+. $CONFIG
+E 9
+E 7
+if [ X$MAIL = Xyes ]
+then	echo Mailing results
+D 5
+	mail lmbench@slovax.engr.sgi.com < ../$OUT
+E 5
+I 5
+D 6
+	mail lmbench@bitmover.com < ../$OUT
+E 6
+I 6
+D 7
+	mail lmbench2@bitmover.com < ../$OUT
+E 7
+I 7
+D 9
+	(echo ----- $INFO ----; cat $INFO; 
+	echo ----- $RESULTS ----; cat ../$RESULTS ) | mail lmbench2@bitmover.com 
+E 9
+I 9
+D 13
+	if [ $SYNC_MAX -gt 1 ]
+	then	(echo ---- $INFO ---; cat $INFO; 
+D 10
+		for i in ../${RESULTS}.*
+E 10
+I 10
+		for i in ../${RESULTS}_*
+E 10
+		do	echo ---- $i ----; cat $i
+		done) | mail lmbench2@bitmover.com 
+	else	(echo ---- $INFO ---
+		cat $INFO 
+		echo ---- $RESULTS ---
+		cat ../$RESULTS) | mail lmbench2@bitmover.com 
+	fi
+E 13
+I 13
+	(echo ---- $INFO ---
+	cat $INFO 
+	echo ---- $RESULTS ---
+	cat ../$RESULTS) | mail lmbench3@bitmover.com 
+E 13
+E 9
+E 7
+E 6
+E 5
+fi
+exit 0
+E 3
+E 2
+I 1
+E 1

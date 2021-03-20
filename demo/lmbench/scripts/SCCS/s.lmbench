@@ -1,0 +1,2877 @@
+H15871
+s 00001/00001/00478
+d D 1.54 02/10/28 14:15:24 staelin 55 54
+c scripts/lmbench: fix buglet in running of lat_fs which could result
+c   in data being collected for the wrong file system.  The parameters
+c   were wrong so the benchmark was being run in the lmbench/bin/XXX
+c   directory instead of the specified temporary directory (usually
+c   /usr/tmp)
+cC
+cK10814
+cZ+02:00
+e
+s 00001/00001/00478
+d D 1.53 02/10/03 14:00:03 staelin 54 53
+c scripts/lmbench: fixup typo in test of SYNC_MAX
+cC
+cHhpli69.hpli.hpl.hp.com
+cK11681
+cZ+03:00
+e
+s 00021/00019/00458
+d D 1.52 02/02/22 09:25:24 staelin 53 52
+c Modify the benchmark script (scripts/lmbench) so that it doesn't run
+c certain benchmarks during scaling runs (SYNC_MAX > 1), namely: lat_connect,
+c tlb, cache, and par_mem.
+cC
+cHfirewall.staelin.co.il
+cK11649
+cZ+02:00
+e
+s 00001/00000/00476
+d D 1.51 01/06/13 11:05:53 staelin 52 51
+c Add STREAM version 2 to default lmbench HARDWARE run.  (STREAM version
+c 1 was already included in HARDWARE configuration.)
+cC
+cHhpli69.hpli.hpl.hp.com
+cK01458
+cZ+03:00
+e
+s 00004/00001/00472
+d D 1.50 00/10/25 12:38:36 staelin 51 50
+c - Collect lat_select results for both TCP sockets and files
+cC
+cK65356
+cZ+02:00
+e
+s 00001/00001/00472
+d D 1.49 00/09/25 13:21:07 staelin 50 49
+c - Fix bug in scripts/lmbench which causes local TCP bandwidth results to be overlooked
+cC
+cK59999
+e
+s 00016/00006/00457
+d D 1.48 00/09/24 15:40:06 staelin 49 48
+c - tweaks to scripts/lmbench to ensure that there is at least an "msleep 250" after
+c   each message to OUTPUT.  This will help minimize the effects of echoing to a window
+c   in X
+c - tweaks to ensure there is a blank line before each array output
+cC
+cK59171
+e
+s 00029/00029/00434
+d D 1.47 00/09/24 12:51:23 staelin 48 47
+c - Bugfixes for sending status output to a file
+cC
+cK51171
+e
+s 00001/00000/00462
+d D 1.46 00/09/18 16:42:04 staelin 47 46
+c - Bugfix so there is an empty line after the lat_ctx results so the result parsing will
+c   work correctly
+cC
+cK47621
+e
+s 00140/00079/00322
+d D 1.45 00/09/18 11:33:09 staelin 46 45
+c - Add ability for user to select which subset of benchmarks to run, including ability
+c   to select (almost) individual benchmarks
+cC
+cK46856
+e
+s 00000/00002/00401
+d D 1.44 00/09/13 14:44:02 staelin 45 44
+c - Change handling of lmbench scripts status output handling to use user-specified file
+cC
+cK47057
+e
+s 00000/00002/00403
+d D 1.43 00/08/03 19:20:59 staelin 44 43
+c - run all the bw_mem stuff for both hardware and os
+cC
+cK48516
+e
+s 00002/00000/00403
+d D 1.42 00/08/03 18:43:51 staelin 43 42
+c - Change lmbench so bw_mem bcopy, bw_mem bcopy conflict, and bw_mem bzero are in both
+c   the hardware and os subsets
+cC
+cK51666
+e
+s 00005/00005/00398
+d D 1.41 00/08/03 13:59:00 staelin 42 41
+c - Moved bw_mem bzero, bw_mem bcopy, and bw_mem bcopy conflict from the hardware subset
+c   to the OS subset
+cC
+cK46810
+e
+s 00176/00198/00227
+d D 1.40 00/08/02 18:04:54 staelin 41 40
+c - Add capability to test OS and hardware benchmarks independently
+c - Change parallelism from scripts/synchronize base to "-P <parallel>" base
+c - Add LMBENCH_VER tag to results taken from src/bk.ver
+c - Remove SYNC_PID parameter
+cC
+cK46810
+e
+s 00006/00000/00419
+d D 1.39 00/07/30 15:34:04 staelin 40 39
+c - Add cache to lmbench script
+cC
+cK43261
+e
+s 00003/00007/00416
+d D 1.38 00/07/27 14:36:57 staelin 39 38
+c - Remove definition of RSH since it will be included in CONFIG.* files
+c - Change MTU-size message size for bw_tcp from 1500->1437 so messages will fit in one packet
+cC
+cK34067
+e
+s 00010/00002/00413
+d D 1.37 00/07/26 18:09:54 staelin 38 37
+c - Add loop for msize for bw_tcp
+cC
+cK38336
+e
+s 00021/00002/00394
+d D 1.36 00/07/25 13:48:35 staelin 37 36
+c - begin update of lmbench script to run new benchmarks such as lat_ops, tlb, and loads
+cC
+cK23270
+e
+s 00020/00018/00376
+d D 1.35 00/07/06 15:49:09 staelin 36 35
+c - fix problem with running the benchmarks under BitCluster; /dev/tty is not valid
+c   on some machines, so the benchmarks would fail and die horrible deaths
+cC
+cK49743
+e
+s 00021/00013/00373
+d D 1.34 00/06/21 19:28:39 staelin 35 34
+c - fixed test of HP-UX remsh vs. rsh
+c - updated lat_rpc to use command line arguments in a fashion similar to other network benchmarks
+c - changed command line arguments for all networking benchmarks to use '-S server' to shutdown
+c   a server process
+c  
+cC
+cHhpli8.hpli.hpl.hp.com
+cK48014
+cZ+03:00
+e
+s 00002/00001/00384
+d D 1.33 00/01/31 16:29:28 lm 34 33
+c Updates for BitKeeper.
+cC
+cK44088
+e
+s 00000/00000/00385
+d D 1.32 00/01/31 15:29:42 lm 33 32
+c Change mode to -rwxrwxr-x
+cHlm.bitmover.com
+cK51754
+cO-rwxrwxr-x
+cZ-08:00
+e
+s 00041/00035/00344
+d D 1.31 99/09/02 12:24:44 lm 32 31
+c half assed MP stuff
+cC
+cHwork.bitmover.com
+cK42600
+cPscripts/lmbench
+e
+s 00148/00068/00231
+d D 1.30 98/07/31 12:53:27 lm 31 30
+c First pass at MP version.
+c Added the lmbench version in there.
+c Each sub benchmark is synchronized with the others (not quite
+c complete yet).
+cK41130
+e
+s 00001/00000/00298
+d D 1.29 98/07/21 18:39:13 lm 30 29
+c mkdir $FSDIR
+cK02024
+cP/home/lm/lmbench/scripts/lmbench
+cZ-07:00
+e
+s 00020/00006/00278
+d D 1.28 97/10/31 18:00:52 lm 29 28
+c add lmhttp to the networking.
+cK01003
+cZ-08:00
+e
+s 00020/00008/00264
+d D 1.27 97/10/19 23:54:28 lm 28 27
+c 2.0 stuff
+cK27063
+e
+s 00047/00020/00225
+d D 1.26 97/07/12 18:09:45 lm 27 26
+c switch to new bandwidth measurements.
+cK05559
+e
+s 00001/00001/00244
+d D 1.25 97/06/15 14:39:07 lm 26 25
+c lat_rpc
+cK56632
+e
+s 00045/00070/00200
+d D 1.24 97/06/14 21:11:51 lm 25 24
+c lmbench2.0
+c more stuff to work w/ the new config-run
+cK56867
+e
+s 00026/00012/00244
+d D 1.23 97/06/14 12:31:30 lm 24 23
+c New CONFIG scheme.
+c Use ENOUGH/TIMING_O
+c Use a tmp file for stat, etc. XXX
+c ctx switch rewack.
+cK33556
+e
+s 00012/00009/00244
+d D 1.22 97/06/11 20:31:54 lm 23 22
+c change to single output per line.
+cK12780
+cZ-07:00
+e
+s 00031/00022/00222
+d D 1.21 97/02/12 19:33:03 lm 22 21
+c *** empty log message ***
+cK05619
+cZ-08:00
+e
+s 00008/00002/00236
+d D 1.20 96/06/11 12:58:28 lm 21 20
+c *** empty log message ***
+cK09307
+e
+s 00010/00003/00228
+d D 1.19 96/05/21 23:14:22 lm 20 19
+c *** empty log message ***
+cK64418
+cZ-07:00
+e
+s 00031/00039/00200
+d D 1.18 96/01/22 23:23:54 lm 19 18
+c Consistent sizes to all variable sized measurements.
+cK48608
+e
+s 00003/00003/00236
+d D 1.17 95/11/06 19:13:41 lm 18 17
+c *** empty log message ***
+cK00020
+e
+s 00000/00002/00239
+d D 1.16 95/11/05 16:22:58 lm 17 16
+c exit.
+cK65123
+e
+s 00023/00018/00218
+d D 1.15 95/11/03 21:20:30 lm 16 15
+c remote stuff
+cK00129
+e
+s 00007/00003/00229
+d D 1.14 95/11/03 14:55:34 lm 15 14
+c hpux uses remsh.
+cK50634
+e
+s 00001/00000/00231
+d D 1.13 95/10/31 14:18:08 lm 14 13
+c Needed some time for the servers to start up.
+cK45461
+cZ-08:00
+e
+s 00018/00010/00213
+d D 1.12 95/10/25 21:05:10 lm 13 12
+c lotso stuff.
+cK44773
+e
+s 00001/00001/00222
+d D 1.11 95/10/25 09:53:17 lm 12 11
+c 1.1.
+cK32938
+e
+s 00017/00032/00206
+d D 1.10 95/10/25 09:46:45 lm 11 10
+c making remote work.
+cK32937
+e
+s 00004/00003/00234
+d D 1.9 95/10/05 13:22:56 lm 10 9
+c hello back to normal
+c start fixing remote.
+cK10392
+e
+s 00002/00002/00235
+d D 1.8 95/09/28 11:14:02 lm 9 8
+c statically linked hello.
+cK09739
+e
+s 00001/00001/00236
+d D 1.7 95/08/31 16:56:41 lm 8 7
+c oops.
+cK07860
+e
+s 00036/00011/00201
+d D 1.6 95/08/30 20:42:24 lm 7 6
+c availmem stuff.
+cK07503
+e
+s 00004/00001/00208
+d D 1.5 95/08/22 15:29:07 lm 6 5
+c Partial small mem fix - I think the good one is at home.
+cK22122
+cZ-07:00
+e
+s 00002/00000/00207
+d D 1.4 95/02/14 11:05:42 lm 5 4
+c hello -> /tmp/hello
+cK18431
+e
+s 00003/00000/00204
+d D 1.3 94/11/29 16:19:38 lm 4 3
+c lat_sig
+cK15423
+e
+s 00029/00014/00175
+d D 1.2 94/11/25 16:39:59 lm 3 2
+c support for config
+c run lat_fs and lat_pagefault
+cK09874
+e
+s 00189/00000/00000
+d D 1.1 94/11/22 23:16:48 lm 2 1
+c Initial revision
+cK43403
+e
+s 00000/00000/00000
+d D 1.0 94/11/22 23:16:47 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK45281
+cPscripts/lmbench
+cRacff2ef2b9c4b39c
+cV4
+cX0x21
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x21
+t
+lmbench1.0 release
+T
+I 2
+#!/bin/sh
+
+# lmbench - run the lmbench benchmark suite.
+#
+D 31
+# Hacked into existence by Larry McVoy (lm@sun.com now lm@sgi.com).
+E 31
+I 31
+# Hacked by Larry McVoy (lm@sun.com, lm@sgi.com, lm@bitmover.com).
+E 31
+# Copyright (c) 1994 Larry McVoy.  GPLed software.
+# $Id$
+
+I 20
+D 31
+# TODO - make this take options so that you can skip context switches/mem lat.
+
+E 31
+E 20
+# Make sure we can find: ./cmd, df, and netstat
+D 31
+PATH=.:$PATH:/etc:/usr/etc:/sbin:/usr/sbin
+E 31
+I 31
+PATH=.:../../scripts:$PATH:/etc:/usr/etc:/sbin:/usr/sbin
+E 31
+I 3
+export PATH
+E 3
+
+I 36
+D 45
+OUTPUT=`output`
+
+E 45
+E 36
+D 3
+# TODO:
+#	Configure DISK, FILE, REMOTE
+
+if [ X$DISK = X ]
+then	DISK=/dev/rsd0c
+E 3
+I 3
+D 24
+if [ -f CONFIG ]
+then	echo Using config in CONFIG
+	. CONFIG
+E 24
+I 24
+if [ -f $1 ]
+D 36
+then	echo Using config in $1 > /dev/tty
+E 36
+I 36
+D 48
+then	echo Using config in $1 > ${OUTPUT}
+E 36
+	. $1
+E 24
+D 36
+else	echo Using defaults > /dev/tty
+E 36
+I 36
+else	echo Using defaults > ${OUTPUT}
+E 48
+I 48
+then	. $1
+	echo Using config in $1 >> ${OUTPUT}
+else	echo Using defaults >> ${OUTPUT}
+E 48
+E 36
+I 24
+	ENOUGH=1000000
+	TIMING_O=0
+I 25
+	LOOP_O=0
+I 37
+	LINE_SIZE=512
+E 37
+E 25
+E 24
+E 3
+fi
+I 24
+D 31
+export ENOUGH
+export TIMING_O
+I 25
+export LOOP_O
+E 31
+I 31
+D 37
+export ENOUGH TIMING_O LOOP_O SYNC_MAX SYNC_PID
+E 37
+I 37
+D 41
+export ENOUGH TIMING_O LOOP_O SYNC_MAX SYNC_PID LINE_SIZE
+E 41
+I 41
+export ENOUGH TIMING_O LOOP_O SYNC_MAX LINE_SIZE
+E 41
+E 37
+E 31
+E 25
+E 24
+I 3
+
+E 3
+if [ X$FILE = X ]
+then	FILE=/tmp/XXX
+D 48
+	touch $FILE || echo Can not create $FILE
+E 48
+I 48
+	touch $FILE || echo Can not create $FILE >> ${OUTPUT}
+E 48
+fi
+if [ X$MB = X ]
+then	MB=8
+fi
+I 11
+AVAILKB=`expr $MB \* 1024`
+
+I 19
+# Figure out how big we can go for stuff that wants to use
+# all and half of memory.
+D 21
+ALL="8k 16k 64k 128k 256k 512k 1m 2m"
+HALF="8k 16k 64k 128k 256k 512k 1m"
+E 21
+I 21
+D 22
+ALL="8k 16k 32k 64k 128k 256k 512k 1m 2m"
+HALF="8k 16k 32k 64k 128k 256k 512k 1m"
+E 22
+I 22
+HALF="512 1k 2k 4k 8k 16k 32k 64k 128k 256k 512k 1m"
+ALL="$HALF 2m"
+E 22
+E 21
+i=4
+while [ $i -le $MB ]
+do
+	ALL="$ALL ${i}m"
+	h=`expr $i / 2`
+	HALF="$HALF ${h}m"
+	i=`expr $i \* 2`
+done
+
+
+E 19
+E 11
+I 3
+if [ X$FSDIR = X ]
+then	FSDIR=/usr/tmp/lat_fs
+fi
+I 16
+D 31
+
+E 16
+I 15
+if [ X`../../scripts/os` = Xhpux ]
+E 31
+I 31
+MP=N
+if [ $SYNC_MAX -gt 1 ]
+D 41
+then	if [ X$SYNC_PID = X ]
+	then	echo "Must set both SYNC_MAX and SYNC_PID"
+		exit 1
+	fi
+	if [ "X$DISKS" != X ]
+E 41
+I 41
+then	if [ "X$DISKS" != X ]
+E 41
+	then	echo "MP and disks are mutually exclusive (sorry)"
+		exit 1
+	fi
+	if [ "X$REMOTE" != X ]
+	then	echo "MP and remote networking are mutually exclusive (sorry)"
+		exit 1
+	fi
+	MP=Y
+fi
+D 35
+if [ X`os` = Xhpux ]
+E 35
+I 35
+D 39
+if [ -x /bin/remsh ]
+E 35
+E 31
+then	RSH=remsh
+else	RSH=rsh
+fi
+E 39
+E 15
+E 3
+
+I 7
+D 11
+# Certain machines tend to barf when you try and bcopy 8MB.
+# Figure out how much we can use.
+WANT=`expr $MB \* 2`
+AVAILMEM=`memsize $WANT 2>/dev/null`
+if [ $AVAILMEM -lt 8 ]
+then    echo lmbench aborted: Not enough memory, only ${AVAILMEM}MB available. > /dev/tty
+	exit 1
+fi
+if [ $AVAILMEM -lt 16 ]
+then	echo Warning: you have only ${AVAILMEM}MB available memory. > /dev/tty
+	echo Some benchmark results are less meaningful. > /dev/tty
+fi
+AVAILKB=`expr $AVAILMEM \* 1024`
+
+E 11
+E 7
+# Figure out as much stuff as we can about this system.
+# Sure would be nice if everyone had SGI's "hinv".
+D 12
+echo \[lmbench1.0 results for `uname -a`] 1>&2
+E 12
+I 12
+D 37
+echo \[lmbench1.1 results for `uname -a`] 1>&2
+E 37
+I 37
+echo \[lmbench3.0 results for `uname -a`] 1>&2
+I 41
+echo \[LMBENCH_VER: `cat ../../src/bk.ver`] 1>&2
+echo \[BENCHMARK_HARDWARE: ${BENCHMARK_HARDWARE}] 1>&2
+echo \[BENCHMARK_OS: ${BENCHMARK_OS}] 1>&2
+E 41
+E 37
+I 28
+echo \[ALL: ${ALL}] 1>&2
+I 31
+echo \[DISKS: ${DISKS}] 1>&2
+echo \[DISK_DESC: ${DISK_DESC}] 1>&2
+E 31
+echo \[ENOUGH: ${ENOUGH}] 1>&2
+echo \[FAST: ${FAST}] 1>&2
+echo \[FASTMEM: ${FASTMEM}] 1>&2
+E 28
+E 12
+D 3
+echo \[REMOTE: ${REMOTE}] 1>&2
+E 3
+D 22
+echo \[DISK: ${DISK}] 1>&2
+E 22
+echo \[FILE: ${FILE}] 1>&2
+I 3
+echo \[FSDIR: ${FSDIR}] 1>&2
+D 28
+echo \[REMOTE: ${REMOTE}] 1>&2
+echo \[NETWORKS: ${NETWORKS}] 1>&2
+I 22
+echo \[MHZ: ${MHZ}] 1>&2
+E 22
+echo \[MB: ${MB}] 1>&2
+I 19
+echo \[ALL: ${ALL}] 1>&2
+E 28
+echo \[HALF: ${HALF}] 1>&2
+I 31
+echo \[INFO: ${INFO}] 1>&2
+I 37
+echo \[LINE_SIZE: ${LINE_SIZE}] 1>&2
+E 37
+echo \[LOOP_O: ${LOOP_O}] 1>&2
+E 31
+I 22
+D 28
+echo \[FAST: ${FAST}] 1>&2
+E 28
+I 28
+echo \[MB: ${MB}] 1>&2
+echo \[MHZ: ${MHZ}] 1>&2
+echo \[MOTHERBOARD: ${MOTHERBOARD}] 1>&2
+echo \[NETWORKS: ${NETWORKS}] 1>&2
+echo \[PROCESSORS: ${PROCESSORS}] 1>&2
+echo \[REMOTE: ${REMOTE}] 1>&2
+E 28
+I 25
+echo \[SLOWFS: ${SLOWFS}] 1>&2
+I 32
+echo \[OS: ${OS}] 1>&2
+E 32
+D 28
+echo \[FASTMEM: ${FASTMEM}] 1>&2
+echo \[ENOUGH: ${ENOUGH}] 1>&2
+E 28
+I 28
+D 31
+echo \[DISKS: ${DISKS}] 1>&2
+echo \[DISK_DESC: ${DISK_DESC}] 1>&2
+E 31
+I 31
+echo \[SYNC_MAX: ${SYNC_MAX}] 1>&2
+D 41
+echo \[SYNC_PID: ${SYNC_PID}] 1>&2
+E 41
+E 31
+E 28
+echo \[TIMING_O: ${TIMING_O}] 1>&2
+I 31
+echo \[LMBENCH VERSION: ${VERSION}] 1>&2
+E 31
+E 25
+E 22
+E 19
+I 7
+D 11
+echo \[AVAILMEM: ${AVAILMEM}] 1>&2
+E 11
+E 7
+E 3
+D 32
+echo \[`date`] 1>&2
+echo \[`uptime`] 1>&2
+E 32
+I 27
+echo \[USER: $USER] 1>&2
+echo \[HOSTNAME: `hostname`] 1>&2
+echo \[NODENAME: `uname -n`] 1>&2
+echo \[SYSNAME: `uname -s`] 1>&2
+echo \[PROCESSOR: `uname -p`] 1>&2
+echo \[MACHINE: `uname -m`] 1>&2
+echo \[RELEASE: `uname -r`] 1>&2
+echo \[VERSION: `uname -v`] 1>&2
+I 32
+
+echo \[`date`] 1>&2
+echo \[`uptime`] 1>&2
+E 32
+E 27
+D 19
+
+E 19
+netstat -i | while read i
+do	echo \[net: "$i"] 1>&2
+	set `echo $i`
+	case $1 in
+	    *ame)	;;
+	    *)		ifconfig $1 | while read i
+			do echo \[if: "$i"] 1>&2
+			done
+			;;
+	esac
+done
+
+D 23
+mount -p | while read i
+E 23
+I 23
+mount | while read i
+E 23
+do	echo \[mount: "$i"] 1>&2
+done
+
+I 30
+D 31
+mkdir $FSDIR 
+E 30
+I 24
+touch $FSDIR/lmbench
+if [ ! -f $FSDIR/lmbench ]
+E 31
+I 31
+D 41
+if [ $MP = Y ]
+then	SYNC=${FSDIR}/sync		# I want this to be global
+	FSDIR=${FSDIR}/lmbench_${SYNC_PID}
+	STAT=$FSDIR/lmbench.$SYNC_PID
+	FILE=${FILE}.$SYNC_PID
+else	STAT=$FSDIR/lmbench
+fi
+E 41
+I 41
+STAT=$FSDIR/lmbench
+E 41
+mkdir $FSDIR 2>/dev/null
+touch $STAT 2>/dev/null
+if [ ! -f $STAT ]
+E 31
+D 34
+then	echo "Can't make a file in $FSDIR" > /dev/tty
+E 34
+I 34
+D 36
+then	echo "Can't make a file - $STAT - in $FSDIR" > /dev/tty
+E 36
+I 36
+D 48
+then	echo "Can't make a file - $STAT - in $FSDIR" > ${OUTPUT}
+E 48
+I 48
+then	echo "Can't make a file - $STAT - in $FSDIR" >> ${OUTPUT}
+E 48
+E 36
+	touch $STAT
+E 34
+	exit 1
+fi
+I 31
+if [ X$SYNC != X ]
+D 32
+then	mkdir -p $SYNC 2>/dev/null
+E 32
+I 32
+then	/bin/rm -rf $SYNC
+	mkdir -p $SYNC 2>/dev/null
+E 32
+	if [ ! -d $SYNC ]
+D 48
+	then	echo "Can't make $SYNC"
+E 48
+I 48
+	then	echo "Can't make $SYNC" >> ${OUTPUT}
+E 48
+		exit 1
+	fi
+D 32
+	for i in bw_file_rd bw_mem bw_mmap_rd bw_pipe bw_tcp bw_unix \
+	    lat_connect lat_ctx lat_fifo lat_fs lat_heap lat_http \
+	    lat_mem_rd lat_mmap lat_pagefault lat_pipe lat_proc lat_rpc \
+	    lat_select lat_sig lat_syscall lat_tcp lat_udp lat_unix \
+	    lat_unix_connect lmdd lat_proc2 bw_file_rd2 bw_mmap_rd2 \
+	    lat_ctx0_2 lat_ctx0_4 lat_ctx0_8 lat_ctx0_16 lat_ctx0_24 \
+	    lat_ctx0_32 lat_ctx0_64 lat_ctx0_96 lat_ctx4_2 lat_ctx4_4 \
+	    lat_ctx4_8 lat_ctx4_16 lat_ctx4_24 lat_ctx4_32 lat_ctx4_64 \
+	    lat_ctx4_96 lat_ctx8_2 lat_ctx8_4 lat_ctx8_8 lat_ctx8_16 \
+	    lat_ctx8_24 lat_ctx8_32 lat_ctx8_64 lat_ctx8_96 lat_ctx16_2 \
+	    lat_ctx16_4 lat_ctx16_8 lat_ctx16_16 lat_ctx16_24 lat_ctx16_32 \
+	    lat_ctx16_64 lat_ctx16_96 lat_ctx32_2 lat_ctx32_4 lat_ctx32_8 \
+	    lat_ctx32_16 lat_ctx32_24 lat_ctx32_32 lat_ctx32_64 \
+	    lat_ctx32_96 lat_ctx64_2 lat_ctx64_4 lat_ctx64_8 lat_ctx64_16 \
+	    lat_ctx64_24 lat_ctx64_32 lat_ctx64_64 lat_ctx64_96 
+	do	/bin/rm -rf $SYNC/$i
+	done
+E 32
+fi
+E 31
+
+E 24
+D 23
+# In case mount -p doesn't work.
+df | while read i
+do	echo \[df: "$i"] 1>&2
+done
+
+E 23
+I 22
+D 36
+date > /dev/tty
+E 22
+D 25
+echo Calculating processor speed > /dev/tty
+mhz 1>&2
+
+echo Calculating system call overhead > /dev/tty
+E 25
+I 25
+echo Latency measurements > /dev/tty
+E 36
+I 36
+D 48
+date > ${OUTPUT}
+echo Latency measurements > ${OUTPUT}
+E 48
+I 48
+date >> ${OUTPUT}
+echo Latency measurements >> ${OUTPUT}
+I 49
+msleep 250
+E 49
+E 48
+E 36
+I 31
+D 32
+if [ $MP = Y ]; then synchronize $SYNC/lat_syscall; fi
+E 31
+msleep 250
+E 32
+I 32
+D 41
+if [ $MP = Y ]
+then	if [ $SYNC_MAX != $SYNC_PID ]; then sleep 5; fi
+	synchronize $SYNC/lat_syscall
+fi
+E 32
+E 25
+D 23
+lat_syscall
+E 23
+I 23
+lat_syscall null
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/lat_syscall2; fi
+E 32
+lat_syscall read
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/lat_syscall3; fi
+E 32
+lat_syscall write
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/lat_syscall4; fi
+E 32
+D 24
+lat_syscall stat
+lat_syscall open
+E 24
+I 24
+D 31
+lat_syscall stat $FSDIR/lmbench
+lat_syscall fstat $FSDIR/lmbench
+lat_syscall open $FSDIR/lmbench
+E 31
+I 31
+lat_syscall stat $STAT
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/lat_syscall5; fi
+E 32
+lat_syscall fstat $STAT
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/lat_syscall6; fi
+E 32
+lat_syscall open $STAT
+D 32
+if [ $MP = Y ]; then synchronize $SYNC/lat_select; fi
+E 32
+E 31
+E 24
+E 23
+D 25
+
+I 22
+echo Calculating select overhead > /dev/tty
+E 25
+for i in 10 100 250 500
+D 32
+do	lat_select $i
+E 32
+I 32
+do	if [ $MP = Y ]; then synchronize $SYNC/lat_select$i ; fi
+	lat_select $i
+E 32
+done
+I 31
+if [ $MP = Y ]; then synchronize $SYNC/lat_sig; fi
+E 31
+D 25
+
+E 22
+I 4
+echo Calculating signal handler overhead > /dev/tty
+E 25
+D 20
+lat_sig
+E 20
+I 20
+D 23
+lat_sig lat_sig
+E 23
+I 23
+lat_sig install
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/lat_sig2; fi
+E 32
+lat_sig catch
+lat_sig prot lat_sig
+I 31
+if [ $MP = Y ]; then synchronize $SYNC/lat_pipe; fi
+E 31
+E 23
+E 20
+D 25
+
+E 4
+echo Calculating pipe latency > /dev/tty
+E 25
+lat_pipe
+I 37
+if [ $MP = Y ]; then synchronize $SYNC/lat_ops; fi
+lat_ops
+E 37
+I 31
+if [ $MP = Y ]; then synchronize $SYNC/lat_unix; fi
+E 31
+D 25
+
+I 21
+echo Calculating af_unix latency > /dev/tty
+E 25
+lat_unix
+I 25
+D 31
+cp hello /tmp/hello
+E 31
+I 31
+if [ $MP = Y ]
+then	if [ $SYNC_MAX = $SYNC_PID ]; then cp hello /tmp/hello; fi
+	synchronize $SYNC/lat_proc
+else	cp hello /tmp/hello
+fi
+E 31
+D 32
+lat_proc fork
+lat_proc exec
+lat_proc shell
+E 32
+I 32
+for i in fork exec shell
+do	if [ $MP = Y ]; then synchronize $SYNC/lat_proc$i ; fi
+	lat_proc $i
+done
+E 32
+D 31
+rm /tmp/hello 
+E 31
+I 31
+if [ $MP = Y ]
+then	synchronize $SYNC/lat_proc2
+	if [ $SYNC_MAX = $SYNC_PID ]; then rm -f /tmp/hello; fi
+else	rm /tmp/hello 
+E 41
+I 41
+D 46
+if [ X$BENCHMARK_OS = XYES ]; then
+E 46
+I 46
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_SYSCALL = XYES ]; then
+E 46
+	lat_syscall -P $SYNC_MAX null
+	lat_syscall -P $SYNC_MAX read
+	lat_syscall -P $SYNC_MAX write
+	lat_syscall -P $SYNC_MAX stat $STAT
+	lat_syscall -P $SYNC_MAX fstat $STAT
+	lat_syscall -P $SYNC_MAX open $STAT
+I 46
+fi
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_SELECT = XYES ]; then
+E 46
+	for i in 10 100 250 500
+D 51
+	do	lat_select -P $SYNC_MAX $i
+E 51
+I 51
+	do	lat_select -n $i -P $SYNC_MAX file
+	done
+	for i in 10 100 250 500
+	do	lat_select -n $i -P $SYNC_MAX tcp
+E 51
+	done
+I 46
+fi
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_SIG = XYES ]; then
+E 46
+	lat_sig -P $SYNC_MAX install
+	lat_sig -P $SYNC_MAX catch
+	lat_sig -P $SYNC_MAX prot lat_sig
+I 46
+fi
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_PIPE = XYES ]; then
+E 46
+	lat_pipe -P $SYNC_MAX 
+D 46
+	lat_unix -P $SYNC_MAX 
+E 46
+I 46
+fi
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_UNIX = XYES ]; then
+	lat_unix -P $SYNC_MAX
+fi
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_PROC = XYES ]; then
+E 46
+	cp hello /tmp/hello
+	for i in fork exec shell
+	do	lat_proc -P $SYNC_MAX $i
+	done
+	rm -f /tmp/hello 
+E 41
+fi
+E 31
+D 41
+rm -f $FILE
+I 31
+if [ $MP = Y ]; then synchronize $SYNC/lmdd; fi
+E 31
+lmdd label="File $FILE write bandwidth: " of=$FILE move=${MB}m fsync=1 print=3
+I 31
+if [ $MP = Y ]; then synchronize $SYNC/lat_pagefault; fi
+E 31
+lat_pagefault $FILE
+I 31
+D 32
+if [ $MP = Y ]; then synchronize $SYNC/lat_mmap; fi
+E 32
+E 31
+echo "" 1>&2
+echo \"mappings 1>&2
+for i in $ALL
+D 32
+do	lat_mmap $i $FILE
+E 32
+I 32
+do	if [ $MP = Y ]; then synchronize $SYNC/lat_mmap$i ; fi
+	lat_mmap $i $FILE
+E 32
+done
+echo "" 1>&2
+if [ X$SLOWFS != XYES ]
+D 36
+then	date > /dev/tty
+E 36
+I 36
+then	date > ${OUTPUT}
+E 36
+I 31
+	if [ $MP = Y ]; then synchronize $SYNC/lat_fs; fi
+E 31
+D 36
+	echo Calculating file system latency > /dev/tty
+E 36
+I 36
+	echo Calculating file system latency > ${OUTPUT}
+E 36
+	echo '"File system latency' 1>&2
+	lat_fs $FSDIR
+	echo "" 1>&2
+E 41
+I 41
+D 46
+if [ X$BENCHMARK_HARDWARE = XYES ]; then
+E 46
+I 46
+if [ X$BENCHMARK_HARDWARE = XYES -o X$BENCHMARK_OPS = XYES ]; then
+E 46
+	lat_ops 
+I 46
+	par_ops 
+E 46
+E 41
+fi
+E 25
+
+I 28
+D 41
+if [ X"$DISKS" != X ]
+then	for i in $DISKS
+	do	if [ -r $i ]
+D 36
+		then	echo "Calculating disk zone bw & seek times" > /dev/tty
+E 36
+I 36
+		then	echo "Calculating disk zone bw & seek times" > ${OUTPUT}
+E 36
+			disk $i
+I 29
+			echo "" 1>&2
+E 41
+I 41
+rm -f $FILE
+
+D 46
+if [ X$BENCHMARK_OS = XYES ]; then
+E 46
+I 46
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_FILE = XYES ]; then
+E 46
+	# choose one sample bandwidth from the middle of the pack
+	sample=`expr $SYNC_MAX / 2`
+	i=0
+	while [ $i -lt $SYNC_MAX ]; do
+		if [ $i -eq $sample ]; then 
+			lmdd label="File $FILE write bandwidth: " \
+				of=$FILE move=${MB}m fsync=1 print=3 &
+		else
+			lmdd label="File $FILE write bandwidth: " \
+				of=$FILE.$i move=${MB}m fsync=1 print=3 \
+				>/dev/null 2>&1 &
+E 41
+E 29
+		fi
+I 41
+		i=`expr $i + 1`
+E 41
+	done
+I 41
+	wait
+	rm -f $FILE.*
+I 46
+fi
+E 46
+
+I 46
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_PAGEFAULT = XYES ]; then
+E 46
+	lat_pagefault $FILE
+I 46
+fi
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_MMAP = XYES ]; then
+E 46
+	echo "" 1>&2
+	echo \"mappings 1>&2
+	for i in $ALL
+	do	lat_mmap -P $SYNC_MAX $i $FILE
+	done
+	echo "" 1>&2
+I 46
+fi
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_FILE = XYES ]; then
+E 46
+	if [ X$SLOWFS != XYES ]
+D 48
+	then	date > ${OUTPUT}
+		echo Calculating file system latency > ${OUTPUT}
+E 48
+I 48
+	then	date >> ${OUTPUT}
+		echo Calculating file system latency >> ${OUTPUT}
+I 49
+		msleep 250
+E 49
+E 48
+		echo '"File system latency' 1>&2
+D 55
+		lat_fs -P $SYNC_MAX $FSDIR
+E 55
+I 55
+		lat_fs $FSDIR
+E 55
+		echo "" 1>&2
+	fi
+fi
+
+if [ X$BENCHMARK_HARDWARE = XYES ]; then
+	if [ X"$DISKS" != X ]
+	then	for i in $DISKS
+		do	if [ -r $i ]
+			then	echo "Calculating disk zone bw & seek times" \
+D 48
+					> ${OUTPUT}
+E 48
+I 48
+					>> ${OUTPUT}
+I 49
+				msleep 250
+E 49
+E 48
+				disk $i
+				echo "" 1>&2
+			fi
+		done
+	fi
+E 41
+fi
+E 28
+D 25
+echo Calculating af_unix bandwidth > /dev/tty
+bw_unix
+E 25
+
+I 25
+D 31
+date > /dev/tty
+echo Local networking > /dev/tty
+D 29
+msleep 250
+E 29
+I 29
+if [ ! -d ../../src/webpage-lm ]
+then	(cd ../../src && tar xf webpage-lm.tar)
+	sync
+	sleep 1
+fi
+E 29
+E 25
+E 21
+D 16
+SERVERS="lat_tcp lat_rpc lat_udp lat_connect bw_tcp"
+E 16
+I 16
+SERVERS="lat_udp lat_tcp lat_rpc lat_connect bw_tcp"
+E 16
+D 25
+
+E 25
+I 10
+D 11
+# XXX - remote is broken.
+E 10
+for i in $REMOTE localhost
+do	if [ $i = localhost ]
+	then	for i in $SERVERS; do $i -s; done
+	else	rcp ../../scripts/os ${i}:/tmp/os
+		OS=`rsh $i /tmp/os`
+		cd ../$OS && rcp $SERVERS ${i}:/tmp
+D 10
+		( rsh -n $i "(cd /tmp; for i in $SERVERS; do \$i -s; done)" & )
+E 10
+I 10
+		( rsh -n $i sh -c "(cd /tmp; for i in $SERVERS; do \$i -s; done)" & )
+E 10
+	fi
+done
+sleep 2
+
+E 11
+I 11
+for server in $SERVERS; do $server -s; done
+I 29
+DOCROOT=../../src/webpage-lm lmhttp 8008 &
+E 29
+I 14
+sleep 2;
+E 14
+E 11
+for i in localhost
+do
+D 25
+	echo Calculating local UDP latency > /dev/tty
+E 25
+	lat_udp $i; lat_udp -$i;
+D 25
+	echo Calculating local TCP latency > /dev/tty
+E 25
+	lat_tcp $i; lat_tcp -$i;
+D 25
+	echo Calculating local RPC latency > /dev/tty
+E 25
+D 26
+	lat_rpc $i udp; lat_rpc $i tcp; lat_rpc -$i;
+E 26
+I 26
+	lat_rpc $i;			 # Internal kill on this one.
+E 26
+D 25
+	echo Calculating local connect latency > /dev/tty
+E 25
+	lat_connect $i; lat_connect -$i;
+D 25
+	echo Calculating local TCP bandwidth > /dev/tty
+D 18
+	bw_tcp $i 10m; bw_tcp -$i 
+E 18
+I 18
+	bw_tcp $i 20m; bw_tcp -$i 
+E 25
+I 25
+	bw_tcp $i; bw_tcp -$i 
+I 29
+	# I want a hot cache number
+	lat_http $i 8008 < ../../src/webpage-lm/URLS > /dev/null 2>&1
+	lat_http $i 8008 < ../../src/webpage-lm/URLS
+	lat_http -$i 8008
+E 29
+E 25
+E 18
+done
+I 24
+D 25
+rpcinfo -p 1>&2
+E 25
+E 24
+
+I 11
+for remote in $REMOTE 
+D 29
+do	rcp ../../scripts/os ${remote}:/tmp/os
+D 15
+	OS=`rsh $remote /tmp/os`
+E 15
+I 15
+D 16
+	OS=`$RSH $remote /tmp/os`
+E 15
+	cd ../$OS && rcp $SERVERS ${remote}:/tmp
+E 16
+I 16
+	OS=`$RSH $remote -n /tmp/os`
+	( cd ../$OS && rcp $SERVERS ${remote}:/tmp )
+E 29
+I 29
+do	echo Networking to $remote > /dev/tty
+	rcp $SERVERS lmhttp ../../src/webpage-lm.tar ${remote}:/tmp
+E 29
+E 16
+	for server in $SERVERS
+D 15
+	do	rsh -n $remote /tmp/$server -s &
+E 15
+I 15
+D 16
+	do	$RSH -n $remote /tmp/$server -s &
+E 16
+I 16
+	do	$RSH $remote -n /tmp/$server -s &
+E 31
+I 31
+D 41
+if [ $SYNC_PID = $SYNC_MAX ]
+D 36
+then	date > /dev/tty
+	echo Local networking > /dev/tty
+E 36
+I 36
+then	date > ${OUTPUT}
+E 41
+I 41
+D 46
+if [ X$BENCHMARK_OS = XYES ]; then
+	date > ${OUTPUT}
+E 41
+	echo Local networking > ${OUTPUT}
+E 36
+	if [ ! -d ../../src/webpage-lm ]
+	then	(cd ../../src && tar xf webpage-lm.tar)
+		sync
+		sleep 1
+	fi
+	SERVERS="lat_udp lat_tcp lat_rpc lat_connect bw_tcp"
+	for server in $SERVERS; do $server -s; done
+	DOCROOT=../../src/webpage-lm lmhttp 8008 &
+	sleep 2;
+	for i in localhost
+	do
+		lat_udp $i
+D 35
+		lat_udp -$i
+E 35
+I 35
+		lat_udp -S $i
+E 35
+		lat_tcp $i
+D 35
+		lat_tcp -$i
+		lat_rpc $i;			 # Internal kill on this one.
+E 35
+I 35
+		lat_tcp -S $i
+		lat_rpc -p udp $i
+		lat_rpc -p tcp $i
+		lat_rpc -S $i
+E 35
+		lat_connect $i
+D 35
+		lat_connect -$i
+E 35
+I 35
+		lat_connect -S $i
+E 35
+D 38
+		bw_tcp $i
+E 38
+I 38
+		echo "Socket bandwidth using $i" 1>&2
+D 39
+		for m in 1 64 128 256 512 1024 1500 10M; do
+E 39
+I 39
+		for m in 1 64 128 256 512 1024 1437 10M; do
+E 39
+			bw_tcp -m $m $i; 
+		done
+		echo "" 1>&2
+E 38
+D 35
+		bw_tcp -$i
+E 35
+I 35
+		bw_tcp -S $i
+E 35
+		# I want a hot cache number
+		lat_http $i 8008 < ../../src/webpage-lm/URLS > /dev/null 2>&1
+		lat_http $i 8008 < ../../src/webpage-lm/URLS
+D 35
+		lat_http -$i 8008
+E 35
+I 35
+		lat_http -S $i 8008
+E 46
+I 46
+D 48
+date > ${OUTPUT}
+echo Local networking > ${OUTPUT}
+E 48
+I 48
+date >> ${OUTPUT}
+echo Local networking >> ${OUTPUT}
+E 48
+if [ ! -d ../../src/webpage-lm ]
+then	(cd ../../src && tar xf webpage-lm.tar)
+	sync
+	sleep 1
+fi
+SERVERS="lat_udp lat_tcp lat_rpc lat_connect bw_tcp"
+for server in $SERVERS; do $server -s; done
+DOCROOT=../../src/webpage-lm lmhttp 8008 &
+sleep 2;
+
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_UDP = XYES ]; then
+	lat_udp localhost
+fi
+lat_udp -S localhost
+
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_TCP = XYES ]; then
+	lat_tcp localhost
+fi
+lat_tcp -S localhost
+
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_RPC = XYES ]; then
+	lat_rpc -p udp localhost
+	lat_rpc -p tcp localhost
+fi
+lat_rpc -S localhost
+
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_CONNECT = XYES ]; then
+D 53
+	lat_connect localhost
+E 53
+I 53
+	if [ $SYNC_MAX = 1 ]; then lat_connect localhost; fi
+E 53
+fi
+lat_connect -S localhost
+
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_TCP = XYES ]; then
+I 49
+	echo "" 1>&2
+E 49
+D 50
+	echo "Socket bandwidth using $i" 1>&2
+E 50
+I 50
+	echo "Socket bandwidth using localhost" 1>&2
+E 50
+	for m in 1 64 128 256 512 1024 1437 10M; do
+		bw_tcp -m $m localhost; 
+E 46
+E 35
+E 31
+E 16
+E 15
+	done
+I 46
+	echo "" 1>&2
+fi
+bw_tcp -S localhost
+E 46
+I 29
+D 31
+	$RSH $remote -n 'cd /tmp; tar xf webpage-lm.tar; cd webpage-lm; ../lmhttp 8008' &
+E 29
+I 16
+D 20
+	sleep 2
+E 20
+I 20
+	sleep 10
+E 20
+	echo "[ Networking remote to $remote: `$RSH $remote uname -a` ]" 1>&2
+D 25
+	echo Calculating remote host $remote UDP latency > /dev/tty
+E 25
+	lat_udp $remote; lat_udp -$remote;
+D 25
+	echo Calculating remote host $remote TCP latency > /dev/tty
+E 25
+	lat_tcp $remote; lat_tcp -$remote;
+D 25
+	echo Calculating remote host $remote RPC latency > /dev/tty
+E 25
+D 29
+	lat_rpc $remote udp; lat_rpc $remote tcp; lat_rpc -$remote;
+E 29
+I 29
+	lat_rpc $remote udp; lat_rpc $remote tcp; 
+E 29
+D 25
+	echo Calculating remote host $remote connect latency > /dev/tty
+E 25
+	lat_connect $remote; lat_connect -$remote;
+D 25
+	echo Calculating remote host $remote TCP bandwidth > /dev/tty
+D 18
+	bw_tcp $remote 10m; bw_tcp -$remote 
+E 18
+I 18
+	bw_tcp $remote 20m; bw_tcp -$remote 
+E 25
+I 25
+	bw_tcp $remote; bw_tcp -$remote 
+E 25
+E 18
+D 29
+	RM=/tmp/os
+E 29
+I 29
+	# I want a hot cache number
+	lat_http $remote 8008 < ../../src/webpage-lm/URLS > /dev/null 2>&1
+	lat_http $remote 8008 < ../../src/webpage-lm/URLS
+	lat_http -$remote 8008
+	RM=
+E 29
+	for server in $SERVERS
+D 18
+	do	RM="$server $RM"
+E 18
+I 18
+	do	RM="/tmp/$server $RM"
+E 31
+I 31
+
+D 46
+	for remote in $REMOTE 
+D 36
+	do	echo Networking to $remote > /dev/tty
+E 36
+I 36
+	do	echo Networking to $remote > ${OUTPUT}
+E 36
+D 39
+		rcp $SERVERS lmhttp ../../src/webpage-lm.tar ${remote}:/tmp
+E 39
+I 39
+		$RCP $SERVERS lmhttp ../../src/webpage-lm.tar ${remote}:/tmp
+E 39
+		for server in $SERVERS
+		do	$RSH $remote -n /tmp/$server -s &
+		done
+		$RSH $remote -n 'cd /tmp; tar xf webpage-lm.tar; cd webpage-lm; ../lmhttp 8008' &
+		sleep 10
+		echo "[ Networking remote to $remote: `$RSH $remote uname -a` ]" 1>&2
+D 35
+		lat_udp $remote; lat_udp -$remote;
+		lat_tcp $remote; lat_tcp -$remote;
+		lat_rpc $remote udp; lat_rpc $remote tcp; 
+		lat_connect $remote; lat_connect -$remote;
+		bw_tcp $remote; bw_tcp -$remote 
+E 35
+I 35
+		lat_udp $remote; 
+		lat_udp -S $remote;
+		lat_tcp $remote; 
+		lat_tcp -S $remote;
+		lat_rpc -p udp $remote; 
+		lat_rpc -p tcp $remote; 
+		lat_rpc -S $remote; 
+		lat_connect $remote; 
+		lat_connect -S $remote;
+E 46
+I 46
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_HTTP = XYES ]; then
+	# I want a hot cache number
+	lat_http localhost 8008 < ../../src/webpage-lm/URLS > /dev/null 2>&1
+	lat_http localhost 8008 < ../../src/webpage-lm/URLS
+fi
+lat_http -S localhost 8008
+
+for remote in $REMOTE 
+do
+D 48
+	echo Networking to $remote > ${OUTPUT}
+E 48
+I 48
+	echo Networking to $remote >> ${OUTPUT}
+E 48
+	$RCP $SERVERS lmhttp ../../src/webpage-lm.tar ${remote}:/tmp
+	for server in $SERVERS
+	do	$RSH $remote -n /tmp/$server -s &
+	done
+	$RSH $remote -n 'cd /tmp; tar xf webpage-lm.tar; cd webpage-lm; ../lmhttp 8008' &
+	sleep 10
+	echo "[ Networking remote to $remote: `$RSH $remote uname -a` ]" 1>&2
+	if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_UDP = XYES ]; then
+		lat_udp $remote;
+	fi
+	lat_udp -S $remote;
+
+	if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_TCP = XYES ]; then
+		lat_tcp $remote;
+	fi
+	lat_tcp -S $remote;
+
+	if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_RPC = XYES ]; then
+		lat_rpc -p udp $remote;
+		lat_rpc -p tcp $remote;
+	fi 
+	lat_rpc -S $remote;
+
+	if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_CONNECT = XYES ]; then
+D 53
+		lat_connect $remote;
+E 53
+I 53
+		if [ $SYNC_MAX = 1 ]; then lat_connect $remote; fi
+E 53
+	fi
+	lat_connect -S $remote;
+
+	if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_TCP = XYES ]; then
+E 46
+D 38
+		bw_tcp $remote; 
+E 38
+I 38
+		echo "Socket bandwidth using $remote" 1>&2
+D 39
+		for m in 1 64 128 256 512 1024 1500 10M; do
+E 39
+I 39
+		for m in 1 64 128 256 512 1024 1437 10M; do
+E 39
+			bw_tcp -m $m $remote; 
+		done
+		echo "" 1>&2
+E 38
+D 46
+		bw_tcp -S $remote 
+E 46
+I 46
+	fi
+	bw_tcp -S $remote 
+
+	if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_HTTP = XYES ]; then
+E 46
+E 35
+		# I want a hot cache number
+		lat_http $remote 8008 < ../../src/webpage-lm/URLS > /dev/null 2>&1
+		lat_http $remote 8008 < ../../src/webpage-lm/URLS
+D 35
+		lat_http -$remote 8008
+E 35
+I 35
+D 46
+		lat_http -S $remote 8008
+E 35
+		RM=
+		for server in $SERVERS
+		do	RM="/tmp/$server $RM"
+		done
+		$RSH $remote rm $RM
+E 46
+I 46
+	fi
+	lat_http -S $remote 8008
+
+	RM=
+	for server in $SERVERS
+	do	RM="/tmp/$server $RM"
+E 46
+E 31
+E 18
+	done
+D 31
+	$RSH $remote rm $RM
+E 16
+done
+E 31
+I 31
+D 41
+fi	# MP
+E 41
+I 41
+D 46
+fi
+E 46
+I 46
+	$RSH $remote rm $RM
+done
+E 46
+E 41
+E 31
+D 16
+sleep 2
+E 16
+
+I 31
+D 41
+if [ $MP = Y ]; then synchronize $SYNC/bw_unix; fi
+E 41
+E 31
+E 11
+D 16
+for i in $REMOTE
+D 11
+do	echo ""
+	echo "[ Networking remote to $i: `rsh $i uname -a` ]"
+E 11
+I 11
+D 15
+do	echo "[ Networking remote to $i: `rsh $i uname -a` ]" 1>&2
+E 15
+I 15
+do	echo "[ Networking remote to $i: `$RSH $i uname -a` ]" 1>&2
+E 15
+E 11
+	echo Calculating remote host $i UDP latency > /dev/tty
+	lat_udp $i; lat_udp -$i;
+	echo Calculating remote host $i TCP latency > /dev/tty
+	lat_tcp $i; lat_tcp -$i;
+	echo Calculating remote host $i RPC latency > /dev/tty
+	lat_rpc $i udp; lat_rpc $i tcp; lat_rpc -$i;
+	echo Calculating remote host $i connect latency > /dev/tty
+	lat_connect $i; lat_connect -$i;
+	echo Calculating remote host $i TCP bandwidth > /dev/tty
+	bw_tcp $i 10m; bw_tcp -$i 
+done
+E 16
+I 16
+D 17
+exit 0
+E 16
+
+E 17
+D 3
+if [ -r $DISK ]
+E 3
+I 3
+D 22
+if [ -c "$DISK" -a -r "$DISK" ]
+E 3
+then	 echo Calculating disk latency > /dev/tty
+	lmdd label="Disk $DISK latency" if=$DISK bs=512 count=2000 print=2
+fi
+
+E 22
+D 25
+echo Calculating processes overhead > /dev/tty
+I 5
+D 9
+cp hello /tmp/hello
+E 9
+I 9
+D 10
+cp hello hello-s /tmp/hello
+E 10
+I 10
+cp hello /tmp/hello
+E 10
+E 9
+E 5
+D 23
+lat_proc
+E 23
+I 23
+lat_proc fork
+lat_proc exec
+lat_proc shell
+E 23
+I 5
+D 9
+rm /tmp/hello
+E 9
+I 9
+D 10
+rm /tmp/hello /tmp/hello-s
+E 10
+I 10
+rm /tmp/hello 
+E 10
+E 9
+E 5
+
+D 3
+echo Calculating context switch overhead "(this can take 5-25 minutes)" > /dev/tty
+for size in 0 4 16 32 64
+do	echo "\tCalculating ctx switch for ${size}KB sized processes" > /dev/tty
+	lat_ctx -s $size 2 4 8 16 20
+done
+
+E 3
+echo Calculating pipe bandwidth > /dev/tty
+E 25
+I 25
+D 36
+date > /dev/tty
+echo Bandwidth measurements > /dev/tty
+E 36
+I 36
+D 48
+date > ${OUTPUT}
+echo Bandwidth measurements > ${OUTPUT}
+E 48
+I 48
+date >> ${OUTPUT}
+echo Bandwidth measurements >> ${OUTPUT}
+I 49
+msleep 250
+E 49
+E 48
+E 36
+D 31
+msleep 250
+E 31
+D 41
+bw_unix
+I 31
+if [ $MP = Y ]; then synchronize $SYNC/bw_pipe; fi
+E 31
+E 25
+bw_pipe
+D 25
+
+D 3
+if [ -r $DISK ]
+E 3
+I 3
+D 22
+if [ -c "$DISK" -a -r "$DISK" ]
+E 3
+then	echo Calculating raw disk bandwidth > /dev/tty
+	lmdd label="Disk $DISK bandwidth" if=$DISK bs=56k count=100 print=3
+fi
+
+E 22
+echo Calculating $FILE file write bandwidth > /dev/tty
+rm -f $FILE
+D 13
+lmdd label="File $FILE write bandwidth: " of=$FILE count=1k fsync=1 print=3
+E 13
+I 13
+lmdd label="File $FILE write bandwidth: " of=$FILE move=${MB}m fsync=1 print=3
+E 13
+
+I 3
+echo Calculating pagefault latency > /dev/tty
+lat_pagefault $FILE
+
+E 3
+echo Calculating mmap latency > /dev/tty
+echo \"mappings 1>&2
+D 13
+for i in 8k 256k 512k 1m 2m 3m 4m 5m 6m 7m 8m
+do	lat_mmap $i $FILE
+E 13
+I 13
+D 19
+for i in 8 256 512 1024 2048 3072 4096 8192 16384 32768 65536
+do	if [ $AVAILKB -ge $i ]
+	then	lat_mmap ${i}k $FILE
+	fi
+E 19
+I 19
+for i in $ALL
+do	lat_mmap $i $FILE
+E 19
+E 13
+done
+E 25
+echo "" 1>&2
+I 31
+D 32
+if [ $MP = Y ]; then synchronize $SYNC/bw_file_rd; fi
+E 32
+E 31
+D 25
+
+echo Calculating file reread bandwidth > /dev/tty
+E 25
+echo \"read bandwidth 1>&2
+D 19
+for i in 16 32 64 128 192 256 384 512 \
+	768 1024 1536 2048 2560 3072 3584 4096 \
+D 13
+	5120 6144 7168 8192
+E 13
+I 13
+	5120 6144 7168 8192 16384 32768 65536
+E 13
+D 7
+do	bw_file_rd ${i}k $FILE	2>/dev/null
+	bw_file_rd ${i}k $FILE
+E 7
+I 7
+do	if [ $AVAILKB -ge $i ]
+	then	bw_file_rd ${i}k $FILE	2>/dev/null
+		bw_file_rd ${i}k $FILE
+	fi
+E 19
+I 19
+for i in $ALL
+D 27
+do	bw_file_rd $i $FILE	2>/dev/null
+	bw_file_rd $i $FILE
+E 27
+I 27
+D 32
+do	bw_file_rd $i io_only $FILE
+E 32
+I 32
+do	if [ $MP = Y ]; then synchronize $SYNC/bw_file_rd${i}1; fi
+	bw_file_rd $i io_only $FILE
+E 32
+E 27
+E 19
+E 7
+done
+echo "" 1>&2
+E 41
+I 41
+D 46
+if [ X$BENCHMARK_OS = XYES ]; then
+E 46
+I 46
+
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_UNIX = XYES ]; then
+E 46
+	bw_unix -P $SYNC_MAX 
+I 46
+fi
+
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_PIPE = XYES ]; then
+E 46
+	bw_pipe -P $SYNC_MAX 
+D 46
+	echo "" 1>&2
+E 46
+I 46
+fi
+
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_FILE = XYES ]; then
+I 49
+	echo "" 1>&2
+E 49
+E 46
+	echo \"read bandwidth 1>&2
+	for i in $ALL
+	do	bw_file_rd -P $SYNC_MAX $i io_only $FILE
+	done
+	echo "" 1>&2
+	
+D 46
+	echo "" 1>&2
+E 46
+	echo \"read open2close bandwidth 1>&2
+	for i in $ALL
+	do	bw_file_rd -P $SYNC_MAX $i open2close $FILE
+	done
+	echo "" 1>&2
+D 46
+	
+E 46
+I 46
+fi	
+
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_MMAP = XYES ]; then
+I 49
+	echo "" 1>&2
+E 49
+E 46
+	echo \"Mmap read bandwidth 1>&2
+	for i in $ALL
+	do	bw_mmap_rd -P $SYNC_MAX $i mmap_only $FILE
+	done
+	echo "" 1>&2
+E 41
+
+D 25
+echo Calculating file reread via mmap bandwidth > /dev/tty
+E 25
+D 27
+echo \"Mmap read bandwidth 1>&2
+E 27
+I 27
+D 41
+echo "" 1>&2
+I 31
+D 32
+if [ $MP = Y ]; then synchronize $SYNC/bw_file_rd2; fi
+E 32
+E 31
+echo \"read open2close bandwidth 1>&2
+E 27
+D 19
+for i in 16 32 64 128 192 256 384 512 \
+	768 1024 1536 2048 2560 3072 3584 4096 \
+D 13
+	5120 6144 7168 8192
+E 13
+I 13
+	5120 6144 7168 8192 16384 32768 65536
+E 13
+D 7
+do	bw_mmap_rd ${i}k $FILE 2>/dev/null
+	bw_mmap_rd ${i}k $FILE
+E 7
+I 7
+do	if [ $AVAILKB -ge $i ]
+	then	bw_mmap_rd ${i}k $FILE 2>/dev/null
+		bw_mmap_rd ${i}k $FILE
+	fi
+E 19
+I 19
+for i in $ALL
+D 27
+do	bw_mmap_rd $i $FILE 2>/dev/null
+	bw_mmap_rd $i $FILE
+E 27
+I 27
+D 32
+do	bw_file_rd $i open2close $FILE
+E 32
+I 32
+do	if [ $MP = Y ]; then synchronize $SYNC/bw_file_rd${i}2; fi
+	bw_file_rd $i open2close $FILE
+E 32
+E 27
+E 19
+E 7
+done
+echo "" 1>&2
+E 41
+I 41
+	echo \"Mmap read open2close bandwidth 1>&2
+	for i in $ALL
+	do	bw_mmap_rd -P $SYNC_MAX $i open2close $FILE
+	done
+	echo "" 1>&2
+	rm -f $FILE
+I 43
+fi
+E 43
+D 42
+fi
+E 42
+E 41
+D 25
+
+E 25
+D 27
+rm -f $FILE
+E 27
+
+I 43
+D 46
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_HARDWARE = XYES ]; then
+E 46
+I 46
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_HARDWARE = XYES \
+     -o X$BENCHMARK_BCOPY = XYES ]; then
+I 49
+	echo "" 1>&2
+E 49
+E 46
+E 43
+I 31
+D 41
+if [ $MP = Y ]; then synchronize $SYNC/bw_mmap_rd; fi
+E 31
+D 13
+echo Calculating bcopy bandwidth > /dev/tty
+E 13
+I 7
+D 19
+HALF=`expr $AVAILKB / 2`
+E 19
+I 13
+D 25
+echo Calculating bcopy bandwidth > /dev/tty
+E 25
+E 13
+E 7
+D 27
+for type in libc unrolled
+do	for align in aligned unaligned
+	do	echo \"$type bcopy $align 1>&2
+I 6
+D 7
+		max=`expr $MB \* 1024`
+E 7
+E 6
+D 13
+		for i in 64 128 512 1024 2048 4096 8192
+E 13
+I 13
+D 19
+		for i in 64 128 512 1024 2048 4096 8192 16384 32768 65536
+E 13
+D 6
+		do	bw_mem_cp ${i}k $type $align
+E 6
+I 6
+D 7
+		do	if [ $max -le $i ]
+			then	bw_mem_cp ${i}k $type $align
+E 7
+I 7
+		do	if [ $HALF -ge $i ]
+			then	bw_mem_cp ${i}k $type $align	# XXX?
+E 7
+			fi
+E 19
+I 19
+		for i in $HALF
+		do	bw_mem_cp $i $type $align	# XXX?
+E 19
+E 6
+		done
+		echo "" 1>&2
+	done
+done
+
+D 25
+echo Calculating memory read bandwidth > /dev/tty
+E 25
+echo "Memory read bandwidth" 1>&2
+E 27
+I 27
+echo \"Mmap read bandwidth 1>&2
+E 27
+D 7
+for i in 1m 2m 4m 8m
+do	bw_mem_rd $i
+E 7
+I 7
+D 13
+for i in 1 2 4 8 16
+E 13
+I 13
+D 19
+for i in 1 2 4 8 16 32 64
+E 13
+D 11
+do	if [ $AVAILMEM -ge $i ]
+E 11
+I 11
+do	if [ $MB -ge $i ]
+E 11
+	then	bw_mem_rd ${i}m
+	fi
+E 19
+I 19
+for i in $ALL
+D 27
+do	bw_mem_rd $i
+E 27
+I 27
+D 32
+do	bw_mmap_rd $i mmap_only $FILE
+E 32
+I 32
+do	if [ $MP = Y ]; then synchronize $SYNC/bw_mmap_rd${i}; fi
+	bw_mmap_rd $i mmap_only $FILE
+E 32
+E 27
+E 19
+E 7
+done
+echo "" 1>&2
+E 41
+I 41
+D 42
+if [ X$BENCHMARK_HARDWARE = XYES ]; then
+E 42
+	echo \"libc bcopy unaligned 1>&2
+	for i in $HALF; do bw_mem -P $SYNC_MAX $i bcopy; done; echo "" 1>&2
+E 41
+
+I 31
+D 41
+if [ $MP = Y ]; then synchronize $SYNC/bw_mmap_rd2; fi
+E 31
+D 25
+echo Calculating memory write bandwidth > /dev/tty
+E 25
+D 27
+echo "Memory write bandwidth" 1>&2
+E 27
+I 27
+echo \"Mmap read open2close bandwidth 1>&2
+E 27
+D 7
+for i in 1m 2m 4m 8m
+do	bw_mem_wr $i
+E 7
+I 7
+D 13
+for i in 1 2 4 8 16
+E 13
+I 13
+D 19
+for i in 1 2 4 8 16 32 64
+E 13
+D 11
+do	if [ $AVAILMEM -ge $i ]
+E 11
+I 11
+do	if [ $MB -ge $i ]
+E 11
+D 8
+	then	bw_mem_wr $i
+E 8
+I 8
+	then	bw_mem_wr ${i}m
+E 8
+	fi
+E 19
+I 19
+for i in $ALL
+D 27
+do	bw_mem_wr $i
+E 27
+I 27
+D 32
+do	bw_mmap_rd $i open2close $FILE
+E 32
+I 32
+do	if [ $MP = Y ]; then synchronize $SYNC/bw_mmap_rd${i}2; fi
+	bw_mmap_rd $i open2close $FILE
+E 32
+E 27
+E 19
+E 7
+done
+echo "" 1>&2
+I 27
+rm -f $FILE
+E 41
+I 41
+	echo \"libc bcopy aligned 1>&2
+	for i in $HALF; do bw_mem -P $SYNC_MAX $i bcopy conflict; done; echo "" 1>&2
+E 41
+E 27
+
+I 42
+	echo "Memory bzero bandwidth" 1>&2
+	for i in $ALL; do bw_mem -P $SYNC_MAX $i bzero; done; echo "" 1>&2
+D 44
+fi
+E 44
+
+D 44
+if [ X$BENCHMARK_HARDWARE = XYES ]; then
+E 44
+E 42
+I 31
+D 41
+if [ $MP = Y ]; then synchronize $SYNC/bw_mem; fi
+E 31
+I 27
+echo \"libc bcopy unaligned 1>&2
+for i in $HALF; do bw_mem $i bcopy; done; echo "" 1>&2
+
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/bw_mem2; fi
+E 32
+echo \"libc bcopy aligned 1>&2
+for i in $HALF; do bw_mem $i bcopy conflict; done; echo "" 1>&2
+
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/bw_mem3; fi
+E 32
+echo \"unrolled bcopy unaligned 1>&2
+for i in $HALF; do bw_mem $i fcp; done; echo "" 1>&2
+
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/bw_mem4; fi
+E 32
+echo \"unrolled partial bcopy unaligned 1>&2
+for i in $HALF; do bw_mem $i cp; done; echo "" 1>&2
+
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/bw_mem5; fi
+E 32
+echo "Memory read bandwidth" 1>&2
+for i in $ALL; do bw_mem $i frd; done; echo "" 1>&2
+
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/bw_mem6; fi
+E 32
+echo "Memory partial read bandwidth" 1>&2
+for i in $ALL; do bw_mem $i rd; done; echo "" 1>&2
+
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/bw_mem7; fi
+E 32
+echo "Memory write bandwidth" 1>&2
+for i in $ALL; do bw_mem $i fwr; done; echo "" 1>&2
+
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/bw_mem8; fi
+E 32
+echo "Memory partial write bandwidth" 1>&2
+for i in $ALL; do bw_mem $i wr; done; echo "" 1>&2
+
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/bw_mem9; fi
+E 32
+echo "Memory partial read/write bandwidth" 1>&2
+for i in $ALL; do bw_mem $i rdwr; done; echo "" 1>&2
+
+I 32
+if [ $MP = Y ]; then synchronize $SYNC/bw_mema; fi
+E 32
+echo "Memory bzero bandwidth" 1>&2
+for i in $ALL; do bw_mem $i bzero; done; echo "" 1>&2
+E 41
+I 41
+	echo \"unrolled bcopy unaligned 1>&2
+	for i in $HALF; do bw_mem -P $SYNC_MAX $i fcp; done; echo "" 1>&2
+E 41
+
+E 27
+I 20
+D 22
+date > /dev/tty
+E 20
+I 3
+echo Calculating file system latency "(this can take a while)" > /dev/tty
+echo '"File system latency' 1>&2
+lat_fs $FSDIR
+echo "" 1>&2
+E 22
+I 22
+D 25
+if [ X$FAST != XYES ]
+then	date > /dev/tty
+	echo Calculating file system latency "(this can take a while)" > /dev/tty
+	echo '"File system latency' 1>&2
+	lat_fs $FSDIR
+	echo "" 1>&2
+fi
+E 22
+
+E 25
+I 20
+D 36
+date > /dev/tty
+E 36
+I 36
+D 41
+date > ${OUTPUT}
+E 36
+E 20
+D 24
+echo Calculating context switch overhead "(this can take 5-25 minutes)" > /dev/tty
+D 22
+for size in 0 4 16 32 64
+E 22
+I 22
+if [ X$FAST = XYES ]
+then	CTX=0
+	N=2
+else	CTX="0 4 16 32 64"
+	N="2 4 8 16 20"
+E 24
+I 24
+D 31
+echo Calculating context switch overhead > /dev/tty
+E 31
+I 25
+msleep 250
+I 31
+if [ $MP = Y ]; then synchronize $SYNC/lat_ctx; fi
+D 36
+echo Calculating context switch overhead > /dev/tty
+E 36
+I 36
+echo Calculating context switch overhead > ${OUTPUT}
+E 36
+E 31
+E 25
+if [ $MB -ge 8 ]
+then	CTX="0 4 8 16 32 64"
+	N="2 4 8 16 24 32 64 96"
+else
+	CTX="0 4 8 16 32"
+	N="2 4 8 16 24 32 64 96"
+E 41
+I 41
+	echo \"unrolled partial bcopy unaligned 1>&2
+	for i in $HALF; do bw_mem -P $SYNC_MAX $i cp; done; echo "" 1>&2
+
+	echo "Memory read bandwidth" 1>&2
+	for i in $ALL; do bw_mem -P $SYNC_MAX $i frd; done; echo "" 1>&2
+
+	echo "Memory partial read bandwidth" 1>&2
+	for i in $ALL; do bw_mem -P $SYNC_MAX $i rd; done; echo "" 1>&2
+
+	echo "Memory write bandwidth" 1>&2
+	for i in $ALL; do bw_mem -P $SYNC_MAX $i fwr; done; echo "" 1>&2
+
+	echo "Memory partial write bandwidth" 1>&2
+	for i in $ALL; do bw_mem -P $SYNC_MAX $i wr; done; echo "" 1>&2
+
+	echo "Memory partial read/write bandwidth" 1>&2
+	for i in $ALL; do bw_mem -P $SYNC_MAX $i rdwr; done; echo "" 1>&2
+D 42
+
+	echo "Memory bzero bandwidth" 1>&2
+	for i in $ALL; do bw_mem -P $SYNC_MAX $i bzero; done; echo "" 1>&2
+E 42
+E 41
+E 24
+fi
+I 41
+
+D 46
+if [ X$BENCHMARK_OS = XYES ]; then
+E 46
+I 46
+if [ X$BENCHMARK_OS = XYES -o X$BENCHMARK_CTX = XYES ]; then
+E 46
+D 48
+	date > ${OUTPUT}
+E 48
+I 48
+	date >> ${OUTPUT}
+E 48
+D 49
+	msleep 250
+E 49
+D 48
+	echo Calculating context switch overhead > ${OUTPUT}
+E 48
+I 48
+	echo Calculating context switch overhead >> ${OUTPUT}
+I 49
+	msleep 250
+E 49
+E 48
+	if [ $MB -ge 8 ]
+	then	CTX="0 4 8 16 32 64"
+		N="2 4 8 16 24 32 64 96"
+	else
+		CTX="0 4 8 16 32"
+		N="2 4 8 16 24 32 64 96"
+	fi
+E 41
+I 31
+	
+I 49
+	echo "" 1>&2
+E 49
+E 31
+D 41
+for size in $CTX
+E 22
+D 11
+do	echo "\tCalculating ctx switch for ${size}KB sized processes" > /dev/tty
+E 11
+I 11
+D 25
+do	echo "    Calculating ctx switch for ${size}KB sized processes" > /dev/tty
+E 11
+D 22
+	lat_ctx -s $size 2 4 8 16 20
+E 22
+I 22
+	lat_ctx -s $size $N
+E 25
+I 25
+D 31
+do	lat_ctx -s $size $N
+E 31
+I 31
+do	if [ $MP = Y ]; then synchronize $SYNC/lat_ctx${size}_${N}; fi
+	lat_ctx -s $size $N
+E 31
+E 25
+E 22
+done
+E 41
+I 41
+	for size in $CTX
+	do	
+		lat_ctx -P $SYNC_MAX -s $size $N
+	done
+I 47
+	echo "" 1>&2
+E 47
+fi
+E 41
+I 37
+
+D 41
+date > ${OUTPUT}
+echo Calculating effective TLB size > ${OUTPUT}
+msleep 250
+echo "" 1>&2
+if [ $MP = Y ]; then synchronize $SYNC/tlb; fi
+tlb -L $LINE_SIZE -M ${MB}M
+E 41
+I 41
+D 46
+if [ X$BENCHMARK_HARDWARE = XYES ]; then
+E 46
+I 46
+if [ X$BENCHMARK_HARDWARE = XYES -o X$BENCHMARK_MEM = XYES ]; then
+E 46
+D 48
+	date > ${OUTPUT}
+E 48
+I 48
+D 53
+	date >> ${OUTPUT}
+E 48
+D 46
+	echo Calculating effective TLB size > ${OUTPUT}
+E 46
+D 49
+	msleep 250
+E 49
+D 46
+	echo "" 1>&2
+E 46
+I 46
+D 48
+	echo Calculating effective TLB size > ${OUTPUT}
+E 48
+I 48
+	echo Calculating effective TLB size >> ${OUTPUT}
+I 49
+	msleep 250
+E 49
+E 48
+E 46
+	tlb -L $LINE_SIZE -M ${MB}M
+I 46
+	echo "" 1>&2
+E 53
+I 53
+D 54
+	if [ $SYNC_MAX = 1]; then
+E 54
+I 54
+	if [ $SYNC_MAX = 1 ]; then
+E 54
+	    date >> ${OUTPUT}
+	    echo Calculating effective TLB size >> ${OUTPUT}
+	    msleep 250
+	    tlb -L $LINE_SIZE -M ${MB}M
+	    echo "" 1>&2
+E 53
+E 46
+E 41
+
+D 41
+date > ${OUTPUT}
+echo Calculating memory load parallelism > ${OUTPUT}
+msleep 250
+echo "" 1>&2
+if [ $MP = Y ]; then synchronize $SYNC/loads; fi
+echo "Memory load parallelism" 1>&2
+loads -L $LINE_SIZE -M ${MB}M
+E 41
+I 41
+D 48
+	date > ${OUTPUT}
+E 48
+I 48
+D 53
+	date >> ${OUTPUT}
+E 48
+D 46
+	echo Calculating memory load parallelism > ${OUTPUT}
+E 46
+D 49
+	msleep 250
+E 49
+D 46
+	echo "" 1>&2
+E 46
+I 46
+D 48
+	echo Calculating memory load parallelism > ${OUTPUT}
+E 48
+I 48
+	echo Calculating memory load parallelism >> ${OUTPUT}
+I 49
+	msleep 250
+E 49
+E 48
+E 46
+	echo "Memory load parallelism" 1>&2
+D 46
+	loads -L $LINE_SIZE -M ${MB}M
+E 46
+I 46
+	par_mem -L $LINE_SIZE -M ${MB}M
+	echo "" 1>&2
+E 53
+I 53
+	    date >> ${OUTPUT}
+	    echo Calculating memory load parallelism >> ${OUTPUT}
+	    msleep 250
+	    echo "Memory load parallelism" 1>&2
+	    par_mem -L $LINE_SIZE -M ${MB}M
+	    echo "" 1>&2
+E 53
+E 46
+E 41
+E 37
+
+I 20
+D 36
+date > /dev/tty
+E 20
+E 3
+D 25
+echo Calculating memory load latency "(this takes ~20 minutes)" > /dev/tty
+E 25
+I 25
+echo Calculating memory load latency > /dev/tty
+E 36
+I 36
+D 41
+date > ${OUTPUT}
+I 40
+echo Calculating cache parameters > ${OUTPUT}
+msleep 250
+echo "" 1>&2
+cache -L $LINE_SIZE -M ${MB}M
+E 41
+I 41
+D 48
+	date > ${OUTPUT}
+E 48
+I 48
+D 53
+	date >> ${OUTPUT}
+E 48
+D 46
+	echo Calculating cache parameters > ${OUTPUT}
+E 46
+D 49
+	msleep 250
+E 49
+D 46
+	echo "" 1>&2
+E 46
+I 46
+D 48
+	echo Calculating cache parameters > ${OUTPUT}
+E 48
+I 48
+	echo Calculating cache parameters >> ${OUTPUT}
+I 49
+	msleep 250
+E 49
+E 48
+E 46
+	cache -L $LINE_SIZE -M ${MB}M
+E 53
+I 53
+#	    date >> ${OUTPUT}
+#	    echo Calculating cache parameters >> ${OUTPUT}
+#	    msleep 250
+#	    cache -L $LINE_SIZE -M ${MB}M
+	fi
+E 53
+E 41
+
+D 41
+date > ${OUTPUT}
+E 40
+echo Calculating memory load latency > ${OUTPUT}
+E 36
+msleep 250
+echo "" 1>&2
+I 31
+if [ $MP = Y ]; then synchronize $SYNC/lat_mem_rd; fi
+E 31
+E 25
+echo "Memory load latency" 1>&2
+D 13
+lat_mem_rd $MB 8 16 32 64 128 512 1024 2048 4096 8192 16384 32768
+E 13
+I 13
+D 19
+LIST="8 16 32 64 128 512 1024 2048 4096"
+for i in 8192 16384 32768 65536
+do	if [ $AVAILKB -ge $i ]
+	then	LIST="$LIST $i"
+	fi
+done
+lat_mem_rd $MB $LIST
+E 19
+I 19
+D 20
+lat_mem_rd $MB $ALL
+E 20
+I 20
+D 22
+#lat_mem_rd $MB 16 32 64 
+lat_mem_rd $MB 16 32 64 128 256 512 1024 
+E 22
+I 22
+D 25
+if [ X$FAST = XYES ]
+E 25
+I 25
+if [ X$FASTMEM = XYES ]
+E 25
+then	lat_mem_rd $MB 128
+D 24
+else	lat_mem_rd $MB 16 32 64 128 256 512 1024 
+E 24
+I 24
+D 25
+else	lat_mem_rd $MB 16 32 64 128 256 
+#else	lat_mem_rd $MB 16 32 64 128 256 512 1024 
+E 25
+I 25
+else	lat_mem_rd $MB 16 32 64 128 256 512 1024 
+E 41
+I 41
+D 48
+	date > ${OUTPUT}
+E 48
+I 48
+	date >> ${OUTPUT}
+E 48
+D 46
+	echo Calculating memory load latency > ${OUTPUT}
+E 46
+D 49
+	msleep 250
+E 49
+D 46
+	echo "" 1>&2
+E 46
+I 46
+D 48
+	echo McCalpin\'s STREAM benchmark > ${OUTPUT}
+E 48
+I 48
+	echo McCalpin\'s STREAM benchmark >> ${OUTPUT}
+I 49
+	msleep 250
+E 49
+E 48
+D 53
+	stream -M ${MB}M
+I 52
+	stream -v 2 -M ${MB}M
+E 53
+I 53
+	stream -P $SYNC_MAX -M ${MB}M
+	stream -P $SYNC_MAX -v 2 -M ${MB}M
+E 53
+E 52
+
+D 48
+	date > ${OUTPUT}
+E 48
+I 48
+	date >> ${OUTPUT}
+E 48
+D 49
+	msleep 250
+E 49
+D 48
+	echo Calculating memory load latency > ${OUTPUT}
+E 48
+I 48
+	echo Calculating memory load latency >> ${OUTPUT}
+I 49
+	msleep 250
+	echo "" 1>&2
+E 49
+E 48
+E 46
+	echo "Memory load latency" 1>&2
+	if [ X$FASTMEM = XYES ]
+	then	lat_mem_rd -P $SYNC_MAX $MB 128
+	else	lat_mem_rd -P $SYNC_MAX $MB 16 32 64 128 256 512 1024 
+	fi
+I 46
+	echo "" 1>&2
+E 46
+E 41
+E 25
+E 24
+fi
+I 41
+
+E 41
+E 22
+D 36
+date > /dev/tty
+E 36
+I 36
+D 48
+date > ${OUTPUT}
+E 48
+I 48
+date >> ${OUTPUT}
+E 48
+E 36
+I 22
+echo '' 1>&2
+echo \[`date`] 1>&2
+E 22
+E 20
+E 19
+E 13
+I 7
+
+exit 0
+E 7
+E 2
+I 1
+E 1

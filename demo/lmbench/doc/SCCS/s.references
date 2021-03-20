@@ -1,0 +1,557 @@
+h15993
+s 00011/00000/00175
+d D 1.9 95/11/13 18:22:13 staelin 10 9
+c Added Saavedra95
+cC
+cK47406
+e
+s 00003/00003/00172
+d D 1.8 95/11/10 18:38:01 staelin 9 8
+c some fixes indicated by Susan McBain
+cK30895
+e
+s 00001/00001/00174
+d D 1.7 95/11/07 15:56:12 staelin 8 7
+c fixup USENIX entry
+cK30528
+e
+s 00022/00023/00153
+d D 1.6 95/11/07 15:45:41 staelin 7 6
+c fixup references
+cK30805
+e
+s 00015/00021/00161
+d D 1.5 95/11/03 13:33:58 lm 6 5
+c *** empty log message ***
+cK18503
+cZ-08:00
+e
+s 00010/00009/00172
+d D 1.4 95/10/09 18:23:27 lm 5 4
+c *** empty log message ***
+cK04880
+e
+s 00014/00118/00167
+d D 1.3 95/10/09 09:58:07 lm 4 3
+c removed a bunch of bogus ones; added some.
+cK04981
+e
+s 00026/00006/00259
+d D 1.2 95/09/29 15:36:06 staelin 3 2
+c added some new references
+cK57244
+e
+s 00265/00000/00000
+d D 1.1 95/09/27 18:39:26 staelin 2 1
+c Initial revision
+cK19689
+e
+s 00000/00000/00000
+d D 1.0 95/09/27 18:39:25 staelin 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK04545
+cPdoc/references
+cRea42015f423ee575
+cV4
+cX0x23
+cZ-07:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+refer database.
+T
+I 2
+%z Article
+I 10
+%K Saavedra95
+%A R.H. Saavedra
+%A A.J. Smith
+%T Measuring cache and TLB performance and their effect on benchmark runtimes
+%J IEEE Transactions on Computers
+%V 44
+%N 10
+%D October 1995
+%P 1223-1235
+
+%z Article
+E 10
+%K Wolman89
+%A Barry L. Wolman
+%A Thomas M. Olson
+%T IOBENCH: a system independent IO benchmark
+D 7
+%J Comp. Arch. News
+E 7
+I 7
+%J Computer Architecture News
+E 7
+%V 17
+%N 5
+D 7
+%D Sep. 1989
+%P 55 70
+E 7
+I 7
+%D September 1989
+%P 55-70
+E 7
+%x IOBENCH is an operating system and processor independent synthetic
+%x input/output (IO) benchmark designed to put a configurable IO and
+%x processor (CP) load on the system under test.  This paper discusses
+%x the UNIX versions.
+%k IOBENCH, synthetic I/O benchmark, UNIX workload
+%s vinton%cello@hplabs.hp.com (Fri Sep 20 12:55:58 PDT 1991)
+
+D 3
+
+E 3
+D 6
+%z Article
+D 4
+%K Wong88
+%A Wing Shing Wong
+%A Robert J. T. Morris
+%T Benchmark synthesis using the LRU cache hit function
+%J IEEECOMP.
+%V 37
+%N 6
+%D Jun. 1988
+%P 637 645
+%x Small benchmarks that are used to measure CPU performance may not
+%x be representative of typical workloads in that they display unrealistic
+%x localities of reference.  Using hte LRU cache hit function as a
+%x general characterization of locality of reference, we address a
+%x sythesis question: can benchmarks be created that have a required
+%x locality of reference?  Several results are given which show
+%x circumstances under which this sythesis can or cannot be achieved.
+%x An additional characterization called the {\em warm-start cache
+%x hit function} is introduced and shown to be efficiently computable.
+%x The operations of {\em repetition} and {\em replication} are used
+%x to form new programs and their characteristics are derived.  Using
+%x these operations, a general benchmark synthesis technique is obtained
+%x and demonstrated with an example.
+%k benchmarks, cache hit function, locality of reference, LRU, performance analysis
+%s staelin%cello@hpl.hp.com (Wed Sep 27 12:25:39 PDT 1995)
+
+D 3
+
+E 3
+%z Article
+E 4
+%K Smith82b
+%A Alan Jay Smith
+%T Cache Memories
+%J COMPSURV.
+%V 14
+%N 3
+%D Sep. 1982
+%P 473 530
+%x Specific aspects of cache memories that are investigated include:
+%x the cache fetch algorithm (demand versus prefetch), the placement
+%x and replacement algorithms, line size, store-through versus
+%x copy-back updating of main memory, cold-start versus warm-start
+%x miss ratios, multicache consistency, the effect of input/output
+%x through the cache, the behaviour of split data/instruction caches,
+%x and cache size.  Our discussion includes other apsect of memory system
+%x architecture, including translation lookaside buffers.
+%k memory structures, cache memories, performance analysis and
+%k design aids, computer systems organization, performance of
+%k systems
+%s staelin%cello@hpl.hp.com (Wed Sep 27 12:33:26 PDT 1995)
+E 6
+I 6
+%z Book
+%K Hennessy96
+D 7
+%A David A. Patterson
+E 7
+%A John L. Hennessy
+D 7
+%T Computer Architecture A Quantitative Approach, 2nd Ed.
+E 7
+I 7
+%A David A. Patterson
+%T Computer Architecture A Quantitative Approach, 2nd Edition
+E 7
+%I Morgan Kaufman
+%D 1996
+E 6
+
+D 3
+
+E 3
+%z Article
+D 4
+%K Smith85
+%A Alan Jay Smith
+%T Disk cache---miss ratio analysis and design considerations
+%J TOCS.
+%V 3
+%N 3
+%D Aug. 1985
+%P 161 203
+%k performance
+%k experience
+%k IO
+%k disc
+%k file system
+%k FS
+%o Experimental rsults from analysing three large trace
+%o tapes from biggish (370/168-size) IBM systems. Some conclusions:
+%o a) Cache at the main memory (cf. in disc or controller) is best
+%o b) a 1-track block size is best (actually, smaller => better)
+%o c) purge-behind is bad news
+%o d) lookahead is a win
+%o e) don't cache paging discs
+%o f) temporary files, in particular, are almost always sequentially accessed
+%o g) don't cache user packs unless therre are 2 or 3 blocks per track
+%o h) dynamic cache management is much better than static
+
+D 3
+
+E 3
+%z Article
+E 4
+%K Chen94a
+%A P. M. Chen
+%A D. A. Patterson
+D 9
+%T A new approach to I/O performance evaluation -- self-scaling I/O benchmarks, predicted I/O performance
+E 9
+I 9
+%T A new approach to I/O performance evaluation \- self-scaling I/O benchmarks, predicted I/O performance
+E 9
+D 7
+%D Nov. 1994
+%J TOCS.
+E 7
+I 7
+%D November 1994
+%J Transactions on Computer Systems
+E 7
+%V 12
+%N 4
+D 7
+%P 308 339
+%I ISSN 0734--2071
+E 7
+I 7
+%P 308-339
+E 7
+%x Current I/O benchmarks suffer from several chronic problems: they
+%x quickly become obsolete; they do not stress the I/O system; and they
+%x do not help much in undelsi;anding I/O system performance. We
+%x propose a new approach to I/O performance analysis. First, we
+%x propose a self-scaling benchmark that dynamically adjusts aspects of
+%x its workload according to the performance characteristic of the
+%x system being measured. By doing so, the benchmark automatically
+%x scales across current and future systems. The evaluation aids in
+%x understanding system performance by reporting how performance varies
+%x according to each of five workload parameters. Second, we propose
+%x predicted performance, a technique for using the results from the
+%x self-scaling evaluation to estimate quickly the performance for
+%x workloads that have not been measured. We show that this technique
+%x yields reasonably accurate performance estimates and argue that this
+%x method gives a far more accurate comparative performance evaluation
+%x than traditional single-point benchmarks. We apply our new
+%x evaluation technique by measuring a SPARCstation 1+ with one SCSI
+%x disk, an HP 730 with one SCSI-II disk, a DECstation 5000/200 running
+%x the Sprite LFS operating system with a three-disk disk array, a
+%x Convex C240 minisupercomputer with a four-disk disk array, and a
+%x Solbourne 5E/905 fileserver with a two-disk disk array.
+%s toc@hpl.hp.com (Mon Mar 13 10:57:38 1995)
+%s wilkes%hplajw@hpl.hp.com (Sun Mar 19 12:38:01 PST 1995)
+%s wilkes%cello@hpl.hp.com (Sun Mar 19 12:38:53 PST 1995)
+
+D 3
+
+E 3
+%z InProceedings
+%K Ousterhout90
+%s wilkes%cello@hplabs.hp.com (Fri Jun 29 20:46:08 PDT 1990)
+%A John K. Ousterhout
+%T Why aren't operating systems getting faster as fast as hardware?
+D 7
+%C USENIX Summer Conf.
+E 7
+I 7
+%C Proceedings USENIX Summer Conference
+E 7
+%c Anaheim, CA
+D 7
+%D 11--15 June 1990
+%P 247 256
+E 7
+I 7
+D 8
+%D 11-15 June 1990
+E 8
+I 8
+%D June 1990
+E 8
+%P 247-256
+E 7
+%x This paper evaluates several hardware pplatforms and operating systems using
+%x a set of benchmarks that stress kernel entry/exit, file systems, and
+%x other things related to operating systems. The overall conclusion is that
+%x operating system performance is not improving at the same rate as the base speed of the
+%x underlying hardware. The most obvious ways to remedy this situation
+%x are to improve memory bandwidth and reduce operating systems'
+%x tendency to wait for disk operations to complete.
+%o Typical performance of 10-20 MIPS cpus is only 0.4 times what
+%o their raw hardware performance would suggest. HP-UX is
+%o particularly bad on the HP 9000/835, at about 0.2x. (Although
+%o this measurement discounted a highly-tuned getpid call.)
+%k OS performance, RISC machines, HP9000 Series 835 system calls
+
+I 5
+%z InProceedings
+%K McVoy91
+%A L. W. McVoy
+%A S. R. Kleiman
+%T Extent-like Performance from a Unix File System
+D 7
+%C USENIX Winter Conf.
+E 7
+I 7
+%C Proceedings USENIX Winter Conference
+E 7
+%c Dallas, TX
+%D January 1991
+D 7
+%P 33 43
+E 7
+I 7
+%P 33-43
+E 7
+
+E 5
+D 3
+
+E 3
+%z Article
+%K Chen93d
+%A Peter M. Chen
+%A David Patterson
+D 9
+%T Storage performance --- metrics and benchmarks
+E 9
+I 9
+%T Storage performance \- metrics and benchmarks
+E 9
+D 7
+%J P. of the IEEE.
+E 7
+I 7
+%J Proceedings of the IEEE
+E 7
+%V 81
+%N 8
+D 7
+%D Aug. 1993
+%P 1151 1165
+E 7
+I 7
+%D August 1993
+%P 1151-1165
+E 7
+%x Discusses metrics and benchmarks used in storage performance evaluation.
+%x Describes, reviews, and runs popular I/O benchmarks on three systems.  Also
+%x describes two new approaches to storage benchmarks: LADDIS and a Self-Scaling
+%x benchmark with predicted performance.
+%k I/O, storage, benchmark, workload, self-scaling benchmark, 
+%k predicted performance, disk, performance evaluation
+%s staelin%cello@hpl.hp.com (Wed Sep 27 16:21:11 PDT 1995)
+
+D 4
+%z Book
+%K Jain91
+%A Raj Jain
+%T The art of computer systems performance analysis
+%p John Wiley \& Sons
+%I ISBN 0--471--50336--3
+%D 1991
+%o Very good book on performance issues.
+%k analytic performance modelling
+%k simulation
+%k probability statistics
+
+E 4
+%z Article
+%K Park90a
+%A Arvin Park
+%A J. C. Becker
+%T IOStone: a synthetic file system benchmark
+D 7
+%J SIGARCH.
+E 7
+I 7
+%J Computer Architecture News
+E 7
+%V 18
+%N 2
+D 7
+%D Jun. 1990
+%P 45 52
+E 7
+I 7
+%D June 1990
+%P 45-52
+E 7
+%o this benchmark is useless for all modern systems; it fits
+%o completely inside the file system buffer cache.  Soon it may even
+%o fit inside the processor cache!
+%k IOStone, I/O, benchmarks
+%s staelin%cello@hpl.hp.com (Wed Sep 27 16:37:26 PDT 1995)
+
+%z Article
+%K Fenwick95
+%A David M. Fenwick
+%A Denis J. Foley
+%A William B. Gist
+%A Stephen R. VanDoren
+%A Danial Wissell
+%T The AlphaServer 8000 series: high-end server platform development
+%J Digital Technical Journal
+%V 7
+%N 1
+D 7
+%D Aug. 1995
+%P 43 65
+E 7
+I 7
+%D August 1995
+%P 43-65
+E 7
+%x The AlphaServer 8400 and the AlphaServer 8200 are Digital's newest high-end
+%x server products.  Both servers are based on the 300Mhz Alpha 21164 
+%x microprocessor and on the AlphaServer 8000-series platform architecture.
+%x The AlphaServer 8000 platform development team set aggressive system data
+%x bandwidth and memory read latency targets in order to achieve high-performance
+%x goals.  The low-latency criterion was factored into design decisions made at
+%x each of the seven layers of platform development.  The combination of 
+%x industry-leading microprocessor technology and a system platform focused
+%x on low latency has resulted in a 12-processor server implementation ---
+%x the AlphaServer 8400 --- capable of supercomputer levels of performance.
+%k DEC Alpha server, performance, memory latency
+%s staelin%cello@hpl.hp.com (Wed Sep 27 17:27:23 PDT 1995)
+
+I 6
+%z Book
+%K Toshiba94
+%A Toshiba
+%T DRAM Components and Modules
+%I Toshiba America Electronic Components, Inc.
+%P A59-A77,C37-C42
+%D 1994
+
+E 6
+%z Article
+%K McCalpin95
+%A John D. McCalpin
+%T Memory bandwidth and machine balance in current high performance computers
+%J IEEE Technical Committee on Computer Architecture newsletter
+%V to appear 
+D 7
+%D Dec. 1995
+E 7
+I 7
+%D December 1995
+E 7
+D 4
+%z Article
+%K Howard88
+%A John H. Howard
+%A Michael L. Kazar
+%A Sherri G. Menees
+%A David A. Nichols
+%A M. Satyanarayanan
+%A Robert N. Sidebotham
+%A Michael J. West
+%y CMU.
+%T Scale and performance in a distributed file system
+%J TOCS.
+%V 6
+%N 1
+%D Feb. 1988
+%P 51 81
+%x The Andrew File System is a location-transparent distributed file system
+%x that will eventually span more than 5000 workstations at Carnegie Mellon
+%x University. Large scale affects performance and complicates system
+%x operation. In this paper we present observations of a prototype
+%x implementation, motivate changes in the areas of cache validation, server
+%x process structure, name translation, and low-level storage representation,
+%x and quantitatively demonstrate Andrew's ability to scale gracefully.  We
+%x establish the importance of whole-file transfer and caching in Andrew by
+%x comparing its performance with that of Sun Microsystem's NFS file system.
+%x We also show how the aggregation of files into volumes improves the
+%x operability of the system.
+%k OS, file systems, scalability, ITC, Andrew, Venus, Vice
+%k clients/servers, caching, performance, management, volumes cache
+%k validation, name translation/lookup, NFS, whole-file transfer
+E 4
+
+I 3
+D 4
+%z Article
+%K Wulf95
+%A Wm. A. Wulf
+%A Sally A. McKee
+%y DEPTCS., Univ. of Virginia
+%T Hitting the memory wall: implications of the obvious
+%D Mar. 1995
+%J SIGARCH.
+%V 23
+%N 1
+%p ACM.
+%P 20 24
+
+E 4
+D 5
+%z InProceedings
+D 4
+%K Shein89
+%A B. Shein
+%A M. Callahan
+%A P. Woodbuy
+%T NFSStone --- a network file server performance benchmark
+%C Proc. of the USENIX 1989 Summer Technical Conference
+%c Jun. 1989
+%D Jun. 1989
+%P 269 275
+%p USENIX
+%k LADDIS, NFS, performance analysis, file system, benchmarking
+E 4
+I 4
+%K McVoy91
+%A Larry McVoy
+%A Steve Kleiman
+%T Extent-like performance from a Unix File System
+%C USENIX Winter Conf.
+%c Dallas, TX
+%D January 1991
+E 4
+
+E 5
+I 4
+%z Article
+%K FSF89
+%A Richard Stallman
+%Q Free Software Foundation
+%T General Public License
+%D 1989
+D 9
+%O Included with lmbench
+E 9
+I 9
+%O Included with \*[lmbench]
+E 9
+E 4
+E 3
+E 2
+I 1
+E 1

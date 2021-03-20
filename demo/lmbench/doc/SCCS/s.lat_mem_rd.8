@@ -1,0 +1,212 @@
+h49056
+s 00030/00006/00067
+d D 1.4 00/10/16 17:13:43 staelin 5 4
+c - Update man pages to match current status
+cC
+cHhpli8.hpli.hpl.hp.com
+cK44964
+cZ+02:00
+e
+s 00006/00000/00067
+d D 1.3 94/11/25 16:35:00 lm 4 3
+c *** empty log message ***
+cC
+cK57562
+e
+s 00046/00020/00021
+d D 1.2 94/11/23 16:43:14 lm 3 2
+c It wasn'\''t done yet.
+cK41464
+e
+s 00041/00000/00000
+d D 1.1 94/11/18 01:26:35 lm 2 1
+c Initial revision
+cK32924
+e
+s 00000/00000/00000
+d D 1.0 94/11/18 01:26:34 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK04078
+cPdoc/lat_mem_rd.8
+cRfb0f80dcbbf45ddf
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+lmbench doc checkin
+T
+I 2
+.\" $Id$
+.TH LAT_MEM_RD 8 "$Date$" "(c)1994 Larry McVoy" "LMBENCH"
+.SH NAME
+lat_mem_rd \- memory read latency benchmark
+.SH SYNOPSIS
+.B lat_mem_rd 
+D 5
+.I size_in_megabytes
+.I stride [stride stride...]
+E 5
+I 5
+[
+.I "-P <parallelism>"
+]
+[
+.I "-W <warmups>"
+]
+[
+.I "-N <repetitions>"
+]
+.I "size_in_megabytes"
+.I "stride"
+[
+.I "stride stride..."
+]
+E 5
+.SH DESCRIPTION
+.B lat_mem_rd
+measures memory read latency for varying memory sizes and strides.  The
+D 3
+results are reported in nanoseconds per load
+and have been verified accurate to within
+1/2 of the processor cycle time (i.e., 20 ns on a 40ns cycle time).
+E 3
+I 3
+results are reported in nanoseconds per load and have been verified
+accurate to within a few nanoseconds on an SGI Indy.
+E 3
+.LP
+D 3
+XXX - not done not done not done
+E 3
+I 3
+The
+entire memory hierarchy is measured, including onboard cache latency
+and size, external cache latency and size, main memory latency, and TLB
+miss latency.
+E 3
+.LP
+D 3
+.SH OUTPUT
+Output format is intended as input to \fBxgraph\fP or some similar program.
+The format is multi line, the first line is a title that specifies the
+size and non-context switching overhead of the test.  Each subsequent 
+line is a pair of numbers that indicates the number of processes and 
+the cost of a context switch.  The overhead and the context switch times are
+in micro second units.  The numbers below are for a SPARCstation 2.
+E 3
+I 3
+Only data accesses are measured; the instruction cache is not measured.
+.LP
+The benchmark runs as two nested loops.  The outer loop is the stride size.
+The inner loop is the array size.  For each array size, the benchmark
+D 5
+creates a ring of pointers that point forward one stride.  Traversing the
+E 5
+I 5
+creates a ring of pointers that point backward one stride.  Traversing the
+E 5
+array is done by
+E 3
+.sp
+.ft CB
+D 3
+.nf
+"size=0 ovr=179
+2 71
+4 104
+8 134
+16 333
+20 438
+.br
+.fi
+E 3
+I 3
+	p = (char **)*p;
+E 3
+.ft
+I 3
+.sp
+in a for loop (the over head of the for loop is not significant; the loop is 
+D 5
+an unrolled loop 1000 loads long).  The loop stops after doing a million loads.
+E 5
+I 5
+an unrolled loop 100 loads long).  
+E 5
+.LP
+The size of the array varies from 512 bytes to (typically) eight megabytes.
+For the small sizes, the cache will have an effect, and the loads will be
+much faster.  This becomes much more apparent when the data is plotted.
+I 5
+.LP
+Since this benchmark uses fixed-stride offsets in the pointer chain,
+it may be vulnerable to smart, stride-sensitive cache prefetching
+policies.  Older machines were typically able to prefetch for
+sequential access patterns, and some were able to prefetch for strided
+forward access patterns, but only a few could prefetch for backward
+strided patterns.  These capabilities are becoming more widespread
+in newer processors.
+E 5
+.SH OUTPUT
+Output format is intended as input to \fBxgraph\fP or some similar program
+D 5
+(I use a perl script that produces pic input).
+E 5
+I 5
+(we use a perl script that produces pic input).
+E 5
+There is a set of data produced for each stride.  The data set title
+is the stride size and the data points are the array size in megabytes 
+(floating point value) and the load latency over all points in that array.
+.SH "INTERPRETING THE OUTPUT"
+The output is best examined in a graph where you typically get a graph
+that has four plateaus.  The graph should plotted in log base 2 of the
+array size on the X axis and the latency on the Y axis.  Each stride
+is then plotted as a curve.  The plateaus that appear correspond to 
+the onboard cache (if present), external cache (if present), main
+memory latency, and TLB miss latency.
+.LP
+As a rough guide, you may be able to extract the latencies of the
+various parts as follows, but you should really look at the graphs,
+since these rules of thumb do not always work (some systems do not
+have onboard cache, for example).
+.IP "onboard cache" 16
+Try stride of 128 and array size of .00098.
+.IP "external cache" 
+Try stride of 128 and array size of .125.
+.IP "main memory"
+Try stride of 128 and array size of 8.
+.IP "TLB miss"
+Try the largest stride and the largest array.
+I 4
+.SH BUGS
+This program is dependent on the correct operation of
+.BR mhz (8).
+If you are getting numbers that seem off, check that 
+.BR mhz (8)
+is giving you a clock rate that you believe.
+E 4
+E 3
+.SH ACKNOWLEDGEMENT
+Funding for the development of
+this tool was provided by Sun Microsystems Computer Corporation.
+.SH "SEE ALSO"
+D 5
+lmbench(8).
+E 5
+I 5
+lmbench(8), tlb(8), cache(8), line(8).
+.SH "AUTHOR"
+Carl Staelin and Larry McVoy
+.PP
+Comments, suggestions, and bug reports are always welcome.
+E 5
+E 2
+I 1
+E 1

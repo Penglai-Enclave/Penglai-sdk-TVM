@@ -1,0 +1,279 @@
+h14132
+s 00030/00018/00125
+d D 1.3 95/11/29 11:54:39 lm 4 3
+c Rename to pgraph, get ready for release.
+cC
+cK47823
+e
+s 00007/00003/00136
+d D 1.2 94/12/27 17:50:18 lm 3 2
+c % is now the control character.
+cK57675
+e
+s 00139/00000/00000
+d D 1.1 94/11/22 23:04:09 lm 2 1
+c Initial revision
+cK40717
+e
+s 00000/00000/00000
+d D 1.0 94/11/22 23:04:08 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK03665
+cPdoc/pgraph.1
+cRc655ab1e2ccea001
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+release.
+T
+I 2
+.\" $Id$
+.de DS
+.	sp .5
+.	nf
+.	in +4
+.	ft CW
+.	vs -1
+..
+.de DE
+.	sp .5
+.	fi
+.	in
+.	ft
+.	vs
+..
+D 4
+.TH GRAPH 1
+E 4
+I 4
+.TH PGRAPH 1 "Nov, 1995" "lm@sgi.com" "Docomentation tools"
+E 4
+.SH NAME
+D 4
+graph \- compile graphs into pic input
+E 4
+I 4
+pgraph \- compile graphs into pic input
+E 4
+.SH SYNOPSIS
+D 4
+.B graph
+E 4
+I 4
+.B pgraph
+E 4
+[ options ]
+[
+.I filename
+\&.\|.\|.
+]
+.SH DESCRIPTION
+.LP
+D 4
+.B graph
+E 4
+I 4
+.B pgraph
+E 4
+is a perl script which
+takes sets of X Y data and generates a (human readable) pic program
+that will produce the graphed data.  The output is designed such that
+you can save it in a file and tweak it to make it fit your document.
+Try one and look at the output.  The output is actually commented.
+.LP
+The graph is autosized and auto ticked.
+.LP
+The input data format is similar
+that of xgraph(1), i.e.,
+.DS
+I 4
+"sloped across
+E 4
+1 1
+2 2
+3 3
+D 4
+"sloped across
+E 4
+
+I 4
+"straight across
+E 4
+1 4
+2 4
+3 4
+D 4
+"straight across
+E 4
+.DE
+.SH "CONTROL OPTIONS"
+.LP
+You may set the graph title, the X title, and the Y title with the 
+following control sequences in the data stream:
+.DS
+D 3
+"%T Graph title in +4 point font
+"%X X axis title and/or units in +2 point font
+"%Y Y axis title and/or units in +2 point font
+E 3
+I 3
+%T Graph title in +4 point font
+%X X axis title and/or units in +2 point font
+%Y Y axis title and/or units in +2 point font
+%fakemax-X <value>     force graph to be that big
+%fakemax-Y <value>     force graph to be that big
+%fakemin-X <value>     force graph to be that small
+%fakemin-Y <value>     force graph to be that small
+E 3
+.DE
+.SH OPTIONS
+.IP -rev 12
+reverse X/Y data sense (and titles).  Note this is done after processing
+any fudging of the input data stream(s) (see -xk, -yk, -logx, etc below).
+.IP -below
+put data set titles below the graph rather than to the right.
+.IP -close
+no extra space around the data's endpoints.
+.IP -qline
+connect the quartile center points.
+.IP -grid
+dotted line grid marks.
+.IP -nobox
+no box around whole graph.
+.IP -big
+D 4
+make the graph take the whole page.
+.IP -medium
+make the graph take about 1/2 the page.
+E 4
+I 4
+make the graph take the whole page, and be about 8 inches tall by 7 inches
+wide and the title is +8 points.
+.IP -slide
+make the graph be 4.25 inches square to fit in slides,
+in a helvetica bold 10 point font.
+E 4
+.IP -small
+D 4
+make the graph be small.
+E 4
+I 4
+make the graph be small, 1.75 inches square, and use an 8 point bold font.
+E 4
+.IP -grapheach
+draw each data set in its own graph.
+.IP -nolabels
+no X/Y/Title labels.
+I 4
+.IP -notitle
+no Title label.
+E 4
+.IP -nodatal
+no data set labels.
+.IP -nomarks
+do not mark each data point with distinct markers (endpoints are still
+marked).
+.IP -k
+print values larger than 1000 as value/1000.
+.IP -xk
+multiply X input by 1024 (blech).
+.IP -yk
+multiply Y input by 1024 (blech).
+.IP -xm
+multiply X input by 1024*1024 (blech).
+.IP -ym
+multiply Y input by 1024*1024 (blech).
+.IP -logx
+D 4
+convert X input into lag base 2 of X input.
+E 4
+I 4
+convert X input into log base 2 of X input.
+E 4
+.IP -logy
+D 4
+convert Y input into lag base 2 of Y input.
+E 4
+I 4
+convert Y input into log base 2 of Y input.
+E 4
+.SH EXAMPLE
+Workstation price performance from a Digital ad.  Process with
+.DS
+.ps -2
+graph -rev workstations | groff -TX75
+
+D 4
+"%T Workstation Price / Performance, 6/93
+"%X SPECINT 92 Performance
+"%Y Price in $1000's
+E 4
+I 4
+%T Workstation Price / Performance, 6/93
+%X SPECINT 92 Performance
+%Y Price in $1000's
+"Dec AXP line
+E 4
+35 5
+65 10
+78 15
+110 70
+D 4
+"Dec AXP line
+E 4
+
+I 4
+"Sun SPARC line
+E 4
+25 4
+25 8
+38 16
+48 21
+52 23
+64 27
+D 4
+"Sun SPARC line
+E 4
+.DE
+.ps
+.SH "QUARTILE FORMAT"
+Data points are \f(CBx y1 y2 y3 y4 y5\fP.   You get a two lines from the
+first two y values, a mark at the third, and another line from the last two.
+.SH "SEE ALSO"
+.BR gtroff (1),
+.BR gpic (1),
+.BR perl (1).
+.SH BUGS
+D 4
+This should probably be called pic_graph or something like that.
+E 4
+I 4
+-grapheach assumes the set of N graphs will fit on one page.
+E 4
+.LP
+I 4
+Since it is just a simple perl script, I tend to be constantly adding
+one more feature on the fly.  Consult the script for the latest set of
+options.  Development is typically done by using the closest set of options
+to generate the graph, massage the graph to do what you want, then add that
+set of changes as a new option.
+.LP
+E 4
+This isn't done as much as I would like.
+It isn't integrated with the groff preprocessor yet.
+It doesn't know about .GS/.GE things.  I use it to manually generate
+a pic file and then include that.
+I 4
+.LP
+I need to include some example data sets with pgraph.
+E 4
+E 2
+I 1
+E 1

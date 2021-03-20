@@ -1,0 +1,95 @@
+h17303
+s 00000/00000/00020
+d D 1.4 00/09/19 13:20:22 staelin 5 4
+c Delete: src/mhz.irix
+cC
+cHhpli8.hpli.hpl.hp.com
+cK12720
+cPBitKeeper/deleted/.del-mhz.irix
+cZ+03:00
+e
+s 00005/00004/00015
+d D 1.3 94/12/09 11:50:29 lm 4 3
+c maybe I got it right this time.
+cC
+cK20487
+cSAlpha2.11
+e
+s 00003/00002/00016
+d D 1.2 94/12/08 19:13:15 lm 3 2
+c *** empty log message ***
+cK18935
+e
+s 00018/00000/00000
+d D 1.1 94/11/30 13:40:39 lm 2 1
+c Initial revision
+cK13731
+e
+s 00000/00000/00000
+d D 1.0 94/11/30 13:40:38 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK00301
+cPsrc/mhz.irix
+cR845ba9c3182ca3bb
+cV4
+cX0x21
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x21
+t
+mhz that uses irix specific info.
+T
+I 2
+#!/bin/sh
+
+# Mhz for irix - more accurate
+# $Id$
+
+if [ X$1 = X-c ]
+then    CLOCK=1
+else    CLOCK=0
+fi
+D 3
+set `hinv | grep MHZ`
+E 3
+I 3
+set `hinv | grep MHZ | head -1`
+E 3
+
+D 4
+if [ $CLOCK -eq 1 ]
+D 3
+then bc << EOF
+E 3
+I 3
+then bc << EOF > /tmp/mhz
+E 4
+I 4
+bc << EOF > /tmp/mhz
+E 4
+E 3
+scale = 4
+1000/$2
+EOF
+I 3
+D 4
+	echo `cat /tmp/mhz` Mhz, $2 nanosec clock
+E 3
+else echo $2
+E 4
+I 4
+if [ $CLOCK -eq 0 ]
+then	echo $2 Mhz, `cat /tmp/mhz` nanosec clock
+else	cat /tmp/mhz
+E 4
+fi
+I 4
+rm /tmp/mhz
+E 4
+E 2
+I 1
+E 1

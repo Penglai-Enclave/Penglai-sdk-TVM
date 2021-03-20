@@ -1,0 +1,79 @@
+h18669
+s 00049/00000/00000
+d D 1.1 00/10/16 17:06:22 staelin 2 1
+cC
+cF1
+cK55372
+cO-rw-rw-rw-
+e
+s 00000/00000/00000
+d D 1.0 00/10/16 17:06:22 staelin 1 0
+c BitKeeper file /tmp_mnt/usr/WebPaper/users/staelin/src/LMbench/doc/cache.8
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHhpli8.hpli.hpl.hp.com
+cK45950
+cPdoc/cache.8
+cR2f037c9c11005b6a
+cV4
+cX0xa1
+cZ+02:00
+e
+u
+U
+f e 0
+f x 0xa1
+t
+T
+I 2
+.\" $Id$
+.TH CACHE 8 "$Date$" "(c)2000 Carl Staelin and Larry McVoy" "LMBENCH"
+.SH NAME
+cache \- cache parameters
+.SH SYNOPSIS
+.B cache
+[
+.I "-L <line size>"
+]
+[
+.I "-M <len>"
+]
+[
+.I "-W <warmups>"
+]
+[
+.I "-N <repetitions>"
+]
+.SH DESCRIPTION
+.B cache
+tries to determine the characteristics of the memory hierarchy.  It
+attempts to determine the number of caches, the size of each cache,
+the line size for each cache, and the available memory parallelism at
+each level in the memory hierarchy.
+The largest amount of memory it will examine is 
+.I len
+bytes.  
+.LP
+.B cache
+first attempts to determine the number and size of caches by measuring
+the memory latency for various memory sizes.  Once it has identified
+the various caches it then measures the latency, parallelism, and line
+size for each cache.  Unfortunately, determining the cache size merely
+from latency is exceedingly difficult due to variations in cache
+replacement and prefetching strategies.
+.SH BUGS
+.B cache
+is an experimental benchmark and is known to fail on many processors.
+In particular there are a large number of machines with weird caching
+behavior that confuse
+.B cache
+and prevent it from accurately determining the number and size of the
+various caches.
+.SH "SEE ALSO"
+lmbench(8), line(8), tlb(8), par_mem(8).
+.SH "AUTHOR"
+Carl Staelin and Larry McVoy
+.PP
+Comments, suggestions, and bug reports are always welcome.
+E 2
+I 1
+E 1

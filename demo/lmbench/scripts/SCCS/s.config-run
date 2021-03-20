@@ -1,0 +1,1925 @@
+H44542
+s 00002/00001/00704
+d D 1.41 02/10/16 17:05:11 staelin 42 41
+c scripts/config-run: tell user that we are probing memory
+cC
+cK51121
+e
+s 00009/00002/00696
+d D 1.40 02/10/16 17:04:00 staelin 41 40
+c scripts/config-run: check for existence and suitability of temporary
+c    directories before offering them as the default location
+cC
+cK46674
+e
+s 00005/00005/00693
+d D 1.39 02/10/16 16:41:01 staelin 40 39
+c scripts/config-run: fixup bugs in code which detects memory size
+cC
+cK37358
+cZ+02:00
+e
+s 00009/00001/00689
+d D 1.38 02/10/03 13:59:35 staelin 39 38
+c scripts/config-run: fixup so memory computation is correct even
+c     when bc is not available.  Aargh.
+cC
+cHhpli69.hpli.hpl.hp.com
+cK33354
+e
+s 00004/00006/00686
+d D 1.37 02/09/29 21:53:51 staelin 38 37
+c scripts/config-run: 'expr' is 32-bit on IA32, so can overflow on large
+c 	memory machines.  Switch to 'bc' which has infinite word size.
+cC
+cHfirewall.staelin.co.il
+cK22896
+e
+s 00007/00007/00685
+d D 1.36 01/06/13 12:28:45 staelin 37 36
+c Reorder actions in scripts/config-run so we only guess the line
+c size once we know how much memory we have available
+cC
+cHhpli69.hpli.hpl.hp.com
+cK24500
+e
+s 00001/00001/00691
+d D 1.35 00/09/24 12:51:20 staelin 36 35
+c - Bugfixes for sending status output to a file
+cC
+cK23810
+e
+s 00002/00000/00690
+d D 1.34 00/09/18 16:42:03 staelin 35 34
+c - Bugfix so "make rerun" for hardware and OS subsets work properly
+cC
+cK24062
+e
+s 00172/00000/00518
+d D 1.33 00/09/18 11:33:08 staelin 34 33
+c - Add ability for user to select which subset of benchmarks to run, including ability
+c   to select (almost) individual benchmarks
+cC
+cK17884
+e
+s 00019/00000/00499
+d D 1.32 00/09/13 14:44:01 staelin 33 32
+c - Change handling of lmbench scripts status output handling to use user-specified file
+cC
+cK38545
+e
+s 00001/00052/00498
+d D 1.31 00/08/03 14:26:15 staelin 32 31
+c - Remove hardware and OS subset specifications from config-run and CONFIG.*
+cC
+cK02249
+e
+s 00202/00146/00348
+d D 1.30 00/08/02 18:04:53 staelin 31 30
+c - Add new sections for hardware and OS sub-sections
+c - Rearrange other questions to make the order more rational
+c - Don't ask questions where anything but the default is "illegal"; e.g., don't ask for
+c   remote networking if SYNC_MAX > 1.
+cC
+cK50345
+e
+s 00006/00004/00488
+d D 1.29 00/08/01 09:21:24 staelin 30 29
+c - Check all of $PATH for remsh, not just /bin
+cC
+cK00811
+e
+s 00032/00009/00460
+d D 1.28 00/07/31 11:31:10 staelin 29 28
+c - Add in Robert G. Brown's hack to query the user for rsh/rcp programs (e.g. ssh/scp)
+cC
+cK63542
+e
+s 00008/00004/00461
+d D 1.27 00/07/27 14:36:56 staelin 28 27
+c - Begin adding Robert's rsh/remsh/ssh selection code
+cC
+cK18833
+e
+s 00007/00000/00458
+d D 1.26 00/07/25 13:48:33 staelin 27 26
+c - add call to 'line' and export LINE_SIZE
+cC
+cHhpli8.hpli.hpl.hp.com
+cK15504
+cZ+03:00
+e
+s 00000/00000/00458
+d D 1.25 00/01/31 15:29:41 lm 26 25
+c Change mode to -rwxrwxr-x
+cC
+cHlm.bitmover.com
+cK44946
+cO-rwxrwxr-x
+cZ-08:00
+e
+s 00028/00021/00430
+d D 1.24 99/09/02 12:24:44 lm 25 24
+c half assed MP stuff
+cC
+cHwork.bitmover.com
+cK62970
+cPscripts/config-run
+e
+s 00037/00005/00414
+d D 1.23 98/07/31 12:53:19 lm 24 23
+c First pass at MP version.
+cK29145
+e
+s 00006/00001/00413
+d D 1.22 98/07/03 11:51:43 lm 23 22
+c mailing list announcement.
+cK39110
+e
+s 00003/00000/00411
+d D 1.21 98/07/01 00:02:54 lm 22 21
+c Add version.
+cK27464
+e
+s 00041/00058/00370
+d D 1.20 98/06/30 17:58:47 lm 21 20
+c Changed to handle the form of info better.
+cK24388
+e
+s 00001/00001/00427
+d D 1.19 98/06/30 12:15:33 lm 20 19
+cHlm.bitmover.com
+cK25923
+e
+s 00001/00001/00427
+d D 1.18 98/06/30 00:14:16 lm 19 18
+cK25804
+e
+s 00001/00001/00427
+d D 1.17 98/06/29 23:54:39 lm 18 17
+c bitmover.
+cHlap
+cK25520
+cP/home/lm/lmbench/scripts/config-run
+cZ-07:00
+e
+s 00011/00003/00417
+d D 1.16 97/10/31 18:01:15 lm 17 16
+c disk stuff.
+c ls
+cK25267
+cZ-08:00
+e
+s 00001/00000/00419
+d D 1.15 97/10/24 13:51:14 lm 16 15
+c disks.
+cK11581
+e
+s 00111/00008/00308
+d D 1.14 97/10/19 23:53:57 lm 15 14
+c lotso stuff for 2.0.
+cK10194
+e
+s 00003/00000/00313
+d D 1.13 97/06/23 23:29:48 lm 14 13
+c *** empty log message ***
+cK48961
+e
+s 00002/00001/00311
+d D 1.12 97/06/15 23:12:24 lm 13 12
+c *** empty log message ***
+cK40794
+e
+s 00050/00014/00262
+d D 1.11 97/06/15 19:56:15 lm 12 11
+c *** empty log message ***
+cK37678
+e
+s 00107/00032/00169
+d D 1.10 97/06/14 21:10:18 lm 11 10
+c lmbench2.0 stuff
+cK43150
+cZ-07:00
+e
+s 00035/00026/00166
+d D 1.9 97/02/12 18:14:43 lm 10 9
+c *** empty log message ***
+cK13167
+e
+s 00002/00002/00190
+d D 1.8 95/11/03 15:04:19 lm 9 8
+c quotes.
+cK58437
+e
+s 00005/00001/00187
+d D 1.7 95/11/03 14:57:33 lm 8 7
+c hpux
+cK58301
+cZ-08:00
+e
+s 00037/00013/00151
+d D 1.6 95/10/25 21:05:28 lm 7 6
+c *** empty log message ***
+cK54161
+e
+s 00027/00005/00137
+d D 1.5 95/10/25 09:46:11 lm 6 5
+c *** empty log message ***
+cK10766
+e
+s 00022/00013/00120
+d D 1.4 95/10/25 01:12:30 lm 5 4
+c cleanup.
+cK20485
+cZ-07:00
+e
+s 00006/00010/00127
+d D 1.3 95/03/10 18:54:38 lm 4 3
+c bug.
+cK39352
+e
+s 00000/00004/00137
+d D 1.2 95/02/14 13:19:24 lm 3 2
+c remove 8MB limit.
+cK42000
+e
+s 00141/00000/00000
+d D 1.1 94/11/25 16:40:59 lm 2 1
+c Initial revision
+cK46895
+e
+s 00000/00000/00000
+d D 1.0 94/11/25 16:40:58 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK04811
+cPscripts/config-run
+cR7bdb249a4ff37f0
+cV4
+cX0x21
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x21
+t
+T
+I 2
+#!/bin/sh
+
+# Configure parameters for lmbench.
+D 21
+# $Id$
+I 10
+# Disk benchmarking has been moved to diskbench.
+E 21
+I 21
+# %I% %E% %@%
+E 21
+E 10
+
+I 10
+OS=`../scripts/os`
+I 12
+L='====================================================================='
+echo $L; 
+E 12
+E 10
+cat<<EOF;
+
+I 12
+		L M B E N C H   C ON F I G U R A T I O N
+		----------------------------------------
+
+E 12
+You need to configure some parameters to lmbench.  Once you have configured
+these parameters, you may do multiple runs by saying
+
+D 12
+	make rerun
+E 12
+I 12
+	"make rerun"
+E 12
+
+in the src subdirectory.
+
+I 7
+NOTICE: please do not have any other activity on the system if you can
+D 12
+help it.  The context switch benchmark is especially sensitive.
+E 12
+I 12
+help it.  Things like the second hand on your xclock or X perfmeters
+are not so good when benchmarking.  In fact, X is not so good when
+benchmarking.
+E 12
+
+E 7
+EOF
+
+# Figure out echo.
+if [ `echo -n "foo" | wc -l` -eq 0 ]
+then	ECHON="-n"; ECHOC=
+else	ECHON= ; ECHOC='\c'
+fi
+
+I 15
+############################################################################
+# Timing granulairty, loop overhead, etc.
+############################################################################
+E 15
+D 10
+AGAIN=Y
+while [ $AGAIN = Y ]
+do
+	cat<<EOF;
+E 10
+I 10
+D 11
+cat<<EOF;
+E 11
+I 11
+D 12
+echo ""
+E 12
+I 12
+echo $L; echo "";
+E 12
+echo "Hang on, we are calculating your timing granularity."
+../bin/$OS/msleep 250
+ENOUGH=`../bin/$OS/enough`
+export ENOUGH 
+echo "OK, it looks like you can time stuff down to $ENOUGH usec resolution."
+echo ""
+echo "Hang on, we are calculating your timing overhead."
+../bin/$OS/msleep 250
+TIMING_O=`../bin/$OS/timing_o`
+export TIMING_O
+echo "OK, it looks like your gettimeofday() costs $TIMING_O usecs."
+echo ""
+echo "Hang on, we are calculating your loop overhead."
+../bin/$OS/msleep 250
+LOOP_O=`../bin/$OS/loop_o`
+export LOOP_O
+echo "OK, it looks like your benchmark loop costs $LOOP_O usecs."
+echo ""
+I 27
+D 37
+echo "Hang on, we are calculating your cache line size."
+../bin/$OS/msleep 250
+LINE_SIZE=`../bin/$OS/line`
+export LINE_SIZE
+echo "OK, it looks like your cache line is $LINE_SIZE bytes."
+echo ""
+E 27
+E 11
+E 10
+
+E 37
+I 15
+############################################################################
+I 31
+D 32
+# Hardware benchmarks?
+############################################################################
+echo $L
+cat<<EOF;
+
+lmbench can benchmark various aspects of hardware performance, such
+as memory latency and available parallelism in the memory load path.
+
+If you are using lmbench to assess operating system performance, or
+to evaluate operating system modifications, then you probably don't
+need to run the hardware benchmarks each time.
+
+If you are planning on sending in these results, please include the
+hardware benchmarks.
+
+EOF
+
+echo $ECHON "HARDWARE [default yes] $ECHOC"
+read fast
+case "$fast" in
+    [nN]*)  BENCHMARK_HARDWARE=NO;;
+    *)      BENCHMARK_HARDWARE=YES;;
+esac
+
+############################################################################
+# OS benchmarks?
+############################################################################
+echo $L
+cat<<EOF;
+
+lmbench can benchmark various aspects of operating system performance, 
+such as pipe bandwidth or select() latency.
+
+If you are using lmbench to assess hardware performance, then you 
+probably don't need to run the operating system benchmarks.
+
+If you are planning on sending in these results, please include the
+operating system benchmarks.
+
+EOF
+
+echo $ECHON "OS [default yes] $ECHOC"
+read fast
+case "$fast" in
+    [nN]*)  BENCHMARK_OS=NO;;
+    *)      BENCHMARK_OS=YES;;
+esac
+
+############################################################################
+E 32
+# Multiple copies
+############################################################################
+echo $L
+cat<<EOF;
+
+If you are running on an MP machine and you want to try running
+multiple copies of lmbench in parallel, you can specify how many here.
+
+Using this option will make the benchmark run 100x slower (sorry).
+
+NOTE:  WARNING! This feature is experimental and many results are 
+	known to be incorrect or random!
+
+EOF
+AGAIN=Y
+while [ $AGAIN = Y ]
+do	echo $ECHON "MULTIPLE COPIES [default 1] $ECHOC"
+	read SYNC_MAX
+	if [ "X$SYNC_MAX" != X ]
+	then	case "$SYNC_MAX" in
+		[0-9]|[0-9][0-9]|[0-9][0-9][0-9])
+			AGAIN=N
+			;;
+		*)	echo "Please enter a number between 1 and 999"
+			;;
+		esac
+	else	AGAIN=N
+		SYNC_MAX=1
+	fi
+done
+
+############################################################################
+E 31
+# Figure out memory size.
+############################################################################
+E 15
+D 5
+If you are running as root and you want to get disk latency results,
+please specify the disk device to use, such as /dev/rsd0a.
+E 5
+I 5
+D 10
+In order to get disk latency results, we need to be able to read a disk
+drive.  The simplest way to do this is to run the benchmark as root.
+If you are paranoid about running code as root, good for you, you should
+be.  The paranoid solution is to grab another window, pick the disk
+drive, make it world readable ( chmod a+r /dev/rsd0a ), and then specify
+that drive below.  Remember to change the permissions back after running
+the benchmark if you took the paranoid route.
+E 10
+I 10
+D 11
+This benchmark measures, by default, context switching and memory latency
+for a number of different sizes.  If you are measuring software only, you
+probably want to do a fast run, so answer yes below.  Answering yes means
+that you can't see cache associativity or memory latency for systems with
+cache lines larger than 128 bytes.  You will be able to do a "make" in
+../results and have that work in either case.
+E 11
+I 11
+D 13
+if [ -e /proc/meminfo ]
+E 13
+I 13
+if [ -r /proc/meminfo ]
+E 13
+then	TMP=`grep 'Mem:' /proc/meminfo | awk '{print $2}'`
+	if [ X$TMP != X ]
+D 38
+	then	TMP=`expr $TMP / 1048576`
+		TMP=`expr $TMP \* 7`
+		TMP=`expr $TMP / 10`
+	fi
+	if [ X$TMP != X ]
+	then	MB=$TMP
+E 38
+I 38
+D 39
+	then	TMP=`echo \(\( $TMP / 1048576 \) \* 7 \) / 10 | bc`
+E 39
+I 39
+D 40
+	then	XTMP=`echo \(\( $TMP / 1048576 \) \* 7 \) / 10 | bc`
+E 40
+I 40
+	then	XTMP=`echo \(\( $TMP / 1048576 \) \* 7 \) / 10 | bc 2>/dev/null`
+E 40
+	fi
+	if [ X$XTMP = X ]
+D 40
+	then	XTMP=`expr $TMP / 1048576`
+		XTMP=`expr $TMP \* 7`
+		XTMP=`expr $TMP / 10`
+E 40
+I 40
+	then	XTMP=`expr $TMP / 1048576 2>/dev/null`
+		XTMP=`expr $XTMP \* 7`
+		XTMP=`expr $XTMP / 10`
+E 40
+	fi
+	if [ X$XTMP != X -a $XTMP -gt 0 ]
+	then	TMP=$XTMP
+E 39
+E 38
+	fi
+I 38
+fi
+if [ X$TMP != X ]
+then	MB=$TMP
+E 38
+I 12
+D 40
+else	MB=32
+E 40
+I 40
+D 42
+else	MB=`../bin/$OS/memsize 1024`
+E 42
+I 42
+else	$ECHON "Probing system for available memory: $ECHOC"
+	MB=`../bin/$OS/memsize 1024`
+E 42
+E 40
+E 12
+fi
+E 11
+E 10
+E 5
+
+I 12
+echo $L
+E 12
+I 5
+D 10
+If you want to get disk latency results, please specify the disk device
+to use, such as /dev/rsd0a.
+
+E 10
+E 5
+D 11
+EOF
+D 10
+	echo $ECHON "DISK [default none] $ECHOC"
+	read DISK
+	if [ -c "$DISK" -o X$DISK = X ]
+	then	AGAIN=N
+	else	echo $DISK is not a raw disk device
+	fi
+done
+E 10
+
+I 10
+echo $ECHON "FAST [default no] $ECHOC"
+read fast
+case "$fast" in
+    [yY]*) FAST=YES;;
+    *)	   FAST=NO;;
+esac
+
+E 11
+E 10
+D 4
+AGAIN=Y
+while [ $AGAIN = Y ]
+do
+	cat<<EOF;
+E 4
+I 4
+cat<<EOF;
+E 4
+
+D 5
+For the memory latency benchmark, we use an 8 Mbyte file.  If you think
+that your external cache is 8 Mbyte or larger (unlikely), then specify
+a size 4 Mbyte larger than your external cache, in Mbytes.  For example,
+if your external cache was 12 Mbyte, use 16.
+E 5
+I 5
+D 6
+Several benchmarks operate on a range of memory.  This memory should
+be sized such that it is at least twice as big as the external cache[s]
+on your system.  We use 8 Mbyte for as the default; if you have 4 Mbyte
+or larger external caches, then use 16 or 32.  The bigger the range, the
+more accurate the results but the longer it takes to run the benchmark.
+E 6
+I 6
+Several benchmarks operate on a range of memory.  This memory should be
+D 7
+sized such that it is at least twice as big as the external cache[s] on
+your system.  We use 8 Mbyte for as the default; if you have 4 Mbyte
+external caches, then use 16.  The bigger the range, the more accurate
+the results but the longer it takes to run the benchmark.  
+E 7
+I 7
+D 12
+sized such that it is at least 4 times as big as the external cache[s] on
+D 11
+your system.  
+E 11
+I 11
+your system.   It should be no more than 80% of your physical memory.
+E 12
+I 12
+sized such that it is at least 4 times as big as the external cache[s]
+on your system.   It should be no more than 80% of your physical memory.
+E 12
+E 11
+E 7
+E 6
+E 5
+
+I 7
+The bigger the range, the more accurate the results, but larger sizes
+D 11
+take somewhat longer to run the benchmark.
+E 11
+I 11
+D 12
+take somewhat longer to run the benchmark.  
+E 12
+I 12
+take somewhat longer to run the benchmark.
+E 12
+E 11
+
+E 7
+EOF
+D 4
+	echo $ECHON "MB [default 8] $ECHOC"
+	read MB
+	if [ X$MB = X ]
+	then	MB=8
+	fi
+D 3
+	if [ $MB -ge 8 ]
+	then	AGAIN=N
+	else	echo MB must be at least 8
+	fi
+E 3
+done
+E 4
+I 4
+D 7
+echo $ECHON "MB [default 8] $ECHOC"
+E 7
+I 7
+D 10
+echo $ECHON "MB [default 16] $ECHOC"
+E 10
+I 10
+D 11
+echo $ECHON "MB [default 64] $ECHOC"
+E 10
+E 7
+read MB
+if [ X$MB = X ]
+D 7
+then	MB=8
+E 7
+I 7
+D 10
+then	MB=16
+E 10
+I 10
+then	MB=64
+E 11
+I 11
+echo $ECHON "MB [default $MB] $ECHOC"
+read TMP
+if [ X$TMP != X ]
+then	MB=$TMP
+E 11
+E 10
+E 7
+fi
+E 4
+D 10
+
+E 10
+I 6
+# Certain machines tend to barf when you try and bcopy 8MB.
+# Figure out how much we can use.
+D 7
+WANT=`expr $MB \* 2`
+E 7
+D 11
+echo "Calculating available memory size; please wait for a moment..."
+E 11
+I 11
+echo "Checking to see if you have $MB MB; please wait for a moment..."
+E 11
+D 10
+OS=`../scripts/os`
+E 10
+D 7
+AVAILMEM=`../bin/$OS/memsize $WANT 2>/dev/null`
+E 7
+I 7
+AVAILMEM=`../bin/$OS/memsize $MB`
+I 10
+AVAILMEM=`../bin/$OS/memsize $MB`
+AVAILMEM=`../bin/$OS/memsize $MB`
+E 10
+E 7
+if [ $AVAILMEM -lt 8 ]
+then    echo $0 aborted: Not enough memory, only ${AVAILMEM}MB available. 
+	exit 1
+fi
+if [ $AVAILMEM -lt 16 ]
+then	echo Warning: you have only ${AVAILMEM}MB available memory. 
+	echo Some benchmark results will be less meaningful. 
+fi
+D 7
+MB=$AVAILMEM
+E 7
+I 7
+MB=`expr $AVAILMEM / 2`
+I 37
+
+echo "Hang on, we are calculating your cache line size."
+../bin/$OS/msleep 250
+LINE_SIZE=`../bin/$OS/line -M ${MB}M`
+export LINE_SIZE
+echo "OK, it looks like your cache line is $LINE_SIZE bytes."
+echo ""
+E 37
+E 7
+
+I 15
+############################################################################
+I 34
+# Benchmarking subsets
+############################################################################
+echo $L
+cat<<EOF;
+
+lmbench measures a wide variety of system performance, and the full suite
+of benchmarks can take a long time on some platforms.  Consequently, we
+offer the capability to run only predefined subsets of benchmarks, one
+for operating system specific benchmarks and one for hardware specific
+benchmarks.  We also offer the option of running only selected benchmarks
+which is useful during operating system development.
+
+Please remember that if you intend to publish the results you either need
+to do a full run or one of the predefined OS or hardware subsets.
+
+EOF
+
+echo $ECHON "SUBSET (ALL|HARWARE|OS|DEVELOPMENT) [default all] $ECHOC"
+read subset
+BENCHMARK_HARDWARE=NO
+BENCHMARK_OS=NO
+BENCHMARK_DEVELOPMENT=NO
+case "$subset" in
+	[hH]*)	BENCHMARK_HARDWARE=YES;;
+	[oO]*)	BENCHMARK_OS=YES;;
+	[dD]*)	BENCHMARK_DEVELOPMENT=YES;;
+	*)	BENCHMARK_HARDWARE=YES;
+		BENCHMARK_OS=YES;;
+esac
+
+if [ X$BENCHMARK_DEVELOPMENT = XYES ]; then
+	echo $L
+
+	echo $ECHON "SYSCALL [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_SYSCALL=NO;;
+	    *)		BENCHMARK_SYSCALL=YES;;
+	esac
+
+	echo $ECHON "SELECT [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_SELECT=NO;;
+	    *) 		BENCHMARK_SELECT=YES;;
+	esac
+
+	echo $ECHON "PROCESS CREATION [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_PROC=NO;;
+	    *)		BENCHMARK_PROC=YES;;
+	esac
+
+	echo $ECHON "PAGEFAULT [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_PAGEFAULT=NO;;
+	    *)		BENCHMARK_PAGEFAULT=YES;;
+	esac
+
+	echo $ECHON "FILE [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_FILE=NO;;
+	    *)		BENCHMARK_FILE=YES;;
+	esac
+
+	echo $ECHON "MMAP [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_MMAP=NO;;
+	    *)		BENCHMARK_MMAP=YES;;
+	esac
+
+	echo $ECHON "CONTEXT SWITCH [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_CTX=NO;;
+	    *)		BENCHMARK_CTX=YES;;
+	esac
+
+	echo $ECHON "PIPE [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_PIPE=NO;;
+	    *)		BENCHMARK_PIPE=YES;;
+	esac
+
+	echo $ECHON "UNIX socket [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_UNIX=NO;;
+	    *)		BENCHMARK_UNIX=YES;;
+	esac
+
+	echo $ECHON "UDP [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_UDP=NO;;
+	    *)		BENCHMARK_UDP=YES;;
+	esac
+
+	echo $ECHON "TCP [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_TCP=NO;;
+	    *)		BENCHMARK_TCP=YES;;
+	esac
+
+	echo $ECHON "TCP CONNECT [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_CONNECT=NO;;
+	    *)		BENCHMARK_CONNECT=YES;;
+	esac
+
+	echo $ECHON "RPC [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_RPC=NO;;
+	    *)		BENCHMARK_RPC=YES;;
+	esac
+
+	echo $ECHON "HTTP [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_HTTP=NO;;
+	    *)		BENCHMARK_HTTP=YES;;
+	esac
+
+	echo $ECHON "BCOPY [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_BCOPY=NO;;
+	    *)		BENCHMARK_BCOPY=YES;;
+	esac
+
+	echo $ECHON "MEMORY HIERARCHY [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_MEM=NO;;
+	    *)		BENCHMARK_MEM=YES;;
+	esac
+
+	echo $ECHON "CPU OPERATIONS [default yes] $ECHOC"
+	read bench
+	case "$bench" in
+	    [nN]*)	BENCHMARK_OPS=NO;;
+	    *)		BENCHMARK_OPS=YES;;
+	esac
+fi
+
+############################################################################
+E 34
+# Memory strides for lat_mem
+############################################################################
+I 34
+FASTMEM=NO
+E 34
+E 15
+I 12
+D 31
+echo $L
+E 12
+I 11
+cat<<EOF;
+E 31
+I 31
+if [ "$BENCHMARK_HARDWARE" = "YES" ]; then
+	echo $L
+	cat<<EOF;
+E 31
+
+This benchmark measures, by default, memory latency for a number of
+D 12
+different strides.  That can take a long time and is most useful if
+youa re trying to figure out your cache line size or if your cache
+line size is greater than 128 bytes.
+E 12
+I 12
+different strides.  That can take a long time and is most useful if you
+are trying to figure out your cache line size or if your cache line size
+is greater than 128 bytes.
+E 12
+
+If you are planning on sending in these results, please don't do a fast
+run.
+
+D 31
+If you are measuring software only, you probably want to do a fast run,
+so answer yes below.  Answering yes means that we measure memory latency
+with a 128 byte stride.  
+E 31
+I 31
+Answering yes means that we measure memory latency with a 128 byte stride.  
+E 31
+
+EOF
+
+D 31
+echo $ECHON "FASTMEM [default no] $ECHOC"
+read fast
+case "$fast" in
+    [yY]*) FASTMEM=YES;;
+    *)	   FASTMEM=NO;;
+esac
+E 31
+I 31
+	echo $ECHON "FASTMEM [default no] $ECHOC"
+	read fast
+	case "$fast" in
+	    [yY]*) FASTMEM=YES;;
+	    *)	   FASTMEM=NO;;
+	esac
+fi
+E 31
+
+I 15
+############################################################################
+# File system latency
+############################################################################
+E 15
+I 12
+echo $L
+E 12
+cat<<EOF;
+
+This benchmark measures, by default, file system latency.  That can
+take a long time on systems with old style file systems (i.e., UFS,
+FFS, etc.).  Linux' ext2fs and Sun's tmpfs are fast enough that this
+test is not painful.
+
+If you are planning on sending in these results, please don't do a fast
+run.
+
+D 12
+F you want to skip the file system latency tests, answer "yes" below.
+E 12
+I 12
+If you want to skip the file system latency tests, answer "yes" below.
+E 12
+
+EOF
+
+echo $ECHON "SLOWFS [default no] $ECHOC"
+read slow
+case "$slow" in
+    [yY]*) SLOWFS=YES;;
+    *)	   SLOWFS=NO;;
+esac
+
+E 11
+I 10
+D 15
+# Figuring out the processor mhz is a pain in the butt.  
+# Ask the user for it.
+E 15
+I 15
+############################################################################
+# Disk bandwidth/seek times
+############################################################################
+E 15
+I 12
+D 31
+echo $L
+I 15
+cat<<EOF;
+E 31
+I 31
+if [ $SYNC_MAX -gt 1 -o "${BENCHMARK_HARDWARE}" != "YES" ]; then
+	# parallel benchmarking is incompatible with disk tests
+	DISK_DESC=""
+	DISKS=""
+else
+	echo $L
+	cat<<EOF;
+E 31
+
+This benchmark can measure disk zone bandwidths and seek times.  These can
+be turned into whizzy graphs that pretty much tell you everything you might
+need to know about the performance of your disk.  
+
+This takes a while and requires read access to a disk drive.  
+Write is not measured, see disk.c to see how if you want to do so.
+
+If you want to skip the disk tests, hit return below.
+
+If you want to include disk tests, then specify the path to the disk
+device, such as /dev/sda.  For each disk that is readable, you'll be
+prompted for a one line description of the drive, i.e., 
+
+	Iomega IDE ZIP
+or
+	HP C3725S 2GB on 10MB/sec NCR SCSI bus
+
+EOF
+
+D 31
+echo $ECHON "DISKS [default none] $ECHOC"
+read disks
+if [ X"$disks" != X ]
+D 17
+then	for i in $disks
+E 17
+I 17
+then	
+	for i in $disks
+E 17
+	do	if [ -r $i ]
+D 17
+		then	echo $ECHON "$i is a $ECHOC"
+E 17
+I 17
+		then	../bin/$OS/flushdisk $i
+			if [ $? -eq 1 ]
+			then	echo "Must be root to run disk benchmarks."
+				echo "Root is needed to flush the buffer cache"
+				exit 1
+E 31
+I 31
+	echo $ECHON "DISKS [default none] $ECHOC"
+	read disks
+	if [ X"$disks" != X ]
+	then	
+		for i in $disks
+		do	if [ -r $i ]
+			then	../bin/$OS/flushdisk $i
+				if [ $? -eq 1 ]
+				then	echo "Must be root to run disk benchmarks."
+					echo "Root is needed to flush the buffer cache"
+					exit 1
+				fi
+				echo $ECHON "$i is a $ECHOC"
+				read x
+				DISK_DESC="$DISK_DESC[${i}:${x}] "
+				DISKS="$DISKS${i} "
+			else	echo "Can't read $i, skipping it."
+E 31
+			fi
+D 31
+			echo $ECHON "$i is a $ECHOC"
+E 17
+			read x
+			DISK_DESC="$DISK_DESC[${i}:${x}] "
+I 16
+			DISKS="$DISKS${i} "
+E 16
+		else	echo "Can't read $i, skipping it."
+E 31
+I 31
+		done
+	fi
+fi
+
+############################################################################
+# Remote networking
+############################################################################
+if [ $SYNC_MAX -gt 1 ]; then
+	# remote networking is incompatible with parallel benchmarking
+	REMOTE=""
+else
+	echo $L
+
+	RSH=rsh
+	for p in `echo $PATH | sed 's/:/ /g'`
+	do	if [ -f $p/remsh ]
+		then	RSH=remsh
+E 31
+		fi
+	done
+I 31
+	RCP=rcp
+
+	cat<<EOF;
+
+If you are running on an idle network and there are other, identically
+configured systems, on the same wire (no gateway between you and them),
+and you have rsh access to them, then you should run the network part
+of the benchmarks to them.  Please specify any such systems as a space
+separated list such as: ether-host fddi-host hippi-host.
+
+EOF
+	echo $ECHON "REMOTE [default none] $ECHOC"
+	read REMOTE
+
+	if [ "X$REMOTE" != X ]
+	then	cat<<EOF;
+
+Thanks for doing remote testing, that is a hard thing to get.  In 
+order to run a server on the remote system, we need a remote shell 
+to be enabled (ideally without a password) from this host to $REMOTE.  
+The original remote shell is rsh, but the use of a secure remote shell 
+like ssh is increasingly common.  We need the name of BOTH the shell 
+itself and the associated copy tool (e.g. rcp vs scp) to be entered.
+
+EOF
+		echo $ECHON "RSH [default $RSH] $ECHOC"
+		read rsh
+		if [ -n "$rsh" ]
+		then	RSH=$rsh
+		fi
+		echo $ECHON "RCP [default $RCP] $ECHOC"
+		read rcp
+		if [ -n "$rsh" ]
+		then	RCP=$rcp
+		fi
+
+		cat<<EOF;
+
+Could you do me one more favor and tell me the networking you think 
+will be used to get to each of the remote hosts.  By networking I 
+mean one of the following (or whatever you use if you use something 
+else):
+
+ethernet		aka 10baseT, thinnet, thicknet, etc
+ethernet-100		aka 100baseT, 100VG
+fddi			aka cddi
+hippi
+others?
+
+Please type it just like the above if you can, it makes parsing easier.
+
+EOF
+
+
+		for r in $REMOTE
+		do	echo $ECHON "Network type for $r: $ECHOC"
+			read n
+			X=`$RSH $r echo foo`
+			if [ X$X = Xfoo ]
+			then	echo Remote access to $r worked, thanks.
+			else	echo Remote access to $r did not work, please check and retry,
+				exit 1
+			fi
+			NETWORKS="${NETWORKS}[ $r:$n ]"
+		done
+	fi
+E 31
+fi
+
+############################################################################
+# Processor speed
+############################################################################
+echo $L
+I 21
+echo ""
+E 21
+E 15
+E 12
+echo "Calculating mhz, please wait for a moment..."
+MHZ=`../bin/$OS/mhz`
+D 11
+echo "I think your process mhz is $MHZ but I am frequently wrong."
+echo "Please correct me if I am wrong"
+E 11
+I 11
+cat > /dev/tty <<EOF
+D 12
+I think your process mhz is 
+E 12
+I 12
+I think your CPU mhz is 
+E 12
+
+	$MHZ
+	
+but I am frequently wrong.  If that is the wrong Mhz, type in your
+best guess as to your processor speed.  It doesn't have to be exact,
+but if you know it is around 100, say 100.  
+
+Type in just the Mhz part, like 200 or 500 for you lucky Alpha owners.
+
+EOF
+E 11
+echo $ECHON "Processor mhz [default $MHZ] $ECHOC"
+read mhz
+if [ -n "$mhz" ]
+then	MHZ=$mhz
+fi
+
+I 15
+D 21
+############################################################################
+# Ask the user for motherboard type
+############################################################################
+echo $L
+cat > /dev/tty <<EOF
+It would be nice to know what kind of motherboard you have.  There are
+a zillion different ones for PCs.  If you know that you have a Tyan
+Tomcat III with the Intel 430HX chipset and PCI, then say something like
+E 15
+
+I 15
+	Tyan Tomcat III, 430HX controller, PCI
+
+If you have a Sun/SGI/whatever, just skip this.  If it is a clone, like
+a SPARC clone, say that and give the company name.
+
+EOF
+echo $ECHON "Motherboard $ECHOC"
+read motherboard
+if [ -n "$motherboard" ]
+then	MOTHERBOARD=$motherboard
+fi
+
+# Ask the user for # & type of processors
+E 15
+I 12
+echo $L
+I 15
+cat > /dev/tty <<EOF
+It would be nice to know the number and type of processors you have.
+Examples:
+
+	2 Pentium
+	32 R10K
+	etc.
+
+If you know that they are Pentium II or Pentium with MMX, please say that.
+
+EOF
+echo $ECHON "PROCESSORS $ECHOC"
+read processors
+if [ -n "$processors" ]
+then	PROCESSORS=$processors
+fi
+
+E 21
+
+############################################################################
+# /usr/tmp?
+############################################################################
+echo $L
+E 15
+E 12
+E 10
+E 6
+AGAIN=Y
+while [ $AGAIN = Y ]
+do
+	cat<<EOF;
+
+D 5
+We need a place to store a $MB Mbyte file as well as create and delete
+a large number of small files.  You can use /tmp if there is enough
+space but /tmp is sometimes a memory resident file system (which is 
+a unfair for the lat_fs benchmark).  Please specify a directory that
+has enough space and is a local file system.
+E 5
+I 5
+We need a place to store a $MB Mbyte file as well as create and delete a
+large number of small files.  We default to /usr/tmp.  If /usr/tmp is a
+memory resident file system (i.e., tmpfs), pick a different place.
+Please specify a directory that has enough space and is a local file
+system.
+E 5
+
+EOF
+D 5
+	echo $ECHON "FSDIR [default /tmp] $ECHOC"
+E 5
+I 5
+D 41
+	echo $ECHON "FSDIR [default /usr/tmp] $ECHOC"
+E 41
+I 41
+	DEFAULTFSDIR=/usr/tmp
+	for t in /usr/tmp /tmp /var/tmp; do
+		if [ -d $t -a -w $t ]
+		then	DEFAULTFSDIR=$t
+			break
+		fi
+	done
+	echo $ECHON "FSDIR [default $DEFAULTFSDIR] $ECHOC"
+E 41
+E 5
+	read FSDIR
+	if [ X$FSDIR = X ]
+D 5
+	then	FSDIR=/tmp
+E 5
+I 5
+D 41
+	then	FSDIR=/usr/tmp
+E 41
+I 41
+	then	FSDIR=$DEFAULTFSDIR
+E 41
+E 5
+	else	mkdir -p $FSDIR 2>/dev/null
+	fi
+	if [ -d $FSDIR -a -w $FSDIR ]
+	then	AGAIN=N
+		FILE=$FSDIR/XXX
+	else	echo $FSDIR is not a directory or is not writable
+	fi
+done
+
+I 15
+############################################################################
+I 33
+# status output?
+############################################################################
+echo $L
+cat<<EOF;
+
+lmbench outputs status information as it runs various benchmarks.
+By default this output is sent to /dev/tty, but you may redirect
+it to any file you wish (such as /dev/null...).
+
+EOF
+
+echo $ECHON "Status output file [default /dev/tty] $ECHOC"
+read OUTPUT
+if [ "X$OUTPUT" = X ]
+then	OUTPUT=/dev/tty;
+fi
+
+############################################################################
+E 33
+D 31
+# Remote networking
+############################################################################
+E 15
+I 12
+echo $L
+I 29
+
+D 30
+if [ -x /bin/remsh ]
+then	RSH=remsh
+else	RSH=rsh
+fi
+E 30
+I 30
+RSH=rsh
+for p in `echo $PATH | sed 's/:/ /g'`
+do	if [ -f $p/remsh ]
+	then	RSH=remsh
+	fi
+done
+E 30
+RCP=rcp
+
+E 29
+E 12
+cat<<EOF;
+
+If you are running on an idle network and there are other, identically
+configured systems, on the same wire (no gateway between you and them),
+and you have rsh access to them, then you should run the network part
+of the benchmarks to them.  Please specify any such systems as a space
+separated list such as: ether-host fddi-host hippi-host.
+
+EOF
+echo $ECHON "REMOTE [default none] $ECHOC"
+read REMOTE
+
+if [ "X$REMOTE" != X ]
+then	cat<<EOF;
+
+D 29
+Thanks for doing remote testing, that is a hard thing to get.  Could you
+do me one more favor and tell me the networking you think will be used
+to get to each of the remote hosts.  By networking I mean one of the
+following (or whatever you use if you use something else):
+E 29
+I 29
+Thanks for doing remote testing, that is a hard thing to get.  In 
+order to run a server on the remote system, we need a remote shell 
+to be enabled (ideally without a password) from this host to $REMOTE.  
+The original remote shell is rsh, but the use of a secure remote shell 
+like ssh is increasingly common.  We need the name of BOTH the shell 
+itself and the associated copy tool (e.g. rcp vs scp) to be entered.
+
+EOF
+	echo $ECHON "RSH [default $RSH] $ECHOC"
+	read rsh
+	if [ -n "$rsh" ]
+	then	RSH=$rsh
+	fi
+	echo $ECHON "RCP [default $RCP] $ECHOC"
+	read rcp
+	if [ -n "$rsh" ]
+	then	RCP=$rcp
+	fi
+
+	cat<<EOF;
+
+Could you do me one more favor and tell me the networking you think 
+will be used to get to each of the remote hosts.  By networking I 
+mean one of the following (or whatever you use if you use something 
+else):
+E 29
+
+ethernet		aka 10baseT, thinnet, thicknet, etc
+ethernet-100		aka 100baseT, 100VG
+fddi			aka cddi
+hippi
+others?
+
+Please type it just like the above if you can, it makes parsing easier.
+
+EOF
+
+I 8
+D 28
+	RSH=rsh
+	case `uname -s` in
+		*HP-UX*)	RSH=remsh;;
+	esac
+E 28
+I 28
+D 29
+	if [ -x /bin/remsh ]
+	then	RSH=remsh
+	else	RSH=rsh
+	fi
+	RCP=rcp
+E 29
+
+E 28
+E 8
+	for r in $REMOTE
+	do	echo $ECHON "Network type for $r: $ECHOC"
+		read n
+I 6
+D 8
+		X=`rsh $r echo foo`
+E 8
+I 8
+		X=`$RSH $r echo foo`
+E 8
+		if [ X$X = Xfoo ]
+		then	echo Remote access to $r worked, thanks.
+		else	echo Remote access to $r did not work, please check and retry,
+			exit 1
+		fi
+E 6
+D 17
+		NETWORKS="${NETWORKS}$r:$n "
+E 17
+I 17
+		NETWORKS="${NETWORKS}[ $r:$n ]"
+E 17
+	done
+fi
+
+I 15
+############################################################################
+I 24
+# Multiple copies
+############################################################################
+echo $L
+cat<<EOF;
+
+If you are running on an MP machine and you want to try running
+multiple copies of lmbench in parallel, you can specify how many here.
+
+Using this option will make the benchmark run 100x slower (sorry).
+
+This is experimental and results are undefined for the time being.
+
+EOF
+AGAIN=Y
+while [ $AGAIN = Y ]
+do	echo $ECHON "MULTIPLE COPIES [default 1] $ECHOC"
+	read SYNC_MAX
+	if [ "X$SYNC_MAX" != X ]
+	then	case "$SYNC_MAX" in
+		[0-9]|[0-9][0-9]|[0-9][0-9][0-9])
+			AGAIN=N
+			;;
+		*)	echo "Please enter a number between 1 and 999"
+			;;
+		esac
+	else	AGAIN=N
+		SYNC_MAX=1
+	fi
+done
+
+I 25
+if [ $SYNC_MAX -gt 1 ]
+then	echo "Hang on, we are recalculating your timing granularity."
+	ENOUGH=`expr $SYNC_MAX \* 500001`
+	echo "OK, it looks like you can time stuff down to $ENOUGH usec resolution."
+	echo ""
+fi
+
+E 25
+############################################################################
+E 31
+E 24
+# Submit results?
+############################################################################
+E 15
+I 12
+echo $L
+E 12
+D 7
+if [ X$1 != X ]
+then	OUTPUT=$1
+else	OUTPUT=/dev/tty
+fi
+E 7
+I 7
+cat<<EOF;
+E 7
+
+I 7
+There is a database of benchmark results that is shipped with new
+releases of lmbench.  Your results can be included in the database
+if you wish.  The more results the better, especially if they include
+D 11
+remote networking.
+E 11
+I 11
+remote networking.  If your results are interesting, i.e., for a new
+fast box, they may be made available on the lmbench web page, which is
+E 11
+
+I 11
+D 18
+	http://reality.sgi.com/lm
+E 18
+I 18
+D 19
+	http://bitmover.com/lmbench
+E 19
+I 19
+D 20
+	http://ww.bitmover.com/lmbench
+E 20
+I 20
+	http://www.bitmover.com/lmbench
+E 20
+E 19
+E 18
+
+E 11
+EOF
+
+echo $ECHON "Mail results [default yes] $ECHOC"
+read MAIL
+case $MAIL in 
+    [Nn]*)	MAIL=no
+		echo OK, no results mailed.
+D 21
+	;;
+E 21
+I 21
+		;;
+E 21
+    *)		MAIL=yes
+D 21
+		echo Thanks for adding your results to the database.
+	;;
+E 21
+I 21
+		;;
+E 21
+esac
+
+I 21
+INFO=`../scripts/info`
+E 21
+D 12
+echo ""
+I 11
+echo "XXX - I still need to gather info about the system!!!"
+echo ""
+E 12
+I 12
+if [ $MAIL = yes ]
+D 21
+then	if [ ! -f ../bin/$OS/`../scripts/info` ]
+	then	cp ../scripts/info-template ../bin/$OS/`../scripts/info`
+I 13
+		chmod +w ../bin/$OS/`../scripts/info`
+E 21
+I 21
+then	if [ ! -f ../bin/$OS/$INFO ]
+	then	cp ../scripts/info-template ../bin/$OS/$INFO
+		chmod +w ../bin/$OS/$INFO
+		REUSE=no
+	else	
+		REUSE=view
+		while [ $REUSE = view ]
+		do	echo ""
+			echo $ECHON \
+"Reuse previous description [default yes, other options: no|view] $ECHOC"
+			read REUSE
+			case $REUSE in 
+	    		[Nn]*)	REUSE=no
+				;;
+			[Vv]*)	REUSE=view
+				echo $L
+				more ../bin/$OS/$INFO
+				echo $L
+				;;
+	    		*)	REUSE=yes
+				;;
+			esac
+		done
+E 21
+E 13
+	fi
+D 21
+	EDITOR=vi
+E 21
+E 12
+
+I 12
+D 21
+	echo $L
+	cat<<EOF;
+E 21
+I 21
+	if [ $REUSE = no ]
+	then	EDITOR=vi
+		echo $L
+		cat<<EOF;
+E 21
+
+Please tell us about your machine.   There is a form we would like you
+to fill out that we will make available with the results.  If you would
+prefer to use a different editor, tell us the editor at the prompt.
+
+I 14
+If you want to skip filling out this form (please don't) then answer 
+"none" at the prompt.
+
+E 14
+EOF
+D 21
+	echo $ECHON "Editor [default $EDITOR] $ECHOC"
+	read TMP
+	if [ X$TMP != X ]
+	then	EDITOR=$TMP
+	fi
+	if [ X$EDITOR != "none" ]
+	then	$EDITOR ../bin/$OS/`../scripts/info`
+E 21
+I 21
+		echo $ECHON "Editor [default $EDITOR] $ECHOC"
+		read TMP
+		if [ X$TMP != X ]
+		then	EDITOR=$TMP
+		fi
+		if [ X$EDITOR != "none" ]
+		then	$EDITOR ../bin/$OS/`../scripts/info`
+		fi
+E 21
+	fi
+fi
+
+echo $L
+E 12
+echo ""
+E 11
+E 7
+echo "Confguration done, thanks."
+D 23
+echo ""
+E 23
+I 23
+cat <<EOF
+
+There is a mailing list for discussing lmbench hosted at BitMover. 
+Send mail to majordomo@bitmover.com to join the list.
+
+EOF
+E 23
+
+I 22
+D 24
+VERS=`../scripts/version`
+E 24
+I 24
+VERSION=`../scripts/version`
+E 24
+
+E 22
+I 7
+D 11
+if [ X$1 != X ]
+then	OUTPUT=$1
+else	OUTPUT=/dev/tty
+fi
+E 7
+cat<<EOF > $OUTPUT
+E 11
+I 11
+D 25
+cat<<EOF > ../bin/$OS/`../scripts/config`
+I 24
+DISKS="$DISKS"
+DISK_DESC="$DISK_DESC"
+E 24
+I 15
+ENOUGH=$ENOUGH
+FASTMEM="$FASTMEM"
+E 15
+E 11
+D 10
+DISK=$DISK
+E 10
+FILE=$FILE
+FSDIR=$FSDIR
+I 21
+INFO=$INFO
+E 21
+D 15
+MB=$MB
+D 9
+REMOTE=$REMOTE
+NETWORKS=$NETWORKS
+E 9
+I 9
+REMOTE="$REMOTE"
+NETWORKS="$NETWORKS"
+E 15
+I 15
+LOOP_O=$LOOP_O
+E 15
+E 9
+I 7
+MAIL=$MAIL
+I 15
+MB=$MB
+E 15
+I 10
+MHZ="$MHZ"
+D 11
+FAST="$FAST"
+E 11
+I 11
+D 15
+FASTMEM="$FASTMEM"
+E 15
+I 15
+MOTHERBOARD="$MOTHERBOARD"
+NETWORKS="$NETWORKS"
+I 17
+D 24
+REMOTE="$REMOTE"
+E 24
+E 17
+PROCESSORS="$PROCESSORS"
+I 24
+REMOTE="$REMOTE"
+E 24
+E 15
+SLOWFS="$SLOWFS"
+I 15
+D 24
+DISKS="$DISKS"
+DISK_DESC="$DISK_DESC"
+E 24
+I 24
+SYNC_MAX="$SYNC_MAX"
+E 24
+E 15
+TIMING_O=$TIMING_O
+I 22
+D 24
+VERS=$VERS
+E 24
+I 24
+VERSION=$VERSION
+E 24
+E 22
+D 15
+ENOUGH=$ENOUGH
+LOOP_O=$LOOP_O
+E 15
+E 11
+E 10
+E 7
+EOF
+E 25
+I 25
+C=../bin/$OS/`../scripts/config`
+D 31
+echo DISKS=\"$DISKS\" > $C
+E 31
+I 31
+D 32
+echo BENCHMARK_HARDWARE=\"$BENCHMARK_HARDWARE\" > $C
+echo BENCHMARK_OS=\"$BENCHMARK_OS\" >> $C
+echo DISKS=\"$DISKS\" >> $C
+E 32
+I 32
+echo DISKS=\"$DISKS\" > $C
+E 32
+E 31
+echo DISK_DESC=\"$DISK_DESC\" >> $C
+I 33
+D 36
+echo OUTPUT=\"$OUTPUT\" >> $C
+E 36
+I 36
+echo OUTPUT=$OUTPUT >> $C
+E 36
+E 33
+echo ENOUGH=$ENOUGH >> $C
+echo FASTMEM=\"$FASTMEM\" >> $C
+echo FILE=$FILE >> $C
+echo FSDIR=$FSDIR >> $C
+echo INFO=$INFO >> $C
+I 27
+echo LINE_SIZE=$LINE_SIZE >> $C
+E 27
+echo LOOP_O=$LOOP_O >> $C
+echo MAIL=$MAIL >> $C
+echo MB=$MB >> $C
+echo MHZ=\"$MHZ\" >> $C
+echo MOTHERBOARD=\"$MOTHERBOARD\" >> $C
+echo NETWORKS=\"$NETWORKS\" >> $C
+echo OS=\"$OS\" >> $C
+echo PROCESSORS=\"$PROCESSORS\" >> $C
+echo REMOTE=\"$REMOTE\" >> $C
+echo SLOWFS=\"$SLOWFS\" >> $C
+echo SYNC_MAX=\"$SYNC_MAX\" >> $C
+echo TIMING_O=$TIMING_O >> $C
+I 28
+echo RSH=$RSH >> $C
+echo RCP=$RCP >> $C
+E 28
+echo VERSION=$VERSION >> $C
+I 35
+echo BENCHMARK_HARDWARE=$BENCHMARK_HARDWARE >> $C
+echo BENCHMARK_OS=$BENCHMARK_OS >> $C
+E 35
+I 34
+echo BENCHMARK_SYSCALL=$BENCHMARK_SYSCALL >> $C
+echo BENCHMARK_SELECT=$BENCHMARK_SELECT >> $C
+echo BENCHMARK_PROC=$BENCHMARK_PROC >> $C
+echo BENCHMARK_CTX=$BENCHMARK_CTX >> $C
+echo BENCHMARK_PAGEFAULT=$BENCHMARK_PAGEFAULT >> $C
+echo BENCHMARK_FILE=$BENCHMARK_FILE >> $C
+echo BENCHMARK_MMAP=$BENCHMARK_MMAP >> $C
+echo BENCHMARK_PIPE=$BENCHMARK_PIPE >> $C
+echo BENCHMARK_UNIX=$BENCHMARK_UNIX >> $C
+echo BENCHMARK_UDP=$BENCHMARK_UDP >> $C
+echo BENCHMARK_TCP=$BENCHMARK_TCP >> $C
+echo BENCHMARK_CONNECT=$BENCHMARK_CONNECT >> $C
+echo BENCHMARK_RPC=$BENCHMARK_RPC >> $C
+echo BENCHMARK_HTTP=$BENCHMARK_HTTP >> $C
+echo BENCHMARK_BCOPY=$BENCHMARK_BCOPY >> $C
+echo BENCHMARK_MEM=$BENCHMARK_MEM >> $C
+echo BENCHMARK_OPS=$BENCHMARK_OPS >> $C
+E 34
+E 25
+
+exit 0
+E 2
+I 1
+E 1

@@ -1,0 +1,550 @@
+H26029
+s 00020/00017/00106
+d D 1.21 01/06/19 16:42:06 staelin 22 21
+c Updated the TODO list
+cC
+cHhpli69.hpli.hpl.hp.com
+cK05463
+e
+s 00018/00002/00105
+d D 1.20 00/07/06 15:49:10 staelin 21 20
+c - Update to include new items w/r to parallelism
+cC
+cK32467
+e
+s 00004/00007/00103
+d D 1.19 00/07/05 14:37:16 staelin 20 19
+c - Add new TODO items for "loads" and "bw_udp"
+c - Remove TODO items for "-W <warmup>" and "-N <times>"
+cC
+cK40444
+e
+s 00021/00046/00089
+d D 1.18 00/07/04 14:55:45 staelin 19 18
+c - Update the TODO list to reflect some of the current TODO items
+c - Removed many old and irrelevant or completed TODO items
+cC
+cHhpli8.hpli.hpl.hp.com
+cK56071
+cZ+03:00
+e
+s 00002/00000/00133
+d D 1.17 98/06/30 00:14:08 lm 18 17
+cC
+cHlap
+cK64828
+cZ-07:00
+e
+s 00006/00000/00127
+d D 1.16 98/02/25 10:13:38 lm 17 16
+c *** empty log message ***
+cK63564
+cZ-08:00
+e
+s 00012/00006/00115
+d D 1.15 97/06/25 10:25:01 lm 16 15
+c 64 bit types
+cK45348
+e
+s 00003/00000/00118
+d D 1.14 97/06/13 20:28:08 lm 15 14
+c *** empty log message ***
+cK30809
+e
+s 00003/00000/00115
+d D 1.13 97/06/12 21:30:06 lm 14 13
+c new bench.h macros.
+cK20530
+cZ-07:00
+e
+s 00002/00000/00113
+d D 1.12 96/12/16 12:32:33 lm 13 12
+c *** empty log message ***
+cK09242
+e
+s 00012/00001/00101
+d D 1.11 96/11/13 16:09:37 lm 12 11
+c updates
+cK05122
+e
+s 00040/00000/00062
+d D 1.10 96/11/11 03:36:51 lm 11 10
+c Auto adjusting changes.
+cK49681
+cZ-08:00
+e
+s 00007/00000/00055
+d D 1.9 96/05/21 23:16:12 lm 10 9
+c *** empty log message ***
+cK65140
+cZ-07:00
+e
+s 00003/00000/00052
+d D 1.8 96/01/23 00:10:26 lm 9 8
+c *** empty log message ***
+cK37872
+e
+s 00019/00001/00033
+d D 1.7 96/01/23 00:09:29 lm 8 7
+c *** empty log message ***
+cK26007
+e
+s 00002/00000/00032
+d D 1.6 95/11/03 13:35:16 lm 7 6
+c *** empty log message ***
+cK39105
+e
+s 00003/00000/00029
+d D 1.5 95/03/10 18:26:16 lm 6 5
+c *** empty log message ***
+cK33183
+e
+s 00002/00000/00027
+d D 1.4 94/11/25 16:36:39 lm 5 4
+c *** empty log message ***
+cK22207
+e
+s 00000/00010/00027
+d D 1.3 94/11/25 14:29:33 lm 4 3
+c Fixed a lot of stuff in this list.
+cK16118
+e
+s 00007/00025/00030
+d D 1.2 94/11/23 18:08:14 lm 3 2
+c release.
+cK45979
+e
+s 00055/00000/00000
+d D 1.1 94/11/18 00:49:48 lm 2 1
+c Initial revision
+cK22064
+e
+s 00000/00000/00000
+d D 1.0 94/11/18 00:49:47 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK33874
+cPsrc/TODO
+cR757cb19dbe6b995
+cV4
+cX0x21
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x21
+t
+lmbench src
+T
+I 2
+$Id$
+
+I 18
+D 19
+Time the make.
+E 19
+I 19
+D 20
+Add "-W <warmup>" to each benchmark; this would make the benchmark_parent
+do a usleep(warmup) between receiving the "ready" messages from the
+children and sending the "go" messages to the children.
+
+Add "-N <times>" to each benchmark; this would specify the number of
+time to run the benchmark.
+
+E 20
+Add standard deviation and other statistics calculations to "make stats"
+in results
+
+I 22
+Add flags to various file-related benchmarks bw_file_rd, bw_mmap_rd,
+lat_fcntl.c, lat_fs, lat_mmap, and lat_pagefault, for parallelism
+which selects whether each instance has its own file or shares a
+file.
+
+Figure out how to improve lat_select.  It doesn't really work for
+multi-processor systems.  Linus suggests that we have each process
+do some amount of work, and vary the amount of work until context
+switch times for the producer degrade.  The current architecture
+of lat_select is too synchronous and favors simple hand-off
+scheduling too much.  From Linus.
+
+Look into threads vs. process scaling.  benchmp currently uses
+separate processes (via fork()); some benchmarks such as page
+faults and VM mapping might have very different performance
+for threads vs. processes since Linux (at least) has per-memory
+space locks for many of these things.  From Linus.
+
+E 22
+I 21
+Rewrite scripts/lmbench to use the new "-P <parallelism>" model for
+D 22
+benchmarking parallel performance.  (replace/update the old
+'synchronize' calls)
+E 22
+I 22
+benchmarking parallel performance. 
+[in progress]
+E 22
+
+Write/extend the results processing system/scripts to graph/display/
+process results in the "-P <parallelism>" dimension, and to properly
+handle results with differing parallelism when reporting standard
+results.  The parallelism is stored in the results file as SYNC_MAX.
+
+E 21
+Add "-m <message size>" to networking benchmarks; this would specify
+the number of bytes for each message's payload.  (message size must
+be >= 1)
+[partially complete]
+
+D 22
+Add "cache" benchmark to determine cache sizes (in bytes)
+I 21
+[in progress]
+E 21
+
+Add "line" benchmark to determine cache line size (in bytes)
+I 21
+[in progress]
+E 21
+
+Add "tlb" benchmark to determine effective TLB size (in pages)
+I 21
+[in progress]
+E 21
+I 20
+
+Add "load" benchmark to determine how many loads a CPU can do in parallel
+I 21
+[in progress]
+E 21
+
+E 22
+Add "bw_udp" benchmark to measure UDP bandwidth
+I 21
+[in progress]
+E 21
+E 20
+E 19
+
+E 18
+I 17
+Make a bw_tcp mode that measures bandwidth for each block and graph that
+as offset/bandwidth.
+
+Make the disk stuff autosize such that you get the same number of data
+points regardless of disk size.
+
+E 17
+I 16
+Make sure that all memory referencing benchmarks reference all the
+memory.  So no partial references in the BENCH() macro, it has
+to call something that touches all of it.
+
+E 16
+I 15
+Make all benchmarks use the timing overhead for the loop and all call
+use_result.  So all are in function calls.
+
+E 15
+I 14
+D 16
+Integrate in the GNU os naming scheme for results & bin.  Allow multiple
+targets for mips-sgi-irix-gcc and mips-sgi-irix-cc.
+E 16
+I 16
+D 19
+Integrate in the GNU os naming scheme for results & bin.  
+[done]
+E 16
+
+E 14
+I 13
+Fix teh getsummary to include simple calls.
+
+E 13
+I 12
+Make a "fast" target that does only 128 byte stride mem latency and 
+2 process context switches.
+I 16
+[done]
+E 16
+
+E 12
+I 11
+The loop overhead for bandwidths is too high - make it 128 loads.
+I 12
+D 16
+	[done]
+E 16
+I 16
+[done]
+E 19
+I 19
+Fix the getsummary to include simple calls.
+E 19
+E 16
+E 12
+
+D 21
+Think about the issues of int/long long/double load/stores.  Maybe do them
+all.
+E 21
+I 21
+Think about the issues of int/long/long long/double/long double
+load/stores.  Maybe do them all.  This will (at least) require
+adding a test to scripts/build for the presence of long double
+on this system.
+E 21
+
+Make all results print out bandwidths in powers of 10/sizes in powers of two.
+D 22
+
+D 19
+Make the compiling of the benchmark itself be part of the benchmark.
+
+E 11
+I 10
+memsize needs to be a little more forceful about trying for the memory.
+and should do gettimeofday() around each load.
+I 12
+D 16
+	[dine - run it three times in the script]
+E 16
+I 16
+[done - run it three times in the script]
+E 16
+E 12
+
+E 10
+I 7
+D 12
+Put sleeps in the lat_* client side in a retry loop for the port.
+E 12
+I 12
+Put sleeps in the lat_* client side in a retry loop for the port.  This is 
+in case the other guy hasn't registered yet.
+I 16
+[I think this is OK, I found a bug in lat_rpc]
+E 16
+E 12
+
+E 19
+E 7
+I 6
+Make a version of memory latency that chases N lists.  This is to
+measure multiple outstanding load implementations.
+E 22
+
+I 8
+Make the lat_mem_rd walk in different strides.  Try and make it so that
+you flip back and forth between the same cache line.  So if you assume
+4 byte pointers and 8 byte cache lines, you do
+
+	[ x _ ] [ _ x ] [ x _ ] [ _ x]
+
+such that the stride switches between 4 & 12 bytes.  Make sure this screws
+up HP's prefetch.
+
+E 8
+E 6
+I 5
+D 19
+The lat_fs and lat_pagefault numbers are not being reported yet.
+I 12
+D 16
+	[done]
+E 16
+I 16
+[done]
+E 16
+E 12
+
+E 19
+E 5
+D 3
+Feedback as the script runs.
+E 3
+I 3
+D 4
+I don't think the scripts display pagefault or fs summaries.
+E 3
+
+D 3
+Does lat_connect work?
+E 3
+I 3
+The things that talk over networks and to file systems need to do a 
+better job of explaining what the networks and file systems are.
+E 3
+
+D 3
+Check that file size is right in the benchmarking system.
+E 3
+I 3
+Something that asks for remote host names and log in methods so
+that remote ops can be measured.
+E 3
+
+E 4
+D 3
+Fix the stderr/stdout problems.
+E 3
+I 3
+Documentation on porting.
+E 3
+
+D 3
+Sum the data in the pipe/tcp bw measurements?
+E 3
+I 3
+Check that file size is right in the benchmarking system.
+E 3
+
+D 8
+Compiler version info included in results.
+E 8
+I 8
+Compiler version info included in results.  XXX - do this!
+E 8
+
+Assembler output for the files that need it.
+
+I 8
+D 19
+Get rid of what strings.
+I 12
+D 16
+	[done]
+E 16
+I 16
+[done]
+E 16
+E 12
+
+E 19
+E 8
+D 3
+Cache line size 
+	I think you do this by running loads with strides increasing as
+	long as latency continues to go up.  Once you find the upper range,
+	you know the first number in that range is the cache line size.
+
+E 3
+D 4
+Configure program (autoconf?).
+
+E 4
+memory store latency (complex)
+	Why can't I just use the read one and make it write?
+	Well, because the read one is list oriented and I need to figure
+	out reasonable math for the write case.  The read one is a load
+	per statement whereas the write one will be more work, I think.
+
+D 3
+A benchmarker system that I could just mail the source to and it would run the
+benchmark and send back results.
+
+Check for free disk space.
+
+E 3
+RPC numbers reserved for the benchmark.
+
+Check all the error outputs and make sure they are consistent.
+
+D 3
+Make the results target generate assmebler for the critcial tests
+(mhz, list) and stash that in the Results file.
+
+Document each test. Man pages.
+
+E 3
+D 19
+Each of these tests could take a quick stab at guessing the answer
+and adjust N to match.  For example, the networking latency numbers
+can vary from 400 to 15,000 usecs, depending on the network.
+I 12
+	[done]
+E 12
+
+I 8
+On a similar note, the bandwidth measurements should autosize such that
+they run for at least 100 milliseconds.  Over an 8K to 32MB range.
+I 12
+	[done]
+E 12
+
+E 19
+E 8
+D 3
+Code review each test.  Make sure there is a copyright, a usage message,
+and that it is general clean enough.
+
+Put version number in output of each test.
+
+E 3
+On all the normalized graphs, make sure that they mean the same thing.
+I do not think that the bandwidth measurements are "correct" in this
+sense.
+I 8
+
+Move the k/m postfix routine into timing.c and make it an interface.
+
+Document the timing.c interfaces.
+I 9
+
+Run the whole suite through gcc -Wall and fix all the errors.  Also make
+sure that it compiles and has the right sizes for 64 bit OS.
+I 10
+
+D 19
+Make bw_file_rd & bw_mmap_rd include the cost of opening & mapping the
+file to get an apples to apples comparison.  Also fix it so that they
+run long enough on the smaller sizes.
+I 12
+	[done]
+E 12
+I 11
+
+E 19
+[Mon Jul  1 13:30:01 PDT 1996, after meeting w/ Kevin]
+
+Do the load latency like so
+
+	loop:
+		load	r1
+		{
+		increase the number of nops until they start to make the
+		run time longer - the last one was the memory latency.
+		}
+		use the register
+		{
+		increase the number of nops until they start to make the
+		run time longer - the last one was the cache fill shadow.
+		}
+		repeat
+
+Do the same thing w/ a varying number of loads (& their uses), showing 
+the number of outstanding loads implemented to L1, L2, mem.
+
+Do hand made assembler to get accurate numbers.  Provide C source that 
+mimics the hand made assembler for new machines.
+
+Think about a report format for the hardware stuff that showed the
+numbers as triples L1/L2/mem (or quadruples for alphas).
+
+D 19
+Clock thoughts Fri Jul 12 1996:  I can't count on anything greater than
+10 millisecond accuracy.  I don't want to depend on the counters either.
+That leaves me with the choice of either not doing anything that is less
+than 10 milliseconds, doing it in a loop, or what?
+E 19
+E 11
+E 10
+E 9
+E 8
+E 2
+I 1
+E 1

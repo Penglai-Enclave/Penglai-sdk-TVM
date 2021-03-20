@@ -1,0 +1,17 @@
+!staelin 1035807681 bk-2.1.4b: sfio -i = 0
+!staelin 1035807681 bk-2.1.4b: sfiles -pAC = 0
+!staelin 1035807681 bk-2.1.4b: sfiles -D = 0
+!staelin 1035807681 bk-2.1.4b: parent file://usr/WebPaper/users/staelin/src/LMbench3 = 0
+!staelin 1035807681 bk-2.1.4b: idcache -q = 0
+!staelin 1035807681 bk-2.1.4b: sccscat -h ChangeSet = 0
+!staelin 1035807681 bk-2.1.4b: _keysort = 0
+!staelin 1035807681 bk-2.1.4b: sane = 0
+!staelin 1035807681 bk-2.1.4b: sfind = 0
+!staelin 1035807681 bk-2.1.4b: sfiles = 0
+!staelin 1035807686 bk-2.1.4b: get -s = 0
+!staelin 1035807687 bk-2.1.4b: get -s = 0
+!staelin 1035807687 bk-2.1.4b: get -s = 0
+!staelin 1035807687 bk-2.1.4b: get -s = 0
+!staelin 1035807687 bk-2.1.4b: get -s = 0
+!staelin 1035807687 bk-2.1.4b: sfiles -U -g = 0
+!staelin 1035807687 bk-2.1.4b: prs -hr+ -d$if(:SYMBOL:){:SYMBOL: }:UTC: ../ChangeSet = 0

@@ -1,0 +1,46 @@
+h00281
+s 00001/00001/00006
+d D 1.2 97/06/14 21:10:42 lm 3 2
+c *** empty log message ***
+cC
+cK32083
+cZ-07:00
+e
+s 00007/00000/00000
+d D 1.1 94/11/22 23:19:27 lm 2 1
+c Initial revision
+cK32051
+e
+s 00000/00000/00000
+d D 1.0 94/11/22 23:19:26 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK03830
+cPscripts/README
+cRdb3322f87176643c
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+T
+I 2
+$Id$
+
+This directory contains scripts used to generate or post process lmbench
+output.  You probably do not want to be here or run these by hand, the
+D 3
+Makefiles in ../src and ../Results invoke these.  There are some useful
+E 3
+I 3
+Makefiles in ../src and ../results invoke these.  There are some useful
+E 3
+scripts here, however, in particular the graphing scripts.  If you are
+interested in groff graphing tools, check out ../doc/*graph.1.
+E 2
+I 1
+E 1

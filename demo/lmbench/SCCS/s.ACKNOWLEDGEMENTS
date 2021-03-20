@@ -1,0 +1,107 @@
+H53642
+s 00077/00000/00000
+d D 1.1 01/06/19 16:40:47 staelin 2 1
+cC
+cF1
+cK24967
+cO-rw-rw-r--
+e
+s 00000/00000/00000
+d D 1.0 01/06/19 16:40:47 staelin 1 0
+c BitKeeper file /usr/WebPaper/users/staelin/src/LMbench3/ACKNOWLEDGEMENTS
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHhpli69.hpli.hpl.hp.com
+cK20383
+cPACKNOWLEDGEMENTS
+cRa39f2fd799c2f0e4
+cV4
+cX0xb1
+cZ+03:00
+e
+u
+U
+f e 0
+f x 0xb1
+t
+T
+I 2
+LMbench was originally developed by Larry McVoy while he worked
+at Sun Microsystems.  Larry continued development while working
+at Silicon Graphics, and was joined by Carl Staelin, who works
+for Hewlett-Packard Laboratories.
+
+LMbench would not be the successful cross-platform benchmark
+that it is today without the efforts and assistance of a wide
+range of people.  From volunteers who run it on various hardware
+and report bugs, to managers who provide financial and other
+support, to peers and colleagues who request features or
+provide feedback on design elements.  All such help has been
+critical to making LMbench a success.
+
+Below is a partial list of all those people who helped support
+the development of LMbench in one form or other, such as
+benchmark suggestions, bug reports, and so forth.  All omissions
+are accidental, and if your name was not included, please accept
+our humble apologies.  
+
+The people who have helped LMbench include, in no particular 
+order: 
+
+Paul Borrill,
+John Mashey, 
+Neal Nuckolls, 
+Satya Nishtala, 
+Linus Torvalds,
+Olli Savia, 
+David Mosberger, 
+Duc Vianney, 
+David Miller,
+Stephan Somogyi, 
+Wayne Scott, 
+Marc Fleischmann,
+Mark Culotta,
+Joel Berman,
+Christian Bau,
+Achim Gratz,
+David Wilson,
+Lars-Eke Eriksson,
+Steve Piatz,
+Scott Schwartz,
+Kevin Normoyle,
+John Fort,
+Brian Whitney,
+Richard Littin,
+Hai Vo-Ba,
+Fred Douglis,
+Udi Manber,
+Dirk Twiehaus,
+Tim Prince,
+Frans Kaashoek,
+Bil Long,
+Josh Fisher,
+Richard Henderson,
+Brad Knowles,
+Philip Roth,
+Sam Roberts,
+Dejan Milojicic,
+Ratnakar Tiwari,
+Bruce Chapman,
+Robert G. Brown,
+Ralf Baechle,
+Chris Ruemmler,
+Andy Glew,
+Tim Prince,
+Nelson H. F. Beebe,
+Len Brown,
+Dan Truong,
+James Riden,
+Lev Iserovich,
+Michael A. Julier,
+Ramya Vijay,
+Brian Whitney,
+and
+David T. Wang.
+
+E 2
+I 1
+E 1

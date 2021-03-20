@@ -1,0 +1,176 @@
+h37525
+s 00011/00015/00077
+d D 1.2 00/10/16 17:13:54 staelin 3 2
+c - Update man pages to match current status
+cC
+cHhpli8.hpli.hpl.hp.com
+cK48435
+cZ+02:00
+e
+s 00092/00000/00000
+d D 1.1 98/05/07 16:00:26 staelin 2 1
+c results.3 created on 98/05/07 16:00:26 by staelin@hpisc8.lempel
+cC
+cK32486
+cPdoc/results.3
+e
+s 00000/00000/00000
+d D 1.0 98/05/07 09:00:25 staelin 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHhpisc8.lempel
+cK06737
+cP/users/staelin/src/lmbench/doc/results.3
+cR95a37785bda67a80
+cV4
+cX0x21
+cZ-07:00
+e
+u
+U
+f e 0
+f x 0x21
+t
+T
+I 2
+.\"
+.\" @(#)results.man	2.0 98/04/24
+.\"
+.\"   results - lmbench results subsystem
+.\"
+.\"   Copyright (C) 1998  Carl Staelin and Larry McVoy
+.\"   E-mail: staelin@hpl.hp.com
+.\"
+.TH "lmbench result management" 3 "$Date:$" "(c)1998 Larry McVoy" "LMBENCH"
+D 3
+
+E 3
+.SH "NAME"
+insertinit, insertsort, get_results, set_results, save_median, save_minimum
+	\- the lmbench results subsystem
+D 3
+
+E 3
+.SH "SYNOPSIS"
+.B "#include ``lmbench.h''"
+.LP
+.B "#define TRIES 11"
+.LP
+D 3
+.B "typedef struct { int N; uint64 u[TRIES], n[TRIES] } result_t;"
+E 3
+I 3
+.B "typedef struct { uint64 u, n } value_t;"
+.LP
+.B "typedef struct { int N; value_t v[TRIES]; } result_t;"
+.LP
+.B "int		sizeof_result(int N)"
+E 3
+.LP
+.B "void	insertinit(result_t *r)"
+.LP
+.B "void	insertsort(uint64 u, uint64 n, result_t *r)"
+.LP
+D 3
+.B "void	get_results(result_t *r)"
+E 3
+I 3
+.B "result_t*	get_results()"
+E 3
+.LP
+.B "void	set_results(result_t *r)"
+.LP
+.B "void	save_median()"
+.LP
+.B "void	save_minimum()"
+D 3
+
+E 3
+.SH "DESCRIPTION"
+These routines provide some simple data management functionality.
+In most cases, you will not need these routines.
+.LP
+The current timing results can be accessed using the routines in
+timing(3).  The current timing results may be modified using 
+.B save_median 
+and 
+.BR save_minimum .  
+D 3
+
+E 3
+I 3
+.TP
+.B "int		sizeof_result(int N)"
+returns the number of bytes to allocate for a result_t which contains
+.I N
+results.
+E 3
+.TP
+.B "void	insertinit(result_t *r)"
+initializes the results array.
+D 3
+
+E 3
+.TP
+.B "void	insertsort(uint64 u, uint64 n, result_t *r)"
+insert 
+.I u 
+and 
+.I n 
+into 
+.IR r .  
+Results are sorted in decreasing order by 
+.IR u/n .
+D 3
+
+E 3
+.TP
+.B "void	get_results(result_t *r)"
+get a copy of the current results.
+D 3
+
+E 3
+.TP
+.B "void	set_results(result_t *r)"
+save a copy 
+.I r 
+as the current results.
+D 3
+
+E 3
+.TP
+.B "void	save_median()"
+sets the timing results to the median of the current results.
+D 3
+
+E 3
+.TP
+.B "void	save_minimum()"
+sets the timing restuls to the minimum of the current results.
+D 3
+
+E 3
+.LP
+Results are sorted in ascending order, so the minimum value is at 
+.B TRIES-1
+and the maximum value is at
+.BR 0 .
+D 3
+
+E 3
+.SH "FUTURES"
+Development of \fIlmbench\fR is continuing.  
+D 3
+
+E 3
+.SH "SEE ALSO"
+lmbench(8), lmbench(3), reporting(3), results(3)
+D 3
+
+E 3
+.SH "AUTHOR"
+Carl Staelin and Larry McVoy
+.PP
+Comments, suggestions, and bug reports are always welcome.
+E 2
+I 1
+E 1

@@ -1,0 +1,61 @@
+h64293
+s 00000/00000/00025
+d D 1.2 00/01/31 15:29:43 lm 3 2
+c Change mode to -rwxrwxr-x
+cC
+cK06517
+cO-rwxrwxr-x
+cZ-08:00
+e
+s 00025/00000/00000
+d D 1.1 98/07/01 00:03:11 lm 2 1
+c version created on 98/07/01 00:03:11 by lm
+cC
+cK33818
+e
+s 00000/00000/00000
+d D 1.0 98/07/01 00:03:10 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK04161
+cPscripts/version
+cR86f4c240e0ad9f12
+cV4
+cX0x21
+cZ-07:00
+e
+u
+U
+f e 0
+f x 0x21
+t
+T
+I 2
+#!/bin/sh
+
+# %W% %@%
+
+F="no_such_file"
+if [ -f version.h ]
+then	F=version.h
+else	if [ -f ../src/version.h ]
+	then	F=../src/version.h
+	else	if [ -f src/version.h ]
+		then	F=src/version.h
+		fi
+	fi
+fi
+if [ -f $F ]
+then	VERS=`egrep 'MAJOR|MINOR' $F | awk '{print $3}'` 
+	set `echo $VERS`
+	if [ $2 -lt 0 ] 
+	then	VERS=`echo $1$2 | sed s/-/alpha/`
+	else	VERS=`echo $VERS |sed 's/ /./'`
+	fi
+	VERS=lmbench-$VERS
+else	VERS=lmench-2-something
+fi
+echo $VERS
+E 2
+I 1
+E 1

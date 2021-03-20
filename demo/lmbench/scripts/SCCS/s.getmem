@@ -1,0 +1,172 @@
+h41983
+s 00000/00000/00069
+d D 1.7 00/01/31 15:29:41 lm 8 7
+c Change mode to -rwxrwxr-x
+cC
+cK06380
+cO-rwxrwxr-x
+e
+s 00002/00002/00067
+d D 1.6 97/10/31 18:00:01 lm 7 6
+c New interface with results/Makefile
+cC
+cK33755
+cZ-08:00
+e
+s 00002/00001/00067
+d D 1.5 97/07/12 18:08:35 lm 6 5
+c new naming mecahnism
+cK33304
+e
+s 00001/00000/00067
+d D 1.4 97/06/14 21:12:23 lm 5 4
+c don'\''t know why I needed this but...
+cK29777
+e
+s 00006/00003/00061
+d D 1.3 96/05/21 23:11:26 lm 4 3
+c perl5
+cK28583
+cZ-07:00
+e
+s 00001/00000/00063
+d D 1.2 94/11/25 16:39:33 lm 3 2
+c ignore Id
+cK26463
+e
+s 00063/00000/00000
+d D 1.1 94/11/22 23:16:48 lm 2 1
+c Initial revision
+cK25245
+e
+s 00000/00000/00000
+d D 1.0 94/11/22 23:16:47 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK04039
+cPscripts/getmem
+cRef6b575d2ae3b853
+cV4
+cX0x23
+cZ-08:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+lmbench1.0 release
+T
+I 2
+
+# Extract the memory latency graph data from lmbench result files.
+# 
+# Hacked into existence by Larry McVoy (lm@sun.com now lm@sgi.com).
+# Copyright (c) 1994 Larry McVoy.  GPLed software.
+# $Id$
+D 4
+eval "exec perl -Ss $0 $*"
+E 4
+I 4
+D 7
+eval 'exec perl -Ssw $0 "$@"'
+E 7
+I 7
+eval 'exec perl -Ss $0 "$@"'
+E 7
+E 4
+	if 0;
+
+foreach $file (@ARGV) {
+D 7
+	warn "$file\n";
+E 7
+	open(FD, $file);
+D 6
+	$file =~ s|.*/||;
+E 6
+I 6
+	$file =~ s|/|-|;
+E 6
+	while (<FD>) {
+		chop;
+I 6
+		next if m|scripts/lmbench: /dev/tty|;
+E 6
+		if (/^\[lmbench/) {
+D 4
+			split;
+E 4
+I 4
+			@_ = split;
+E 4
+			if ($_[3] eq "SunOS") {
+				$_[3] .= "-$_[5]";
+			}
+			$uname = "@_";
+		}
+		if (/Mhz/) {
+			$mhz = $_;
+		}
+		if (/^Memory load latency/) {
+			@info = &getinfo($uname, $mhz);
+			($f = $file) =~ s|.*/||;
+I 7
+			print "tmp/mem.$f\n";
+E 7
+			open(OUT, ">tmp/mem.$f");
+			print OUT "\"%X Array size\n\"%Y Latency in nanoseconds\n";
+			print OUT
+			    "\"%T $file $info[3] $info[$#info] memory latencies\n";
+			while (<FD>) {
+I 3
+				next if /\$Id/;
+I 5
+				next if /^\[/;
+E 5
+E 3
+			    	print OUT;
+			}
+			close(OUT);
+			last;
+		}
+	}
+}
+I 4
+exit 0;
+E 4
+
+# Try and create sensible names from uname -a output
+sub getinfo
+{
+	local(@info);
+	local($name);
+D 4
+	local($mhz) = sprintf("%.0f", $_[1]);
+E 4
+I 4
+	local($mhz) = $_[1];
+E 4
+
+I 4
+	$mhz =~ s/\..*//;
+	$mhz =~ s/ .*//;
+E 4
+	@info = split(/\s+/, $_[0]);
+	$name = pop(@info);
+	chop($name);
+	if ($name eq "mips") {
+		$name = "$info[$#info]@$mhz";
+	} elsif ($_[0] =~ /HP-UX/) {
+		$name = "$info[7]@$mhz";
+	} elsif ($_[0] =~ /SunOS/) {
+		$name = "$info[7]@$mhz";
+	} else {
+		$name .= "@$mhz";
+	}
+	push(@info, $name);
+	@info;
+}
+E 2
+I 1
+E 1

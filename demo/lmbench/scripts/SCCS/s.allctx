@@ -1,0 +1,122 @@
+h06637
+s 00000/00000/00071
+d D 1.3 00/01/31 15:29:41 lm 4 3
+c Change mode to -rwxrwxr-x
+cC
+cK06389
+cO-rwxrwxr-x
+cZ-08:00
+e
+s 00004/00001/00067
+d D 1.2 96/05/21 23:09:08 lm 3 2
+c exit status
+cC
+cK34192
+e
+s 00068/00000/00000
+d D 1.1 95/10/25 09:52:01 lm 2 1
+c Initial revision
+cK30624
+e
+s 00000/00000/00000
+d D 1.0 95/10/25 09:52:00 lm 1 0
+cBlm@lm.bitmover.com|ChangeSet|20000131225335|47351|--LMBENCH--
+cHlm.bitmover.com
+cK04044
+cPscripts/allctx
+cRcc93e1fcf21cfdd5
+cV4
+cX0x23
+cZ-07:00
+e
+u
+U
+f e 0
+f x 0x23
+t
+paper stuff.
+T
+I 2
+
+# Extract the context switching information from lmbench result files.
+# Usage: getctx file file....
+#
+# Hacked into existence by Larry McVoy (lm@sun.com now lm@sgi.com).
+# Copyright (c) 1994 Larry McVoy.  GPLed software.
+# $Id$
+D 3
+eval "exec perl -Ss $0 $*"
+E 3
+I 3
+eval 'exec perl -Ss $0 "$@"'
+E 3
+	if 0;
+
+$first = 1;
+foreach $file (@ARGV) {
+	open(FD, $file);
+I 3
+	$file =~ s|.*/||;
+	$file =~ s/\.\d+//;
+E 3
+	while (<FD>) {
+		chop;
+		if (/^\[lmbench/) {
+			split;
+			if ($_[3] eq "SunOS") {
+				$_[3] .= "-$_[5]";
+			}
+			$uname = "@_";
+		}
+		if (/Mhz/) {
+			$mhz = $_;
+		}
+		if (/^.size=/) {
+			s/size/Process size/;
+			s/ ovr/\toverhead/;
+			@info = &getinfo($uname, $mhz);
+			($f = $file) =~ s|.*/||;
+			print "\n" unless $first;
+			$first = 0;
+			print "%T $info[3] $info[$#info]Mhz\n";
+			print "$_\n";
+			while (<FD>) {
+				last if /^Null/ || /^Pipe/ || /^Memor/;
+				next if /\$Id/;
+				s/ ovr/\toverhead/;
+				s/size/Process size/;
+			    	print ;
+			}
+			last;
+		}
+	}
+}
+I 3
+exit 0;  
+E 3
+
+# Try and create sensible names from uname -a output
+sub getinfo
+{
+	local(@info);
+	local($name);
+	local($mhz) = sprintf("%.0f", $_[1]);
+
+	@info = split(/\s+/, $_[0]);
+	$name = pop(@info);
+	chop($name);
+	if ($name eq "mips") {
+		$name = "$info[$#info]@$mhz";
+	} elsif ($_[0] =~ /HP-UX/) {
+		$name = "$info[7]@$mhz";
+	} elsif ($_[0] =~ /SunOS/) {
+		$name = "$info[7]@$mhz";
+	} else {
+		$name .= "@$mhz";
+	}
+	push(@info, $name);
+	@info;
+}
+E 2
+I 1
+E 1
