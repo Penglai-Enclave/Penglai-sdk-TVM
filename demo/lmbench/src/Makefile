@@ -23,7 +23,8 @@ SHELL=/bin/sh
 
 CC = `../scripts/compiler`
 MAKE = `../scripts/make`
-AR = ar
+#AR = ar
+AR = $(MULTILIB_TOOLCHAIN)/riscv64-unknown-linux-gnu-ar
 ARCREATE = cr
 BASE=/usr/local		# base of installation location
 O= ../bin/unknown
@@ -47,7 +48,7 @@ COMPILE=$(CC) $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 INCS =	bench.h lib_mem.h lib_tcp.h lib_udp.h stats.h timing.h
 
-SRCS =  bw_file_rd.c bw_mem.c bw_mmap_rd.c bw_pipe.c bw_tcp.c bw_udp.c	\
+#SRCS =  bw_file_rd.c bw_mem.c bw_mmap_rd.c bw_pipe.c bw_tcp.c bw_udp.c	\
 	bw_unix.c							\
 	cache.c clock.c disk.c enough.c flushdisk.c getopt.c hello.c	\
 	lat_connect.c lat_ctx.c	lat_fcntl.c lat_fifo.c lat_fs.c 	\
@@ -62,7 +63,22 @@ SRCS =  bw_file_rd.c bw_mem.c bw_mmap_rd.c bw_pipe.c bw_tcp.c bw_udp.c	\
 	bench.h lib_debug.h lib_tcp.h lib_udp.h lib_unix.h names.h 	\
 	stats.h timing.h version.h
 
-EXES =	$O/bw_file_rd $O/bw_mem $O/bw_mmap_rd $O/bw_pipe $O/bw_tcp 	\
+SRCS =  bw_file_rd.c bw_mem.c bw_mmap_rd.c bw_pipe.c bw_tcp.c bw_udp.c	\
+	bw_unix.c							\
+	cache.c clock.c enough.c getopt.c hello.c	\
+	lat_connect.c lat_ctx.c	lat_fcntl.c lat_fifo.c lat_fs.c 	\
+	lat_mem_rd.c lat_mmap.c lat_ops.c lat_pagefault.c lat_pipe.c 	\
+	lat_proc.c lat_rpc.c lat_select.c lat_sig.c lat_syscall.c	\
+	lat_tcp.c lat_udp.c lat_unix.c lat_unix_connect.c lat_sem.c	\
+	lat_usleep.c 							\
+	lib_debug.c lib_mem.c lib_stats.c lib_tcp.c lib_timing.c 	\
+	lib_udp.c lib_unix.c						\
+	line.c lmdd.c lmhttp.c par_mem.c par_ops.c loop_o.c memsize.c 	\
+	mhz.c msleep.c rhttp.c seek.c timing_o.c tlb.c stream.c		\
+	bench.h lib_debug.h lib_tcp.h lib_udp.h lib_unix.h names.h 	\
+	stats.h timing.h version.h
+
+#EXES =	$O/bw_file_rd $O/bw_mem $O/bw_mmap_rd $O/bw_pipe $O/bw_tcp 	\
 	$O/bw_unix $O/hello						\
 	$O/lat_select $O/lat_pipe $O/lat_rpc $O/lat_syscall $O/lat_tcp	\
 	$O/lat_udp $O/lat_mmap $O/mhz $O/lat_proc $O/lat_pagefault	\
@@ -73,6 +89,19 @@ EXES =	$O/bw_file_rd $O/bw_mem $O/bw_mmap_rd $O/bw_pipe $O/bw_tcp 	\
 	$O/lat_fcntl $O/disk $O/lat_unix_connect $O/flushdisk		\
 	$O/lat_ops $O/line $O/tlb $O/par_mem $O/par_ops 		\
 	$O/stream 
+
+EXES =	$O/bw_file_rd $O/bw_mem $O/bw_mmap_rd $O/bw_pipe $O/bw_tcp 	\
+	$O/bw_unix $O/hello						\
+	$O/lat_select $O/lat_pipe $O/lat_rpc $O/lat_syscall $O/lat_tcp	\
+	$O/lat_udp $O/lat_mmap $O/mhz $O/lat_proc $O/lat_pagefault	\
+	$O/lat_connect $O/lat_fs $O/lat_sig $O/lat_mem_rd $O/lat_ctx	\
+	$O/lat_sem 							\
+	$O/memsize $O/lat_unix $O/lmdd $O/timing_o $O/enough		\
+	$O/msleep $O/loop_o $O/lat_fifo $O/lmhttp $O/lat_http		\
+	$O/lat_fcntl $O/lat_unix_connect		\
+	$O/lat_ops $O/line $O/tlb $O/par_mem $O/par_ops 		\
+	$O/stream 
+
 OPT_EXES=$O/lat_dram_page $O/lat_usleep $O/cache 
 
 MAN1 =	lmdd.1 $D/bargraph.1 $D/graph.1 $D/pgraph.1 $D/rccs.1
@@ -92,8 +121,8 @@ LIBOBJS= $O/lib_tcp.o $O/lib_udp.o $O/lib_unix.o $O/lib_timing.o 	\
 	$O/lib_mem.o $O/lib_stats.o $O/lib_debug.o $O/getopt.o
 
 lmbench: $(UTILS)
-	@env CFLAGS=-O MAKE="$(MAKE)" MAKEFLAGS="$(MAKEFLAGS)" ../scripts/build all
-	-@env CFLAGS=-O MAKE="$(MAKE)" MAKEFLAGS="-k $(MAKEFLAGS)" ../scripts/build opt
+	@env CFLAGS="-O -static" MAKE="$(MAKE)" MAKEFLAGS="$(MAKEFLAGS)" ../scripts/build all
+	-@env CFLAGS="-O -static" MAKE="$(MAKE)" MAKEFLAGS="-k $(MAKEFLAGS)" ../scripts/build opt
 
 results: lmbench
 	@../scripts/config-run
@@ -117,7 +146,7 @@ os: lmbench
 	@BENCHMARK_HARDWARE=NO  BENCHMARK_OS=YES ../scripts/results
 
 install: lmbench
-	@env CFLAGS=-O MAKE="$(MAKE)"  MAKEFLAGS="$(MAKEFLAGS)" ../scripts/build install-target
+	@env CFLAGS="-O -static" MAKE="$(MAKE)"  MAKEFLAGS="$(MAKEFLAGS)" ../scripts/build install-target
 
 install-target:
 	if [ ! -d $(BASE) ]; then mkdir $(BASE); fi
@@ -141,10 +170,10 @@ all: $(EXES)
 opt: $(OPT_EXES)
 
 Wall:
-	@env CFLAGS="-Wall -ansi" MAKE="$(MAKE)" MAKEFLAGS="$(MAKEFLAGS)" ../scripts/build all
+	@env CFLAGS="-static -Wall -ansi" MAKE="$(MAKE)" MAKEFLAGS="$(MAKEFLAGS)" ../scripts/build all
 
 debug:
-	@env CFLAGS=-g MAKE="$(MAKE)" MAKEFLAGS="$(MAKEFLAGS)" ../scripts/build all
+	@env CFLAGS="-g -static" MAKE="$(MAKE)" MAKEFLAGS="$(MAKEFLAGS)" ../scripts/build all
 
 bk.ver: ../SCCS/s.ChangeSet
 	rm -f bk.ver
