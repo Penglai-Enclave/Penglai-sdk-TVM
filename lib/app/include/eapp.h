@@ -51,6 +51,7 @@ int eapp_unmap(void* vaddr, unsigned long size);
 void* sbrk(long size);
 
 int eapp_return_relay_page();
+unsigned long split_mem_region(unsigned long mem_addr, unsigned long mem_size, unsigned long split_addr);
 
 unsigned long acquire_enclave(char* name);
 unsigned long get_caller_id();
