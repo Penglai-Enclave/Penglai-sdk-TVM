@@ -24,6 +24,8 @@
  */
 #include "stress-ng.h"
 
+#define DO_ATOMIC_OPS(type, var)			{}
+/*
 #define DO_ATOMIC_OPS(type, var)			\
 {							\
 	type tmp = stress_mwc64();			\
@@ -92,6 +94,7 @@
 	__atomic_fetch_nand(var, 128, __ATOMIC_ACQUIRE);\
 	__atomic_clear(var, __ATOMIC_RELAXED);		\
 }
+*/
 
 static const stress_help_t help[] = {
 	{ NULL,	"atomic",	"start N workers exercising GCC atomic operations" },

@@ -20,7 +20,7 @@ VERSION=0.11.07
 #
 # Codename "synthetic system strainer"
 #
-
+CC=$(MULTILIB_TOOLCHAIN)/riscv64-unknown-linux-gnu-gcc
 CFLAGS += -Wall -Wextra -DVERSION='"$(VERSION)"' -O2 -std=gnu99
 
 #
@@ -48,6 +48,7 @@ endif
 #
 # Static flags, only to be used when using GCC
 #
+STATIC = 1
 ifeq ($(STATIC),1)
 LDFLAGS += -static -z muldefs
 CFLAGS += -DBUILD_STATIC
