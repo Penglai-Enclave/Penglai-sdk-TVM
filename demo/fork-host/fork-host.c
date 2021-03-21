@@ -29,6 +29,7 @@ void* create_enclave(void* args0)
   
   printf("host:%d: enclave run eid %lx\n", i, eid);
   struct PLenclave* enclave = malloc(sizeof(struct PLenclave)); 
+  memset(enclave, 0, sizeof(struct PLenclave));
   enclave->fd = fd;
   enclave->user_param.eid = eid;
   enclave->user_param.shmid = shmid;
