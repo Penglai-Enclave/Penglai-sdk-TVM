@@ -1,0 +1,5 @@
+image-process
+*.dump
+*.o
+*.S
+serverless_test/*

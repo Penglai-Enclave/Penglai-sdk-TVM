@@ -6,6 +6,7 @@ all:
 	make -C mem
 	make -C IPC
 	make -C FS
+	make -C image-process
 
 	#CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  mphost_normal
 
@@ -17,4 +18,4 @@ clean:
 	make -C mem clean
 	make -C IPC clean
 	make -C FS clean
-
+	make -C image-process clean
