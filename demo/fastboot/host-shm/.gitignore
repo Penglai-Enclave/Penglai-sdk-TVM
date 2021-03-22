@@ -1,0 +1,5 @@
+hello
+host-shm
+*.dump
+*.o
+*.S

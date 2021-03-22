@@ -1,3 +1,5 @@
+CC = $(MULTILIB_TOOLCHAIN)/riscv64-unknown-linux-gnu-gcc
+
 all:
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  server
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  server1

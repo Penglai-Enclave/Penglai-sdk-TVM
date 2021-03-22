@@ -1,0 +1,5 @@
+small-demo
+*.o
+*.S
+*.s
+*.dump

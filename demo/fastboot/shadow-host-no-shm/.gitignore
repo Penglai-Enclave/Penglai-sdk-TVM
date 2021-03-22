@@ -1,0 +1,4 @@
+shadow-host-no-shm
+*.dump
+*.o
+*.S
