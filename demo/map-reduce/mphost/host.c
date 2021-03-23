@@ -39,7 +39,8 @@ void* create_enclave(void* args0)
   int ii = args->i;
   int ret = 0;
   int fd = args->fd;
-  printf("host:%d:begin create the thread\n", ii);
+  //commented by luxu
+  //printf("host:%d:begin create the thread\n", ii);
   struct PLenclave* enclave = malloc(sizeof(struct PLenclave));
   memset(enclave, 0, sizeof(struct PLenclave));
   enclave->fd = fd;
@@ -58,7 +59,8 @@ void* create_enclave(void* args0)
   map_end = read_cycle();
   free(enclave);
 
-  printf("host:%d:before exit thread \n",ii);
+  //commented by luxu
+  //printf("host:%d:before exit thread \n",ii);
   pthread_exit((void*)0);
 }
 

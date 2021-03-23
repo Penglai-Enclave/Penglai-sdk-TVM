@@ -1128,7 +1128,7 @@ int aes()
 	aes_decrypt_deinit(rk2);
 
 	/* compare */
-	eapp_print("%d\n", memcmp(pt1, pt2, DATA_SIZE));
+	//eapp_print("%d\n", memcmp(pt1, pt2, DATA_SIZE));
 	free(pt1);
 	free(ct);
 	free(pt2);
@@ -1139,6 +1139,15 @@ int aes()
 int EAPP_ENTRY main() {
   unsigned long * args;
   EAPP_RESERVE_REG;
+
+  unsigned long start_time;
+  unsigned long end_time;
+  asm volatile("rdcycle %0" : "=r"(start_time));
+
   aes();
+  
+  asm volatile("rdcycle %0" : "=r"(end_time));
+  eapp_print("aes finished in %ld cycles.\n", end_time - start_time);
+
   EAPP_RETURN(0);
 }

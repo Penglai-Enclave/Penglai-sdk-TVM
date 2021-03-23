@@ -445,9 +445,16 @@ int EAPP_ENTRY main()
     unsigned long * args;
     EAPP_RESERVE_REG;
 
-	Proc0();
+    unsigned long start_time;
+    unsigned long end_time;
+    asm volatile("rdcycle %0" : "=r"(start_time));
 
-	EAPP_RETURN(0);
+    Proc0();
+
+    asm volatile("rdcycle %0" : "=r"(end_time));
+    eapp_print("dhrystone finished in %ld cycles.\n", end_time - start_time);
+
+    EAPP_RETURN(0);
 }
 
 /*

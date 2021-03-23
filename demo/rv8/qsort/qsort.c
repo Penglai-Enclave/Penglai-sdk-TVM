@@ -186,9 +186,13 @@ int compare (const void *a, const void *b)
 }
 
 int EAPP_ENTRY main()
-{
+{ 
     unsigned long * args;
     EAPP_RESERVE_REG;
+  
+    unsigned long start_time;
+    unsigned long end_time;
+    asm volatile("rdcycle %0" : "=r"(start_time));
 
 	int *arr = malloc(ARRAY_SIZE * sizeof(int));
 	int val = 1;
@@ -197,7 +201,10 @@ int EAPP_ENTRY main()
 		val = ((val * 8191) << 7) ^ val;
 	}
 	qsort(arr, ARRAY_SIZE, sizeof(int), compare);
-	eapp_print("%u\n", arr[ARRAY_SIZE-1]);
+	//eapp_print("%u\n", arr[ARRAY_SIZE-1]);
+  
+    asm volatile("rdcycle %0" : "=r"(end_time));
+    eapp_print("qsort finished in %ld cycles.\n", end_time - start_time);
 
     EAPP_RETURN(0);
 }

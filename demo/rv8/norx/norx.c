@@ -507,7 +507,14 @@ int EAPP_ENTRY main() {
   unsigned long * args;
   EAPP_RESERVE_REG;
 
+  unsigned long start_time;
+  unsigned long end_time;
+  asm volatile("rdcycle %0" : "=r"(start_time));
+
   norx();
+  
+  asm volatile("rdcycle %0" : "=r"(end_time));
+  eapp_print("norx finished in %ld cycles.\n", end_time - start_time);
 
   EAPP_RETURN(0);
 }
