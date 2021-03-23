@@ -6,7 +6,7 @@ int EAPP_ENTRY main(){
   unsigned long * args;
   EAPP_RESERVE_REG;
 
-  eapp_print("caller begin to run\n");
+  eapp_print("caller-enclave begin to run\n");
 
   int run_server1 = 1;
   char server_name[16];
@@ -38,8 +38,8 @@ int EAPP_ENTRY main(){
 
   unsigned long IPC1_start;
   asm volatile("rdcycle %0" : "=r"(IPC1_start));
+  eapp_print("[TEST] IPC 1 start. Current cycle:%ld.\n", IPC1_start);
   call_enclave(server_handle, &call_arg);
-  eapp_print("[TEST] IPC 1 start %ld\n", IPC1_start);
   
   if(call_arg.req_vaddr)
   {
@@ -49,7 +49,8 @@ int EAPP_ENTRY main(){
     {
       sum += nums[i];
     }
-    eapp_print("caller: read req_vaddr after calling server:0x%lx\n", sum);
+    //commented by luxu
+    //eapp_print("caller: read req_vaddr after calling server:0x%lx\n", sum);
   }
 
   if(call_arg.resp_vaddr)
@@ -60,12 +61,16 @@ int EAPP_ENTRY main(){
     {
       sum += nums[i];
     }
-    eapp_print("caller: read resp_vaddr after calling server:0x%lx\n", sum);
+    //commented by luxu
+    //eapp_print("caller: read resp_vaddr after calling server:0x%lx\n", sum);
   }
 
+  /*
   if(run_server1)
     eapp_print("caller: get server1 retval:0x%lx\n", call_arg.resp_val);
   else
     eapp_print("caller: get server retval:0x%lx\n", call_arg.resp_val);
+    */
+
   EAPP_RETURN(0);
 }

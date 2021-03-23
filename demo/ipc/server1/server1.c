@@ -6,11 +6,11 @@ int EAPP_ENTRY main(){
   EAPP_RESERVE_REG;
   unsigned long IPC1_end;
   asm volatile("rdcycle %0" : "=r"(IPC1_end));
-  eapp_print("[TEST] IPC 1 end %ld\n", IPC1_end);
+  eapp_print("[TEST] IPC 1 end. Current cycle:%ld.\n", IPC1_end);
   unsigned long arg0 = args[10];
   void* vaddr = (void*)args[11];
   unsigned long size = args[12];
-  eapp_print("server1 begin to run\n");
+  eapp_print("server-enclave1 begin to run\n");
 
   unsigned long sum = arg0;
   if(vaddr)
@@ -27,7 +27,8 @@ int EAPP_ENTRY main(){
   strcpy(server_name, "test-server");
   unsigned long server_handle = acquire_enclave(server_name);
   struct call_enclave_arg_t call_arg;
-  eapp_print("server_handle:0x%lx\n", server_handle);
+  //commented by luxu
+  //eapp_print("server_handle:0x%lx\n", server_handle);
   if(server_handle == -1UL)
   {
     call_arg.resp_val = -1;
@@ -42,10 +43,11 @@ int EAPP_ENTRY main(){
 
   unsigned long IPC2_start;
   asm volatile("rdcycle %0" : "=r"(IPC2_start));
+  eapp_print("[TEST] IPC 2 start. Current cycle: %ld.\n", IPC2_start);
   call_enclave(server_handle, &call_arg);
-  eapp_print("[TEST] IPC 2 start %ld\n", IPC2_start);
 
-  eapp_print("server1: read req_vaddr:0x%lx\n", sum);
+  //commented by luxu
+  //eapp_print("server1: read req_vaddr:0x%lx\n", sum);
 
   if(call_arg.resp_vaddr)
   {
@@ -56,10 +58,12 @@ int EAPP_ENTRY main(){
     {
       sum += nums[i];
     }
-    eapp_print("server1: read resp_vaddr:0x%lx\n", sum);
+    //commented by luxu
+    //eapp_print("server1: read resp_vaddr:0x%lx\n", sum);
   }
 
   call_arg.resp_val = 3;
-  eapp_print("server1 is exiting with retval:0x%lx\n", 3);
+  //commented by luxu
+  //eapp_print("server1 is exiting with retval:0x%lx\n", 3);
   SERVER_RETURN(&call_arg);
 }

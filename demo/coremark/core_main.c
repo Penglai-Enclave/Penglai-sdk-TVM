@@ -406,19 +406,26 @@ MAIN_RETURN_TYPE coremark_main(int argc, char *argv[]) {
 #endif
 	/* And last call any target specific code for finalizing */
 	portable_fini(&(results[0].port));
-
-	EAPP_RETURN(MAIN_RETURN_VAL);
 }
 
 void trampo(){
 	int argc=0;
 	char *argv[1];
+
+    unsigned long start_time;
+    unsigned long end_time;
+    asm volatile("rdcycle %0" : "=r"(start_time));
+
 	coremark_main(argc, argv);
+    
+    asm volatile("rdcycle %0" : "=r"(end_time));
+    eapp_print("coremark finished in %ld cycles.\n", end_time - start_time);
 }
 
 int EAPP_ENTRY main(){
 	unsigned long * args;
 	EAPP_RESERVE_REG;
 	trampo();
+	EAPP_RETURN(MAIN_RETURN_VAL);
 }
 

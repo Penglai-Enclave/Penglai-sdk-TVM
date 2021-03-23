@@ -197,9 +197,9 @@ int sha512()
     sha512_final(&sha512, output);
 
     for (size_t j = 0; j < SHA512_OUTPUT_BYTES; j++) {
-        eapp_print("%hhx", output[j]);
+        //eapp_print("%hhx", output[j]);
     }
-    eapp_print("\n");
+    //eapp_print("\n");
     return 0;
 }
 
@@ -207,7 +207,14 @@ int EAPP_ENTRY main() {
   unsigned long * args;
   EAPP_RESERVE_REG;
 
+  unsigned long start_time;
+  unsigned long end_time;
+  asm volatile("rdcycle %0" : "=r"(start_time));
+
   sha512();
+  
+  asm volatile("rdcycle %0" : "=r"(end_time));
+  eapp_print("sha512 finished in %ld cycles.\n", end_time - start_time);
 
   EAPP_RETURN(0);
 }
