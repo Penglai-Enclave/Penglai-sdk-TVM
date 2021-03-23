@@ -4,7 +4,7 @@
 #include "util.h"
 
 #define PAGE_SIZE 4096
-#define MAP_NUM 1
+#define MAP_NUM 2
 #define REDUCE_PAGE_NUMBER (64/MAP_NUM)
 
 
@@ -65,7 +65,7 @@ int doreduce(unsigned long * args, int map_num)
         if (!strcmp(merge_data->key, "-end-"))
             break;
         sprintf(buf, "%s:%d\n",merge_data->key,merge_data->value);
-        eapp_print(buf);
+        // eapp_print(buf);
         merge_data = merge_data + 1;
     }
     EAPP_RETURN(0);

@@ -6,8 +6,8 @@
 //page size in the RISCV
 #define PAGE_SIZE 4096
 #define REDUCE_OFFSET 16
-#define MAP_NUM 1
-#define REDUCE_NUM 1
+#define MAP_NUM 2
+#define REDUCE_NUM 2
 #define REDUCE_PAGE_NUMBER (64/MAP_NUM)
 #define FPGA_PENALTY 1000
 
@@ -68,7 +68,7 @@ int map(char *f, Keyvalue** keyvalue, int reduce_num)
  */
 int domap(unsigned long *args, int reduce_num)
 {
-    eapp_print("begin domap \n");
+    // eapp_print("begin domap \n");
     char *map_data;
     int map_index;
     unsigned long shm, shm_size;
@@ -103,7 +103,7 @@ int domap(unsigned long *args, int reduce_num)
         call_arg.req_size = PAGE_SIZE * REDUCE_PAGE_NUMBER;
         asyn_enclave_call(enclave_name,  &call_arg);
     }
-    eapp_print("end domap\n");
+    // eapp_print("end domap\n");
     EAPP_RETURN(0);
 }
 
