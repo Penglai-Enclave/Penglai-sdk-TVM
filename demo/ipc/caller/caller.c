@@ -7,7 +7,9 @@ int EAPP_ENTRY main(){
   EAPP_RESERVE_REG;
 
   //eapp_print("caller-enclave begin to run\n");
-  //TODO: calculate host-enclave ipc cost
+  //calculate host-enclave ipc cost
+  unsigned long IPC0_end;
+  asm volatile("rdcycle %0" : "=r"(IPC0_end));
 
   int run_server1 = 1;
   char server_name[16];
@@ -79,5 +81,5 @@ int EAPP_ENTRY main(){
     eapp_print("caller: get server retval:0x%lx\n", call_arg.resp_val);
     */
 
-  EAPP_RETURN(0);
+  EAPP_RETURN(IPC0_end);
 }

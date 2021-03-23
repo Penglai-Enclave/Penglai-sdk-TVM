@@ -536,7 +536,7 @@ void Proc0()
 	//	/* overflow free division by VAX DMIPS value (1757) */
 	//	(LOOPS * 71) / (benchtime >> 3));
 
-    eapp_print("success!\n");
+    //eapp_print("success!\n");
 }
 
 void Proc1(RecordPtr PtrParIn)

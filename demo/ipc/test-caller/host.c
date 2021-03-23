@@ -87,9 +87,12 @@ caller:
   enclave_args_init(caller_params);
 
   //memory arg
-  unsigned long mm_arg_size = 64*1024*1024;
+  unsigned long mm_arg_size = 64*1024;
   int mm_arg_id = PLenclave_schrodinger_get(mm_arg_size);
   void* mm_arg = PLenclave_schrodinger_at(mm_arg_id, 0);
+  char str_num[15];
+  sprintf(str_num, "test-caller");
+  strcpy(caller_params->name, str_num);
 
   if(PLenclave_create(caller_enclave, caller_enclaveFile, caller_params) < 0 )
   {
@@ -100,7 +103,13 @@ caller:
   if(mm_arg_id > 0 && mm_arg)
     PLenclave_set_mem_arg(caller_enclave, mm_arg_id, 0, mm_arg_size);
 
+  printf("host is calling caller_enclave\n");
+  unsigned long IPC0_start;
+  asm volatile("rdcycle %0" : "=r"(IPC0_start));
+
   PLenclave_run(caller_enclave);
+
+  printf("[TEST] host-enclave IPC cost cycles:%ld.\n", caller_enclave->user_param.retval - IPC0_start);
 
 out:
   if(server_enclaveFile)

@@ -27,6 +27,7 @@ int create_sbi_param(enclave_t* enclave, struct penglai_enclave_sbi_param * encl
   enclave_sbi_param->ecall_arg1 = (unsigned long* )__pa(&enclave->ocall_arg0);
   enclave_sbi_param->ecall_arg2 = (unsigned long* )__pa(&enclave->ocall_arg1);
   enclave_sbi_param->ecall_arg3 = (unsigned long* )__pa(&enclave->ocall_syscall_num);
+  enclave_sbi_param->retval = (unsigned long* )__pa(&enclave->retval);
   enclave_sbi_param->paddr = paddr;
   enclave_sbi_param->size = size;
   enclave_sbi_param->entry_point = entry_point;
@@ -502,6 +503,7 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
   enclave_instance_sbi_param.ecall_arg1 = (unsigned long* )__pa(&(*enclave_instance)->ocall_arg0);
   enclave_instance_sbi_param.ecall_arg2 = (unsigned long* )__pa(&(*enclave_instance)->ocall_arg1);
   enclave_instance_sbi_param.ecall_arg3 = (unsigned long* )__pa(&(*enclave_instance)->ocall_syscall_num);
+  enclave_instance_sbi_param.retval = (unsigned long* )__pa(&(*enclave_instance)->retval);
   memcpy(enclave_instance_sbi_param.name, enclave_param->name, NAME_LEN);
   
   schrodinger_paddr = 0;
@@ -634,6 +636,12 @@ resume_for_rerun:
       ret = penglai_enclave_ocall(enclave_instance, enclave, resume_id, enclave_param->isShadow);     
     }
   }
+
+  if(enclave->type == SHADOW_ENCLAVE)
+    enclave_param->retval = enclave_instance->retval;
+  else
+    enclave_param->retval = enclave->retval;
+
   if(ret < 0)
   {
     penglai_eprintf("sbi call run enclave is failed \n");

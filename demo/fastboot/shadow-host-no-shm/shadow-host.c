@@ -30,15 +30,24 @@ void* create_enclave(void* args0)
   
   struct PLenclave* enclave = malloc(sizeof(struct PLenclave)); 
   enclave->fd = fd;
-  printf("host:%d: enclave run\n", i);
+
+  //commented by luxu
+  //printf("host:%d: enclave run\n", i);
+
   enclave->user_param.eid = eid;
 
   // enclave->user_param.shmid = shmid;
   // enclave->user_param.shm_offset = shm_offset;
   // enclave->user_param.shm_size = shm_size;
 
-  asm volatile("rdcycle %0":"=r"(inst_pre_run));
+  //boot start
+  unsigned long boot_start;
+  asm volatile("rdcycle %0" : "=r"(boot_start));
+
   PLenclave_run(enclave);
+
+  printf("[TEST] enclave boot cost cycles:%ld.\n", enclave->user_param.retval - boot_start);
+
   pthread_exit((void*)0);
   free(enclave);
 }
@@ -121,7 +130,7 @@ int main(int argc, char** argv)
   }
 
   // printf("inst_pre_create = %lu\n", inst_pre_create);
-  printf("inst_pre_run = %lu\n", inst_pre_run);
+  // printf("inst_pre_run = %lu\n", inst_pre_run);
   // printf("inst_post_run = %lu\n", inst_post_run);
   // printf("fork cost %lu instructions\n", inst_post_run - inst_pre_run);
 

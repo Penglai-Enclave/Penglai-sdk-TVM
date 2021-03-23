@@ -10,7 +10,7 @@ int EAPP_ENTRY main(){
   void* vaddr = (void*)args[11];
   unsigned long size = args[12];
   //eapp_print("server-enclave begin to run\n");
-  eapp_print("[TEST] enclave-enclave IPC end. Cycles cost:%ld.\n", IPC2_end - arg0);
+  eapp_print("[TEST] enclave-enclave IPC cost cycles:%ld.\n", IPC2_end - arg0);
 
   struct call_enclave_arg_t ret_arg;
   unsigned long sum = arg0;

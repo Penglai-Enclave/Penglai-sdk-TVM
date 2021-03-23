@@ -111,6 +111,7 @@ typedef struct penglai_enclave
   unsigned long ocall_arg0;
   unsigned long ocall_arg1;
   unsigned long ocall_syscall_num;
+  unsigned long retval;
   unsigned long satp;
 } enclave_t;
 
@@ -126,6 +127,7 @@ typedef struct penglai_enclave_instance
   unsigned long ocall_arg0;
   unsigned long ocall_arg1;
   unsigned long ocall_syscall_num;
+  unsigned long retval;
   unsigned long satp;
 }enclave_instance_t;
 

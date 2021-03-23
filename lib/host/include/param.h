@@ -109,6 +109,7 @@ struct penglai_enclave_user_param
   int rerun_reason;
   unsigned long schrodinger_offset;
   unsigned long schrodinger_size;
+  unsigned long retval;
 };
 
 struct penglai_shmget_param

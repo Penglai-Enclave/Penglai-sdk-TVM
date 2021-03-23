@@ -314,7 +314,7 @@ int PLenclave_run(struct PLenclave *PLenclave)
     return -1;
   }
 
-  ret = ioctl(PLenclave->fd,PENGLAI_ENCLAVE_IOC_RUN_ENCLAVE, &(PLenclave->user_param));
+  ret = ioctl(PLenclave->fd, PENGLAI_ENCLAVE_IOC_RUN_ENCLAVE, &(PLenclave->user_param));
   if(ret < 0)
   {
     fprintf(stderr, "LIB: PLenclave_run: ioctl run enclave is failed \n");
