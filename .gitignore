@@ -1,10 +1,10 @@
 tags
 *.o
 *.dump
-source.sh
+/source.sh
 *.cmd
 *.swp
 *.a
 .vscode/*
-test
-test.ke
+/test
+/test.ke

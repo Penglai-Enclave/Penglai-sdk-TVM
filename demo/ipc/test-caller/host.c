@@ -86,11 +86,20 @@ caller:
   PLenclave_init(caller_enclave);
   enclave_args_init(caller_params);
 
+  //memory arg
+  unsigned long mm_arg_size = 64*1024*1024;
+  int mm_arg_id = PLenclave_schrodinger_get(mm_arg_size);
+  void* mm_arg = PLenclave_schrodinger_at(mm_arg_id, 0);
+
   if(PLenclave_create(caller_enclave, caller_enclaveFile, caller_params) < 0 )
   {
     printf("host: failed to create caller_enclave\n");
     goto out;
   }
+
+  if(mm_arg_id > 0 && mm_arg)
+    PLenclave_set_mem_arg(caller_enclave, mm_arg_id, 0, mm_arg_size);
+
   PLenclave_run(caller_enclave);
 
 out:
