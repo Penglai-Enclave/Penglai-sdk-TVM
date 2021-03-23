@@ -4,7 +4,19 @@
 #include <pthread.h>
 #include <fcntl.h>
 #include <string.h>
-#define THREAD_NUM 1
+#define THREAD_NUM 2
+
+unsigned long read_cycle()
+{
+  unsigned long cycle;
+  asm volatile("rdcycle %0" : "=r"(cycle));
+  return cycle;
+}
+
+unsigned long map_start = 0;
+unsigned long map_end = 0;
+unsigned long reduce_start = 0;
+unsigned long reduce_end = 0;
 
 struct args
 {
@@ -39,7 +51,11 @@ void* create_enclave(void* args0)
   PLenclave_attest(enclave, 0);
   if(mm_arg_id[ii] > 0 && mm_arg[ii])
     PLenclave_set_mem_arg(enclave, mm_arg_id[ii], 0, mm_arg_size[ii]);
+  // It should be atomic read/write
+  if(map_start == 0)
+    map_start = read_cycle();
   PLenclave_run(enclave);
+  map_end = read_cycle();
   free(enclave);
 
   printf("host:%d:before exit thread \n",ii);
@@ -73,7 +89,11 @@ void* create_enclave2(void* args0)
   // strcpy(enclave->user_param.name, "test");
   PLenclave_attest(enclave, 0);
   PLenclave_set_mem_arg(enclave, 1,0,0);
+  // It should be atomic read/write
+  if(reduce_start == 0)
+    reduce_start = read_cycle();
   PLenclave_run(enclave);
+  reduce_end = read_cycle();
   free(enclave);
   printf("host2:%d: before exit thread\n", ii);
   pthread_exit((void*)0);
@@ -202,6 +222,8 @@ int main(int argc, char** argv)
       PLenclave_schrodinger_ctl(mm_arg_id[ii]);
     }
   }
+  printf("Total time: %lx, number of the mapper %d number of the reducer %d\n", 
+          map_end-map_start+reduce_end-reduce_start, THREAD_NUM, THREAD_NUM);
   printf("host: after exit the thread\n");
 
 out:
