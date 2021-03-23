@@ -6,11 +6,11 @@ int EAPP_ENTRY main(){
   EAPP_RESERVE_REG;
   unsigned long IPC2_end;
   asm volatile("rdcycle %0" : "=r"(IPC2_end));
-  eapp_print("[TEST] IPC 2 end. Current cycle:%ld.\n", IPC2_end);
   unsigned long arg0 = args[10];
   void* vaddr = (void*)args[11];
   unsigned long size = args[12];
-  eapp_print("server-enclave2 begin to run\n");
+  //eapp_print("server-enclave begin to run\n");
+  eapp_print("[TEST] enclave-enclave IPC end. Cycles cost:%ld.\n", IPC2_end - arg0);
 
   struct call_enclave_arg_t ret_arg;
   unsigned long sum = arg0;

@@ -1,6 +1,6 @@
-CC	= $(MULTILIB_TOOLCHAIN)riscv64-unknown-linux-gnu-gcc
-LINK	= $(MULTILIB_TOOLCHAIN)riscv64-unknown-linux-gnu-ld
-AR	= $(MULTILIB_TOOLCHAIN)riscv64-unknown-elf-ar
+CC	= $(MULTILIB_TOOLCHAIN)/riscv64-unknown-linux-gnu-gcc
+LINK	= $(MULTILIB_TOOLCHAIN)/riscv64-unknown-linux-gnu-ld
+AR	= $(MULTILIB_TOOLCHAIN)/riscv64-unknown-elf-ar
 all:
 	MULTILIB_TOOLCHAIN=$(MULTILIB_TOOLCHAIN) CC=$(CC) LINK=$(LINK) AR=$(AR) make -C musl
 	MULTILIB_TOOLCHAIN=$(MULTILIB_TOOLCHAIN) CC=$(CC) LINK=$(LINK) AR=$(AR) make -C lib

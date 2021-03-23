@@ -6,10 +6,12 @@ int EAPP_ENTRY main(){
   unsigned long * args;
   EAPP_RESERVE_REG;
 
-  eapp_print("caller-enclave begin to run\n");
+  //eapp_print("caller-enclave begin to run\n");
+  //TODO: calculate host-enclave ipc cost
 
   int run_server1 = 1;
   char server_name[16];
+  /*
   strcpy(server_name, "test-server1");
   unsigned long server_handle = acquire_enclave(server_name);
   if(server_handle == -1UL)
@@ -18,6 +20,9 @@ int EAPP_ENTRY main(){
     server_handle = acquire_enclave(server_name);
     run_server1 = 0;
   }
+  */
+  strcpy(server_name, "test-server");
+  unsigned long server_handle = acquire_enclave(server_name);
   if(server_handle == -1UL)
   {
     EAPP_RETURN(-1UL);
@@ -36,9 +41,11 @@ int EAPP_ENTRY main(){
   call_arg.req_vaddr = nums;
   call_arg.req_size = size;
 
+  eapp_print("caller-enclave is calling server_enclave.\n");
   unsigned long IPC1_start;
   asm volatile("rdcycle %0" : "=r"(IPC1_start));
-  eapp_print("[TEST] IPC 1 start. Current cycle:%ld.\n", IPC1_start);
+  call_arg.req_arg = IPC1_start;
+  //eapp_print("[TEST] IPC 1 start. Current cycle:%ld.\n", IPC1_start);
   call_enclave(server_handle, &call_arg);
   
   if(call_arg.req_vaddr)
