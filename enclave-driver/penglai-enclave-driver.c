@@ -15,14 +15,18 @@ MODULE_DESCRIPTION("enclave_ioctl");
 MODULE_AUTHOR("LuXu");
 MODULE_VERSION("enclave_ioctl");
 
+DEFINE_SPINLOCK(enclave_get_free_page_lock);
+
 extern unsigned long va_pa_offset;
 unsigned long penglai_get_free_pages(gfp_t gfp_mask, unsigned int order)
 {
   unsigned long va;
   int ret;
+  
   va = __get_free_pages(gfp_mask, order);
   if (order < 9 )
   {
+    spin_lock(&enclave_get_free_page_lock);
     struct pt_entry_t split_pte;
     split_pte.pte = 0;
     split_pte.pte_addr = 0;
@@ -32,6 +36,7 @@ unsigned long penglai_get_free_pages(gfp_t gfp_mask, unsigned int order)
       char * new_pt_pte_page = alloc_pt_pte_page();
       ret = SBI_PENGLAI_2(SBI_SM_MAP_PTE, split_pte.pte_addr, __pa(new_pt_pte_page));
     }
+    spin_unlock(&enclave_get_free_page_lock);
   }
   return va;
 }

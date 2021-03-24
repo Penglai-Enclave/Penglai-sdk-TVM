@@ -188,7 +188,6 @@ int penglai_enclave_create(struct file *filep, unsigned long args)
     penglai_eprintf("SBI_SM_CREATE_ENCLAVE is failed \n");
     goto destroy_enclave;
   }
-
   enclave_param->eid = enclave_idr_alloc(enclave);
 
   spin_unlock(&enclave_create_lock);
