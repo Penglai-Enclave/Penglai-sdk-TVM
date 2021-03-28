@@ -170,7 +170,7 @@ int penglai_enclave_create(struct file *filep, unsigned long args)
     ret = SBI_PENGLAI_1(SBI_SM_CREATE_SHADOW_ENCLAVE, __pa(&enclave_sbi_param));
   else
     ret = SBI_PENGLAI_1(SBI_SM_CREATE_ENCLAVE, __pa(&enclave_sbi_param));
-    
+
   while(ret == ENCLAVE_NO_MEM)
   {
     if ((ret = penglai_extend_secure_memory()) < 0)
