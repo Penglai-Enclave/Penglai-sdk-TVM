@@ -6,8 +6,8 @@
 //page size in the RISCV
 #define PAGE_SIZE 4096
 #define REDUCE_OFFSET 16
-#define MAP_NUM 1
-#define REDUCE_NUM 1
+#define MAP_NUM 2
+#define REDUCE_NUM 2
 #define REDUCE_PAGE_NUMBER (64/MAP_NUM)
 #define FPGA_PENALTY 1000
 

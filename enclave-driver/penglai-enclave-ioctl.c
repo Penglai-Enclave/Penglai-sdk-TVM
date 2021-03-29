@@ -13,7 +13,7 @@ DEFINE_SPINLOCK(enclave_create_lock);
 unsigned int total_enclave_page(int elf_size, int stack_size)
 {
   unsigned int total_pages;
-  total_pages = PAGE_UP(elf_size) / RISCV_PGSIZE + PAGE_UP(stack_size) / RISCV_PGSIZE + 32;
+  total_pages = PAGE_UP(elf_size) / RISCV_PGSIZE + PAGE_UP(stack_size) / RISCV_PGSIZE + 256;
   return total_pages;
 }
 
@@ -127,6 +127,8 @@ int penglai_enclave_create(struct file *filep, unsigned long args)
 
   order = ilog2(total_enclave_page(elf_size, stack_size)- 1) + 1;
   total_pages = 0x1 << order;
+
+  // penglai_dprintf("elf size %lx stack_size %lx\n", elf_size, stack_size);
 
   if(check_eapp_memory_size(elf_size, stack_size) < 0)
   {
@@ -624,7 +626,7 @@ resume_for_rerun:
     else if (ret == ENCLAVE_YIELD)
     {
       //FIXME: just sleep
-      msleep(10);
+      msleep(1000*120);
       ret = SBI_PENGLAI_2(SBI_SM_RESUME_ENCLAVE, resume_id, RESUME_FROM_TIMER_IRQ);
     }
     else if(ret == ENCLAVE_RETURN_MONITOR_MODE)

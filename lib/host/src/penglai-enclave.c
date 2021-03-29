@@ -278,7 +278,7 @@ int PLenclave_create(struct PLenclave* PLenclave, struct elf_args* u_elffile, st
   }
 
   PLenclave->elffile = u_elffile;
-  PLenclave->user_param.elf_ptr = (unsigned long)u_elffile->ptr;
+  PLenclave->user_param.elf_ptr = (unsigned long)(u_elffile->ptr);
   PLenclave->user_param.elf_size = u_elffile->size;
   PLenclave->user_param.stack_size = u_param->stack_size;
   if(u_param->type == SHADOW_ENCLAVE)

@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <fcntl.h>
 #include <string.h>
-#define THREAD_NUM 1
+#define THREAD_NUM 4
 
 unsigned long read_cycle()
 {

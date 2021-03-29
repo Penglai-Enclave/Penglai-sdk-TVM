@@ -4,6 +4,8 @@ AR	= $(MULTILIB_TOOLCHAIN)riscv64-unknown-elf-ar
 
 all:
 	make -C host
+	make -C sleep-demo
+	make -C host-no-attest
 	make -C rv8
 	make -C coremark
 	make -C stress-ng
@@ -12,9 +14,12 @@ all:
 	make -C ipc
 	make -C fastboot
 	make -C small-demo
+	make -C hello-world
 
 clean:
 	make -C host clean
+	make -C sleep-demo clean
+	make -C host-no-attest clean
 	make -C rv8 clean
 	make -C coremark clean
 	make -C stress-ng clean
@@ -23,3 +28,4 @@ clean:
 	make -C ipc clean
 	make -C fastboot clean
 	make -C small-demo clean
+	make -C hello-world clean

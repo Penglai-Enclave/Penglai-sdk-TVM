@@ -1,0 +1,4 @@
+mphost4
+*.dump
+*.o
+*.S

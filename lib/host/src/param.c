@@ -1,4 +1,5 @@
 #include "param.h"
+#include "stdlib.h"
 pthread_mutex_t mutex;
 
 void enclave_args_init(struct enclave_args* enclave_args)

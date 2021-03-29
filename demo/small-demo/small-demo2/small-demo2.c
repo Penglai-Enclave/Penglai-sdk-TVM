@@ -1,7 +1,7 @@
 #include "eapp.h"
 #include "print.h"
 
-// const char data[2*1024*1024] = {1,};
+const char data[2*1024*1024] = {1,};
 
 int hello(unsigned long * args)
 {

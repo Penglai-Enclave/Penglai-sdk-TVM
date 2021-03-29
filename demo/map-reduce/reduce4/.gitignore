@@ -1,0 +1,4 @@
+reduce4
+*.dump
+*.o
+*.S

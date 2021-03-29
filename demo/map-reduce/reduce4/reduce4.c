@@ -4,7 +4,7 @@
 #include "util.h"
 
 #define PAGE_SIZE 4096
-#define MAP_NUM 1
+#define MAP_NUM 4
 #define REDUCE_PAGE_NUMBER (64/MAP_NUM)
 
 

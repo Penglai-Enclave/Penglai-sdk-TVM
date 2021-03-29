@@ -3,7 +3,8 @@
 
 int hello(unsigned long * args)
 {
-  eapp_print("hello world!\n");
+  unsigned long i = args[12];
+  eapp_print("hello world! %ld\n", i);
   EAPP_RETURN(0);
 }
 
