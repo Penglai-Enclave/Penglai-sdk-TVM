@@ -3,9 +3,8 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-unsigned long inst_pre_create;
-unsigned long inst_post_run;
-
+#define MAGIC_SHM_VALUE 11111
+#define MAGIC_RELAY_PAGE_VALUE 22222
 struct args
 {
   void* in;
@@ -17,49 +16,39 @@ void* create_enclave(void* args0)
   struct args *args = (struct args*)args0;
   void* in = args->in;
   int i = args->i;
-  int ret = 0;
+  int ret = 0, run_result = 0;
   
   struct PLenclave* enclave = malloc(sizeof(struct PLenclave));
   struct enclave_args* params = malloc(sizeof(struct enclave_args));
-  asm volatile("rdcycle %0":"=r"(inst_pre_create));
 
+  unsigned long boot_start;
+  asm volatile("rdcycle %0" : "=r"(boot_start));
   PLenclave_init(enclave);
   enclave_args_init(params);
 
   struct elf_args *enclaveFile = (struct elf_args *)in;
-
-  // unsigned long shm_size = 1024 * 1024;
-  // int shmid = PLenclave_shmget(shm_size);
-  // void* shm = PLenclave_shmat(shmid, 0);
-  // if(shm != (void*)-1)
-  // {
-  //   for(int i=0; i < shm_size/sizeof(int); ++i)
-  //   {
-  //     ((int*)shm)[0] = 0x20200000 + 2;
-  //     ((int*)shm)[i] = 2;
-  //   }
-  // }
-  // params->shmid = shmid;
-  // params->shm_offset = 0;
-  // params->shm_size = shm_size;
-
-  // asm volatile("rdcycle %0":"=r"(inst_pre_create));
+  
   if(PLenclave_create(enclave, enclaveFile, params) < 0)
   {
     printf("host:%d: failed to create enclave\n", i);
   }
   else
   {
-    printf("host:%d: enclave run\n", i);
-    PLenclave_run(enclave);
+    PLenclave_attest(enclave, 0);
+    while (run_result = PLenclave_run(enclave))
+    {
+      switch (run_result)
+      {
+        default:
+          printf("[ERROR] host: run_result val is wrong!\n");
+      }
+    }
   }
+
+  printf("[TEST] enclave boot cost cycles:%ld.\n", enclave->user_param.retval - boot_start);
 
   free(enclave);
   free(params);
-
-  // PLenclave_shmdt(shmid, shm);
-  // PLenclave_shmctl(shmid);
-
   pthread_exit((void*)0);
 }
 
@@ -105,10 +94,8 @@ int main(int argc, char** argv)
   {
     pthread_join(threads[i], (void**)0);
   }
-  printf("inst_pre_create = %lu\n", inst_pre_create);
-  // printf("inst_post_run = %lu\n", inst_post_run);
-  // printf("create cost %lu instructions\n", inst_post_run - inst_pre_create);
-
+  //commented by luxu
+  //printf("host: after exit the thread\n");
 out:
   elf_args_destroy(enclaveFile);
   free(enclaveFile);

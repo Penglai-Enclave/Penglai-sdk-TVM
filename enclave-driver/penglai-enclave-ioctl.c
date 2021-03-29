@@ -693,7 +693,7 @@ int penglai_enclave_attest(struct file * filep, unsigned long args)
   enclave = get_enclave_by_id(eid);
   if(!enclave)
   {
-    penglai_eprintf("enclave is not exist \n");
+    penglai_eprintf("enclave is not exist %ld\n", eid);
     return -EINVAL;
   }
 
@@ -835,7 +835,7 @@ long penglai_enclave_ioctl(struct file* filep, unsigned int cmd, unsigned long a
       break;
     }
      default:
-     penglai_eprintf("ioctl is failed\n");
+     penglai_eprintf("ioctl is failed cmd:%lx create %lx\n", cmd, PENGLAI_ENCLAVE_IOC_CREATE_ENCLAVE);
       return -EFAULT;
   }
   if (copy_to_user((void*)args, ioctl_data, ioc_size))
