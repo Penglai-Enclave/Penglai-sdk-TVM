@@ -15,6 +15,6 @@ SDK_FILES = \
 	$(srcdir)/Penglai-sdk-TVM/demo/map-reduce/mphost/mphost \
 	$(srcdir)/Penglai-sdk-TVM/demo/map-reduce/map/map \
 	$(srcdir)/Penglai-sdk-TVM/demo/map-reduce/reduce/reduce \
-	$(srcdir)/Penglai-sdk-TVM/demo/map-reduce/mphost/input.txt
-
+	$(srcdir)/Penglai-sdk-TVM/demo/map-reduce/mphost/input.txt \
+	$(srcdir)/Penglai-sdk-TVM/demo/image-process/serverless_test
 
