@@ -61,11 +61,11 @@ caller:
   if(mm_arg_size > 64)
   {
     printf("mm_arg too large!\n");
-    mm_arg_size = 0x1000 * 0x1000 * 2;//default 2MB
+    mm_arg_size = 1024 * 1024 * 2;//default 2MB
   }
   else
   {
-    mm_arg_size = 0x1000 * 0x1000 * mm_arg_size;
+    mm_arg_size = 1024 * 1024 * mm_arg_size;
   }
   int mm_arg_id = PLenclave_schrodinger_get(mm_arg_size);
   void* mm_arg = PLenclave_schrodinger_at(mm_arg_id, 0);

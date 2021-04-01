@@ -30,7 +30,7 @@ int main(int argc, char** argv)
     printf("shm_size too large!\n");
     goto out;
   }
-  shm_size = 0x1000 * 0x1000 * shm_size;
+  shm_size = 1024 * 1024 * shm_size;
   shmid = PLenclave_shmget(shm_size);
   shm = PLenclave_shmat(shmid, 0);
   if(shm == (void*)-1)

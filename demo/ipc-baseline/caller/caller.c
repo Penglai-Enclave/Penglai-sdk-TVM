@@ -14,7 +14,13 @@ int EAPP_ENTRY main(){
   void* shm_addr = args[10];
   unsigned long shm_size = args[11];
   void* dest_addr = eapp_mmap(0, shm_size);
-  memcpy(dest_addr, shm_addr, shm_size);
+  //memcpy(dest_addr, shm_addr, shm_size);
+  for(int i=0; i < shm_size/sizeof(int); ++i)
+  {
+    *(int*)dest_addr = *(int*)shm_addr;
+    dest_addr += sizeof(int);
+    shm_addr += sizeof(int);
+  }
 
   //eapp_print("caller-enclave begin to run\n");
   //calculate host-enclave ipc cost

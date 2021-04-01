@@ -14,7 +14,13 @@ int EAPP_ENTRY main(){
   void* shm_addr = args[13];
   unsigned long shm_size = args[14];
   void* dest_addr = eapp_mmap(0, shm_size);
-  memcpy(dest_addr, shm_addr, shm_size);
+  //memcpy(dest_addr, shm_addr, shm_size);
+  for(int i=0; i < shm_size/sizeof(int); ++i)
+  {
+    *(int*)dest_addr = *(int*)shm_addr;
+    dest_addr += sizeof(int);
+    shm_addr += sizeof(int);
+  }
 
   unsigned long IPC2_end;
   asm volatile("rdcycle %0" : "=r"(IPC2_end));
