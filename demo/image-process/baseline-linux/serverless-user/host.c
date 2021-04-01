@@ -102,9 +102,8 @@ int main(int argc, char** argv)
   	printf("Error@%s, shmctl RMID error\n", __func__);
   }
 
-  printf("[Serverless Test] Image Size: %dx%d (x3)\n\tprepare time:%ld cycles\n\trun time:%ld cycles\n\ttotal time:%ld cycles\n",
-		  img_size, img_size,
-		  mid_cycle-start_cycle, end_cycle-mid_cycle, end_cycle-start_cycle);
+  printf("[Serverless Test] Image Size: %dx%d (x3)\n\trun time:%ld cycles\n",
+		  img_size, img_size, end_cycle-mid_cycle);
 
 
   return 0;

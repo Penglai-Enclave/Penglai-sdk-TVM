@@ -167,14 +167,14 @@ int main(int argc, char** argv)
   }
   fclose(f);
 
-  for(int i=0; i< thread_num; ++i)
+  for(int i=0; i< thread_num; i++)
   {
     args[i].in = eid;
     args[i].i = i;
     args[i].fd = fd;
     pthread_create(&threads[i], NULL, create_enclave, (void*)&(args[i]));
   }
-  for(int i =0; i< thread_num; ++i)
+  for(int i =0; i< thread_num; i++)
   {
     pthread_join(threads[i], (void**)0);
   }
@@ -204,7 +204,7 @@ int main(int argc, char** argv)
 
   unsigned long eid2 = enclave2->user_param.eid;
   int fd2 = enclave2->fd;
-  for(int i=0; i< thread_num; ++i)
+  for(int i=0; i< thread_num; i++)
   {
     args[i].in = eid2;
     args[i].i = i;
@@ -212,7 +212,7 @@ int main(int argc, char** argv)
     pthread_create(&threads[i], NULL, create_enclave2, (void*)&(args[i]));
   }
 
-  for(int i =0; i< thread_num; ++i)
+  for(int i =0; i< thread_num; i++)
   {
     pthread_join(threads[i], (void**)0);
   }
@@ -224,7 +224,7 @@ int main(int argc, char** argv)
       PLenclave_schrodinger_ctl(mm_arg_id[ii]);
     }
   }
-  printf("Total time: %lx, number of the mapper %d number of the reducer %d\n", 
+  printf("Run map reduce with optimization: Total time: %ld, number of the mapper %d number of the reducer %d\n", 
           map_end-map_start+reduce_end-reduce_start, THREAD_NUM, THREAD_NUM);
   printf("host: after exit the thread\n");
 
