@@ -34,7 +34,6 @@ void* create_enclave(void* args0)
   }
   else
   {
-    PLenclave_attest(enclave, 0);
     while (run_result = PLenclave_run(enclave))
     {
       switch (run_result)

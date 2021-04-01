@@ -44,7 +44,6 @@ void* create_enclave(void* args0)
   //boot start
   unsigned long boot_start;
   asm volatile("rdcycle %0" : "=r"(boot_start));
-  PLenclave_attest(enclave, 0);
 
   PLenclave_run(enclave);
 
