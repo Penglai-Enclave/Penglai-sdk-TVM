@@ -7,15 +7,13 @@ int main(int argc, char** argv)
   struct elf_args* server_enclaveFile = NULL;
   struct PLenclave* server_enclave = NULL;
   struct enclave_args* server_params = NULL;
-  struct elf_args* server1_enclaveFile = NULL;
-  struct PLenclave* server1_enclave = NULL;
-  struct enclave_args* server1_params = NULL;
   struct elf_args* caller_enclaveFile = NULL;
   struct PLenclave* caller_enclave = NULL;
   struct enclave_args* caller_params = NULL;
-  if(argc < 3)
+  if(argc < 4)
   {
-    printf("Usage: ./test-caller name_of_caller name_of_server ..\n");
+    printf("Usage: ./test-caller name_of_caller name_of_server mm_arg_size(MB)\n");
+    goto out;
   }
 
 server:
@@ -42,34 +40,6 @@ server:
     // goto out;
   }
 
-  if(argc == 3)
-    goto caller;
-
-server1:
-  server1_enclaveFile = malloc(sizeof(struct elf_args));
-  char *server1_eappfile = argv[3];
-  elf_args_init(server1_enclaveFile, server1_eappfile);
-  
-  if(!elf_valid(server1_enclaveFile))
-  {
-    printf("host:error when initializing server1_enclaveFile\n");
-    goto out;
-  }
-
-  server1_enclave = malloc(sizeof(struct PLenclave));
-  server1_params = malloc(sizeof(struct enclave_args));
-  PLenclave_init(server1_enclave);
-  enclave_args_init(server1_params);
-  strcpy(server1_params->name, "test-server1");
-  server1_params->type = SERVER_ENCLAVE;
-
-  if(PLenclave_create(server1_enclave, server1_enclaveFile, server1_params) < 0 )
-  {
-    printf("host:failed to create server1_enclave\n");
-    // goto out;
-  }
-
-
 caller:
   caller_enclaveFile = malloc(sizeof(struct elf_args));
   char *caller_eappfile = argv[1];
@@ -87,7 +57,16 @@ caller:
   enclave_args_init(caller_params);
 
   //memory arg
-  unsigned long mm_arg_size = 64*1024;
+  unsigned long mm_arg_size = atoi(argv[3]);
+  if(mm_arg_size > 64)
+  {
+    printf("mm_arg too large!\n");
+    mm_arg_size = 0x1000 * 0x1000 * 2;//default 2MB
+  }
+  else
+  {
+    mm_arg_size = 0x1000 * 0x1000 * mm_arg_size;
+  }
   int mm_arg_id = PLenclave_schrodinger_get(mm_arg_size);
   void* mm_arg = PLenclave_schrodinger_at(mm_arg_id, 0);
   char str_num[15];
@@ -101,15 +80,23 @@ caller:
   }
 
   if(mm_arg_id > 0 && mm_arg)
+  {
+    *(unsigned long*)mm_arg = 0x19961008;
     PLenclave_set_mem_arg(caller_enclave, mm_arg_id, 0, mm_arg_size);
+  }
 
-  printf("host is calling caller_enclave\n");
   unsigned long IPC0_start;
   asm volatile("rdcycle %0" : "=r"(IPC0_start));
 
   PLenclave_run(caller_enclave);
 
-  printf("[TEST] host-enclave IPC cost cycles:%ld.\n", caller_enclave->user_param.retval - IPC0_start);
+  printf("[TEST] host-enclave IPC cost %ld cycles for 0x%lx bytes.\n", caller_enclave->user_param.retval - IPC0_start, mm_arg_size);
+
+  if(mm_arg_id > 0 && mm_arg)
+  {
+    PLenclave_schrodinger_dt(mm_arg_id, mm_arg);
+    PLenclave_schrodinger_ctl(mm_arg_id);
+  }
 
 out:
   if(server_enclaveFile)
@@ -125,20 +112,6 @@ out:
   if(server_params)
   {
     free(server_params);
-  }
-  if(server1_enclaveFile)
-  {
-    elf_args_destroy(server1_enclaveFile);
-    free(server1_enclaveFile);
-  }
-  if(server1_enclave)
-  {
-    PLenclave_destroy(server1_enclave);
-    free(server1_enclave);
-  }
-  if(server1_params)
-  {
-    free(server1_params);
   }
   if(caller_enclaveFile)
   {

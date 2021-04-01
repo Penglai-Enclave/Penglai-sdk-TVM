@@ -14,6 +14,7 @@ all:
 	# make -C lmbench
 	make -C map-reduce
 	make -C ipc
+	make -C ipc-baseline
 	make -C fastboot
 	make -C small-demo
 	make -C hello-world
@@ -31,6 +32,7 @@ clean:
 	# make -C lmbench clean
 	make -C map-reduce clean
 	make -C ipc clean
+	make -C ipc-baseline clean
 	make -C fastboot clean
 	make -C small-demo clean
 	make -C hello-world clean

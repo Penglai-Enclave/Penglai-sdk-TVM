@@ -9,8 +9,7 @@ int EAPP_ENTRY main(){
   unsigned long arg0 = args[10];
   void* vaddr = (void*)args[11];
   unsigned long size = args[12];
-  //eapp_print("server-enclave begin to run\n");
-  eapp_print("[TEST] enclave-enclave IPC cost cycles:%ld.\n", IPC2_end - arg0);
+  eapp_print("[TEST] enclave-enclave IPC cost %ld cycles for 0x%lx bytes.\n", IPC2_end - arg0, size);
 
   struct call_enclave_arg_t ret_arg;
   unsigned long sum = arg0;
@@ -23,13 +22,9 @@ int EAPP_ENTRY main(){
     }
   }
   ret_arg.req_vaddr = vaddr;
-  //ret_arg.req_vaddr = 0;
   ret_arg.req_size = size;
-  //commented by luxu
-  //eapp_print("server read req_vaddr:0x%lx\n", sum);
 
   int *nums = eapp_mmap(0, size);
-  // size = 4*4096;
   sum = arg0;
   for(int i=0; i<size/sizeof(int); ++i)
   {

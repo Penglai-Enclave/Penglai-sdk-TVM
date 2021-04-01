@@ -18,7 +18,7 @@
 #define BUDDY_PAGE_SHIFT    (12UL)
 #define BUDDY_PAGE_SIZE     (1UL << BUDDY_PAGE_SHIFT)
 /* [0, BUDDY_MAX_ORDER) */
-#define BUDDY_MAX_ORDER     (10UL)
+#define BUDDY_MAX_ORDER     (20UL)
 
 struct relay_page {
 	struct list_head      list_node;
