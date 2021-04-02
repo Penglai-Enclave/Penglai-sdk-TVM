@@ -27,8 +27,6 @@ int EAPP_ENTRY main(){
   strcpy(server_name, "test-server");
   unsigned long server_handle = acquire_enclave(server_name);
   struct call_enclave_arg_t call_arg;
-  //commented by luxu
-  //eapp_print("server_handle:0x%lx\n", server_handle);
   if(server_handle == -1UL)
   {
     call_arg.resp_val = -1;
@@ -46,9 +44,6 @@ int EAPP_ENTRY main(){
   eapp_print("[TEST] IPC 2 start. Current cycle: %ld.\n", IPC2_start);
   call_enclave(server_handle, &call_arg);
 
-  //commented by luxu
-  //eapp_print("server1: read req_vaddr:0x%lx\n", sum);
-
   if(call_arg.resp_vaddr)
   {
     int *nums = (int*)call_arg.resp_vaddr;
@@ -58,12 +53,8 @@ int EAPP_ENTRY main(){
     {
       sum += nums[i];
     }
-    //commented by luxu
-    //eapp_print("server1: read resp_vaddr:0x%lx\n", sum);
   }
 
   call_arg.resp_val = 3;
-  //commented by luxu
-  //eapp_print("server1 is exiting with retval:0x%lx\n", 3);
   SERVER_RETURN(&call_arg);
 }

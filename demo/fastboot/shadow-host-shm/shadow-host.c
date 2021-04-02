@@ -75,22 +75,12 @@ int main(int argc, char** argv)
   }
   struct PLenclave* enclave = malloc(sizeof(struct PLenclave)); 
   struct enclave_args* params = malloc(sizeof(struct enclave_args));
-  // asm volatile("rdcycle %0":"=r"(inst_pre_create));
   PLenclave_init(enclave);
   enclave_args_init(params);
 
   unsigned long shm_size = 1024 * 1024;
   int shmid = PLenclave_shmget(shm_size);
   void* shm = PLenclave_shmat(shmid, 0);
-  // if(shm != (void*)-1)
-  // {
-  //   printf("get shm successful shmid is %d\n", shmid);
-  //   for(int i=0; i < shm_size/sizeof(int); ++i)
-  //   {
-  //     ((int*)shm)[0] = 0x20200000 + 2;
-  //     ((int*)shm)[i] = 2;
-  //   }
-  // }
   params->shmid = shmid;
   params->shm_offset = 0;
   params->shm_size = shm_size;
@@ -120,10 +110,7 @@ int main(int argc, char** argv)
     pthread_join(threads[i], (void**)0);
   }
 
-  // printf("inst_pre_create = %lu\n", inst_pre_create);
   printf("inst_pre_run = %lu\n", inst_pre_run);
-  // printf("inst_post_run = %lu\n", inst_post_run);
-  // printf("fork cost %lu instructions\n", inst_post_run - inst_pre_run);
 
 out:
   elf_args_destroy(enclaveFile);

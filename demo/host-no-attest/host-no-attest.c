@@ -52,11 +52,7 @@ void* create_enclave(void* args0)
           printf("[ERROR] host: run_result val is wrong!\n");
       }
     }
-    //commented by luxu
-    //printf("host: exit enclave is successful \n");
   }
-  //commented by luxu
-  printf("host%d: PLenclave run is finished \n", i);
   free(enclave);
   free(params);
 
@@ -100,7 +96,6 @@ int main(int argc, char** argv)
   {
     args[i].in = (void*)enclaveFile;
     args[i].i = i;
-    // printf("host%d: elf entry %lx ptr %lx\n", i, ((struct elf64_hdr *)(((struct elf_args *)(args[i].in))->ptr))->e_entry,
     // (((struct elf_args *)(args[i].in))->ptr));
     pthread_create(&threads[i], NULL, create_enclave, (void*)&(args[i]));
   }
@@ -109,8 +104,6 @@ int main(int argc, char** argv)
   {
     pthread_join(threads[i], (void**)0);
   }
-  //commented by luxu
-  //printf("host: after exit the thread\n");
 out:
   elf_args_destroy(enclaveFile);
   free(enclaveFile);

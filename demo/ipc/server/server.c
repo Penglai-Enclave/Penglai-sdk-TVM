@@ -32,14 +32,8 @@ int EAPP_ENTRY main(){
     sum += nums[i];
   }
   ret_arg.resp_vaddr = nums;
-  //ret_arg.resp_vaddr = 0;
   ret_arg.resp_size = size;
   
-  //commented by luxu
-  //eapp_print("server read resp_vaddr:0x%lx\n", sum);
-
   ret_arg.resp_val = 2;
-  //commented by luxu
-  //eapp_print("server is exiting with ret:0x%lx\n", ret_arg.resp_val);
   SERVER_RETURN(&ret_arg);
 }

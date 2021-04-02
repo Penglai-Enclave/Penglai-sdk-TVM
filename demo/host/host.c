@@ -67,11 +67,7 @@ void* create_enclave(void* args0)
           printf("[ERROR] host: run_result val is wrong!\n");
       }
     }
-    //commented by luxu
-    //printf("host: exit enclave is successful \n");
   }
-  //commented by luxu
-  //printf("host: PLenclave run is finish \n");
   free(enclave);
   free(params);
 
@@ -122,8 +118,6 @@ int main(int argc, char** argv)
   {
     pthread_join(threads[i], (void**)0);
   }
-  //commented by luxu
-  //printf("host: after exit the thread\n");
 out:
   elf_args_destroy(enclaveFile);
   free(enclaveFile);

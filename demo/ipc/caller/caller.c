@@ -36,7 +36,6 @@ int EAPP_ENTRY main(){
   unsigned long IPC1_start;
   asm volatile("rdcycle %0" : "=r"(IPC1_start));
   call_arg.req_arg = IPC1_start;
-  //eapp_print("[TEST] IPC 1 start. Current cycle:%ld.\n", IPC1_start);
   call_enclave(server_handle, &call_arg);
   
   if(call_arg.resp_vaddr)

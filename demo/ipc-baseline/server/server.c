@@ -8,9 +8,6 @@ int EAPP_ENTRY main(){
   EAPP_RESERVE_REG;
 
   //copy shm
-  //void* shm_addr = ENCLAVE_DEFAULT_SHM_BASE;
-  //unsigned long shm_size = *(unsigned long*)shm_addr;
-  //eapp_print("caller: shm_addr: 0x%lx, shm_size: 0x%lx read num:0x%lx\n", shm_addr, args[14], shm_size);
   void* shm_addr = args[13];
   unsigned long shm_size = args[14];
   void* dest_addr = eapp_mmap(0, shm_size);
@@ -27,7 +24,6 @@ int EAPP_ENTRY main(){
   unsigned long arg0 = args[10];
   void* vaddr = (void*)args[11];
   unsigned long size = args[12];
-  //eapp_print("server-enclave begin to run\n");
   eapp_print("[TEST-BASELINE] enclave-enclave IPC cost %ld cycles for 0x%lx bytes.\n", IPC2_end - arg0, shm_size);
 
   struct call_enclave_arg_t ret_arg;
@@ -41,13 +37,9 @@ int EAPP_ENTRY main(){
     }
   }
   ret_arg.req_vaddr = vaddr;
-  //ret_arg.req_vaddr = 0;
   ret_arg.req_size = size;
-  //commented by luxu
-  //eapp_print("server read req_vaddr:0x%lx\n", sum);
 
   int *nums = eapp_mmap(0, size);
-  // size = 4*4096;
   sum = arg0;
   for(int i=0; i<size/sizeof(int); ++i)
   {
@@ -55,14 +47,8 @@ int EAPP_ENTRY main(){
     sum += nums[i];
   }
   ret_arg.resp_vaddr = nums;
-  //ret_arg.resp_vaddr = 0;
   ret_arg.resp_size = size;
   
-  //commented by luxu
-  //eapp_print("server read resp_vaddr:0x%lx\n", sum);
-
   ret_arg.resp_val = 2;
-  //commented by luxu
-  //eapp_print("server is exiting with ret:0x%lx\n", ret_arg.resp_val);
   SERVER_RETURN(&ret_arg);
 }
