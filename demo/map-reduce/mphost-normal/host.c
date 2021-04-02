@@ -4,7 +4,7 @@
 #include <pthread.h>
 #include <fcntl.h>
 #include <string.h>
-#define THREAD_NUM 2
+#define THREAD_NUM 1
 
 unsigned long read_cycle()
 {
@@ -20,86 +20,113 @@ unsigned long reduce_end = 0;
 
 struct args
 {
-  unsigned long in;
+  void* in;
   int i;
-  int fd;
-  int shmid;
-  unsigned long shm_offset;
-  unsigned long shm_size;
 };
 
 int mm_arg_id[THREAD_NUM];
 void * mm_arg[THREAD_NUM];
 unsigned long mm_arg_size[THREAD_NUM];
 
+
 void* create_enclave(void* args0)
 {
   struct args *args = (struct args*)args0;
-  unsigned long eid = args->in;
-  int ii = args->i;
-  int ret = 0;
-  int fd = args->fd;
-  //commented by luxu
-  //printf("host:%d:begin create the thread\n", ii);
-  struct PLenclave* enclave = malloc(sizeof(struct PLenclave));
-  memset(enclave, 0, sizeof(struct PLenclave));
-  enclave->fd = fd;
-  enclave->user_param.eid = eid;
-  enclave->eid = eid;
-  // printf("host: fd is %d eid %d\n", enclave->fd, enclave->user_param.eid);
-  
-  sprintf(enclave->user_param.name, "map%d", ii);
-  PLenclave_attest(enclave, 0);
-  if(mm_arg_id[ii] > 0 && mm_arg[ii])
-    PLenclave_set_mem_arg(enclave, mm_arg_id[ii], 0, mm_arg_size[ii]);
-  // It should be atomic read/write
+  void* in = args->in;
+  int i = args->i;
+  int ret = 0, run_result = 0;
+
   if(map_start == 0)
     map_start = read_cycle();
-  PLenclave_run(enclave);
-  map_end = read_cycle();
-  free(enclave);
+  
+  struct PLenclave* enclave = malloc(sizeof(struct PLenclave));
+  struct enclave_args* params = malloc(sizeof(struct enclave_args));
+  PLenclave_init(enclave);
+  enclave_args_init(params);
 
-  //commented by luxu
-  //printf("host:%d:before exit thread \n",ii);
+  struct elf_args *enclaveFile = (struct elf_args *)in;
+
+  sprintf(params->name, "map%d", i);
+
+  if(PLenclave_create(enclave, enclaveFile, params) < 0)
+  {
+    printf("host:%d: failed to create enclave\n", i);
+  }
+  else
+  {
+    PLenclave_attest(enclave, 0);
+    if(mm_arg_id[i] > 0 && mm_arg[i])
+      PLenclave_set_mem_arg(enclave, mm_arg_id[i], 0, mm_arg_size[i]);
+    while (run_result = PLenclave_run(enclave))
+    {
+      switch (run_result)
+      {
+        default:
+          printf("[ERROR] host: run_result val is wrong!\n");
+      }
+    }
+
+  }
+  free(enclave);
+  free(params);
+  map_end = read_cycle();
   pthread_exit((void*)0);
 }
 
 void* create_enclave2(void* args0)
 {
   struct args *args = (struct args*)args0;
-  unsigned long eid = args->in;
-  int ii = args->i;
-  int ret = 0;
-  int fd = args->fd;
-  // printf("host2:%d: begin create the thread\n", ii);
-  struct PLenclave* enclave = malloc(sizeof(struct PLenclave)); 
-  enclave->fd = fd;
-  enclave->user_param.eid = eid;
-  enclave->eid = eid;
+  void* in = args->in;
+  int i = args->i;
+  int ret = 0, run_result = 0;
+
+  if(reduce_start == 0)
+    reduce_start = read_cycle();
+  
+  struct PLenclave* enclave = malloc(sizeof(struct PLenclave));
+  struct enclave_args* params = malloc(sizeof(struct enclave_args));
+  PLenclave_init(enclave);
+  enclave_args_init(params);
+
+  struct elf_args *enclaveFile = (struct elf_args *)in;
 
   unsigned long shm_size = 0x10000;
   int shmid = PLenclave_shmget(shm_size);
   void* shm = PLenclave_shmat(shmid, 0);
   memset(shm,0,shm_size);
 
-  enclave->user_param.shmid = shmid;
-  enclave->user_param.shm_offset = 0;
-  enclave->user_param.shm_size = shm_size;
+  params->shmid = shmid;
+  params->shm_offset = 0;
+  params->shm_size = shm_size;
+
+  sprintf(params->name, "reduce%d", i);
 
   // printf("host2: fd is %d eid %d\n", enclave->fd, enclave->user_param.eid);
-  sprintf(enclave->user_param.name, "reduce%d", ii);
-  // strcpy(enclave->user_param.name, "test");
-  PLenclave_attest(enclave, 0);
-  PLenclave_set_mem_arg(enclave, 1,0,0);
-  // It should be atomic read/write
-  if(reduce_start == 0)
-    reduce_start = read_cycle();
-  PLenclave_run(enclave);
-  reduce_end = read_cycle();
+
+  if(PLenclave_create(enclave, enclaveFile, params) < 0)
+  {
+    printf("host:%d: failed to create enclave\n", i);
+  }
+  else
+  {
+    PLenclave_attest(enclave, 0);
+    PLenclave_set_mem_arg(enclave, 1,0,0);
+    while (run_result = PLenclave_run(enclave))
+    {
+      switch (run_result)
+      {
+        default:
+          printf("[ERROR] host: run_result val is wrong!\n");
+      }
+    }
+
+  }
   free(enclave);
-  // printf("host2:%d: before exit thread\n", ii);
+  free(params);
+  reduce_end = read_cycle();
   pthread_exit((void*)0);
 }
+
 
 int main(int argc, char** argv)
 {
@@ -128,23 +155,7 @@ int main(int argc, char** argv)
     goto out;
   }
 
-  struct PLenclave* enclave = malloc(sizeof(struct PLenclave));
-  struct enclave_args* params = malloc(sizeof(struct enclave_args));
-  PLenclave_init(enclave);
-  enclave_args_init(params);
-
-  params->type = SHADOW_ENCLAVE;
-
-  if(PLenclave_create(enclave, enclaveFile, params) < 0 )
-  {
-    printf("host: failed to create enclave\n");
-    pthread_exit((void*)0);
-  }
-
-  unsigned long eid = enclave->user_param.eid;
-  int fd = enclave->fd;
-
-  for(int i=0; i<thread_num; ++i)
+  for(int i=0; i<thread_num; i++)
   {
     mm_arg_size[i] = 0x1000 * 128;
     mm_arg_id[i] = PLenclave_schrodinger_get(mm_arg_size[i]);
@@ -169,12 +180,12 @@ int main(int argc, char** argv)
 
   for(int i=0; i< thread_num; i++)
   {
-    args[i].in = eid;
+    args[i].in = (void*)enclaveFile;
     args[i].i = i;
-    args[i].fd = fd;
     pthread_create(&threads[i], NULL, create_enclave, (void*)&(args[i]));
   }
-  for(int i =0; i< thread_num; i++)
+
+  for(int i =0; i< thread_num; ++i)
   {
     pthread_join(threads[i], (void**)0);
   }
@@ -189,30 +200,15 @@ int main(int argc, char** argv)
     printf("error when initializing enclaveFile\n");
     goto out;
   }
-  struct PLenclave* enclave2 = malloc(sizeof(struct PLenclave));
-  struct enclave_args* params2 = malloc(sizeof(struct enclave_args));
-  PLenclave_init(enclave2);
-  enclave_args_init(params2);
 
-  params2->type = SHADOW_ENCLAVE;
-
-  if(PLenclave_create(enclave2, enclaveFile2, params2) < 0 )
-  {
-    printf("host: failed to create enclave\n");
-    pthread_exit((void*)0);
-  }
-
-  unsigned long eid2 = enclave2->user_param.eid;
-  int fd2 = enclave2->fd;
   for(int i=0; i< thread_num; i++)
   {
-    args[i].in = eid2;
+    args[i].in = (void*)enclaveFile2;
     args[i].i = i;
-    args[i].fd = fd2;
     pthread_create(&threads[i], NULL, create_enclave2, (void*)&(args[i]));
   }
 
-  for(int i =0; i< thread_num; ++i)
+  for(int i =0; i< thread_num; i++)
   {
     pthread_join(threads[i], (void**)0);
   }
@@ -224,7 +220,7 @@ int main(int argc, char** argv)
       PLenclave_schrodinger_ctl(mm_arg_id[ii]);
     }
   }
-  printf("Run map reduce with optimization: Total time: %ld, number of the mapper %d number of the reducer %d\n", 
+  printf("Run map reduce without optimization: Total time: %ld, number of the mapper %d number of the reducer %d\n", 
           map_end-map_start+reduce_end-reduce_start, THREAD_NUM, THREAD_NUM);
   printf("host: after exit the thread\n");
 

@@ -82,7 +82,7 @@ caller:
   mid_cycle = readcycle();
   PLenclave_run(caller_enclave);
   end_cycle = readcycle();
-  printf("[Serverless Onefunc Test] Image Size: %dx%d (x3)\n\tprepare time:%ld cycles\n\trun time:%ld cycles\n\ttotal time:%ld cycles\n",
+  printf("[Serverless Onefunc Test] Image Size: %dx%d (x3)\n\trun time:%ld cycles\n",
 		  img_size, img_size,
 		  mid_cycle-start_cycle, end_cycle-mid_cycle, end_cycle-start_cycle);
 

@@ -10,6 +10,7 @@ all:
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  map4
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  reduce4
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  mphost4
+	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  mphost-normal
 clean:
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  map clean
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  reduce clean
@@ -20,3 +21,4 @@ clean:
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  map4 clean
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  reduce4 clean
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  mphost4 clean
+	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  mphost-normal clean
