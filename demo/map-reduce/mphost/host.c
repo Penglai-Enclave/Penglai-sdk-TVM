@@ -49,11 +49,9 @@ void* create_enclave(void* args0)
   // printf("host: fd is %d eid %d\n", enclave->fd, enclave->user_param.eid);
   
   sprintf(enclave->user_param.name, "map%d", ii);
-  PLenclave_attest(enclave, 0);
   if(mm_arg_id[ii] > 0 && mm_arg[ii])
     PLenclave_set_mem_arg(enclave, mm_arg_id[ii], 0, mm_arg_size[ii]);
   // It should be atomic read/write
-  printf("host: run map\n");
   if(map_start == 0)
     map_start = read_cycle();
   PLenclave_run(enclave);
@@ -90,7 +88,6 @@ void* create_enclave2(void* args0)
   // printf("host2: fd is %d eid %d\n", enclave->fd, enclave->user_param.eid);
   sprintf(enclave->user_param.name, "reduce%d", ii);
   // strcpy(enclave->user_param.name, "test");
-  PLenclave_attest(enclave, 0);
   PLenclave_set_mem_arg(enclave, 1,0,0);
   // It should be atomic read/write
   if(reduce_start == 0)
@@ -136,7 +133,6 @@ int main(int argc, char** argv)
 
   params->type = SHADOW_ENCLAVE;
 
-  printf("host: create enclave\n");
   if(PLenclave_create(enclave, enclaveFile, params) < 0 )
   {
     printf("host: failed to create enclave\n");
@@ -146,17 +142,16 @@ int main(int argc, char** argv)
   unsigned long eid = enclave->user_param.eid;
   int fd = enclave->fd;
 
-  printf("host: init schrodinger page\n");
   for(int i=0; i<thread_num; ++i)
   {
     mm_arg_size[i] = 0x1000 * 128;
     mm_arg_id[i] = PLenclave_schrodinger_get(mm_arg_size[i]);
     mm_arg[i] = PLenclave_schrodinger_at(mm_arg_id[i], 0);
+    memset(mm_arg[i], 0, mm_arg_size[i]);
     if(mm_arg[i] == (void*)-1)
         printf("PLenclave_schrodinger page get error \n");
   }
 
-  printf("host: fopen\n");
   FILE* f = fopen("./input.txt","r");
   char buf[512];
   int offset[THREAD_NUM] = {0,};
@@ -171,7 +166,6 @@ int main(int argc, char** argv)
   }
   fclose(f);
 
-  printf("host: create map\n");
   for(int i=0; i< thread_num; i++)
   {
     args[i].in = eid;
@@ -207,7 +201,6 @@ int main(int argc, char** argv)
     pthread_exit((void*)0);
   }
 
-  printf("host: create reducer\n");
   unsigned long eid2 = enclave2->user_param.eid;
   int fd2 = enclave2->fd;
   for(int i=0; i< thread_num; i++)

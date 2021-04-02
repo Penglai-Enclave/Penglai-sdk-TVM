@@ -9,7 +9,7 @@
 #define MAP_NUM 1
 #define REDUCE_NUM 1
 #define REDUCE_PAGE_NUMBER (64/MAP_NUM)
-#define FPGA_PENALTY 10000000
+#define FPGA_PENALTY 1
 
 
 unsigned int ELFHash(char *str, int num)
@@ -96,6 +96,7 @@ int domap(unsigned long *args, int reduce_num)
     char enclave_name[16];
     sprintf(enclave_name, "reduce%d", map_index);
     struct call_enclave_arg_t call_arg;
+
     for (int i = 0; i < reduce_num; i++)
     {
         sprintf(enclave_name, "reduce%d", i);

@@ -54,7 +54,6 @@ void* create_enclave(void* args0)
   }
   else
   {
-    PLenclave_attest(enclave, 0);
     if(mm_arg_id[i] > 0 && mm_arg[i])
       PLenclave_set_mem_arg(enclave, mm_arg_id[i], 0, mm_arg_size[i]);
     while (run_result = PLenclave_run(enclave))
@@ -109,7 +108,6 @@ void* create_enclave2(void* args0)
   }
   else
   {
-    PLenclave_attest(enclave, 0);
     PLenclave_set_mem_arg(enclave, 1,0,0);
     while (run_result = PLenclave_run(enclave))
     {
@@ -160,6 +158,7 @@ int main(int argc, char** argv)
     mm_arg_size[i] = 0x1000 * 128;
     mm_arg_id[i] = PLenclave_schrodinger_get(mm_arg_size[i]);
     mm_arg[i] = PLenclave_schrodinger_at(mm_arg_id[i], 0);
+    memset(mm_arg[i], 0, mm_arg_size[i]);
     if(mm_arg[i] == (void*)-1)
         printf("PLenclave_schrodinger page get error \n");
   }

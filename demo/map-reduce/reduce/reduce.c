@@ -55,6 +55,7 @@ int doreduce(unsigned long * args, int map_num)
     {
         reduce_keyvalue[i] = (Keyvalue *)(shm + REDUCE_PAGE_NUMBER * i * PAGE_SIZE);
     }
+
     Keyvalue *keyvalue = merge_data;
     memcpy(keyvalue->key, "-end-", sizeof("-end-"));
     for(int i = 0; i<map_num; i++)

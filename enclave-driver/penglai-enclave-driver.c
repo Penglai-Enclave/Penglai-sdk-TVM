@@ -183,6 +183,7 @@ static int enclave_ioctl_init(void)
   }
   bitmap_pages = 1 << order;
   memset((void *)bitmap, 0, (bitmap_pages << PAGE_SHIFT));
+
   penglai_printf("total %lupages, bitmap_pages need %lu, allocate %lu page(s)\n", s_info.totalram, bitmap_pages, (unsigned long)1<<order);
   //broadcast to other harts
   ret = SBI_PENGLAI_4(SBI_SM_INIT, __pa(pt_area_vaddr), pt_area_pages << PAGE_SHIFT,
@@ -197,6 +198,8 @@ static int enclave_ioctl_init(void)
   ret = SBI_PENGLAI_2(SBI_SM_PT_AREA_SEPARATION, PGD_PAGE_ORDER, PMD_PAGE_ORDER);
 
   schrodinger_addr = penglai_get_free_pages(GFP_KERNEL, DEFAULT_SCHRODINGER_ORDER);
+  memset(schrodinger_addr, 0, RISCV_PGSIZE*(1<<DEFAULT_SCHRODINGER_ORDER));
+
   if(schrodinger_addr)
   {
     ret = schrodinger_init(schrodinger_addr, RISCV_PGSIZE * (1 << DEFAULT_SCHRODINGER_ORDER));

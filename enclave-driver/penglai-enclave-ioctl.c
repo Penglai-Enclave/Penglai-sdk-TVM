@@ -102,6 +102,7 @@ int penglai_extend_secure_memory(void)
       return DEFAULT_DESTROY_ENCLAVE;
     }
 
+    memset(addr, 0, RISCV_PGSIZE* (1<<DEFAULT_SECURE_PAGES_ORDER));
     ret_expand_monitor_memory = SBI_PENGLAI_2(SBI_SM_MEMORY_EXTEND, __pa(addr), 1 << (DEFAULT_SECURE_PAGES_ORDER + RISCV_PGSHIFT));
     if(ret_expand_monitor_memory < 0)
     {
@@ -458,7 +459,7 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
   struct penglai_enclave_instance_sbi_param enclave_instance_sbi_param;
   spin_lock(&enclave_create_lock);
   *enclave_instance = (enclave_instance_t* )kmalloc(sizeof(enclave_instance_t), GFP_KERNEL);
-  penglai_dprintf("run enclave: penglai_instantiate_enclave_instance: get free pgae\n");
+  // penglai_dprintf("shadow run: get free page\n");
   addr = penglai_get_free_pages(GFP_KERNEL, DEFAULT_SHADOW_ENCLAVE_ORDER);
   if(!addr)
   {
@@ -474,7 +475,7 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
   }
   memset((void*)kbuffer, 0, ENCLAVE_DEFAULT_KBUFFER_SIZE);
 
-  penglai_dprintf("run enclave: penglai_instantiate_enclave_instance: get_shm\n");
+  // penglai_dprintf("shadow run: get shm page\n");
   shm_vaddr = get_shm(enclave_param->shmid, enclave_param->shm_offset, enclave_param->shm_size);
   shm_size = enclave_param->shm_size;
 
@@ -516,9 +517,9 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
     schrodinger_paddr = DEFAULT_MAGIC_NUMBER; //magic number
 
   spin_unlock(&enclave_create_lock);
-  penglai_dprintf("run enclave: penglai_instantiate_enclave_instance: run\n");
+  // penglai_dprintf("shadow run: run enclave\n");
   ret = SBI_PENGLAI_4(SBI_SM_RUN_SHADOW_ENCLAVE, enclave->eid,  __pa(&enclave_instance_sbi_param), schrodinger_paddr, schrodinger_size);
-  penglai_dprintf("run enclave: penglai_instantiate_enclave_instance: run after\n");
+  // penglai_dprintf("shadow run: end run enclave\n");
   if(ret == ENCLAVE_NO_MEM)
   {
     if ((ret = penglai_extend_secure_memory()) < 0)
@@ -538,6 +539,7 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   unsigned long satp = 0, shadow_eid = 0, schrodinger_vaddr = 0, schrodinger_size = 0;
   int ret =0, resume_id = 0;
 
+  // penglai_dprintf("begin run\n");
   if(enclave_param->rerun_reason > 0)
   {
     //Re-run shadow enclave
@@ -583,18 +585,21 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
     }
   }
 
-  penglai_dprintf("run enclave: get relay page\n");
+  // penglai_dprintf("run: begin get get_schrodinger\n");
+  spin_lock(&enclave_create_lock);
   //if schrodinger is not zero but size remains zero, it means relay page is transferred from other enclave
   if((enclave_param->schrodinger_id > 0) && (enclave_param->schrodinger_size == 0))
     schrodinger_vaddr = DEFAULT_MAGIC_NUMBER; //magic number just set address is not zero, so the monitor will know relay page is transferred from other enclave
   else
     schrodinger_vaddr = get_schrodinger(enclave_param->schrodinger_id, enclave_param->schrodinger_offset, enclave_param->schrodinger_size);
   schrodinger_size = enclave_param->schrodinger_size;
+  spin_unlock(&enclave_create_lock);
   if(enclave->type == SHADOW_ENCLAVE)
   {
-    penglai_dprintf("run enclave: penglai_instantiate_enclave_instance\n");
+    // penglai_dprintf("run: begin penglai_instantiate_enclave_instance\n");
     ret = penglai_instantiate_enclave_instance(&enclave_instance, enclave, enclave_param, schrodinger_vaddr,
                                         schrodinger_size, &shadow_eid, &resume_id);
+    // penglai_dprintf("run: end penglai_instantiate_enclave_instance\n");
     if (ret == DEFAULT_FREE_ENCLAVE)
     {
       ret = -1;
@@ -662,10 +667,14 @@ resume_for_rerun:
     spin_lock(&enclave_create_lock);
     if(enclave_param->isShadow == 1)
     {
+      // penglai_dprintf("run: begin free addr%lx kbuffer %lx\n", enclave_instance->addr, enclave_instance->kbuffer);
       free_pages(enclave_instance->addr, enclave_instance->order);
+      // penglai_dprintf("run: begin free addr2\n");
       free_pages(enclave_instance->kbuffer, ENCLAVE_DEFAULT_KBUFFER_ORDER);
+      // penglai_dprintf("run: begin free addr3\n");
       kfree(enclave_instance);
       enclave_instance_idr_remove(enclave_param->eid);
+      // penglai_dprintf("run: begin free addr4\n");
       spin_unlock(&enclave_create_lock);
       return ret;
     }
