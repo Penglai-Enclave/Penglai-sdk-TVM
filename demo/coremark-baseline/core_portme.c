@@ -17,7 +17,7 @@ Original Author: Shay Gal-on
 */
 
 #include <stdio.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include "coremark.h"
 #include "print.h"
 // #include "eapp.h"

@@ -36,7 +36,7 @@ Original Author: Shay Gal-on
 	and implementation of functions thereof.
 */
 #ifndef HAS_TIME_H
-#define HAS_TIME_H 1
+#define HAS_TIME_H 0
 #endif
 /* Configuration: USE_CLOCK
 	Define to 1 if platform has the time.h header file,
@@ -65,7 +65,7 @@ Original Author: Shay Gal-on
 #include <windows.h>
 typedef size_t CORE_TICKS;
 #elif HAS_TIME_H
-#include <time.h>
+//#include <time.h>
 typedef clock_t CORE_TICKS;
 #else
 /* Configuration: size_t and clock_t
@@ -252,7 +252,7 @@ extern ee_u32 default_num_contexts;
 	#include <arpa/inet.h>
 	#include <sys/wait.h>
 	#include <stdio.h>
-	#include <stdlib.h>
+	//#include <stdlib.h>
 	#include <string.h>
 	#include <unistd.h>
 	#include <errno.h>

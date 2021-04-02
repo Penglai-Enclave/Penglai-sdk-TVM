@@ -21,7 +21,7 @@ Original Author: Shay Gal-on
 */
 #include "coremark.h"
 #include "print.h"
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <stdio.h>
 
 #if PERFORMANCE_BREAKDOWN
