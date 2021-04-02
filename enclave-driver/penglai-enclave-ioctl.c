@@ -458,6 +458,7 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
   struct penglai_enclave_instance_sbi_param enclave_instance_sbi_param;
   spin_lock(&enclave_create_lock);
   *enclave_instance = (enclave_instance_t* )kmalloc(sizeof(enclave_instance_t), GFP_KERNEL);
+  penglai_dprintf("run enclave: penglai_instantiate_enclave_instance: get free pgae\n");
   addr = penglai_get_free_pages(GFP_KERNEL, DEFAULT_SHADOW_ENCLAVE_ORDER);
   if(!addr)
   {
@@ -473,6 +474,7 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
   }
   memset((void*)kbuffer, 0, ENCLAVE_DEFAULT_KBUFFER_SIZE);
 
+  penglai_dprintf("run enclave: penglai_instantiate_enclave_instance: get_shm\n");
   shm_vaddr = get_shm(enclave_param->shmid, enclave_param->shm_offset, enclave_param->shm_size);
   shm_size = enclave_param->shm_size;
 
@@ -514,7 +516,9 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
     schrodinger_paddr = DEFAULT_MAGIC_NUMBER; //magic number
 
   spin_unlock(&enclave_create_lock);
+  penglai_dprintf("run enclave: penglai_instantiate_enclave_instance: run\n");
   ret = SBI_PENGLAI_4(SBI_SM_RUN_SHADOW_ENCLAVE, enclave->eid,  __pa(&enclave_instance_sbi_param), schrodinger_paddr, schrodinger_size);
+  penglai_dprintf("run enclave: penglai_instantiate_enclave_instance: run after\n");
   if(ret == ENCLAVE_NO_MEM)
   {
     if ((ret = penglai_extend_secure_memory()) < 0)
@@ -579,6 +583,7 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
     }
   }
 
+  penglai_dprintf("run enclave: get relay page\n");
   //if schrodinger is not zero but size remains zero, it means relay page is transferred from other enclave
   if((enclave_param->schrodinger_id > 0) && (enclave_param->schrodinger_size == 0))
     schrodinger_vaddr = DEFAULT_MAGIC_NUMBER; //magic number just set address is not zero, so the monitor will know relay page is transferred from other enclave
@@ -587,6 +592,7 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   schrodinger_size = enclave_param->schrodinger_size;
   if(enclave->type == SHADOW_ENCLAVE)
   {
+    penglai_dprintf("run enclave: penglai_instantiate_enclave_instance\n");
     ret = penglai_instantiate_enclave_instance(&enclave_instance, enclave, enclave_param, schrodinger_vaddr,
                                         schrodinger_size, &shadow_eid, &resume_id);
     if (ret == DEFAULT_FREE_ENCLAVE)
