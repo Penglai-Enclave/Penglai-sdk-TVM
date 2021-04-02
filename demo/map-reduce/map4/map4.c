@@ -9,7 +9,7 @@
 #define MAP_NUM 4
 #define REDUCE_NUM 4
 #define REDUCE_PAGE_NUMBER (64/MAP_NUM)
-#define FPGA_PENALTY 1
+#define FPGA_PENALTY 10000000
 
 
 unsigned int ELFHash(char *str, int num)
