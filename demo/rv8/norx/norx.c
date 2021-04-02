@@ -495,7 +495,7 @@ int norx()
   cf_norx32_decrypt(key, nonce, NULL, 0, ct, DATA_SIZE, NULL, 0, tag, pt2);
 
   /* compare */
-  eapp_print("%d\n", memcmp(pt1, pt2, DATA_SIZE));
+  //eapp_print("%d\n", memcmp(pt1, pt2, DATA_SIZE));
 
   free(pt1);
   free(ct);
