@@ -9,7 +9,7 @@
 #define MAP_NUM 4
 #define REDUCE_NUM 4
 #define REDUCE_PAGE_NUMBER (64/MAP_NUM)
-#define FPGA_PENALTY 1
+#define FPGA_PENALTY 10000
 
 
 unsigned int ELFHash(char *str, int num)
@@ -22,13 +22,13 @@ unsigned int ELFHash(char *str, int num)
         hash = (hash << 4) + (*str++);
         if ((x = hash & 0xF0000000L) != 0)
         {
-            for(int j=0; j < FPGA_PENALTY; j++)
-            {
-                hash ^= (x >> 24);
-                hash &= ~x;
-            }
+            hash ^= (x >> 24);
+            hash &= ~x;
         }
     }
+    
+    for (int j = 0; j < FPGA_PENALTY; j++)
+        x++;
     return (hash & 0x7FFFFFFF);
 }
 

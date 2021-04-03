@@ -586,14 +586,12 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   }
 
   // penglai_dprintf("run: begin get get_schrodinger\n");
-  spin_lock(&enclave_create_lock);
   //if schrodinger is not zero but size remains zero, it means relay page is transferred from other enclave
   if((enclave_param->schrodinger_id > 0) && (enclave_param->schrodinger_size == 0))
     schrodinger_vaddr = DEFAULT_MAGIC_NUMBER; //magic number just set address is not zero, so the monitor will know relay page is transferred from other enclave
   else
     schrodinger_vaddr = get_schrodinger(enclave_param->schrodinger_id, enclave_param->schrodinger_offset, enclave_param->schrodinger_size);
   schrodinger_size = enclave_param->schrodinger_size;
-  spin_unlock(&enclave_create_lock);
   if(enclave->type == SHADOW_ENCLAVE)
   {
     // penglai_dprintf("run: begin penglai_instantiate_enclave_instance\n");
@@ -664,7 +662,6 @@ resume_for_rerun:
   }
 
   free_enclave:
-    spin_lock(&enclave_create_lock);
     if(enclave_param->isShadow == 1)
     {
       // penglai_dprintf("run: begin free addr%lx kbuffer %lx\n", enclave_instance->addr, enclave_instance->kbuffer);
@@ -673,29 +670,23 @@ resume_for_rerun:
       free_pages(enclave_instance->kbuffer, ENCLAVE_DEFAULT_KBUFFER_ORDER);
       // penglai_dprintf("run: begin free addr3\n");
       kfree(enclave_instance);
-      enclave_instance_idr_remove(enclave_param->eid);
       // penglai_dprintf("run: begin free addr4\n");
-      spin_unlock(&enclave_create_lock);
       return ret;
     }
     if(get_enclave_by_id(eid) && get_enclave_by_id(eid)->satp == satp)
     {
       destroy_enclave(enclave);
       enclave_idr_remove(eid);
-      spin_unlock(&enclave_create_lock);
       return ret;
     }
-    spin_unlock(&enclave_create_lock);
     return -EFAULT;
 
   destroy_enclave:
-    spin_lock(&enclave_create_lock);
     if(get_enclave_by_id(eid) && get_enclave_by_id(eid)->satp == satp)
     {
       destroy_enclave(enclave);
       enclave_idr_remove(eid);
     }
-    spin_unlock(&enclave_create_lock);
     return -EFAULT;
 }
 
