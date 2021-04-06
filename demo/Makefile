@@ -19,6 +19,7 @@ all:
 	make -C small-demo
 	make -C hello-world
 	make -C image-process
+	make -C FS
 
 clean:
 	make -C host clean
@@ -37,3 +38,4 @@ clean:
 	make -C small-demo clean
 	make -C hello-world clean
 	make -C image-process clean
+	make -C FS clean

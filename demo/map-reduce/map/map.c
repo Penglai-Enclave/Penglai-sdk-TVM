@@ -78,7 +78,7 @@ int domap(unsigned long *args, int reduce_num)
     shm = args[13];
     shm_size = args[14];
     map_index = args[12] % MAP_NUM;
-    map_data = (char *)shm ;
+    map_data = (char *)shm;
     split_mem_region(shm, shm_size, shm + REDUCE_OFFSET * PAGE_SIZE);
     
     // Divide relay page into reduce_num region, and each region contain several keyvalue pairs 

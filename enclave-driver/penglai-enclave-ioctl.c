@@ -520,7 +520,7 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
   // penglai_dprintf("shadow run: run enclave\n");
   ret = SBI_PENGLAI_4(SBI_SM_RUN_SHADOW_ENCLAVE, enclave->eid,  __pa(&enclave_instance_sbi_param), schrodinger_paddr, schrodinger_size);
   // penglai_dprintf("shadow run: end run enclave\n");
-  if(ret == ENCLAVE_NO_MEM)
+  while(ret == ENCLAVE_NO_MEM)
   {
     if ((ret = penglai_extend_secure_memory()) < 0)
           return ret;
@@ -539,7 +539,6 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   unsigned long satp = 0, shadow_eid = 0, schrodinger_vaddr = 0, schrodinger_size = 0;
   int ret =0, resume_id = 0;
 
-  // penglai_dprintf("begin run\n");
   if(enclave_param->rerun_reason > 0)
   {
     //Re-run shadow enclave
@@ -664,11 +663,8 @@ resume_for_rerun:
   free_enclave:
     if(enclave_param->isShadow == 1)
     {
-      // penglai_dprintf("run: begin free addr%lx kbuffer %lx\n", enclave_instance->addr, enclave_instance->kbuffer);
       free_pages(enclave_instance->addr, enclave_instance->order);
-      // penglai_dprintf("run: begin free addr2\n");
       free_pages(enclave_instance->kbuffer, ENCLAVE_DEFAULT_KBUFFER_ORDER);
-      // penglai_dprintf("run: begin free addr3\n");
       kfree(enclave_instance);
       // penglai_dprintf("run: begin free addr4\n");
       return ret;
