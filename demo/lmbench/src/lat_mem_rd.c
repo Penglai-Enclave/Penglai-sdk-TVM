@@ -106,7 +106,6 @@ loads(size_t len, size_t range, size_t stride,
 	double result;
 	size_t count;
 	struct mem_state state;
-
 	state.width = 1;
 	state.len = range;
 	state.maxlen = len;
@@ -122,7 +121,7 @@ loads(size_t len, size_t range, size_t stride,
 
 	/* We want to get to nanoseconds / load. */
 	result = (1000. * (double)gettime()) / (double)(count * get_n());
-	fprintf(stderr, "%.5f %.3f\n", range / (1024. * 1024.), result);
+	fprintf(stderr, "lmbench output: %.5f %.3f\n", range / (1024. * 1024.), result);
 
 }
 

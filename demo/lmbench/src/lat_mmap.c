@@ -46,7 +46,7 @@ int main(int ac, char **av)
 	int	c;
 	char	*usage = "[-r] [-P <parallelism>] [-W <warmup>] [-N <repetitions>] size file\n";
 	
-
+	fprintf(stderr, "lat_mmap\n");
 	state.random = 0;
 	state.clone = 0;
 	while (( c = getopt(ac, av, "rP:W:N:C")) != EOF) {

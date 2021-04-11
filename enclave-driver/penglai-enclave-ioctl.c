@@ -102,7 +102,7 @@ int penglai_extend_secure_memory(void)
       return DEFAULT_DESTROY_ENCLAVE;
     }
 
-    memset(addr, 0, RISCV_PGSIZE* (1<<DEFAULT_SECURE_PAGES_ORDER));
+    memset((void *)addr, 0, RISCV_PGSIZE* (1<<DEFAULT_SECURE_PAGES_ORDER));
     ret_expand_monitor_memory = SBI_PENGLAI_2(SBI_SM_MEMORY_EXTEND, __pa(addr), 1 << (DEFAULT_SECURE_PAGES_ORDER + RISCV_PGSHIFT));
     if(ret_expand_monitor_memory < 0)
     {
@@ -837,7 +837,7 @@ long penglai_enclave_ioctl(struct file* filep, unsigned int cmd, unsigned long a
       break;
     }
      default:
-     penglai_eprintf("ioctl is failed cmd:%lx create %lx\n", cmd, PENGLAI_ENCLAVE_IOC_CREATE_ENCLAVE);
+     penglai_eprintf("ioctl is failed cmd:%x create %lx\n", cmd, PENGLAI_ENCLAVE_IOC_CREATE_ENCLAVE);
       return -EFAULT;
   }
   if (copy_to_user((void*)args, ioctl_data, ioc_size))

@@ -10,8 +10,8 @@ all:
 	make -C rv8-baseline
 	make -C coremark
 	make -C coremark-baseline
-	# make -C stress-ng
-	# make -C lmbench
+	make -C stress-ng
+	make -C lmbench
 	make -C map-reduce
 	make -C ipc
 	make -C ipc-baseline
@@ -29,8 +29,8 @@ clean:
 	make -C rv8-baseline clean
 	make -C coremark clean
 	make -C coremark-baseline clean
-	# make -C stress-ng clean
-	# make -C lmbench clean
+	make -C stress-ng clean
+	make -C lmbench clean
 	make -C map-reduce clean
 	make -C ipc clean
 	make -C ipc-baseline clean

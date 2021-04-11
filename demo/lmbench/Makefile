@@ -17,6 +17,7 @@
 SHELL=/bin/sh
 
 build: 
+	echo "here1"
 	cd src && $(MAKE)
 
 results: FRC

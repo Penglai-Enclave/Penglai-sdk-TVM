@@ -1019,6 +1019,7 @@ micromb(uint64 sz, uint64 n)
 	micro /= n;
 	mb = sz;
 	mb /= MB;
+	fprintf(stderr, "[debug] %.6f %.0f\n", mb, micro);
 	if (micro == 0.0) return;
 	if (!ftiming) ftiming = stderr;
 	if (micro >= 10) {
