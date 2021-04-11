@@ -56,6 +56,8 @@ void* create_enclave(void* args0)
   free(enclave);
   free(params);
 
+  printf("host%d: PLenclave run is finished\n", i);
+
   pthread_exit((void*)0);
 }
 
