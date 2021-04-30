@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define MAX_ADDR (512*1024*1024)
+#define MAX_ADDR (64*1024*1024)
 #define loop 10000
-
 
 int main()
 {
