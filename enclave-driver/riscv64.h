@@ -52,6 +52,18 @@
 #define VA_BITS 39
 #define GIGAPAGE_SIZE (MEGAPAGE_SIZE << RISCV_PGLEVEL_BITS)
 
+#define PTE_VALID(pte) (pte & PTE_V)
+#define PTE_ILLEGAL(pte) ((pte & PTE_V) && (pte & PTE_W) && !(pte & PTE_R))
+#define VALIDATE_PTE(pte) (pte | PTE_V)
+#define INVALIDATE_PTE(pte) (pte & (~PTE_V))
+#define PTE_TO_PFN(pte) (pte >> PTE_PPN_SHIFT)
+#define PFN_TO_PTE(pfn, attribution) ((pfn<<PAGE_PFN_SHIFT) | attribution)
+#define PTE_TO_PA(pte) ((pte >> PTE_PPN_SHIFT)<<RISCV_PGSHIFT)
+#define PA_TO_PTE(pa, attribution) (((pa>>RISCV_PGSHIFT)<<PAGE_PFN_SHIFT) | attribution)
+#define IS_PGD(pte) (pte & SATP_MODE_CHOICE)
+#define IS_LEAF_PTE(pte) ((pte & PTE_V) && (pte & PTE_R || pte & PTE_X))
+#define PADDR_TO_PFN(paddr) ((paddr) >> RISCV_PGSHIFT)
+
 static inline void flush_tlb(void)
 {
   asm volatile ("sfence.vma");

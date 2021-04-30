@@ -2,7 +2,7 @@
 #define _PENGLAI_SCHRODINGER_H
 #include <linux/types.h>
 
-#define DEFAULT_SCHRODINGER_ORDER        15
+#define DEFAULT_SCHRODINGER_ORDER        12
 #define MIN_PENGLAI_SCHRODINGER_ID       0x10000
 #define MAX_PENGLAI_SCHRODINGER_ID       0xfffff
 

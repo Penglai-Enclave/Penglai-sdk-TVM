@@ -15,23 +15,75 @@ MODULE_DESCRIPTION("enclave_ioctl");
 MODULE_AUTHOR("LuXu");
 MODULE_VERSION("enclave_ioctl");
 
+DEFINE_SPINLOCK(enclave_get_free_page_lock);
+
+extern char *pt_area_vaddr;
+extern unsigned long pt_area_pages;
+
+extern int PGD_PAGE_ORDER;
+extern int PMD_PAGE_ORDER;
+
+extern int enclave_module_installed;
+
+void penglai_scan_huge_page_entry(unsigned long paddr, unsigned long size, struct pt_entry_t * split_pmd)
+{
+  unsigned long pfn_base = PADDR_TO_PFN(paddr);
+  unsigned long pfn_end = PADDR_TO_PFN(paddr + size);
+  unsigned long *pte = (unsigned long*)(pt_area_vaddr + (1<<PGD_PAGE_ORDER)*RISCV_PGSIZE);
+  unsigned long *pte_end = (unsigned long*)(pt_area_vaddr + (1<<PGD_PAGE_ORDER)*RISCV_PGSIZE + (1<<PMD_PAGE_ORDER)*RISCV_PGSIZE);
+  while(pte < pte_end)
+  {
+    if(!IS_PGD(*pte) && PTE_VALID(*pte))
+    {
+      unsigned long pfn = PTE_TO_PFN(*pte);
+      if(IS_LEAF_PTE(*pte))
+      {
+        if(pfn >= pfn_end || (pfn+512 )<= pfn_base)
+        {
+          //There is no  overlap between the  pmd region and remap region
+          pte += 1;
+          continue;
+        }
+        else if(pfn_base<=pfn && pfn_end>=(pfn+512))
+        {
+          pte += 1;
+          continue;
+        }
+        else
+        {
+          split_pmd->pte_addr = (unsigned long)pte;
+          split_pmd->pte = *pte;
+	        break;
+        }
+      }
+    }
+    pte += 1;
+  }
+}
+
 extern unsigned long va_pa_offset;
 unsigned long penglai_get_free_pages(gfp_t gfp_mask, unsigned int order)
 {
   unsigned long va;
   int ret;
+  
   va = __get_free_pages(gfp_mask, order);
   if (order < 9 )
   {
+    // spin_lock(&enclave_get_free_page_lock);
     struct pt_entry_t split_pte;
+    char * new_pt_pte_page;
     split_pte.pte = 0;
     split_pte.pte_addr = 0;
-    ret = SBI_PENGLAI_3(SBI_SM_SPLIT_HUGE_PAGE, __pa(va), (1<<order)*4096, __pa(&split_pte));
+    penglai_scan_huge_page_entry(__pa(va), (1<<order)*RISCV_PGSIZE, &split_pte);
     if (split_pte.pte_addr != 0)
     {
-      char * new_pt_pte_page = alloc_pt_pte_page();
-      ret = SBI_PENGLAI_2(SBI_SM_MAP_PTE, split_pte.pte_addr, __pa(new_pt_pte_page));
+      spin_lock(&enclave_get_free_page_lock);
+      new_pt_pte_page = alloc_pt_pte_page();
+      ret = SBI_PENGLAI_2(SBI_SM_MAP_PTE, __pa(split_pte.pte_addr), __pa(new_pt_pte_page));
+      spin_unlock(&enclave_get_free_page_lock);
     }
+    // spin_unlock(&enclave_get_free_page_lock);
   }
   return va;
 }
@@ -101,16 +153,11 @@ struct pt_page_list{
   struct pt_page_list *next_page;
 };
 
-extern char *pt_area_vaddr;
-extern unsigned long pt_area_pages;
-
-extern int PGD_PAGE_ORDER;
-extern int PMD_PAGE_ORDER;
 static int enclave_ioctl_init(void)
 {
   int ret;
   unsigned long bitmap_bytes, bitmap_pages, order, schrodinger_addr;
-  uintptr_t bitmap;
+  unsigned long bitmap;
   struct sysinfo s_info;
   penglai_printf("enclave_ioctl_init...\n");
 
@@ -139,6 +186,7 @@ static int enclave_ioctl_init(void)
   }
   bitmap_pages = 1 << order;
   memset((void *)bitmap, 0, (bitmap_pages << PAGE_SHIFT));
+
   penglai_printf("total %lupages, bitmap_pages need %lu, allocate %lu page(s)\n", s_info.totalram, bitmap_pages, (unsigned long)1<<order);
   //broadcast to other harts
   ret = SBI_PENGLAI_4(SBI_SM_INIT, __pa(pt_area_vaddr), pt_area_pages << PAGE_SHIFT,
@@ -153,6 +201,8 @@ static int enclave_ioctl_init(void)
   ret = SBI_PENGLAI_2(SBI_SM_PT_AREA_SEPARATION, PGD_PAGE_ORDER, PMD_PAGE_ORDER);
 
   schrodinger_addr = penglai_get_free_pages(GFP_KERNEL, DEFAULT_SCHRODINGER_ORDER);
+  memset((void *)schrodinger_addr, 0, RISCV_PGSIZE*(1<<DEFAULT_SCHRODINGER_ORDER));
+
   if(schrodinger_addr)
   {
     ret = schrodinger_init(schrodinger_addr, RISCV_PGSIZE * (1 << DEFAULT_SCHRODINGER_ORDER));
@@ -168,7 +218,10 @@ static int enclave_ioctl_init(void)
     penglai_eprintf("failed to alloc schrodinger mem\n");
     goto free_bitmap;
   }
+
+  enclave_module_installed = 1;
   penglai_printf("register_chrdev succeeded!\n");
+  
   return 0;
   
 free_bitmap:

@@ -72,6 +72,7 @@ struct penglai_enclave_user_param
   int rerun_reason;
   unsigned long schrodinger_offset;
   unsigned long schrodinger_size;
+  unsigned long retval;
 };
 
 struct penglai_enclave_sbi_param
@@ -99,6 +100,7 @@ struct penglai_enclave_sbi_param
   unsigned long *ecall_arg1;
   unsigned long *ecall_arg2;
   unsigned long *ecall_arg3;
+  unsigned long *retval;
 };
 
 struct penglai_enclave_instance_sbi_param
@@ -121,6 +123,7 @@ struct penglai_enclave_instance_sbi_param
   unsigned long *ecall_arg1;
   unsigned long *ecall_arg2;
   unsigned long *ecall_arg3;
+  unsigned long *retval;
   char name[NAME_LEN];
 };
 
