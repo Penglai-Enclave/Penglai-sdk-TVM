@@ -278,7 +278,7 @@ int PLenclave_create(struct PLenclave* PLenclave, struct elf_args* u_elffile, st
   }
 
   PLenclave->elffile = u_elffile;
-  PLenclave->user_param.elf_ptr = (unsigned long)u_elffile->ptr;
+  PLenclave->user_param.elf_ptr = (unsigned long)(u_elffile->ptr);
   PLenclave->user_param.elf_size = u_elffile->size;
   PLenclave->user_param.stack_size = u_param->stack_size;
   if(u_param->type == SHADOW_ENCLAVE)
@@ -314,7 +314,7 @@ int PLenclave_run(struct PLenclave *PLenclave)
     return -1;
   }
 
-  ret = ioctl(PLenclave->fd,PENGLAI_ENCLAVE_IOC_RUN_ENCLAVE, &(PLenclave->user_param));
+  ret = ioctl(PLenclave->fd, PENGLAI_ENCLAVE_IOC_RUN_ENCLAVE, &(PLenclave->user_param));
   if(ret < 0)
   {
     fprintf(stderr, "LIB: PLenclave_run: ioctl run enclave is failed \n");
@@ -327,7 +327,6 @@ int PLenclave_run(struct PLenclave *PLenclave)
 int PLenclave_attest(struct PLenclave *PLenclave, uintptr_t nonce)
 {
   int ret = 0;
-  printf("LIB： PLenclave_attest: eid %d \n", PLenclave->eid);
   PLenclave->attest_param.eid = PLenclave->eid;
   PLenclave->attest_param.nonce = nonce;
   ret = ioctl(PLenclave->fd, PENGLAI_ENCLAVE_IOC_ATTEST_ENCLAVE, &(PLenclave->attest_param));
