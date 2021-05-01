@@ -16,7 +16,7 @@ void* create_enclave(void* args0)
   struct args *args = (struct args*)args0;
   void* in = args->in;
   int i = args->i;
-  int ret = 0, run_result = 0;
+  int ret = 0, result = 0;
   
   struct PLenclave* enclave = malloc(sizeof(struct PLenclave));
   struct enclave_args* params = malloc(sizeof(struct enclave_args));
@@ -35,6 +35,7 @@ void* create_enclave(void* args0)
   params->shmid = shmid;
   params->shm_offset = 0;
   params->shm_size = shm_size;
+  
   unsigned long mm_arg_size = 0x1000 * 4;
   int mm_arg_id = PLenclave_schrodinger_get(mm_arg_size);
   void* mm_arg = PLenclave_schrodinger_at(mm_arg_id, 0);
@@ -55,16 +56,16 @@ void* create_enclave(void* args0)
     PLenclave_attest(enclave, 0);
     if(mm_arg_id > 0 && mm_arg)
       PLenclave_set_mem_arg(enclave, mm_arg_id, 0, mm_arg_size);
-    while (run_result = PLenclave_run(enclave))
+    while (result = PLenclave_run(enclave))
     {
-      switch (run_result)
+      switch (result)
       {
         case RETURN_USER_RELAY_PAGE:
           ((int*)mm_arg)[0] = 0;
           PLenclave_set_rerun_arg(enclave, RETURN_USER_RELAY_PAGE);
           break;
         default:
-          printf("[ERROR] host: run_result val is wrong!\n");
+          printf("[ERROR] host: result %d val is wrong!\n", result);
       }
     }
     printf("host: exit enclave is successful \n");
