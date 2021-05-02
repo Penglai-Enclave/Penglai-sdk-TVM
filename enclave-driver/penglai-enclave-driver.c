@@ -85,6 +85,7 @@ unsigned long penglai_get_free_pages(gfp_t gfp_mask, unsigned int order)
   }
   return va;
 }
+
 static int dev_open(struct inode *inodep, struct file *filep)
 {
   filep->private_data = kzalloc(sizeof(struct dev_private_data_t), GFP_KERNEL);

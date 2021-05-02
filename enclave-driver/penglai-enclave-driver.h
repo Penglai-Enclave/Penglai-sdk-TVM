@@ -1,10 +1,6 @@
 #ifndef _PENGLAI_ENCLAVE_DRIVER
 #define _PENGLAI_ENCLAVE_DRIVER
 
-#define DEFAULT_SECURE_PAGES_ORDER 9
-#define DEFAULT_SHADOW_ENCLAVE_ORDER 6
-#define DEFAULT_MEMORY_EXTEND_NUM 3
-
 struct dev_private_data_t
 {
   unsigned long mmap_vaddr;

@@ -224,6 +224,7 @@ int penglai_enclave_destroy(struct file * filep, unsigned long args)
     ret = SBI_PENGLAI_1(SBI_SM_DESTROY_SERVER_ENCLAVE, enclave->eid);
   else
     ret = SBI_PENGLAI_1(SBI_SM_DESTROY_ENCLAVE, enclave->eid);
+
   spin_lock(&enclave_create_lock);
   if(get_enclave_by_id(eid) && get_enclave_by_id(eid)->satp == satp)
   {
@@ -449,20 +450,23 @@ int penglai_enclave_ocall(enclave_instance_t *enclave_instance, enclave_t *encla
 
 
 int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, enclave_t *enclave, struct penglai_enclave_user_param *enclave_param, unsigned long schrodinger_vaddr,
-                                        unsigned long schrodinger_size, unsigned long *shadow_eid, int *resume_id)
+                                        unsigned long schrodinger_size, unsigned long *shadow_eid, unsigned long *resume_id)
 {
   unsigned long addr, kbuffer;
   unsigned long shm_vaddr, shm_size, schrodinger_paddr;
   int ret;
   struct penglai_enclave_instance_sbi_param enclave_instance_sbi_param;
-  spin_lock(&enclave_create_lock);
   *enclave_instance = (enclave_instance_t* )kmalloc(sizeof(enclave_instance_t), GFP_KERNEL);
+
+  // spin_lock(&enclave_create_lock);
+
   addr = penglai_get_free_pages(GFP_KERNEL, DEFAULT_SHADOW_ENCLAVE_ORDER);
   if(!addr)
   {
     penglai_eprintf("failed to run enclave: no enough page for enclave stack%x\n", 1<<DEFAULT_SHADOW_ENCLAVE_ORDER);
     return DEFAULT_FREE_ENCLAVE;
   }
+  memset((void*)addr, 0, DEFAULT_SHADOW_ENCLAVE_SIZE);
 
   kbuffer = penglai_get_free_pages(GFP_KERNEL, ENCLAVE_DEFAULT_KBUFFER_ORDER);
   if(!kbuffer)
@@ -512,7 +516,7 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
   if(schrodinger_vaddr && !schrodinger_size)
     schrodinger_paddr = DEFAULT_MAGIC_NUMBER; //magic number
 
-  spin_unlock(&enclave_create_lock);
+  // spin_unlock(&enclave_create_lock);
   ret = SBI_PENGLAI_4(SBI_SM_RUN_SHADOW_ENCLAVE, enclave->eid,  __pa(&enclave_instance_sbi_param), schrodinger_paddr, schrodinger_size);
   while(ret == ENCLAVE_NO_MEM)
   {
@@ -524,39 +528,50 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
   return ret;
 }
 
+int penglai_get_rerun_enclave(struct penglai_enclave_user_param *enclave_param, enclave_instance_t **enclave_instance, enclave_t **enclave, unsigned long *resume_id, 
+                              unsigned long *satp, unsigned long eid)
+{
+  //Re-run shadow enclave
+  if(enclave_param->isShadow == 1)
+  {
+    *enclave_instance = get_enclave_instance_by_id(eid);
+    if(!(*enclave_instance))
+    {
+      penglai_eprintf("rerun enclave: enclave_instance is not exist \n");
+      return -EINVAL;
+    }
+    *resume_id = (*enclave_instance)->eid;
+  }
+  else
+  { 
+    // Re-run enclave
+    *enclave = get_enclave_by_id(eid);
+    if(!(*enclave))
+    {
+      penglai_eprintf("rerun enclave: enclave is not exist \n");
+      return -EINVAL;
+    }
+    *satp = (*enclave)->satp;
+    *resume_id = (*enclave)->eid;
+  }
+  return 0;
+}
+
 int penglai_enclave_run(struct file *filep, unsigned long args)
 {
   struct penglai_enclave_user_param *enclave_param = (struct penglai_enclave_user_param*) args;
   unsigned long eid = enclave_param->eid;
   enclave_t *enclave = NULL;
   enclave_instance_t *enclave_instance = NULL;
-  unsigned long satp = 0, shadow_eid = 0, schrodinger_vaddr = 0, schrodinger_size = 0;
-  int ret =0, resume_id = 0;
+  unsigned long satp = 0, shadow_eid = 0, schrodinger_vaddr = 0, schrodinger_size = 0, resume_id = 0;
+  int ret =0;
 
   if(enclave_param->rerun_reason > 0)
   {
-    //Re-run shadow enclave
-    if(enclave_param->isShadow == 1)
-    {
-      enclave_instance = get_enclave_instance_by_id(eid);
-      if(!enclave_instance)
-      {
-        penglai_eprintf("rerun enclave: enclave_instance is not exist \n");
-        return -EINVAL;
-      }
-      resume_id = enclave_instance->eid;
-    }
-    else
-    { //Re-run enclave
-      enclave = get_enclave_by_id(eid);
-      if(!enclave)
-      {
-        penglai_eprintf("rerun enclave: enclave is not exist \n");
-        return -EINVAL;
-      }
-      satp = enclave->satp;
-      resume_id = enclave->eid;
-    }
+    // Check if enclave need to re-run
+    if ((ret = penglai_get_rerun_enclave(enclave_param, &enclave_instance, &enclave, &resume_id, &satp, eid)) < 0)
+      return ret;
+    
     switch (enclave_param->rerun_reason)
     {
       case RETURN_USER_RELAY_PAGE:
@@ -569,7 +584,7 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   }
   else
   {
-    //First time run enclave
+    //First time to run enclave
     enclave = get_enclave_by_id(eid);
     if(!enclave)
     {
@@ -584,6 +599,7 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   else
     schrodinger_vaddr = get_schrodinger(enclave_param->schrodinger_id, enclave_param->schrodinger_offset, enclave_param->schrodinger_size);
   schrodinger_size = enclave_param->schrodinger_size;
+
   if(enclave->type == SHADOW_ENCLAVE)
   {
     ret = penglai_instantiate_enclave_instance(&enclave_instance, enclave, enclave_param, schrodinger_vaddr,
@@ -612,6 +628,7 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
     ret = SBI_PENGLAI_3(SBI_SM_RUN_ENCLAVE, enclave->eid, schrodinger_paddr, schrodinger_size);
     resume_id = enclave->eid;
   }
+  
   //handler the ocall from enclave;
 resume_for_rerun:
   while((ret == ENCLAVE_TIMER_IRQ) || (ret == ENCLAVE_OCALL) || (ret == ENCLAVE_YIELD) || (ret == ENCLAVE_RETURN_MONITOR_MODE))
