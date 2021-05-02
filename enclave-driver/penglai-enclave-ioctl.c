@@ -129,8 +129,6 @@ int penglai_enclave_create(struct file *filep, unsigned long args)
   order = ilog2(total_enclave_page(elf_size, stack_size)- 1) + 1;
   total_pages = 0x1 << order;
 
-  // penglai_dprintf("elf size %lx stack_size %lx\n", elf_size, stack_size);
-
   if(check_eapp_memory_size(elf_size, stack_size) < 0)
   {
     penglai_eprintf("eapp memory is out of bound \n");
@@ -459,7 +457,6 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
   struct penglai_enclave_instance_sbi_param enclave_instance_sbi_param;
   spin_lock(&enclave_create_lock);
   *enclave_instance = (enclave_instance_t* )kmalloc(sizeof(enclave_instance_t), GFP_KERNEL);
-  // penglai_dprintf("shadow run: get free page\n");
   addr = penglai_get_free_pages(GFP_KERNEL, DEFAULT_SHADOW_ENCLAVE_ORDER);
   if(!addr)
   {
@@ -475,7 +472,6 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
   }
   memset((void*)kbuffer, 0, ENCLAVE_DEFAULT_KBUFFER_SIZE);
 
-  // penglai_dprintf("shadow run: get shm page\n");
   shm_vaddr = get_shm(enclave_param->shmid, enclave_param->shm_offset, enclave_param->shm_size);
   shm_size = enclave_param->shm_size;
 
@@ -517,9 +513,7 @@ int penglai_instantiate_enclave_instance(enclave_instance_t **enclave_instance, 
     schrodinger_paddr = DEFAULT_MAGIC_NUMBER; //magic number
 
   spin_unlock(&enclave_create_lock);
-  // penglai_dprintf("shadow run: run enclave\n");
   ret = SBI_PENGLAI_4(SBI_SM_RUN_SHADOW_ENCLAVE, enclave->eid,  __pa(&enclave_instance_sbi_param), schrodinger_paddr, schrodinger_size);
-  // penglai_dprintf("shadow run: end run enclave\n");
   while(ret == ENCLAVE_NO_MEM)
   {
     if ((ret = penglai_extend_secure_memory()) < 0)
@@ -584,7 +578,6 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
     }
   }
 
-  // penglai_dprintf("run: begin get get_schrodinger\n");
   //if schrodinger is not zero but size remains zero, it means relay page is transferred from other enclave
   if((enclave_param->schrodinger_id > 0) && (enclave_param->schrodinger_size == 0))
     schrodinger_vaddr = DEFAULT_MAGIC_NUMBER; //magic number just set address is not zero, so the monitor will know relay page is transferred from other enclave
@@ -593,10 +586,8 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   schrodinger_size = enclave_param->schrodinger_size;
   if(enclave->type == SHADOW_ENCLAVE)
   {
-    // penglai_dprintf("run: begin penglai_instantiate_enclave_instance\n");
     ret = penglai_instantiate_enclave_instance(&enclave_instance, enclave, enclave_param, schrodinger_vaddr,
                                         schrodinger_size, &shadow_eid, &resume_id);
-    // penglai_dprintf("run: end penglai_instantiate_enclave_instance\n");
     if (ret == DEFAULT_FREE_ENCLAVE)
     {
       ret = -1;
@@ -666,7 +657,6 @@ resume_for_rerun:
       free_pages(enclave_instance->addr, enclave_instance->order);
       free_pages(enclave_instance->kbuffer, ENCLAVE_DEFAULT_KBUFFER_ORDER);
       kfree(enclave_instance);
-      // penglai_dprintf("run: begin free addr4\n");
       return ret;
     }
     if(get_enclave_by_id(eid) && get_enclave_by_id(eid)->satp == satp)
