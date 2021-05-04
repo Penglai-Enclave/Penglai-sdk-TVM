@@ -8,6 +8,7 @@ penglai-objs := penglai-enclave-driver.o \
 	penglai-enclave.o \
 	penglai-enclave-ioctl.o \
 	penglai-enclave-persistency.o \
+	penglai-enclave-ocall.o \
 	buddy.o
 
 all:
