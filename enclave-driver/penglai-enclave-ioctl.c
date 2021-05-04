@@ -270,7 +270,7 @@ int handle_memory_free(enclave_t* enclave)
   return 0;
 }
 
-int penglai_enclave_resume_for_rerun(enclave_instance_t *enclave_instance, enclave_t *enclave, int resume_id, int isShadow)
+int penglai_enclave_rerun(enclave_instance_t *enclave_instance, enclave_t *enclave, int resume_id, int isShadow)
 {
   unsigned int ocall_func_id;
   int ret;
@@ -510,7 +510,7 @@ resume_for_rerun:
     }
     else if(ret == ENCLAVE_RETURN_MONITOR_MODE)
     {
-      ret = penglai_enclave_resume_for_rerun(enclave_instance, enclave, resume_id, enclave_param->isShadow);  
+      ret = penglai_enclave_rerun(enclave_instance, enclave, resume_id, enclave_param->isShadow);  
     }
     else{
       ret = penglai_enclave_ocall(enclave_instance, enclave, resume_id, enclave_param->isShadow);     
