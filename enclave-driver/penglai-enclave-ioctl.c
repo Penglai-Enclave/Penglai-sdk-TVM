@@ -237,39 +237,6 @@ int penglai_enclave_destroy(struct file * filep, unsigned long args)
   return ret;
 }
 
-int handle_memory_extend(enclave_t * enclave)
-{
-  unsigned long pages = enclave ->ocall_arg0;
-  unsigned long order = ilog2(pages - 1) + 1;
-  unsigned long count = 0x1 << order;
-  unsigned long addr;
-  int ret = 0;
-
-  addr = penglai_get_free_pages(GFP_KERNEL,order);
-  if (!addr)
-  {
-    penglai_eprintf("can not get free pages which order is 0x%lx", order );
-    return -1;
-  }
-  ret = SBI_PENGLAI_2(SBI_SM_MEMORY_EXTEND, __pa(addr), count << RISCV_PGSHIFT);
-
-  return ret;
-}
-
-int handle_memory_free(enclave_t* enclave)
-{
-  unsigned long pages = enclave ->ocall_arg0;
-  unsigned long paddr = enclave ->ocall_arg1;
-  unsigned long order = ilog2(pages - 1) + 1;
-  unsigned long count = 0x1 << order;
-
-  if(count != pages)
-    return -1;
-  free_pages((long unsigned int)__va(paddr), order);
-
-  return 0;
-}
-
 int penglai_enclave_rerun(enclave_instance_t *enclave_instance, enclave_t *enclave, int resume_id, int isShadow)
 {
   unsigned int ocall_func_id;
