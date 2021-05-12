@@ -66,8 +66,11 @@ unsigned long penglai_get_free_pages(gfp_t gfp_mask, unsigned int order)
 {
   unsigned long va;
   int ret;
-  
+
+  spin_lock(&enclave_get_free_page_lock);
   va = __get_free_pages(gfp_mask, order);
+  spin_unlock(&enclave_get_free_page_lock);
+
   if (order < 9 )
   {
     struct pt_entry_t split_pte;
