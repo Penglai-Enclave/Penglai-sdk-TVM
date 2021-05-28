@@ -96,6 +96,14 @@ int main(int argc, char** argv)
   }
 
   usleep(1000000);
+  printf("host0: stop enclave\n");
+  PLenclave_stop(enclave);
+
+  usleep(1000000);
+  printf("host0: resume enclave\n");
+  PLenclave_resume(enclave);
+
+  usleep(1000000);
   printf("host0: destroy enclave\n");
   PLenclave_destroy(enclave);
 
