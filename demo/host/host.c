@@ -65,12 +65,17 @@ void* create_enclave(void* args0)
           PLenclave_set_rerun_arg(enclave, RETURN_USER_RELAY_PAGE);
           break;
         default:
+        {
           printf("[ERROR] host: result %d val is wrong!\n", result);
+          goto free_enclave;
+        }
       }
     }
     printf("host: exit enclave is successful \n");
   }
   printf("host: PLenclave run is finish \n");
+
+free_enclave:  
   free(enclave);
   free(params);
 
