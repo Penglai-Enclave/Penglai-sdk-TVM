@@ -508,20 +508,23 @@ resume_for_rerun:
       kfree(enclave_instance);
       return ret;
     }
+    spin_lock(&enclave_create_lock);
     if(get_enclave_by_id(eid) && get_enclave_by_id(eid)->satp == satp)
     {
       destroy_enclave(enclave);
       enclave_idr_remove(eid);
-      return ret;
     }
-    return -EFAULT;
+    spin_unlock(&enclave_create_lock);
+    return ret;
 
   destroy_enclave:
+    spin_lock(&enclave_create_lock);
     if(get_enclave_by_id(eid) && get_enclave_by_id(eid)->satp == satp)
     {
       destroy_enclave(enclave);
       enclave_idr_remove(eid);
     }
+    spin_unlock(&enclave_create_lock);
     return -EFAULT;
 }
 
