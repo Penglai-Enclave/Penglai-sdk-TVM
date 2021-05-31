@@ -6,6 +6,7 @@
 #define SYS_asyn_ecnlave_call 6
 #define SYS_split_mem_region 7
 #define SYS_get_caller_id    8
+#define SYS_get_enclave_id   9
 #define SYS_yield            10 //reserve space for other operation
 
 .globl EAPP_RETURN
@@ -64,6 +65,12 @@ EAPP_ACQUIRE_ENCLAVE:
 .globl EAPP_GET_CALLER_ID
 EAPP_GET_CALLER_ID:
     li a7, SYS_get_caller_id
+    ecall
+    ret
+
+.globl EAPP_GET_ENCLAVE_ID
+EAPP_GET_ENCLAVE_ID:
+    li a7, SYS_get_enclave_id
     ecall
     ret
 
