@@ -37,6 +37,7 @@ int PLenclave_shmdt(int shmid, void* addr);
 int PLenclave_shmctl(int shmid);
 
 int PLenclave_set_mem_arg(struct PLenclave* enclave, int id, unsigned long offset, unsigned long size);
+int PLenclave_set_shm(struct PLenclave* enclave, int shmid, unsigned long offset, unsigned long size);
 int PLenclave_set_rerun_arg(struct PLenclave *enclave, int rerun_reason);
 int PLenclave_schrodinger_get(unsigned long size);
 void* PLenclave_schrodinger_at(int id, void* addr);

@@ -222,6 +222,18 @@ int PLenclave_schrodinger_ctl(int id)
   return 0;
 }
 
+int PLenclave_set_shm(struct PLenclave *enclave, int shmid, uintptr_t offset, uintptr_t size)
+{
+  if(!enclave)
+    return -1;
+
+  enclave->user_param.shmid = shmid;
+  enclave->user_param.shm_offset = offset;
+  enclave->user_param.shm_size = size;
+
+  return 0;
+}
+
 int PLenclave_set_mem_arg(struct PLenclave *enclave, int id, uintptr_t offset, uintptr_t size)
 {
   if(!enclave)

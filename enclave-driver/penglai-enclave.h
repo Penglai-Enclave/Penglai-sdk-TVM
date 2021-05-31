@@ -87,9 +87,11 @@ extern long SBI_PENGLAI_ECALL_5(int fid, unsigned long arg0, unsigned long arg1,
 #define ENCLAVE_DEFAULT_KBUFFER_SIZE            ((1<<ENCLAVE_DEFAULT_KBUFFER_ORDER)*RISCV_PGSIZE)
 #define NAME_LEN                                16
 
+//The extended secure memory size for one time. 
 #define DEFAULT_SECURE_PAGES_ORDER 9
 #define DEFAULT_SHADOW_ENCLAVE_ORDER 6
 #define DEFAULT_SHADOW_ENCLAVE_SIZE ((1<<DEFAULT_SHADOW_ENCLAVE_ORDER)*RISCV_PGSIZE)
+// When monitor memory is exhausted, penglai driver needs to extend the memory held by monitor
 #define DEFAULT_MEMORY_EXTEND_NUM 3
 
 #ifndef _PENGLAI_ENCLAVE_TYPE
