@@ -7,7 +7,7 @@
 #include "syscall.h"
 char *untrusted_ptr = NULL;
 
-
+/*
 void lite_vsnprintf(char* out, size_t n, const char* s, va_list vl)
 {
   bool format = false;
@@ -102,4 +102,16 @@ int printf(const char *restrict fmt, ...)
 	va_start(ap, fmt);
 	lite_vprintf(fmt, ap);
 	va_end(ap);
+}*/
+
+#include "eapp.h"
+#include "ocall.h"
+#include "print.h"
+
+extern void eapp_print(const char*s, ...);
+
+int printf(const char *restrict fmt, ...)
+{
+  eapp_print(fmt);
+  eapp_print("\n");
 }

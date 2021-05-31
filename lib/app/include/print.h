@@ -5,4 +5,6 @@
 
 void eapp_print(const char* s, ...);
 
+int printf(const char *restrict fmt, ...);
+
 #endif
