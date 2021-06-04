@@ -1,5 +1,6 @@
 #ifndef  _EAPP_COMMON
 #define _EAPP_COMMON
+#include "attest.h"
 
 /* default layout of enclave */
 //#####################
@@ -63,6 +64,7 @@ void* sbrk(long size);
 int eapp_return_relay_page();
 unsigned long split_mem_region(unsigned long mem_addr, unsigned long mem_size, unsigned long split_addr);
 
+int get_report(char* name, struct report_t *report, unsigned long nonce);
 unsigned long acquire_enclave(char* name);
 unsigned long get_caller_id();
 unsigned long get_enclave_id();

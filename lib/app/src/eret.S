@@ -7,7 +7,8 @@
 #define SYS_split_mem_region 7
 #define SYS_get_caller_id    8
 #define SYS_get_enclave_id   9
-#define SYS_yield            10 //reserve space for other operation
+#define SYS_yield            10 
+#define SYS_GET_REPORT       11 
 
 #define SBI_EXT_PENGLAI_ENCLAVE	    0x100101 //penglai extension id
 
@@ -110,6 +111,13 @@ EAPP_ASYN_ENCLAVE_CALL:
 .globl EAPP_SPLIT_MEM_REGION
 EAPP_SPLIT_MEM_REGION:
 	li a7, SYS_split_mem_region
+    li a6, SBI_EXT_PENGLAI_ENCLAVE
+	ecall
+    ret
+
+.globl EAPP_GET_REPORT
+EAPP_GET_REPORT:
+	li a7, SYS_GET_REPORT
     li a6, SBI_EXT_PENGLAI_ENCLAVE
 	ecall
     ret

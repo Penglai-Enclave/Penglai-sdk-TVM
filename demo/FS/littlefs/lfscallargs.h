@@ -53,5 +53,9 @@ struct mkdir_arg
 {
     char path[MAXPATH];
 };
-
+struct stat_arg
+{
+    int fd;
+    char path[MAXPATH];
+};
 #endif

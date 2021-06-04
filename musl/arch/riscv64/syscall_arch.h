@@ -31,7 +31,7 @@ unsigned long musl_brk;
 static inline long __syscall0(long n)
 {
 	register long a7 __asm__("a7") = n;
-	register long a6 __asm__("a6") = SBI_EXT_PENGLAI_ENCLAVE;
+	register long a6 __asm__("a6") = 0;
 	register long a0 __asm__("a0");
 	__asm_syscall("r"(a7), "r"(a6))
 }
@@ -39,7 +39,7 @@ static inline long __syscall0(long n)
 static inline long __syscall1(long n, long a)
 {
 	register long a7 __asm__("a7") = n;
-	register long a6 __asm__("a6") = SBI_EXT_PENGLAI_ENCLAVE;
+	register long a6 __asm__("a6") = 0;
 	register long a0 __asm__("a0") = a;
 	register long a1 __asm__("a1") = 0;
 	switch(n)
@@ -51,6 +51,7 @@ static inline long __syscall1(long n, long a)
 				a7 = SYS_ocall;
 				a1 = a0;
 				a0 = OCALL_SBRK;
+				a6 = SBI_EXT_PENGLAI_ENCLAVE;
 				__asm__ __volatile__ ("ecall\n\t" : "=r"(a0) : "r"(a7), "r"(a6), "0"(a0), "r"(a1) : "memory"); 
 				musl_brk = a0;
 				return a0;
@@ -61,6 +62,7 @@ static inline long __syscall1(long n, long a)
 				a7 = SYS_ocall;
 				a1 = (a0 - musl_brk);
 				a0 = OCALL_SBRK;
+				a6 = SBI_EXT_PENGLAI_ENCLAVE;
 				__asm__ __volatile__ ("ecall\n\t" : "=r"(a0) : "r"(a7), "r"(a6), "0"(a0), "r"(a1) : "memory"); 
 				musl_brk = a0;
 				return a0;
@@ -74,7 +76,7 @@ static inline long __syscall1(long n, long a)
 static inline long __syscall2(long n, long a, long b)
 {
 	register long a7 __asm__("a7") = n;
-	register long a6 __asm__("a6") = SBI_EXT_PENGLAI_ENCLAVE;
+	register long a6 __asm__("a6") = 0;
 	register long a0 __asm__("a0") = a;
 	register long a1 __asm__("a1") = b;
 	register long a2 __asm__("a2") = 0;
@@ -86,6 +88,7 @@ static inline long __syscall2(long n, long a, long b)
 			a2 = a1;
 			a1 = a0;
 			a0 = OCALL_UNMAP;
+			a6 = SBI_EXT_PENGLAI_ENCLAVE;
 			__asm_syscall("r"(a7), "r"(a6), "0"(a0), "r"(a1), "r"(a2))
 		}
 	}
@@ -95,7 +98,7 @@ static inline long __syscall2(long n, long a, long b)
 static inline long __syscall3(long n, long a, long b, long c)
 {
 	register long a7 __asm__("a7") = n;
-	register long a6 __asm__("a6") = SBI_EXT_PENGLAI_ENCLAVE;
+	register long a6 __asm__("a6") = 0;
 	register long a0 __asm__("a0") = a;
 	register long a1 __asm__("a1") = b;
 	register long a2 __asm__("a2") = c;
@@ -105,7 +108,7 @@ static inline long __syscall3(long n, long a, long b, long c)
 static inline long __syscall4(long n, long a, long b, long c, long d)
 {
 	register long a7 __asm__("a7") = n;
-	register long a6 __asm__("a6") = SBI_EXT_PENGLAI_ENCLAVE;
+	register long a6 __asm__("a6") = 0;
 	register long a0 __asm__("a0") = a;
 	register long a1 __asm__("a1") = b;
 	register long a2 __asm__("a2") = c;
@@ -116,7 +119,7 @@ static inline long __syscall4(long n, long a, long b, long c, long d)
 static inline long __syscall5(long n, long a, long b, long c, long d, long e)
 {
 	register long a7 __asm__("a7") = n;
-	register long a6 __asm__("a6") = SBI_EXT_PENGLAI_ENCLAVE;
+	register long a6 __asm__("a6") = 0;
 	register long a0 __asm__("a0") = a;
 	register long a1 __asm__("a1") = b;
 	register long a2 __asm__("a2") = c;
@@ -128,7 +131,7 @@ static inline long __syscall5(long n, long a, long b, long c, long d, long e)
 static inline long __syscall6(long n, long a, long b, long c, long d, long e, long f)
 {
 	register long a7 __asm__("a7") = n;
-	register long a6 __asm__("a6") = SBI_EXT_PENGLAI_ENCLAVE;
+	register long a6 __asm__("a6") = 0;
 	register long a0 __asm__("a0") = a;
 	register long a1 __asm__("a1") = b;
 	register long a2 __asm__("a2") = c;
@@ -142,6 +145,7 @@ static inline long __syscall6(long n, long a, long b, long c, long d, long e, lo
 			a2 = a1;
 			a1 = a0;
 			a0 = OCALL_MMAP;
+			a6 = SBI_EXT_PENGLAI_ENCLAVE;
 			break;
 	}
 	__asm_syscall("r"(a7), "r"(a6), "0"(a0), "r"(a1), "r"(a2), "r"(a3), "r"(a4), "r"(a5))

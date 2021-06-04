@@ -15,7 +15,7 @@ int EAPP_ENTRY main(){
     char buf[52] = {0};
     eapp_print("before fopen\n");
     f = fopen("/create.txt","w");
-    char str[] = "just for create and write\ntest fgets";
+    char str[] = "create file and write\n";
     fputs(str,f);
     eapp_print("after fwrite\n");
     struct stat st;
