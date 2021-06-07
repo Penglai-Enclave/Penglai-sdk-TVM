@@ -3,7 +3,7 @@
 
 int hello(unsigned long * args)
 {
-  eapp_print("hello world!\n");
+  printf("hello world!\ntest %d\n", get_enclave_id());
   EAPP_RETURN(0);
 }
 

@@ -173,7 +173,7 @@ int EAPP_ENTRY main(){
             struct read_arg *arg = (struct read_arg*)args[11];
             int fd = arg->fd;
             int size = arg->size;
-            if(size > (int)args[12] || fd >= MAX_FILES){
+            if(size > args[12] || fd >= MAX_FILES){
                 ret_arg.resp_val = -1;
                 SERVER_RETURN(&ret_arg);
             }
@@ -232,9 +232,25 @@ int EAPP_ENTRY main(){
             SERVER_RETURN(&ret_arg);
             break;
         }
+    case FSSTAT:
+    {
+         struct stat_arg *stat_arg = (struct stat_arg*)args[11];
+         struct lfs_info info;
+         if(lfs_stat(&lfs, stat_arg->path, &info) != 0)
+         {
+             eapp_print("[lfs]: file stat %s error\n", stat_arg->path);
+             ret_arg.resp_val = 0;
+         }
+         else
+         {
+             ret_arg.resp_val = info.size;
+         }
+         SERVER_RETURN(&ret_arg);
+         break;
+    }
     default:
         {
-            eapp_print("[lfs]: unrecognized operation type!");
+            eapp_print("[lfs]: unrecognized operation type %d!\n", type);
             SERVER_RETURN(&ret_arg);
             break;
         }

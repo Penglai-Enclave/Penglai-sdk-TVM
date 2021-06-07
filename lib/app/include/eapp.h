@@ -1,5 +1,6 @@
 #ifndef  _EAPP_COMMON
 #define _EAPP_COMMON
+#include "attest.h"
 
 /* default layout of enclave */
 //#####################
@@ -8,6 +9,14 @@
 //##################### 0xffffffe000000000 //actually this is the start address of kernel's image
 //#       hole        #
 //##################### 0x0000004000000000
+//#    shared mem     #
+//#     with host     #
+//##################### 0x0000003900000000
+//#                   #
+//#    host mm arg    #
+//#                   #
+//##################### 0x0000003800000000
+//#                   #
 //#       stack       #
 //#                   #
 //##################### 0x0000003000000000
@@ -16,6 +25,7 @@
 //##################### brk
 //#                   #
 //#       heap        #
+//#                   #
 //##################### 0x0000001000000000
 //#                   #
 //#   text/code/bss   #
@@ -43,8 +53,10 @@ int EAPP_PERSISTENCY_WRITE_SEC(unsigned long ocall_func_id, unsigned long sec);
 int EAPP_PERSISTENCY_READ_SEC(unsigned long ocall_func_id, unsigned long sec);
 unsigned long EAPP_ACQUIRE_ENCLAVE(char* name);
 unsigned long EAPP_GET_CALLER_ID();
+unsigned long EAPP_GET_ENCLAVE_ID();
 unsigned long EAPP_CALL_ENCLAVE(unsigned long handle, struct call_enclave_arg_t *arg);
 int EAPP_YIELD();
+int EAPP_GET_REPORT(char * name, struct report_t *report, unsigned long nonce);
 
 void* eapp_mmap(void* vaddr, unsigned long size);
 int eapp_unmap(void* vaddr, unsigned long size);
@@ -53,8 +65,10 @@ void* sbrk(long size);
 int eapp_return_relay_page();
 unsigned long split_mem_region(unsigned long mem_addr, unsigned long mem_size, unsigned long split_addr);
 
+int get_report(char* name, struct report_t *report, unsigned long nonce);
 unsigned long acquire_enclave(char* name);
 unsigned long get_caller_id();
+unsigned long get_enclave_id();
 unsigned long call_enclave(unsigned long handle, struct call_enclave_arg_t* arg);
 unsigned long asyn_enclave_call(char* name, struct call_enclave_arg_t *arg);
 
