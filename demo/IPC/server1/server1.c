@@ -1,6 +1,15 @@
 #include "eapp.h"
 #include "print.h"
 #include <string.h>
+#include <stdlib.h>
+
+void printHex(unsigned int *c, int n)
+{
+	int i;
+	for (i = 0; i < n; i++) {
+    printf("0x%x\n", c[i]);
+	}
+}
 
 int EAPP_ENTRY main(){
   unsigned long* args;
@@ -23,6 +32,13 @@ int EAPP_ENTRY main(){
 
   char server_name[16];
   strcpy(server_name, "test-server");
+
+  // Get the server enclave report
+  printf("get the server enclave report\n");
+  struct report_t *server_report = malloc(sizeof(struct report_t));
+  get_report("test-server", server_report, 1);
+  printHex((unsigned int*)(server_report->enclave.signature), 16);
+
   unsigned long server_handle = acquire_enclave(server_name);
   struct call_enclave_arg_t call_arg;
   eapp_print("server1: server_handle:0x%lx\n", server_handle);

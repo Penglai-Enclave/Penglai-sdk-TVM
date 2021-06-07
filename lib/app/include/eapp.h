@@ -56,6 +56,7 @@ unsigned long EAPP_GET_CALLER_ID();
 unsigned long EAPP_GET_ENCLAVE_ID();
 unsigned long EAPP_CALL_ENCLAVE(unsigned long handle, struct call_enclave_arg_t *arg);
 int EAPP_YIELD();
+int EAPP_GET_REPORT(char * name, struct report_t *report, unsigned long nonce);
 
 void* eapp_mmap(void* vaddr, unsigned long size);
 int eapp_unmap(void* vaddr, unsigned long size);

@@ -29,10 +29,19 @@ int EAPP_ENTRY main(){
     run_server1 = 0;
   }
 
+  printf("get the enclave report\n");
+
   // Get the server enclave report
   struct report_t *report = malloc(sizeof(struct report_t));
-  get_report("test-server1", report, 1);
+  get_report(NULL, report, 1);
   printHex((unsigned int*)(report->enclave.signature), 16);
+
+  printf("get the server1 enclave report\n");
+
+  // Get the server enclave report
+  struct report_t *server_report = malloc(sizeof(struct report_t));
+  get_report("test-server1", server_report, 1);
+  printHex((unsigned int*)(server_report->enclave.signature), 16);
 
 
   if(server_handle == -1UL)
