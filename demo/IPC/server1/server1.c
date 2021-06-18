@@ -7,7 +7,7 @@ void printHex(unsigned int *c, int n)
 {
 	int i;
 	for (i = 0; i < n; i++) {
-    printf("0x%x\n", c[i]);
+    eapp_print("0x%x\n", c[i]);
 	}
 }
 
@@ -34,7 +34,7 @@ int EAPP_ENTRY main(){
   strcpy(server_name, "test-server");
 
   // Get the server enclave report
-  printf("get the server enclave report\n");
+  eapp_print("get the server enclave report\n");
   struct report_t *server_report = malloc(sizeof(struct report_t));
   get_report("test-server", server_report, 1);
   printHex((unsigned int*)(server_report->enclave.signature), 16);

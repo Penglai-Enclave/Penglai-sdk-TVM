@@ -7,7 +7,7 @@ void printHex(unsigned int *c, int n)
 {
 	int i;
 	for (i = 0; i < n; i++) {
-    printf("0x%x\n", c[i]);
+    eapp_print("0x%x\n", c[i]);
 	}
 }
 
@@ -16,6 +16,18 @@ int EAPP_ENTRY main(){
   EAPP_RESERVE_REG;
 
   eapp_print("caller begin to run...\n");
+
+  // Get the content in the shared memory
+  int *shm = (int *)args[10];
+  unsigned shm_size = (unsigned long) args[11];
+
+  // Get the content in the ralay/schrodinger page (zero copy) 
+  int *relay_page = (int *)args[13];
+  unsigned relay_page_size = (unsigned long) args[14];   
+
+  eapp_print("shm content %d and size %lx\n", *shm, shm_size);
+
+  eapp_print("relay page content %d and size %lx\n", *relay_page, relay_page_size);
 
   int run_server1 = 1;
   char server_name[16];
@@ -29,14 +41,14 @@ int EAPP_ENTRY main(){
     run_server1 = 0;
   }
 
-  printf("get the enclave report\n");
+  eapp_print("get the enclave report\n");
 
   // Get the server enclave report
   struct report_t *report = malloc(sizeof(struct report_t));
   get_report(NULL, report, 1);
   printHex((unsigned int*)(report->enclave.signature), 16);
 
-  printf("get the server1 enclave report\n");
+  eapp_print("get the server1 enclave report\n");
 
   // Get the server enclave report
   struct report_t *server_report = malloc(sizeof(struct report_t));
