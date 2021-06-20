@@ -114,11 +114,11 @@ int penglai_extend_secure_memory(void)
   return 0;
 }
 
-int penglai_get_real_enclave(struct penglai_enclave_user_param *enclave_param, enclave_instance_t **enclave_instance, enclave_t **enclave, unsigned long *resume_id, 
+int penglai_get_real_enclave(int isShadow, enclave_instance_t **enclave_instance, enclave_t **enclave, unsigned long *resume_id, 
                               unsigned long *satp, unsigned long eid)
 {
   //Re-run shadow enclave
-  if(enclave_param->isShadow == 1)
+  if(isShadow == 1)
   {
     
     *enclave_instance = get_enclave_instance_by_id(eid);
@@ -246,7 +246,7 @@ int penglai_enclave_destroy(struct file * filep, unsigned long args)
   unsigned long satp, resume_id;
   int ret =0;
 
-  if ((ret = penglai_get_real_enclave(enclave_param, &enclave_instance, &enclave, &resume_id, &satp, eid)) < 0)
+  if ((ret = penglai_get_real_enclave(enclave_param->isShadow, &enclave_instance, &enclave, &resume_id, &satp, eid)) < 0)
       return ret;
 
   if (enclave)
@@ -415,7 +415,7 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   if(enclave_param->rerun_reason > 0)
   {
     // Check if enclave need to re-run
-    if ((ret = penglai_get_real_enclave(enclave_param, &enclave_instance, &enclave, &resume_id, &satp, eid)) < 0)
+    if ((ret = penglai_get_real_enclave(enclave_param->isShadow, &enclave_instance, &enclave, &resume_id, &satp, eid)) < 0)
       return ret;
     
     switch (enclave_param->rerun_reason)
@@ -543,19 +543,18 @@ int penglai_enclave_attest(struct file * filep, unsigned long args)
 {
   struct penglai_enclave_attest_param *attest_param = (struct penglai_enclave_attest_param*) args;
   unsigned long eid = attest_param->eid;
+  enclave_instance_t *enclave_instance;
   enclave_t *enclave;
+  unsigned long satp, resume_id;
   int ret =0;
-  enclave = get_enclave_by_id(eid);
-  if(!enclave)
-  {
-    penglai_eprintf("enclave is not exist %ld\n", eid);
-    return -EINVAL;
-  }
 
-  if(enclave->type == SHADOW_ENCLAVE)
-    ret = SBI_PENGLAI_3(SBI_SM_ATTEST_SHADOW_ENCLAVE, enclave->eid, __pa(&(attest_param->report)), attest_param->nonce);
+  if ((ret = penglai_get_real_enclave(attest_param->isShadow, &enclave_instance, &enclave, &resume_id, &satp, eid)) < 0)
+      return ret;
+
+  if(enclave && enclave->type == SHADOW_ENCLAVE)
+    ret = SBI_PENGLAI_3(SBI_SM_ATTEST_SHADOW_ENCLAVE, resume_id, __pa(&(attest_param->report)), attest_param->nonce);
   else
-    ret = SBI_PENGLAI_3(SBI_SM_ATTEST_ENCLAVE, enclave->eid, __pa(&(attest_param->report)), attest_param->nonce);
+    ret = SBI_PENGLAI_3(SBI_SM_ATTEST_ENCLAVE, resume_id, __pa(&(attest_param->report)), attest_param->nonce);
   if(ret < 0)
   {
     penglai_eprintf("sbi call attest enclave is failed\n");
@@ -567,19 +566,15 @@ long penglai_enclave_stop(struct file* filep, unsigned long args)
 {
   struct penglai_enclave_user_param * enclave_param = (struct penglai_enclave_user_param*) args;
   unsigned long eid = enclave_param ->eid;
+  enclave_instance_t *enclave_instance;
   enclave_t * enclave;
-  unsigned long satp;
+  unsigned long satp, resume_id;
   int ret =0;
 
-  enclave = get_enclave_by_id(eid);
-  if (!enclave)
-  {
-    penglai_eprintf("enclave is not exist \n");
-    return -EINVAL;
-  } 
+  if ((ret = penglai_get_real_enclave(enclave_param->isShadow, &enclave_instance, &enclave, &resume_id, &satp, eid)) < 0)
+      return ret;
 
-  satp = enclave->satp;
-  ret = SBI_PENGLAI_1(SBI_SM_STOP_ENCLAVE, enclave->eid);
+  ret = SBI_PENGLAI_1(SBI_SM_STOP_ENCLAVE, resume_id);
   if (ret < 0)
   {
     penglai_eprintf("sbi call stop enclave is failed \n");
@@ -592,19 +587,15 @@ int penglai_enclave_resume(struct file * filep, unsigned long args)
 {
   struct penglai_enclave_user_param * enclave_param = (struct penglai_enclave_user_param*) args;
   unsigned long eid = enclave_param ->eid;
+  enclave_instance_t *enclave_instance;
   enclave_t * enclave;
-  unsigned long satp;
+  unsigned long satp, resume_id;
   int ret =0;
 
-  enclave = get_enclave_by_id(eid);
-  if (!enclave)
-  {
-    penglai_eprintf("enclave is not exist \n");
-    return -EINVAL;
-  } 
+  if ((ret = penglai_get_real_enclave(enclave_param->isShadow, &enclave_instance, &enclave, &resume_id, &satp, eid)) < 0)
+      return ret;
 
-  satp = enclave->satp;
-  ret = SBI_PENGLAI_2(SBI_SM_RESUME_ENCLAVE, enclave->eid, RESUME_FROM_STOP);
+  ret = SBI_PENGLAI_2(SBI_SM_RESUME_ENCLAVE, resume_id, RESUME_FROM_STOP);
   if (ret < 0)
   {
     penglai_eprintf("sbi call resume enclave is failed \n");
@@ -614,10 +605,21 @@ int penglai_enclave_resume(struct file * filep, unsigned long args)
   return ret;
 
   destroy_enclave:
+
+    if(enclave_param->isShadow == 1)
+    {
+      if (!enclave_instance || !(enclave_instance->addr) || !(enclave_instance->kbuffer))
+        return -EFAULT;
+      free_pages(enclave_instance->addr, enclave_instance->order);
+      free_pages(enclave_instance->kbuffer, ENCLAVE_DEFAULT_KBUFFER_ORDER);
+      kfree(enclave_instance);
+      return -EFAULT;
+    }
     spin_lock(&enclave_create_lock);
     if(get_enclave_by_id(eid) && get_enclave_by_id(eid)->satp == satp)
     {
-      destroy_enclave(enclave);
+      if (enclave)
+        destroy_enclave(enclave);
       enclave_idr_remove(eid);
     }
     spin_unlock(&enclave_create_lock);

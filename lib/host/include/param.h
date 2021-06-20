@@ -169,6 +169,7 @@ struct penglai_schrodinger_ctl_param
 struct penglai_enclave_attest_param
 {
   int eid;
+  int isShadow;
   uintptr_t nonce;
   struct report_t report;
 };

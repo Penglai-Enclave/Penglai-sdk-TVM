@@ -339,6 +339,7 @@ int PLenclave_run(struct PLenclave *PLenclave)
 int PLenclave_attest(struct PLenclave *PLenclave, uintptr_t nonce)
 {
   int ret = 0;
+  PLenclave->attest_param.isShadow = PLenclave->user_param.isShadow;
   PLenclave->attest_param.eid = PLenclave->eid;
   PLenclave->attest_param.nonce = nonce;
   ret = ioctl(PLenclave->fd, PENGLAI_ENCLAVE_IOC_ATTEST_ENCLAVE, &(PLenclave->attest_param));
