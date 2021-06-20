@@ -260,7 +260,7 @@ int penglai_enclave_rerun(enclave_instance_t *enclave_instance, enclave_t *encla
     case OCALL_RETURN_RELAY_PAGE:
     {
       ret = SBI_PENGLAI_5(SBI_SM_RESUME_ENCLAVE, resume_id, RESUME_FROM_OCALL, OCALL_RETURN_RELAY_PAGE, schrodinger_paddr, schrodinger_size);
-      
+
       if(ret == ENCLAVE_NO_MEM)
       {
         if ((ret = penglai_extend_secure_memory()) < 0)
@@ -363,6 +363,7 @@ int penglai_get_rerun_enclave(struct penglai_enclave_user_param *enclave_param, 
   //Re-run shadow enclave
   if(enclave_param->isShadow == 1)
   {
+    
     *enclave_instance = get_enclave_instance_by_id(eid);
     if(!(*enclave_instance))
     {
@@ -394,7 +395,7 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   enclave_t *enclave = NULL;
   enclave_instance_t *enclave_instance = NULL;
   unsigned long satp = 0, shadow_eid = 0, schrodinger_vaddr = 0, schrodinger_size = 0, resume_id = 0;
-  int ret =0;
+  int ret =0, need_destroy = 0;
 
   if(enclave_param->rerun_reason > 0)
   {
@@ -408,13 +409,14 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
         ret = ENCLAVE_RETURN_MONITOR_MODE;
         break;
       default:
+        ret = -1;
         penglai_eprintf("penglai_enclave_run: rerun reason is error %d\n", enclave_param->rerun_reason);
     }
     goto resume_for_rerun;
   }
+  // First time to run enclave
   else
   {
-    //First time to run enclave
     enclave = get_enclave_by_id(eid);
     if(!enclave)
     {
@@ -430,20 +432,17 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
     schrodinger_vaddr = get_schrodinger(enclave_param->schrodinger_id, enclave_param->schrodinger_offset, enclave_param->schrodinger_size);
   schrodinger_size = enclave_param->schrodinger_size;
 
-  if(enclave->type == SHADOW_ENCLAVE)
+  if(enclave && enclave->type == SHADOW_ENCLAVE)
   {
     ret = penglai_instantiate_enclave_instance(&enclave_instance, enclave, enclave_param, schrodinger_vaddr,
                                         schrodinger_size, &shadow_eid, &resume_id);
-    if (ret == DEFAULT_FREE_ENCLAVE)
+    if ((ret == DEFAULT_FREE_ENCLAVE) || (ret == DEFAULT_DESTROY_ENCLAVE))
     {
       ret = -1;
+      need_destroy = 1;
       goto free_enclave;
     }
-    else if (ret == DEFAULT_DESTROY_ENCLAVE)
-    {
-      ret = -1;
-      goto destroy_enclave;
-    }
+
     enclave_param->eid = shadow_eid;
     enclave_param->isShadow = 1;
   }
@@ -482,19 +481,20 @@ resume_for_rerun:
       ret = penglai_enclave_rerun(enclave_instance, enclave, resume_id, enclave_param->isShadow);  
     }
     else{
-      ret = penglai_enclave_ocall(enclave_instance, enclave, resume_id, enclave_param->isShadow);     
+      ret = penglai_enclave_ocall(enclave_instance, enclave, resume_id, enclave_param->isShadow);  
     }
   }
 
-  if(enclave->type == SHADOW_ENCLAVE)
+  if (enclave_param->isShadow && enclave_instance)
     enclave_param->retval = enclave_instance->retval;
-  else
+  else if (enclave)
     enclave_param->retval = enclave->retval;
 
   if(ret < 0)
   {
     penglai_eprintf("sbi call run enclave is failed \n");
-    goto destroy_enclave;
+    need_destroy = 1;
+    goto free_enclave;
   }
   else if (ret == ENCLAVE_RETURN_USER_MODE){
     return RETURN_USER_RELAY_PAGE;
@@ -503,6 +503,8 @@ resume_for_rerun:
   free_enclave:
     if(enclave_param->isShadow == 1)
     {
+      if (!enclave_instance || !(enclave_instance->addr) || !(enclave_instance->kbuffer))
+        return -EFAULT;
       free_pages(enclave_instance->addr, enclave_instance->order);
       free_pages(enclave_instance->kbuffer, ENCLAVE_DEFAULT_KBUFFER_ORDER);
       kfree(enclave_instance);
@@ -511,21 +513,14 @@ resume_for_rerun:
     spin_lock(&enclave_create_lock);
     if(get_enclave_by_id(eid) && get_enclave_by_id(eid)->satp == satp)
     {
-      destroy_enclave(enclave);
+      if (enclave)
+        destroy_enclave(enclave);
       enclave_idr_remove(eid);
     }
     spin_unlock(&enclave_create_lock);
+    if (need_destroy)
+      return -EFAULT;
     return ret;
-
-  destroy_enclave:
-    spin_lock(&enclave_create_lock);
-    if(get_enclave_by_id(eid) && get_enclave_by_id(eid)->satp == satp)
-    {
-      destroy_enclave(enclave);
-      enclave_idr_remove(eid);
-    }
-    spin_unlock(&enclave_create_lock);
-    return -EFAULT;
 }
 
 int penglai_enclave_attest(struct file * filep, unsigned long args)

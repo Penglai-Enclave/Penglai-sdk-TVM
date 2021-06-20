@@ -158,14 +158,26 @@ int destroy_enclave(enclave_t* enclave)
   enclave_mem_t* enclave_mem;
 
   if(!enclave)
+  {
+    penglai_eprintf("destroy_enclave: enclave is not existed\n");
     return -1;
+  }
 
   enclave_mem = enclave->enclave_mem;
+  
+  if (!enclave_mem)
+  {
+    penglai_eprintf("destroy_enclave: enclave mem is not existed\n");
+    return -1;
+  }
+  
   enclave_mem_destroy(enclave_mem);
+
   if(enclave->kbuffer)
   {
     free_pages(enclave->kbuffer, ENCLAVE_DEFAULT_KBUFFER_ORDER);
   }
+
 
   kfree(enclave_mem);
   kfree(enclave);

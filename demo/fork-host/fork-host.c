@@ -65,10 +65,12 @@ void* create_enclave(void* args0)
         break;
       default:
         printf("[ERROR] host: run_result val is wrong!\n");
+        goto free_enclave;
     }
   }
-  pthread_exit((void*)0);
+free_enclave:
   free(enclave);
+  pthread_exit((void*)0); 
 }
 
 int main(int argc, char** argv)
