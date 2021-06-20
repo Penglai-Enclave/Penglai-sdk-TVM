@@ -1,6 +1,5 @@
 #include "penglai-enclave.h"
 #include <stdlib.h>
-#include <stdlib.h>
 #include <pthread.h>
 
 #define MAGIC_SHM_VALUE 11111

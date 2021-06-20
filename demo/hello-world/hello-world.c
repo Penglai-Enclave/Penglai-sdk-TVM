@@ -1,9 +1,10 @@
 #include "eapp.h"
 #include "print.h"
+#include <stdlib.h>
 
 int hello(unsigned long * args)
 {
-  printf("hello world!\ntest %d\n", get_enclave_id());
+  printf("hello world!\n");
   EAPP_RETURN(0);
 }
 

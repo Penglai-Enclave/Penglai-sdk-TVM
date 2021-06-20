@@ -2,6 +2,24 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define MAGIC_SHM_VALUE 11111
+#define MAGIC_RELAY_PAGE_VALUE 22222
+
+void printHex(unsigned char *c, int n)
+{
+	int i;
+	for (i = 0; i < n; i++) {
+		printf("0x%02X, ", c[i]);
+		if ((i%4) == 3)
+		    printf(" ");
+
+		if ((i%16) == 15)
+		    printf("\n");
+	}
+	if ((i%16) != 0)
+		printf("\n");
+}
+
 int main(int argc, char** argv)
 {
   struct elf_args* server_enclaveFile = NULL;
@@ -39,7 +57,7 @@ server:
   if(PLenclave_create(server_enclave, server_enclaveFile, server_params) < 0)
   {
     printf("host:failed to create server_enclave\n");
-    // goto out;
+    goto out;
   }
 
   if(argc == 3)
@@ -66,7 +84,7 @@ server1:
   if(PLenclave_create(server1_enclave, server1_enclaveFile, server1_params) < 0 )
   {
     printf("host:failed to create server1_enclave\n");
-    // goto out;
+    goto out;
   }
 
 
@@ -86,12 +104,49 @@ caller:
   PLenclave_init(caller_enclave);
   enclave_args_init(caller_params);
 
+  // Assign the shared memory for enclave
+  unsigned long shm_size = 0x1000 * 4;
+  int shmid = PLenclave_shmget(shm_size);
+  void* shm = PLenclave_shmat(shmid, 0);
+  if(shm != (void*)-1)
+  {
+    ((int*)shm)[0] = MAGIC_SHM_VALUE;
+  }
+  caller_params->shmid = shmid;
+  caller_params->shm_offset = 0;
+  caller_params->shm_size = shm_size;
+  
+  // Assign the relay/schrodinger page for enclave
+  unsigned long mm_arg_size = 0x1000 * 4;
+  int mm_arg_id = PLenclave_schrodinger_get(mm_arg_size);
+  void* mm_arg = PLenclave_schrodinger_at(mm_arg_id, 0);
+  if(mm_arg != (void*)-1)
+  {
+    ((int*)mm_arg)[0] = MAGIC_RELAY_PAGE_VALUE;
+  }
+
+  char enclave_name[15];
+  sprintf(enclave_name, "test-caller");
+  strcpy(caller_params->name, enclave_name);
+
   if(PLenclave_create(caller_enclave, caller_enclaveFile, caller_params) < 0 )
   {
     printf("host: failed to create caller_enclave\n");
     goto out;
   }
+
+  PLenclave_attest(caller_enclave, 1234);
+  printHex((unsigned char*)(caller_enclave->attest_param.report.enclave.signature), 64);
+
+  if(mm_arg_id > 0 && mm_arg)
+      PLenclave_set_mem_arg(caller_enclave, mm_arg_id, 0, mm_arg_size);
+
   PLenclave_run(caller_enclave);
+
+  PLenclave_shmdt(shmid, shm);
+  PLenclave_shmctl(shmid);
+  PLenclave_schrodinger_dt(mm_arg_id, mm_arg);
+  PLenclave_schrodinger_ctl(mm_arg_id);
 
 out:
   if(server_enclaveFile)

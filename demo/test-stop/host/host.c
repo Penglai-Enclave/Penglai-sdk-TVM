@@ -11,22 +11,6 @@ struct args
   int i;
 };
 
-void printHex(unsigned char *c, int n)
-{
-	int i;
-	for (i = 0; i < n; i++) {
-		printf("0x%02X, ", c[i]);
-		if ((i%4) == 3)
-		    printf(" ");
-
-		if ((i%16) == 15)
-		    printf("\n");
-	}
-	if ((i%16) != 0)
-		printf("\n");
-}
-
-
 void* create_enclave(void* args0)
 {
   struct args *args = (struct args*)args0;
@@ -102,10 +86,7 @@ int main(int argc, char** argv)
   {
     printf("host:%d: failed to create enclave\n", 0);
   }
-
-  PLenclave_attest(enclave, 1234);
-  printHex((unsigned char*)(enclave->attest_param.report.enclave.signature), 64);
-
+  
   for(int i=0; i< thread_num; ++i)
   {
     args[i].in = (void*)enclave;

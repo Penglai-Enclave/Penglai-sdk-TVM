@@ -133,11 +133,19 @@ int handle_ocall_write_sect(enclave_instance_t *enclave_instance, enclave_t *enc
 
 int penglai_enclave_ocall(enclave_instance_t *enclave_instance, enclave_t *enclave, int resume_id, int isShadow)
 {
-  unsigned int ocall_func_id;
+  unsigned int ocall_func_id = 0;
   int ret;
-  ocall_func_id = enclave->ocall_func_id;
-  if(isShadow)
+  if (!enclave && !enclave_instance)
+  {
+    penglai_eprintf("penglai_enclave_ocall: enclave or enclave_instance is not exitsed\n");
+    return -1;
+  }
+
+  if (enclave)
+    ocall_func_id = enclave->ocall_func_id;
+  if(isShadow && enclave_instance)
     ocall_func_id = enclave_instance->ocall_func_id;
+
   switch(ocall_func_id)
   {
     case OCALL_MMAP:

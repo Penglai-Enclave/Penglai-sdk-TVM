@@ -7,7 +7,7 @@
 
 extern unsigned long EAPP_OCALL(unsigned long ocall_func_id);
 
-int eapp_vsnprintf(char* out, size_t n, const char* s, va_list vl)
+int eapp_vsnprintf(char* out, size_t n, const char* s, va_list vl, int puts)
 {
   bool format = false;
   bool longarg = false;
@@ -83,16 +83,27 @@ int eapp_vsnprintf(char* out, size_t n, const char* s, va_list vl)
     else
       if (++pos < n) out[pos-1] = *s;
   }
-  if (pos < n)
-    out[pos] = 0;
-  else if (n)
-    out[n-1] = 0;
+  if (puts)
+  {
+    if (pos < n)
+      out[pos] = '\n';
+    else if (n)
+      out[n-1] = '\n';
+  }
+  else
+  {
+    if (pos < n)
+      out[pos] = 0;
+    else if (n)
+      out[n-1] = 0;
+  }
+  
   return pos;
 }
 
-void vprintf(const char*s, va_list vl)
+void vprintf(const char*s, va_list vl, int puts)
 {
-  eapp_vsnprintf((void*)ENCLAVE_DEFAULT_KBUFFER, 512, s, vl);
+  eapp_vsnprintf((void*)ENCLAVE_DEFAULT_KBUFFER, 512, s, vl, puts);
   EAPP_OCALL(OCALL_SYS_WRITE);
 }
 
@@ -105,11 +116,21 @@ int vprintf(const char*s, va_list vl)
 }
 */
 
+
+void eapp_puts(const char*s, ...)
+{
+  va_list vl;
+
+  va_start(vl, s);
+  vprintf(s, vl, 1);
+  va_end(vl);
+}
+
 void eapp_print(const char*s, ...)
 {
   va_list vl;
 
   va_start(vl, s);
-  vprintf(s, vl);
+  vprintf(s, vl, 0);
   va_end(vl);
 }

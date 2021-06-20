@@ -1,14 +1,14 @@
-#define SYS_eret             1 //ret to host
-#define SYS_ocall            2 //OCALL
-#define SYS_acquire_enclave  3
-#define SYS_call_enclave     4
-#define SYS_enclave_return   5
-#define SYS_asyn_ecnlave_call 6
-#define SYS_split_mem_region 7
-#define SYS_get_caller_id    8
-#define SYS_get_enclave_id   9
-#define SYS_yield            10 
-#define SYS_GET_REPORT       11 
+#define SYS_eret              99 //ret to host
+#define SYS_ocall             98 //OCALL
+#define SYS_acquire_enclave   97
+#define SYS_call_enclave      96
+#define SYS_enclave_return    95
+#define SYS_asyn_ecnlave_call 93
+#define SYS_split_mem_region  92
+#define SYS_get_caller_id     91
+#define SYS_get_enclave_id    90
+#define SYS_yield             89 
+#define SYS_GET_REPORT        94
 
 #define SBI_EXT_PENGLAI_ENCLAVE	    0x100101 //penglai extension id
 
