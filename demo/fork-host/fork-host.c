@@ -143,6 +143,8 @@ int main(int argc, char** argv)
     pthread_join(threads[i], (void**)0);
   }
 
+  PLenclave_destroy(enclave);
+
 out:
   elf_args_destroy(enclaveFile);
   free(enclaveFile);

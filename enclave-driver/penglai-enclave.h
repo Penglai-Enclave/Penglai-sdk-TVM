@@ -44,7 +44,8 @@ extern long SBI_PENGLAI_ECALL_5(int fid, unsigned long arg0, unsigned long arg1,
 #define SBI_SM_PT_AREA_SEPARATION        83
 #define SBI_SM_SPLIT_HUGE_PAGE           82
 #define SBI_SM_MAP_PTE                   81
-#define SBI_SM_ATTEST_SHADOW_ENCLAVE 80
+#define SBI_SM_ATTEST_SHADOW_ENCLAVE     80
+#define SBI_SM_DESTROY_SHADOW_ENCLAVE    79
 
 //Error codes of SBI_SM_ALLOC_ENCLAVE_MEM
 #define ENCLAVE_ATTESTATION         -3
