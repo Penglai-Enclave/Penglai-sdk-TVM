@@ -478,18 +478,12 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
   
   //handler the ocall from enclave;
 resume_for_rerun:
-  while((ret == ENCLAVE_TIMER_IRQ) || (ret == ENCLAVE_OCALL) || (ret == ENCLAVE_YIELD) || (ret == ENCLAVE_RETURN_MONITOR_MODE))
+  while((ret == ENCLAVE_TIMER_IRQ) || (ret == ENCLAVE_OCALL) || (ret == ENCLAVE_RETURN_MONITOR_MODE))
   {
     if (ret == ENCLAVE_TIMER_IRQ)
     {
       //FIXME: no we call yield every time there is a time interrupt
       yield();
-      ret = SBI_PENGLAI_2(SBI_SM_RESUME_ENCLAVE, resume_id, RESUME_FROM_TIMER_IRQ);
-    }
-    else if (ret == ENCLAVE_YIELD)
-    {
-      //FIXME: just sleep
-      msleep(1000*120);
       ret = SBI_PENGLAI_2(SBI_SM_RESUME_ENCLAVE, resume_id, RESUME_FROM_TIMER_IRQ);
     }
     else if(ret == ENCLAVE_RETURN_MONITOR_MODE)
