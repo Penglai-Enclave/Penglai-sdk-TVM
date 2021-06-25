@@ -70,8 +70,8 @@ void* create_enclave(void* args0)
         }
       }
     }
-    printf("host: exit enclave is successful \n");
   }
+  PLenclave_destruct(enclave);
   printf("host: PLenclave run is finish \n");
 
 free_enclave:  

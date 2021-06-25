@@ -388,6 +388,13 @@ int PLenclave_destroy(struct PLenclave *PLenclave)
   return 0;
 }
 
+int PLenclave_destruct(struct PLenclave *PLenclave)
+{
+  int ret = 0;
+  ret = close(PLenclave->fd);
+  return ret;
+}
+
 int PLenclave_fs_persistency_init(int shm_id){
   int ret = 0;
   int fd = open(PENGLAI_ENCLAVE_DEV_PATH, O_RDWR);

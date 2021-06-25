@@ -30,6 +30,7 @@ int PLenclave_attest(struct PLenclave *PLenclave, uintptr_t nonce);
 int PLenclave_stop(struct PLenclave *PLenclave);
 int PLenclave_resume(struct PLenclave *PLenclave);
 int PLenclave_destroy(struct PLenclave *PLenclave);
+int PLenclave_destruct(struct PLenclave *PLenclave);
 
 int PLenclave_shmget(unsigned long size);
 void* PLenclave_shmat(int shmid, void* addr);
