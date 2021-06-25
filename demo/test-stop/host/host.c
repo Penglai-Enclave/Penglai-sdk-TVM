@@ -111,8 +111,10 @@ int main(int argc, char** argv)
   {
     pthread_join(threads[i], (void**)0);
   }
+
   printf("host: after exit the thread\n");
 out:
+  PLenclave_destruct(enclave);
   free(enclave);
   free(params);
 
