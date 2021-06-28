@@ -63,7 +63,7 @@ int EAPP_ENTRY main(){
      }
     struct stat stat_buf;
     eapp_print("stat begin\n");
-    stat("/sub/empty.txt", &stat_buf);
+    fstat(fd, &stat_buf);
     printf("/sub/empty.txt file size = %ld/n", stat_buf.st_size);
     EAPP_RETURN(0);
 }

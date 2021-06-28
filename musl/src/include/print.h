@@ -3,6 +3,6 @@
 
 #include <stdarg.h>
 
-void eapp_print(const char* s, ...);
+static void eapp_print(const char* s, ...);
 
 #endif

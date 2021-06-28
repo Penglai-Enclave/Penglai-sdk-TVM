@@ -7,6 +7,7 @@ all:
 	make -C IPC
 	make -C FS
 	make -C test-stop
+	make -C psa
 
 	#CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  mphost_normal
 
@@ -19,4 +20,5 @@ clean:
 	make -C IPC clean
 	make -C FS clean
 	make -C test-stop clean
+	make -C psa clean
 

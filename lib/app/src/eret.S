@@ -7,7 +7,8 @@
 #define SYS_split_mem_region  92
 #define SYS_get_caller_id     91
 #define SYS_get_enclave_id    90
-#define SYS_yield             89 
+#define SYS_yield             89
+#define SYS_getrandom         88
 #define SYS_GET_REPORT        94
 
 #define SBI_EXT_PENGLAI_ENCLAVE	    0x100101 //penglai extension id

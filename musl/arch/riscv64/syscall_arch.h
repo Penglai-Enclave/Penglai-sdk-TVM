@@ -4,6 +4,7 @@
 #define __SYSCALL_LL_O(x) (x)
 #define UNTRUSTED_MEM_PTR 0x0000001000000000
 
+// Consistent with definition in the enclave library
 #define SYS_eret              99 //ret to host
 #define SYS_ocall             98 //OCALL
 #define SYS_acquire_enclave   97
@@ -13,16 +14,21 @@
 #define SYS_split_mem_region  92
 #define SYS_get_caller_id     91
 #define SYS_get_enclave_id    90
-#define SYS_yield             89 
+#define SYS_yield             89
 #define SYS_GET_REPORT        94
 
 
 #define SBI_EXT_PENGLAI_ENCLAVE	    0x100101 //penglai extension id
 
+// Consistent with the definition in the ocall.h
 #define OCALL_MMAP          1 
 #define OCALL_UNMAP         2
 #define OCALL_SYS_WRITE     3
 #define OCALL_SBRK          4
+#define OCALL_READ_SECT     5
+#define OCALL_WRITE_SECT    6
+#define OCALL_RETURN_RELAY_PAGE    7
+#define OCALL_GETRANDOM     8
 
 #define __asm_syscall(...) \
 	__asm__ __volatile__ ("ecall\n\t" \
@@ -105,6 +111,21 @@ static inline long __syscall3(long n, long a, long b, long c)
 	register long a0 __asm__("a0") = a;
 	register long a1 __asm__("a1") = b;
 	register long a2 __asm__("a2") = c;
+	register long a3 __asm__("a3") = 0;
+
+	switch(n)
+	{
+		case SYS_getrandom:
+			a7 = SYS_ocall;
+			a3 = a2;
+			a2 = a1;
+			a1 = a0;
+			a0 = OCALL_GETRANDOM;
+			a6 = SBI_EXT_PENGLAI_ENCLAVE;
+			__asm_syscall("r"(a7), "0"(a0), "r"(a1), "r"(a2), "r"(a3))
+		
+	}
+
 	__asm_syscall("r"(a7), "r"(a6), "0"(a0), "r"(a1), "r"(a2))
 }
 
@@ -150,6 +171,15 @@ static inline long __syscall6(long n, long a, long b, long c, long d, long e, lo
 			a0 = OCALL_MMAP;
 			a6 = SBI_EXT_PENGLAI_ENCLAVE;
 			break;
+		case SYS_getrandom:
+			a7 = SYS_ocall;
+			a3 = a2;
+			a2 = a1;
+			a1 = a0;
+			a0 = OCALL_GETRANDOM;
+			a6 = SBI_EXT_PENGLAI_ENCLAVE;
+			break;
+
 	}
 	__asm_syscall("r"(a7), "r"(a6), "0"(a0), "r"(a1), "r"(a2), "r"(a3), "r"(a4), "r"(a5))
 }

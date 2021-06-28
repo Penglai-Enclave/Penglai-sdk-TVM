@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "putc.h"
-
-extern void eapp_print(const char*s, ...);
+#include "print.h"
 
 // Penglai stdout
 int putchar(int c)
