@@ -58,7 +58,7 @@ int EAPP_ENTRY main(){
     eapp_print("read from empty file, %s\n",buf);
     fclose(f);
     int fd;
-    if ((fd = open("/sub/empty2.txt", O_RDWR| O_CREAT)) < 0) {
+    if ((fd = open("/sub/empty.txt", O_RDWR| O_CREAT)) < 0) {
         eapp_print("open error\n");
      }
     struct stat stat_buf;

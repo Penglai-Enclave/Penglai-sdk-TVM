@@ -27,6 +27,9 @@ int penglai_outer_init(unsigned long shm_id_ptr){
     struct penglai_shm * shm;
     fs_shm_id = *((int*)(shm_id_ptr));
     if(penglai_outer_file){ //already inited
+        shm = penglai_shm_find(fs_shm_id);
+        fs_shm_size = shm->size;
+        fs_shm_va = shm->vaddr;
         return 0;
     }
     if(fs_shm_id < MIN_PENGLAI_SHMID || fs_shm_id > MAX_PENGLAI_SHMID){
@@ -37,7 +40,6 @@ int penglai_outer_init(unsigned long shm_id_ptr){
     shm = penglai_shm_find(fs_shm_id);
     fs_shm_size = shm->size;
     fs_shm_va = shm->vaddr;
-    shm->refcount += 1;
     //need not using mmap on kernel module
     if(penglai_outer_open(PERSISTENCY_FILE_PATH, O_CREAT|O_RDWR, 0644) < 0){
         return -1;

@@ -69,18 +69,19 @@ psa_status_t sst_object_table_fs_read_table(struct sst_obj_table_init_ctx_t *ini
         eapp_print("sst_object_table_fs_read_table: is fopen is failed \n");
         return PSA_ERROR_GENERIC_ERROR;
     }
-    fseek(fp, 0L, SEEK_END);
-    int size=ftell(fp);
+    struct stat stat_buf;
+    fstat(fp, &stat_buf);
+
+    printf("table file size = %ld/n", stat_buf.st_size);
+    int size=stat_buf.st_size;
     ret = fgets((uint8_t *)init_ctx->p_table[SST_OBJ_TABLE_IDX_0], size, fp);
     if (!ret)
     {
-        eapp_print("sst_object_table_fs_read_table: fgets is failed \n");
+        eapp_print("sst_object_table_fs_read_table: fgets is failed %d\n", ret);
+        init_ctx->table_state[SST_OBJ_TABLE_IDX_0] = SST_OBJ_TABLE_INVALID;
         return PSA_ERROR_GENERIC_ERROR;
     }
     fclose(fp);
-    if (!ret) {
-        init_ctx->table_state[SST_OBJ_TABLE_IDX_0] = SST_OBJ_TABLE_INVALID;
-    }
     return PSA_SUCCESS;
 }
 
