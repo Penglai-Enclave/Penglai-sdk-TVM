@@ -61,7 +61,7 @@ psa_status_t sst_object_table_fs_read_table(struct sst_obj_table_init_ctx_t *ini
     char *ret = NULL;
     /* Read obj_table from the persistent stoarge */
     char file_name[PSA_FILE_LEN];
-    sprintf(file_name, "/table.txt");
+    sprintf(file_name, MAGIC_TABLE_CHAR);
     eapp_print("sst_object_table_fs_read_table: here \n");
     FILE*fp=fopen(file_name, "rw");
     if(!fp)
@@ -306,7 +306,7 @@ psa_status_t sst_object_table_save_table(struct sst_obj_table_t *obj_table)
      */
     int tbl_fid;
     char file_name[PSA_FILE_LEN];
-    sprintf(file_name, "/table.txt");
+    sprintf(file_name, MAGIC_TABLE_CHAR);
     tbl_fid = open(file_name, O_RDWR| O_CREAT);
     if (tbl_fid < 0)
     {
