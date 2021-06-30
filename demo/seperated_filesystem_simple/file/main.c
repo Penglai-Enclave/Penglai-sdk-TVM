@@ -147,7 +147,6 @@ int EAPP_ENTRY main(){
       ret_arg.req_vaddr = args[11];
       ret_arg.req_size = args[12];
       int fd;
-      eapp_print("stat: fd: %d\n", stat_arg->fd);
       if(stat_arg->fd == -1){
         fd = sys_open(stat_arg->path,XV6_O_RDONLY);
         if(fd < 0){

@@ -176,6 +176,7 @@ int penglai_enclave_create(struct file *filep, unsigned long args)
     goto destroy_enclave;
   }
 
+  penglai_dprintf("stack size %lx\n", stack_size);
   if(penglai_enclave_eapp_loading(enclave->enclave_mem, elf_ptr, elf_size, 
         &elf_entry, STACK_POINT, stack_size, enclave->type))
   {
