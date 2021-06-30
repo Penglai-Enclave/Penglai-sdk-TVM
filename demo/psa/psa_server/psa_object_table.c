@@ -45,13 +45,14 @@ psa_status_t sst_object_table_existed(struct sst_obj_table_init_ctx_t *init_ctx)
     /* Read obj_table from the persistent stoarge */
     char file_name[PSA_FILE_LEN];
     sprintf(file_name, MAGIC_TABLE_CHAR);
-
+    
     FILE*fp=fopen(file_name, "r");
     if(!fp)
     {
         eapp_print("sst_object_table_existed: init table is not existed \n");
         return PSA_ERROR_GENERIC_ERROR;
     }
+    fclose(fp);
     return PSA_SUCCESS;
 }
 
@@ -62,18 +63,18 @@ psa_status_t sst_object_table_fs_read_table(struct sst_obj_table_init_ctx_t *ini
     /* Read obj_table from the persistent stoarge */
     char file_name[PSA_FILE_LEN];
     sprintf(file_name, MAGIC_TABLE_CHAR);
-    eapp_print("sst_object_table_fs_read_table: here \n");
-    FILE*fp=fopen(file_name, "rw");
+    struct stat st;
+    FILE*fp=fopen(file_name, "w+");
     if(!fp)
     {
         eapp_print("sst_object_table_fs_read_table: is fopen is failed \n");
         return PSA_ERROR_GENERIC_ERROR;
     }
-    struct stat stat_buf;
-    fstat(fp, &stat_buf);
-
-    printf("table file size = %ld/n", stat_buf.st_size);
-    int size=stat_buf.st_size;
+    int status = stat(file_name, &st);
+    if(status){
+        eapp_print("sst_object_table_fs_read_table: file stat is failed\n");
+    }
+    int size=st.st_size;
     ret = fgets((uint8_t *)init_ctx->p_table[SST_OBJ_TABLE_IDX_0], size, fp);
     if (!ret)
     {
@@ -315,13 +316,20 @@ psa_status_t sst_object_table_save_table(struct sst_obj_table_t *obj_table)
         return PSA_ERROR_GENERIC_ERROR;
     }
     /* write the table metadata into persistency storage*/
-    err = write(tbl_fid, obj_table, sizeof(obj_table));
+    err = write(tbl_fid, obj_table, sizeof(struct sst_obj_table_t));
     if (err < 0)
     {
         eapp_print("sst_object_table_get_free_fid: write the obj_tbl is failed \n");
         err = PSA_ERROR_GENERIC_ERROR;
     }
     close(tbl_fid);
+
+    struct stat st;
+    int status = stat(file_name, &st);
+    if(!status){
+        eapp_print("stat succeed: file length: %d\n",st.st_size);
+    }
+
     //TODO：unfinish function
     /* we should align the nvc_1 to nvc_2 */
     return PSA_SUCCESS;
