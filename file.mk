@@ -19,5 +19,4 @@ SDK_FILES = \
 	$(srcdir)/Penglai-sdk-TVM/demo/psa/psa_client/psa_client \
 	$(srcdir)/Penglai-sdk-TVM/demo/psa/psa_key_ladder/psa_key_ladder \
 	$(srcdir)/Penglai-sdk-TVM/demo/psa/psa_crypto/psa_crypto \
-	$(srcdir)/Penglai-sdk-TVM/demo/psa/psa_key/psa_key \
 	$(srcdir)/Penglai-sdk-TVM/demo/seperated_filesystem_simple/decouplefs_simple
