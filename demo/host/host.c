@@ -70,16 +70,17 @@ void* create_enclave(void* args0)
         }
       }
     }
-    printf("host: exit enclave is successful \n");
   }
+  PLenclave_destruct(enclave);
   printf("host: PLenclave run is finish \n");
 
 free_enclave:  
-  free(enclave);
-  free(params);
-
   PLenclave_shmdt(shmid, shm);
   PLenclave_shmctl(shmid);
+  PLenclave_schrodinger_dt(mm_arg_id, mm_arg);
+  PLenclave_schrodinger_ctl(mm_arg_id);
+  free(enclave);
+  free(params);
   pthread_exit((void*)0);
 }
 

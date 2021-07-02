@@ -68,7 +68,11 @@ void* create_enclave(void* args0)
         goto free_enclave;
     }
   }
+
 free_enclave:
+  PLenclave_destruct(enclave);
+  PLenclave_schrodinger_dt(mm_arg_id, mm_arg);
+  PLenclave_schrodinger_ctl(mm_arg_id);
   free(enclave);
   pthread_exit((void*)0); 
 }
