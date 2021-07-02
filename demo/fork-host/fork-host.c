@@ -70,7 +70,6 @@ void* create_enclave(void* args0)
   }
 
 free_enclave:
-  PLenclave_destruct(enclave);
   PLenclave_schrodinger_dt(mm_arg_id, mm_arg);
   PLenclave_schrodinger_ctl(mm_arg_id);
   free(enclave);
@@ -147,6 +146,7 @@ int main(int argc, char** argv)
     pthread_join(threads[i], (void**)0);
   }
 
+  PLenclave_destruct(enclave);
   PLenclave_destroy(enclave);
 
 out:
