@@ -11,6 +11,7 @@ static lfs_t lfs;
 static int inited = 0;
 static lfs_file_t open_files[MAX_FILES];
 static char used[MAX_FILES/8];
+static char open_file_paths[MAX_FILES][MAXPATH];
 const struct lfs_config cfg = {
     .read = ram_read,
     .prog = ram_prog,
@@ -23,6 +24,7 @@ const struct lfs_config cfg = {
     .cache_size = 16,
     .lookahead_size = 16,
     .block_cycles = 500,
+    .name_max = MAXPATH,
 };
 
 int init(){ // mount the fs
@@ -141,6 +143,7 @@ int EAPP_ENTRY main(){
                 SERVER_RETURN(&ret_arg);
             }
             else{
+                strcpy(open_file_paths[fd], arg->path);
                 ret_arg.resp_val = fd;
                 set_used_file_index(fd);
                 SERVER_RETURN(&ret_arg);
@@ -163,6 +166,7 @@ int EAPP_ENTRY main(){
                 ret_arg.resp_val = err;
                 if(!err){
                     set_unused_file_index(arg->fd);
+                    open_file_paths[arg->fd][0] = 0;
                 }
                 SERVER_RETURN(&ret_arg);
             }
@@ -236,7 +240,7 @@ int EAPP_ENTRY main(){
     {
          struct stat_arg *stat_arg = (struct stat_arg*)args[11];
          struct lfs_info info;
-         if(lfs_stat(&lfs, stat_arg->path, &info) != 0)
+         if(lfs_stat(&lfs, open_file_paths[stat_arg->fd], &info) != 0)
          {
              eapp_print("[lfs]: file stat %s error\n", stat_arg->path);
              ret_arg.resp_val = 0;

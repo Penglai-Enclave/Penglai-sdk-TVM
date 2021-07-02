@@ -7,6 +7,8 @@ all:
 	make -C IPC
 	make -C FS
 	make -C test-stop
+	make -C psa
+	make -C seperated_filesystem_simple
 
 	#CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  mphost_normal
 
@@ -19,4 +21,6 @@ clean:
 	make -C IPC clean
 	make -C FS clean
 	make -C test-stop clean
+	make -C psa clean
+	make -C seperated_filesystem_simple clean
 

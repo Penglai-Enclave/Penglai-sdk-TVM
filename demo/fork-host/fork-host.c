@@ -38,7 +38,7 @@ void* create_enclave(void* args0)
   enclave->user_param.shm_size = shm_size;
   enclave->eid = eid;
   
-  mm_arg_size = 0x1000 * 16;
+  mm_arg_size = 0x1000 * 1;
   mm_arg_id = PLenclave_schrodinger_get(mm_arg_size);
   mm_arg = PLenclave_schrodinger_at(mm_arg_id, 0);
 

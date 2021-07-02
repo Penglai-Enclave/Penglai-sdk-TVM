@@ -194,7 +194,6 @@ int enclave_mem_destroy(enclave_mem_t * enclave_mem)
     free_pages(enclave->addr, enclave->size)
     free_pages(enclave dynamic alloc pages, size)
   */
-
   if(enclave_mem->vaddr != 0)
   {
     struct pm_area_struct* pma = (struct pm_area_struct*)(enclave_mem->vaddr);
@@ -204,7 +203,6 @@ int enclave_mem_destroy(enclave_mem_t * enclave_mem)
       free_pages(enclave_mem->vaddr, order);
       return 0;
     }
-
     while(pma && pma->paddr)
     {
       unsigned long vaddr = (unsigned long)__va(pma->paddr);

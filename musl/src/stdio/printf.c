@@ -108,8 +108,6 @@ int printf(const char *restrict fmt, ...)
 #include "ocall.h"
 #include "print.h"
 
-extern void eapp_print(const char*s, ...);
-
 int printf(const char *restrict fmt, ...)
 {
   eapp_print(fmt);
