@@ -24,7 +24,7 @@ void* create_enclave(void* args0)
 
   struct elf_args *enclaveFile = (struct elf_args *)in;
 
-  unsigned long shm_size = 0x1000 * 4;
+  unsigned long shm_size = 0x1000 * 1;
   int shmid = PLenclave_shmget(shm_size);
   void* shm = PLenclave_shmat(shmid, 0);
   if(shm != (void*)-1)
@@ -35,7 +35,7 @@ void* create_enclave(void* args0)
   params->shm_offset = 0;
   params->shm_size = shm_size;
   
-  unsigned long mm_arg_size = 0x1000 * 4;
+  unsigned long mm_arg_size = 0x1000 * 1;
   int mm_arg_id = PLenclave_schrodinger_get(mm_arg_size);
   void* mm_arg = PLenclave_schrodinger_at(mm_arg_id, 0);
   if(mm_arg != (void*)-1)
