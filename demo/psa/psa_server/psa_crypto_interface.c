@@ -8,24 +8,13 @@
 
 #include "eapp.h"
 #include "print.h"
+#include "attest.h"
 #include <string.h>
 #include <stdlib.h>
 #include "psa/crypto_types.h"
 #include "psa/crypto.h"
 
 #include "mbedtls/platform_util.h" // for mbedtls_platform_zeroize
-
-/* Run a system function and bail out if it fails. */
-#define SYS_CHECK( expr )                                       \
-    do                                                          \
-    {                                                           \
-        if( ! ( expr ) )                                        \
-        {                                                       \
-            eapp_print( "Error\n");                             \
-            goto exit;                                          \
-        }                                                       \
-    }                                                           \
-    while( 0 )
 
 /* Run a PSA function and bail out if it fails. */
 #define PSA_CHECK( expr )                                       \
@@ -45,7 +34,7 @@
 
 /* Size of the key derivation keys (applies both to the master key and
  * to intermediate keys). */
-#define KEY_SIZE_BYTES 40
+#define KEY_SIZE_BYTES 32
 
 /* Algorithm for key derivation. */
 #define KDF_ALG PSA_ALG_HKDF( PSA_ALG_SHA_256 )
@@ -134,13 +123,9 @@ static psa_status_t import_key_from_file( psa_key_usage_t usage,
 {
     psa_status_t status = PSA_SUCCESS;
     psa_key_attributes_t attributes = PSA_KEY_ATTRIBUTES_INIT;
-    uint8_t key_data[KEY_SIZE_BYTES] = {
-        0xfe, 0xff, 0xe9, 0x92, 0x86, 0x65, 0x73, 0x1c,
-        0x6d, 0x6a, 0x8f, 0x94, 0x67, 0x30, 0x83, 0x08,
-        0xfe, 0xff, 0xe9, 0x92, 0x86, 0x65, 0x73, 0x1c,
-        0x6d, 0x6a, 0x8f, 0x94, 0x67, 0x30, 0x83, 0x08,
-        0x4d, 0x62, 0x85, 0x94, 0x62, 0x36, 0x89, 0x18,
-    };
+    uint8_t key_data[KEY_SIZE_BYTES];
+    PSA_CHECK(get_key(STORAGE_KEY, key_data, KEY_SIZE_BYTES));
+
     size_t key_size = KEY_SIZE_BYTES;
 
     psa_set_key_usage_flags( &attributes, usage );
@@ -197,23 +182,6 @@ exit:
     return( status );
 }
 
-//Currently using the uniform key to encrypt or decrypt the fs
-static byte k1[32] =
-    {
-        0xfe, 0xff, 0xe9, 0x92, 0x86, 0x65, 0x73, 0x1c,
-        0x6d, 0x6a, 0x8f, 0x94, 0x67, 0x30, 0x83, 0x08,
-        0xfe, 0xff, 0xe9, 0x92, 0x86, 0x65, 0x73, 0x1c,
-        0x6d, 0x6a, 0x8f, 0x94, 0x67, 0x30, 0x83, 0x08
-    };
-
-static byte k1_origin[32] =
-    {
-        0xfe, 0xff, 0xe9, 0x92, 0x86, 0x65, 0x73, 0x1c,
-        0x6d, 0x6a, 0x8f, 0x94, 0x67, 0x30, 0x83, 0x08,
-        0xfe, 0xff, 0xe9, 0x92, 0x86, 0x65, 0x73, 0x1c,
-        0x6d, 0x6a, 0x8f, 0x94, 0x67, 0x30, 0x83, 0x08
-    };
-
 /* FIXME: add the tag length to the crypto buffer size to account for the tag
  * being appended to the ciphertext by the crypto layer.
  */
@@ -242,105 +210,6 @@ void sst_crypto_get_iv(union sst_crypto_t *crypto)
 void sst_crypto_set_iv(const union sst_crypto_t *crypto)
 {
     (void)memcpy(sst_crypto_iv_buf, crypto->ref.iv, SST_IV_LEN_BYTES);
-}
-
-psa_status_t psa_aesgcm_decrypt(
-                              const uint8_t *nonce,
-                              size_t nonce_length,
-                              const uint8_t *additional_data,
-                              size_t additional_data_length,
-                              const uint8_t *tag,
-                              size_t tag_len,
-                              const uint8_t *ciphertext,
-                              size_t ciphertext_length,
-                              uint8_t *plaintext,
-                              size_t plaintext_size,
-                              size_t *plaintext_length)
-{
-    psa_status_t status;
-    int ret;
-    Aes dec;
-    wc_AesInit(&dec, NULL, -2);                         
-    wc_AesGcmSetKey(&dec, k1, sizeof(k1));
-    // eapp_print("//psa_aesgcm_decrypt: nonce\n");
-    // for (int i = 0; i < nonce_length; i++)
-    // {
-    //     eapp_print("%c", *(nonce + i));
-    // }
-    // eapp_print("\n//psa_aesgcm_decrypt: additional_data\n");
-    // for (int i = 0; i < additional_data_length; i++)
-    // {
-    //     eapp_print("%c", *(additional_data + i));
-    // }
-    // eapp_print("\n//psa_aesgcm_decrypt: tag\n");
-    // for (int i = 0; i < tag_len; i++)
-    // {
-    //     eapp_print("%c", *(tag + i));
-    // }
-    // eapp_print("\n//psa_aesgcm_decrypt: ciphertext\n");
-    // for (int i = 0; i < ciphertext_length; i++)
-    // {
-    //     eapp_print("%c", *(ciphertext + i));
-    // }
-    ret = wc_AesGcmDecrypt(&dec, plaintext, ciphertext, ciphertext_length,
-                        nonce, nonce_length, tag, tag_len, additional_data, additional_data_length);
-    if (ret < 0)
-    {
-        eapp_print("psa_aesgcm_decrypt: wc_AesGcmDecrypt is failed, err id %d\n", ret);
-        return PSA_ERROR_INVALID_SIGNATURE;
-    }
-
-    *plaintext_length = ciphertext_length;
-    return PSA_SUCCESS;
-}
-
-psa_status_t psa_aesgcm_encrypt(
-                              const uint8_t *nonce,
-                              size_t nonce_length,
-                              const uint8_t *additional_data,
-                              size_t additional_data_length,
-                              const uint8_t *tag,
-                              size_t tag_len,
-                              const uint8_t *plaintext,
-                              size_t plaintext_length,
-                              uint8_t *ciphertext,
-                              size_t ciphertext_size,
-                              size_t *ciphertext_length)
-{
-    psa_status_t status;
-    int ret;
-    Aes enc;
-    wc_AesInit(&enc, NULL, -2);
-    wc_AesGcmSetKey(&enc, k1, sizeof(k1));
-    ret = wc_AesGcmEncrypt(&enc, ciphertext, plaintext, plaintext_length,
-                        nonce, nonce_length, tag, tag_len, additional_data, additional_data_length);
-    // eapp_print("//psa_aesgcm_encrypt: nonce\n");
-    // for (int i = 0; i < nonce_length; i++)
-    // {
-    //     eapp_print("%c", *(nonce + i));
-    // }
-    // eapp_print("\n//psa_aesgcm_encrypt: additional_data\n");
-    // for (int i = 0; i < additional_data_length; i++)
-    // {
-    //     eapp_print("%c", *(additional_data + i));
-    // }
-    // eapp_print("\n//psa_aesgcm_encrypt: tag\n");
-    // for (int i = 0; i < tag_len; i++)
-    // {
-    //     eapp_print("%c", *(tag + i));
-    // }
-    // if (ret < 0)
-    // {
-    //     eapp_print("psa_aesgcm_decrypt: wc_AesGcmDecrypt is failed \n");
-    //     return PSA_ERROR_INVALID_SIGNATURE;
-    // }
-    *ciphertext_length = plaintext_length;
-    // eapp_print("\n//psa_aesgcm_decrypt: ciphertext\n");
-    // for (int i = 0; i < *ciphertext_length; i++)
-    // {
-    //     eapp_print("%c", *(ciphertext + i));
-    // }
-    return PSA_SUCCESS;
 }
 
 psa_status_t sst_crypto_auth_and_decrypt(const union sst_crypto_t *crypto,
@@ -378,18 +247,6 @@ psa_status_t sst_crypto_auth_and_decrypt(const union sst_crypto_t *crypto,
                                  add, add_len,
                                  in, in_len,
                                  out, out_size, out_len));
-
-    // int ret_derivation = wc_HKDF(WC_SHA256, k1_origin, sizeof(k1), salt, salt_len,
-    // NULL, 0, k1, sizeof(k1));
-    // if(ret_derivation < 0)
-    // {
-    //     eapp_print("sst_crypto_auth_and_decrypt: wc_HKDF is failed \n");
-    // }
-    // status = psa_aesgcm_decrypt(crypto->ref.iv, SST_IV_LEN_BYTES,
-    //                           add, add_len,
-    //                           crypto->ref.tag, SST_TAG_LEN_BYTES,
-    //                           in, in_len,
-    //                           out, out_size, out_len);
 
     if (status != PSA_SUCCESS) {
         return PSA_ERROR_INVALID_SIGNATURE;
@@ -436,19 +293,6 @@ psa_status_t sst_crypto_encrypt_and_tag(union sst_crypto_t *crypto,
                                  add, add_len,
                                  in, in_len,
                                  out, out_size, out_len));
-    
-    // psa_status_t status;
-    // int ret_derivation = wc_HKDF(WC_SHA256, k1_origin, sizeof(k1), salt, salt_len,
-    // NULL, 0, k1, sizeof(k1));
-    // if(ret_derivation < 0)
-    // {
-    //     eapp_print("sst_crypto_encrypt_and_tag: wc_HKDF is failed \n");
-    // }
-    // status = psa_aesgcm_encrypt(crypto->ref.iv, SST_IV_LEN_BYTES,
-    //                           add, add_len,
-    //                           crypto->ref.tag, SST_TAG_LEN_BYTES,
-    //                           in, in_len,
-    //                           out, out_size, out_len);
   
     if (status != PSA_SUCCESS) {
         eapp_print("sst_crypto_encrypt_and_tag: psa_aesgcm_encrypt is failed \n");
@@ -495,20 +339,6 @@ psa_status_t sst_crypto_generate_auth_tag(union sst_crypto_t *crypto,
                                  0, 0,
                                  crypto->ref.tag, SST_TAG_LEN_BYTES, &out_len));
     
-    // psa_status_t status;
-    // size_t out_len;
-    // int ret_derivation = wc_HKDF(WC_SHA256, k1_origin, sizeof(k1), salt, salt_len,
-    // NULL, 0, k1, sizeof(k1));
-    // if(ret_derivation < 0)
-    // {
-    //     eapp_print("sst_crypto_generate_auth_tag: wc_HKDF is failed \n");
-    // }
-    // status = psa_aesgcm_encrypt(
-    //                           crypto->ref.iv, SST_IV_LEN_BYTES,
-    //                           add, add_len,
-    //                           crypto->ref.tag, SST_TAG_LEN_BYTES, 
-    //                           NULL, 0,
-    //                           NULL, 0, &out_len);
     if (status != PSA_SUCCESS) {
         eapp_print("sst_crypto_generate_auth_tag: psa_aesgcm_encrypt is failed \n");
         return PSA_ERROR_GENERIC_ERROR;
@@ -551,19 +381,6 @@ psa_status_t sst_crypto_authenticate(const union sst_crypto_t *crypto,
                                  add, add_len,
                                  crypto->ref.tag, SST_TAG_LEN_BYTES,
                                  0, 0, &out_len));
-    // psa_status_t status;
-    // size_t out_len;
-    // int ret_derivation = wc_HKDF(WC_SHA256, k1_origin, sizeof(k1), salt, salt_len,
-    // NULL, 0, k1, sizeof(k1));
-    // if(ret_derivation < 0)
-    // {
-    //     eapp_print("sst_crypto_authenticate: wc_HKDF is failed \n");
-    // }
-    // status = psa_aesgcm_decrypt(crypto->ref.iv, SST_IV_LEN_BYTES,
-    //                           add, add_len,
-    //                           crypto->ref.tag, SST_TAG_LEN_BYTES,
-    //                           NULL, 0,
-    //                           NULL, 0, &out_len);
     if (status != PSA_SUCCESS) {
         eapp_print("sst_crypto_authenticate: psa_aesgcm_decrypt is failed \n");
         return PSA_ERROR_INVALID_SIGNATURE;
