@@ -7,6 +7,103 @@
 uint32_t table_idx = 0;
 char *MAGIC_OBJECT_CHAR="/magic_%d.txt";
 char *MAGIC_TABLE_CHAR="/table.txt";
+char *MAGIC_NVC="/nvc_%d.txt";
+
+psa_status_t sst_init_nv_counter(enum psa_nv_counter_t counter_id)
+{
+    psa_status_t err;
+
+    size_t ret = NULL;
+    uint32_t nvc = 0;
+
+    /* Read obj_table from the persistent stoarge */
+    char file_name[PSA_FILE_LEN];
+    sprintf(file_name, MAGIC_NVC, counter_id);
+
+    FILE*fp=fopen(file_name, "w+");
+    if(!fp)
+    {
+        eapp_print("sst_init_nv_counter: fopen is failed \n");
+        return PSA_ERROR_GENERIC_ERROR;
+    }
+
+    ret = fwrite(&nvc, sizeof(nvc), 1, fp);
+    if (!ret)
+    {
+        eapp_print("sst_increment_nv_counter: fwrite is failed \n");
+        return PSA_ERROR_GENERIC_ERROR;
+    }
+   
+    fclose(fp);
+
+    return PSA_SUCCESS;
+}
+
+psa_status_t sst_read_nv_counter(enum psa_nv_counter_t counter_id,
+                                 uint32_t *val)
+{
+    psa_status_t err;
+
+    size_t ret = NULL;
+    uint32_t nvc;
+    /* Read obj_table from the persistent stoarge */
+    char file_name[PSA_FILE_LEN];
+    sprintf(file_name, MAGIC_NVC, counter_id);
+
+    FILE*fp=fopen(file_name, "w+");
+    if(!fp)
+    {
+        eapp_print("sst_read_nv_counter: fopen is failed \n");
+        return PSA_ERROR_GENERIC_ERROR;
+    }
+    ret = fread(&nvc, sizeof(nvc), 1, fp);
+    if (!ret)
+    {
+        eapp_print("sst_read_nv_counter: fread is failed \n");
+        return PSA_ERROR_GENERIC_ERROR;
+    }
+
+    fclose(fp);
+    *val = nvc;
+
+    return PSA_SUCCESS;
+}
+
+psa_status_t sst_increment_nv_counter(enum psa_nv_counter_t counter_id)
+{
+    psa_status_t err;
+
+    size_t ret = NULL;
+    uint32_t nvc;
+    /* Read obj_table from the persistent stoarge */
+    char file_name[PSA_FILE_LEN];
+    sprintf(file_name, MAGIC_NVC, counter_id);
+
+    FILE*fp=fopen(file_name, "w+");
+    if(!fp)
+    {
+        eapp_print("sst_increment_nv_counter: fopen is failed \n");
+        return PSA_ERROR_GENERIC_ERROR;
+    }
+    ret = fread(&nvc, sizeof(nvc), 1, fp);
+    if (!ret)
+    {
+        eapp_print("sst_increment_nv_counter: fread is failed \n");
+        return PSA_ERROR_GENERIC_ERROR;
+    }
+    nvc++;
+    fseek(fp, SEEK_SET, 0);
+    ret = fwrite(&nvc, sizeof(nvc), 1, fp);
+    if (!ret)
+    {
+        eapp_print("sst_increment_nv_counter: fwrite is failed \n");
+        return PSA_ERROR_GENERIC_ERROR;
+    }
+   
+    fclose(fp);
+
+    return PSA_SUCCESS;
+}
 
 psa_status_t sst_object_delete_from_persistent_storage(uint32_t idx)
 {
@@ -50,6 +147,8 @@ psa_status_t sst_object_table_existed(struct sst_obj_table_init_ctx_t *init_ctx)
     if(!fp)
     {
         eapp_print("sst_object_table_existed: init table is not existed \n");
+        sst_init_nv_counter(PLAT_NV_COUNTER_1);
+    
         return PSA_ERROR_GENERIC_ERROR;
     }
     fclose(fp);
@@ -113,6 +212,10 @@ static psa_status_t sst_object_table_authenticate(struct sst_obj_table_init_ctx_
 
     /* Init associated data with NVC 1 */
     //TODO: nvc is remain zero in this implemantation
+    err = sst_read_nv_counter(PLAT_NV_COUNTER_1, &init_ctx->nvc_1);
+    if (err != PSA_SUCCESS) {
+        return err;
+    }
     assoc_data.nv_counter = init_ctx->nvc_1;
     (void)memcpy(assoc_data.obj_table_data,
                      SST_CRYPTO_ASSOCIATED_DATA(crypto),
@@ -282,15 +385,15 @@ psa_status_t sst_object_table_save_table(struct sst_obj_table_t *obj_table)
     psa_status_t err;
     /* TODO: nvm counter is unfinished */
     uint32_t nvc_1 = 0;
-    // err = sst_increment_nv_counter(TFM_SST_NV_COUNTER_1);
-    // if (err != PSA_SUCCESS) {
-    //     return err;
-    // }
+    err = sst_increment_nv_counter(PLAT_NV_COUNTER_1);
+    if (err != PSA_SUCCESS) {
+        return err;
+    }
 
-    // err = sst_read_nv_counter(TFM_SST_NV_COUNTER_1, &nvc_1);
-    // if (err != PSA_SUCCESS) {
-    //     return err;
-    // }
+    err = sst_read_nv_counter(PLAT_NV_COUNTER_1, &nvc_1);
+    if (err != PSA_SUCCESS) {
+        return err;
+    }
 
 //TODO: key derive is not supported
 

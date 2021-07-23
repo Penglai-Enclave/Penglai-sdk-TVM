@@ -57,6 +57,7 @@ unsigned long EAPP_GET_ENCLAVE_ID();
 unsigned long EAPP_CALL_ENCLAVE(unsigned long handle, struct call_enclave_arg_t *arg);
 int EAPP_YIELD();
 int EAPP_GET_REPORT(char * name, struct report_t *report, unsigned long nonce);
+int EAPP_GET_KEY(int ket_type, char *key, int key_size);
 
 void* eapp_mmap(void* vaddr, unsigned long size);
 int eapp_unmap(void* vaddr, unsigned long size);
@@ -66,6 +67,7 @@ int eapp_return_relay_page();
 unsigned long split_mem_region(unsigned long mem_addr, unsigned long mem_size, unsigned long split_addr);
 
 int get_report(char* name, struct report_t *report, unsigned long nonce);
+int get_key(int ket_type, char *key, int key_size);
 unsigned long acquire_enclave(char* name);
 unsigned long get_caller_id();
 unsigned long get_enclave_id();

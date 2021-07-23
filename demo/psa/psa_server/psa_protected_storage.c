@@ -18,7 +18,6 @@ psa_status_t psa_sst_set(int32_t client_id,
                          PSA_STORAGE_FLAG_NO_REPLAY_PROTECTION)) {
         return PSA_ERROR_NOT_SUPPORTED;
     }
-    eapp_print("psa_protected_storage: running here \n");
     return sst_object_create(uid, client_id, create_flags, data_length);
 }
 

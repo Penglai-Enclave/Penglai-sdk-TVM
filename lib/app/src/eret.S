@@ -8,8 +8,8 @@
 #define SYS_get_caller_id     91
 #define SYS_get_enclave_id    90
 #define SYS_yield             89
-#define SYS_getrandom         88
-#define SYS_GET_REPORT        94
+#define SYS_get_key           88
+#define SYS_get_report        94
 
 #define SBI_EXT_PENGLAI_ENCLAVE	    0x100101 //penglai extension id
 
@@ -118,7 +118,14 @@ EAPP_SPLIT_MEM_REGION:
 
 .globl EAPP_GET_REPORT
 EAPP_GET_REPORT:
-	li a7, SYS_GET_REPORT
+	li a7, SYS_get_report
+    li a6, SBI_EXT_PENGLAI_ENCLAVE
+	ecall
+    ret
+
+.globl EAPP_GET_KEY
+EAPP_GET_KEY:
+	li a7, SYS_get_key
     li a6, SBI_EXT_PENGLAI_ENCLAVE
 	ecall
     ret

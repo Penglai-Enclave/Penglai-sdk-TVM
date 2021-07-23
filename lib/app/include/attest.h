@@ -26,4 +26,10 @@ struct report_t
   struct enclave_report_t enclave;
   unsigned char dev_pub_key[PUBLIC_KEY_SIZE];
 };
+
+enum key_type_t {
+    ENCLAVE_KEY = 0,
+    STORAGE_KEY,
+    ATTEST_KEY
+};
 #endif
