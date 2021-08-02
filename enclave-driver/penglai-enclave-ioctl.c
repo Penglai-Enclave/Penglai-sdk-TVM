@@ -473,6 +473,12 @@ int penglai_enclave_run(struct file *filep, unsigned long args)
     enclave_run_sbi_param.mm_arg_addr = schrodinger_paddr;
     enclave_run_sbi_param.mm_arg_size = schrodinger_size;
     ret = SBI_PENGLAI_2(SBI_SM_RUN_ENCLAVE, enclave->eid, __pa(&enclave_run_sbi_param));
+    while(ret == ENCLAVE_NO_MEM)
+    {
+      if ((ret = penglai_extend_secure_memory()) < 0)
+            return ret;
+      ret = SBI_PENGLAI_2(SBI_SM_RUN_ENCLAVE, enclave->eid, __pa(&enclave_run_sbi_param));
+    }
     resume_id = enclave->eid;
   }
   
