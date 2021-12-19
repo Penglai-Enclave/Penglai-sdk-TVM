@@ -193,8 +193,10 @@ static int enclave_ioctl_init(void)
   //broadcast to other harts
   ret = SBI_PENGLAI_4(SBI_SM_INIT, __pa(pt_area_vaddr), pt_area_pages << PAGE_SHIFT,
       __pa(bitmap), bitmap_pages << PAGE_SHIFT);
-  // asm volatile ("li a6, 0x100100\n\t" "li a7, 84\n\t" "ecall\n\t");
-  penglai_printf("sm init is finish\n");
+
+  // pt_area is protected by the PMP now, so enclave_module is installed 
+  enclave_module_installed = 1;
+
   if(ret)
   {
     penglai_eprintf("failed to create mbitmap\n");
@@ -214,6 +216,8 @@ static int enclave_ioctl_init(void)
       penglai_eprintf("failed to alloc schrodinger mem\n");
       goto free_bitmap;
     }
+    penglai_printf("Initialize the schrodinger page\n");
+
   }
   else
   {
@@ -221,7 +225,6 @@ static int enclave_ioctl_init(void)
     goto free_bitmap;
   }
 
-  enclave_module_installed = 1;
   penglai_printf("register_chrdev succeeded!\n");
   
   return 0;
