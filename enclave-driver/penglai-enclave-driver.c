@@ -190,12 +190,17 @@ static int enclave_ioctl_init(void)
   memset((void *)bitmap, 0, (bitmap_pages << PAGE_SHIFT));
 
   penglai_printf("total %lupages, bitmap_pages need %lu, allocate %lu page(s)\n", s_info.totalram, bitmap_pages, (unsigned long)1<<order);
-  //broadcast to other harts
-  ret = SBI_PENGLAI_4(SBI_SM_INIT, __pa(pt_area_vaddr), pt_area_pages << PAGE_SHIFT,
-      __pa(bitmap), bitmap_pages << PAGE_SHIFT);
+  
+  penglai_printf("pt_area_pa %lx pt_area_va %lx pt_area_size %lx \n", __pa(pt_area_vaddr), pt_area_vaddr, pt_area_pages << PAGE_SHIFT);//broadcast to other harts
+  penglai_printf("bitmap_pa %lx bitmap_va %lx bitmap_size %lx \n", __pa(bitmap), bitmap, bitmap_pages << PAGE_SHIFT);//broadcast to other harts
+  penglai_printf("pa %lx\n", __pa(0xffffffe00020142c));
+  ret = SBI_PENGLAI_5(SBI_SM_INIT, __pa(pt_area_vaddr), pt_area_pages << PAGE_SHIFT,
+      __pa(bitmap), bitmap_pages << PAGE_SHIFT, __pa(&enclave_module_installed));
+
+  penglai_printf("finish sm init\n");
 
   // pt_area is protected by the PMP now, so enclave_module is installed 
-  enclave_module_installed = 1;
+  // enclave_module_installed = 1;
 
   if(ret)
   {
