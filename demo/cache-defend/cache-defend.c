@@ -50,8 +50,6 @@ int hello(unsigned long * args)
   
   csr_write(0x7B4, 0);
 
-  eapp_print("enclave: value %ld\n", value);
-
   EAPP_RETURN(0);
 }
 

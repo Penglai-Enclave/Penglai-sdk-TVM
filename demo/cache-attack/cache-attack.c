@@ -47,10 +47,8 @@ int hello(unsigned long * args)
       value += shm[i];
     }
   }
-  
-  csr_write(0x7B4, 0);
 
-  eapp_print("enclave: value %ld\n", value);
+  csr_write(0x7B4, 0);
 
   EAPP_RETURN(0);
 }
