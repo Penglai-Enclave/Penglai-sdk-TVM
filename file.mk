@@ -20,4 +20,8 @@ SDK_FILES = \
 	$(srcdir)/Penglai-sdk-TVM/demo/psa/psa_key_ladder/psa_key_ladder \
 	$(srcdir)/Penglai-sdk-TVM/demo/psa/psa_crypto/psa_crypto \
 	$(srcdir)/Penglai-sdk-TVM/demo/seperated_filesystem_simple/decouplefs_simple \
-	$(srcdir)/Penglai-sdk-TVM/demo/rop-attack/rop-attack
+	$(srcdir)/Penglai-sdk-TVM/demo/rop-attack/rop-attack \
+	$(srcdir)/Penglai-sdk-TVM/demo/cache-attack/cache-attack \
+	$(srcdir)/Penglai-sdk-TVM/demo/cache-host/cache-host \
+	$(srcdir)/Penglai-sdk-TVM/demo/cache-defend/cache-defend \
+	$(srcdir)/Penglai-sdk-TVM/demo/rop-host/rop-host

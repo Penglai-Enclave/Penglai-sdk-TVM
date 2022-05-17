@@ -1,5 +1,7 @@
 all:
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C host
+	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C rop-host
+	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C cache-host
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C fork-host
 	make -C hello-world
 	make -C relay-page
@@ -10,11 +12,15 @@ all:
 	make -C psa
 	make -C seperated_filesystem_simple
 	make -C rop-attack
+	make -C cache-attack
+	make -C cache-defend
 
 	#CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  mphost_normal
 
 clean:
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C host clean
+	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C rop-host clean
+	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C cache-host clean
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C fork-host clean
 	make -C hello-world clean
 	make -C relay-page clean
@@ -25,4 +31,6 @@ clean:
 	make -C psa clean
 	make -C seperated_filesystem_simple clean
 	make -C rop-attack clean
+	make -C cache-attack clean
+	make -C cache-defend clean
 

@@ -1,0 +1,5 @@
+hello
+cache-host
+*.dump
+*.o
+*.S
