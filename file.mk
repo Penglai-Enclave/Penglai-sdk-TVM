@@ -24,4 +24,6 @@ SDK_FILES = \
 	$(srcdir)/Penglai-sdk-TVM/demo/cache-attack/cache-attack \
 	$(srcdir)/Penglai-sdk-TVM/demo/cache-host/cache-host \
 	$(srcdir)/Penglai-sdk-TVM/demo/cache-defend/cache-defend \
-	$(srcdir)/Penglai-sdk-TVM/demo/rop-host/rop-host
+	$(srcdir)/Penglai-sdk-TVM/demo/rop-host/rop-host \
+	$(srcdir)/Penglai-sdk-TVM/demo/rootkit/rootkit \
+	$(srcdir)/Penglai-sdk-TVM/demo/loop/loop

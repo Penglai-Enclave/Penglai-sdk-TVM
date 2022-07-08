@@ -1,5 +1,6 @@
 all:
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C host
+	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C rootkit
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C rop-host
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C cache-host
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C fork-host
@@ -14,6 +15,7 @@ all:
 	make -C rop-attack
 	make -C cache-attack
 	make -C cache-defend
+	make -C loop
 
 	#CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  mphost_normal
 
@@ -22,6 +24,7 @@ clean:
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C rop-host clean
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C cache-host clean
 	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C fork-host clean
+	CC=$(CC) LINK=$(LINK) AR=$(AR) make -C rootkit clean
 	make -C hello-world clean
 	make -C relay-page clean
 	make -C mem clean
@@ -33,4 +36,5 @@ clean:
 	make -C rop-attack clean
 	make -C cache-attack clean
 	make -C cache-defend clean
+	make -C loop clean
 

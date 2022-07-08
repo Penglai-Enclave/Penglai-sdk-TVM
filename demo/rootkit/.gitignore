@@ -1,0 +1,4 @@
+rootkit
+*.dump
+*.o
+*.S
