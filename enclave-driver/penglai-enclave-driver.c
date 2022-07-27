@@ -75,14 +75,22 @@ unsigned long penglai_get_free_pages(gfp_t gfp_mask, unsigned int order)
   {
     struct pt_entry_t split_pte;
     char * new_pt_pte_page;
+    char scan_huge_pt = 1;
     split_pte.pte = 0;
     split_pte.pte_addr = 0;
     spin_lock(&enclave_get_free_page_lock);
-    penglai_scan_huge_page_entry(__pa(va), (1<<order)*RISCV_PGSIZE, &split_pte);
-    if (split_pte.pte_addr != 0)
-    {
-      new_pt_pte_page = alloc_pt_pte_page();
-      ret = SBI_PENGLAI_2(SBI_SM_MAP_PTE, __pa(split_pte.pte_addr), __pa(new_pt_pte_page));
+    while (scan_huge_pt) {
+      penglai_scan_huge_page_entry(__pa(va), (1<<order)*RISCV_PGSIZE, &split_pte);
+      if (split_pte.pte_addr != 0)
+      {
+        new_pt_pte_page = alloc_pt_pte_page();
+        ret = SBI_PENGLAI_2(SBI_SM_MAP_PTE, __pa(split_pte.pte_addr), __pa(new_pt_pte_page));
+        split_pte.pte = 0;
+        split_pte.pte_addr = 0;
+      }
+      else {
+        scan_huge_pt = 0;
+      }
     }
     spin_unlock(&enclave_get_free_page_lock);
   }
