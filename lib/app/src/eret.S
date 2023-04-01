@@ -11,6 +11,10 @@
 #define SYS_get_key           88
 #define SYS_get_report        94
 
+#define SYS_shmattach         84
+#define SYS_shmstat           83
+
+
 #define SBI_EXT_PENGLAI_ENCLAVE	    0x100101 //penglai extension id
 
 .globl EAPP_RETURN
@@ -128,4 +132,39 @@ EAPP_GET_KEY:
 	li a7, SYS_get_key
     li a6, SBI_EXT_PENGLAI_ENCLAVE
 	ecall
+    ret
+
+.globl EAPP_SHM_GET
+EAPP_SHM_GET:
+    li a7, SYS_ocall
+    li a6, SBI_EXT_PENGLAI_ENCLAVE
+    ecall
+    ret
+
+.globl EAPP_SHM_ATTACH
+EAPP_SHM_ATTACH:
+    li a7, SYS_shmattach
+    li a6, SBI_EXT_PENGLAI_ENCLAVE
+    ecall
+    ret
+
+.globl EAPP_SHM_DETACH
+EAPP_SHM_DETACH:
+    li a7, SYS_ocall
+    li a6, SBI_EXT_PENGLAI_ENCLAVE
+    ecall
+    ret
+
+.globl EAPP_SHM_DESTROY
+EAPP_SHM_DESTROY:
+    li a7, SYS_ocall
+    li a6, SBI_EXT_PENGLAI_ENCLAVE
+    ecall
+    ret
+
+.globl EAPP_SHM_STAT
+EAPP_SHM_STAT:
+    li a7, SYS_shmstat
+    li a6, SBI_EXT_PENGLAI_ENCLAVE
+    ecall
     ret

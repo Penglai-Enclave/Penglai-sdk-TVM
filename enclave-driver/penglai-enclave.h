@@ -69,6 +69,8 @@ extern long SBI_PENGLAI_ECALL_5(int fid, unsigned long arg0, unsigned long arg1,
 #define OCALL_READ_SECT                   5
 #define OCALL_WRITE_SECT                  6
 #define OCALL_RETURN_RELAY_PAGE           7
+#define OCALL_SHM_GET                     9
+#define OCALL_SHM_EXTEND_MEMORY           12
 
 #define RESUME_FROM_TIMER_IRQ             0
 #define RESUME_FROM_STOP                  1

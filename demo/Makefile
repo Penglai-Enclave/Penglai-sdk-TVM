@@ -9,7 +9,10 @@ all:
 	make -C test-stop
 	make -C psa
 	make -C seperated_filesystem_simple
-
+	make -C IPC-Manager
+	make -C IPC-Micro
+	make -C image-process
+	make -C sqlite
 	#CC=$(CC) LINK=$(LINK) AR=$(AR) make -C  mphost_normal
 
 clean:
@@ -23,4 +26,8 @@ clean:
 	make -C test-stop clean
 	make -C psa clean
 	make -C seperated_filesystem_simple clean
+	make -C IPC-Manager clean
+	make -C IPC-Micro clean
+	make -C image-process clean
+	make -C sqlite clean
 

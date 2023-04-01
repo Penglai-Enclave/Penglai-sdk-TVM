@@ -6,3 +6,4 @@
 lib/musl-gcc.specs
 /obj/
 ./lib
+/build/

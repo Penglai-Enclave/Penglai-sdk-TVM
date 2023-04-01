@@ -19,4 +19,12 @@ SDK_FILES = \
 	$(srcdir)/Penglai-sdk-TVM/demo/psa/psa_client/psa_client \
 	$(srcdir)/Penglai-sdk-TVM/demo/psa/psa_key_ladder/psa_key_ladder \
 	$(srcdir)/Penglai-sdk-TVM/demo/psa/psa_crypto/psa_crypto \
-	$(srcdir)/Penglai-sdk-TVM/demo/seperated_filesystem_simple/decouplefs_simple
+	$(srcdir)/Penglai-sdk-TVM/demo/seperated_filesystem_simple/decouplefs_simple \
+	$(srcdir)/Penglai-sdk-TVM/demo/IPC-Manager/ipc_manager \
+	$(srcdir)/Penglai-sdk-TVM/demo/IPC-Micro/async_ipc/async_ipc \
+	$(srcdir)/Penglai-sdk-TVM/demo/IPC-Micro/sync_ipc/sync_ipc \
+	$(srcdir)/Penglai-sdk-TVM/demo/image-process/async/async_img_process \
+	$(srcdir)/Penglai-sdk-TVM/demo/image-process/sync/sync_img_process \
+	$(srcdir)/Penglai-sdk-TVM/demo/sqlite/sqlite_async/sqlite_async \
+	$(srcdir)/Penglai-sdk-TVM/demo/sqlite/sqlite_sync/sqlite_sync \
+	$(srcdir)/Penglai-sdk-TVM/demo/sqlite/sqlite_baseline/sqlite_baseline
