@@ -23,5 +23,7 @@
 #define OCALL_READ_SECT     5
 #define OCALL_WRITE_SECT    6
 #define OCALL_RETURN_RELAY_PAGE    7
-
+#define OCALL_SHM_GET       9
+#define OCALL_SHM_DETACH    10
+#define OCALL_SHM_DESTROY  11
 #endif

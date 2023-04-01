@@ -62,6 +62,33 @@ int handle_ocall_sys_write(enclave_instance_t *enclave_instance, enclave_t *encl
   return ret;
 }
 
+int handle_ocall_shmget(enclave_instance_t *enclave_instance, enclave_t *enclave, int resume_id, int isShadow)
+{
+  uintptr_t order, vaddr;
+  int ret;
+  if(isShadow)
+    order = ilog2((enclave_instance->ocall_arg1 >> RISCV_PGSHIFT) - 1) + 1;
+  else
+    order = ilog2((enclave->ocall_arg1 >> RISCV_PGSHIFT) - 1) + 1;
+  vaddr = penglai_get_free_pages(GFP_KERNEL, order);
+  if(!vaddr)
+  {
+    ret = -1;
+    penglai_eprintf("penglai_enclave_ocall: OCALL_SHMGET is failed\r\n");
+    return ret;
+  }
+  ret = SBI_PENGLAI_5(SBI_SM_RESUME_ENCLAVE, resume_id, RESUME_FROM_OCALL, OCALL_SHM_GET, __pa(vaddr), (1<<order)*RISCV_PGSIZE);
+  return ret;
+}
+
+int handle_ocall_shm_extend_memory(enclave_instance_t *enclave_instance, enclave_t *enclave, int resume_id, int isShadow)
+{
+  int ret;
+  ret = penglai_extend_secure_memory();
+  ret = SBI_PENGLAI_4(SBI_SM_RESUME_ENCLAVE, resume_id, RESUME_FROM_OCALL, OCALL_SHM_EXTEND_MEMORY, ret);
+  return ret;
+}
+
 int handle_ocall_sbrk(enclave_instance_t *enclave_instance, enclave_t *enclave, int resume_id, int isShadow)
 {
   int ret;
@@ -166,6 +193,16 @@ int penglai_enclave_ocall(enclave_instance_t *enclave_instance, enclave_t *encla
     case OCALL_SBRK:
     {
       ret = handle_ocall_sbrk(enclave_instance, enclave, resume_id, isShadow);
+      break;
+    }
+    case OCALL_SHM_GET:
+    {
+      ret = handle_ocall_shmget(enclave_instance, enclave, resume_id, isShadow);
+      break;
+    }
+    case OCALL_SHM_EXTEND_MEMORY: 
+    {
+      ret = handle_ocall_shm_extend_memory(enclave_instance,enclave, resume_id, isShadow);
       break;
     }
     // Some unexpected errors will incur when adding more case clauses 

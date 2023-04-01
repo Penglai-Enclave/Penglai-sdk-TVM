@@ -43,6 +43,11 @@ struct call_enclave_arg_t
   unsigned long resp_size;
 };
 
+struct shm_dsc
+{
+  unsigned long ref_count;
+  unsigned long size;
+};
 
 void EAPP_RETURN(unsigned long retval) __attribute__((noreturn));
 void SERVER_RETURN(struct call_enclave_arg_t *arg) __attribute__((noreturn));
@@ -58,6 +63,7 @@ unsigned long EAPP_CALL_ENCLAVE(unsigned long handle, struct call_enclave_arg_t 
 int EAPP_YIELD();
 int EAPP_GET_REPORT(char * name, struct report_t *report, unsigned long nonce);
 int EAPP_GET_KEY(int ket_type, char *key, int key_size);
+unsigned long EAPP_SHM_GET(unsigned long ocall_func_id, unsigned long shm_key, unsigned long shm_size, unsigned long shm_flags);
 
 void* eapp_mmap(void* vaddr, unsigned long size);
 int eapp_unmap(void* vaddr, unsigned long size);
@@ -76,6 +82,12 @@ unsigned long asyn_enclave_call(char* name, struct call_enclave_arg_t *arg);
 
 int eapp_persistency_read_sec(unsigned long sec);
 int eapp_persistency_write_sec(unsigned long sec);
+
+void* eapp_shmget(unsigned long shm_key, unsigned long shm_size, unsigned long shm_flags);
+void* eapp_shmat(unsigned long shm_key);
+int eapp_shmdt(unsigned long shm_key);
+int eapp_shmdestroy(unsigned long shm_key);
+int eapp_shmstat(unsigned long shm_key, struct shm_dsc *dsc);
 
 #define ROUNDUP(size, align) (((size-1)/align+1)*align)
 #define RISCV_PAGE_SIZE 4096

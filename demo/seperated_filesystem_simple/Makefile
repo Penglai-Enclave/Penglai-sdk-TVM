@@ -15,7 +15,7 @@ clean:
 	make -C ramdisk clean
 	make -C file clean
 	make -C file-defer clean
-	make -C persistency_dr clean
+	make -C persistency_driver clean
 	#make -C bio clean
 	rm -rf decouplefs_simple
 
